@@ -1,59 +1,147 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { MaterialIcons, Ionicons, AntDesign, FontAwesome6 } from '@expo/vector-icons';
 import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
-
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import { StyleSheet, Pressable } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
+        tabBarActiveTintColor: '#B8D9D3',
+        tabBarInactiveTintColor: '#fff',
+        tabBarShowLabel: true,
+        tabBarStyle: {
+          position: 'absolute',
+          backgroundColor: '#282A36',
+          width: '90%',
+          bottom: 5,
+          alignSelf: 'center',
+          marginVertical: 5,
+          marginHorizontal: 18,
+          elevation: 0,
+          borderRadius: 60,
+          height: 70,
+          paddingTop: 10,
+          paddingBottom: 12,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: 'bold',
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Início',
+          headerShown: true,
+          tabBarIcon: ({ color, size, focused }) => {
+            if (focused) {
+              return <Ionicons name="home" size={size} color={color} />;
+            }
+
+            return <Ionicons name="home-outline" size={size} color={color} />;
+          },
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/perfil" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  <Ionicons
+                    name="person-circle"
+                    size={48}
+                    color="#fff"
+                    style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
                   />
                 )}
               </Pressable>
             </Link>
           ),
+          headerStyle: {
+            backgroundColor: '#3E4A59',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="servicos"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Serviços',
+          headerShown: true,
+          tabBarIcon: ({ color, focused }) => {
+            if (focused) {
+              return <MaterialIcons name="event" size={30} color={color} />;
+            }
+            return <MaterialIcons name="event" size={30} color={color} />;
+          },
+          headerRight: () => (
+            <Link href="/perfil" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Ionicons
+                    name="person-circle"
+                    size={48}
+                    color="#fff"
+                    style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+          headerStyle: {
+            backgroundColor: '#3E4A59',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
+        }}
+      />
+      <Tabs.Screen
+        name="opcoes"
+        options={{
+          title: 'Opções',
+          headerShown: true,
+          tabBarIcon: ({ color, focused }) => {
+            if (focused) {
+              return <MaterialIcons name="event" size={30} color={color} />;
+            }
+            return <MaterialIcons name="event" size={30} color={color} />;
+          },
+          headerRight: () => (
+            <Link href="/perfil" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Ionicons
+                    name="person-circle"
+                    size={48}
+                    color="#fff"
+                    style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+          headerStyle: {
+            backgroundColor: '#3E4A59',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
         }}
       />
     </Tabs>
   );
 }
+const styles = StyleSheet.create({
+  headerRight: {
+    marginRight: 20,
+  },
+  tabBarIcon: {
+    marginBottom: -3,
+  },
+});
