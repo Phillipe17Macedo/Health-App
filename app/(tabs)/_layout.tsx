@@ -60,7 +60,7 @@ export default function TabLayout() {
             </Link>
           ),
           headerStyle: {
-            backgroundColor: '#65A693',
+            backgroundColor: '#107357',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -95,7 +95,7 @@ export default function TabLayout() {
             </Link>
           ),
           headerStyle: {
-            backgroundColor: '#65A693',
+            backgroundColor: '#107357',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -130,7 +130,7 @@ export default function TabLayout() {
             </Link>
           ),
           headerStyle: {
-            backgroundColor: '#65A693',
+            backgroundColor: '#107357',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
