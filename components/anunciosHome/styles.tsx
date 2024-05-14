@@ -11,23 +11,38 @@ export const styles = StyleSheet.create({
   anuncio: {
     width: 320,
     height: 120,
-    borderRadius: 15,
+    borderRadius: 20,
     padding: 15,
   },
   iconAnuncio: {
-    width: 65,
+    width: 90,
     height: 90,
     backgroundColor: '#fff',
-    borderRadius: 5,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textoAnuncio: {
+  containerTextoAnuncio: {
     position: 'absolute',
-    flexDirection: 'column',
-    textAlign: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+    marginTop: 10,
+  },
+  textoTituloAnuncio: {
     alignSelf: 'center',
-    fontSize: 21,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
-    marginTop: 15
+    marginLeft: 100,
+  },
+  textoDescricaoAnuncio: {
+    width: 190,
+    textAlignVertical: 'bottom',
+    textAlign: 'justify',
+    alignSelf: 'center',
+    marginLeft: 105,
+    marginBottom: 10,
+    fontSize: 11.3,
+    color: '#fff',
   },
 });
