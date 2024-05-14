@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+import { styles } from '../../styles/StylesServicosPage/styles';
 
 export default function Servicos() {
   return (
@@ -9,11 +10,3 @@ export default function Servicos() {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-  },
-});

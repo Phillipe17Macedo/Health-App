@@ -13,7 +13,7 @@ export function Anuncios() {
         style={[styles.anuncio]}
       >
         <View style={[styles.iconAnuncio]}>
-          <Image source={require("../../assets/images/icons8-person-94.png")} />
+          <Image source={require("../../../assets/images/icons8-person-94.png")} />
         </View>
         <View style={[styles.containerTextoAnuncio]}>
           <Text style={[styles.textoTituloAnuncio]}>ANUNCIO EVENTO</Text>

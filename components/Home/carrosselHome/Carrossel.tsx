@@ -11,14 +11,14 @@ export function Carrossel() {
       <View style={[styles.containerCarrossel]}>
         <TouchableOpacity style={[styles.carrossel]}>
           <Image
-            source={require("../../assets/images/icons8-medical-94.png")}
+            source={require("../../../assets/images/icons8-medical-94.png")}
             style={[styles.imagemCarrossel]}
           />
           <Text style={[styles.textoSituacaoMedica]}>CORAÇÃO</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.carrossel]}>
           <Image
-            source={require("../../assets/images/icons8-mind-94.png")}
+            source={require("../../../assets/images/icons8-mind-94.png")}
             style={[styles.imagemCarrossel]}
           />
           <Text style={[styles.textoSituacaoMedica]}>DOR DE CABEÇA</Text>
@@ -30,14 +30,14 @@ export function Carrossel() {
       <View style={[styles.containerCarrossel, { marginBottom: 95 }]}>
         <TouchableOpacity style={[styles.carrossel]}>
           <Image
-            source={require("../../assets/images/icons8-cash-94.png")}
+            source={require("../../../assets/images/icons8-cash-94.png")}
             style={[styles.imagemCarrossel]}
           />
           <Text style={[styles.textoSituacaoMedica]}>PAGAMENTOS</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.carrossel]}>
           <Image
-            source={require("../../assets/images/icons8-oferta-94.png")}
+            source={require("../../../assets/images/icons8-oferta-94.png")}
             style={[styles.imagemCarrossel]}
           />
           <Text style={[styles.textoSituacaoMedica]}>PLANOS</Text>
