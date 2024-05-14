@@ -2,20 +2,17 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   containerCard: {
-    width: "100%",
+    width: "90%",
     height: "auto",
     marginTop: 35,
     borderRadius: 15,
     backgroundColor: "#107357",
     borderWidth: 1,
     borderColor: "#65A693",
-    shadowColor: '#000', // Cor da sombra
-    shadowOffset: { width: 5, height: 10 }, // Offset da sombra
-    shadowOpacity: 0.4, // Opacidade da sombra
-    shadowRadius: 10, // Raio da sombra
+    alignSelf: 'center',
   },
   componenteCard: {
-    width: 320,
+    width: 300,
     height: 200,
     padding: 20,
   },
