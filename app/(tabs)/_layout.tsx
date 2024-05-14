@@ -6,18 +6,20 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#B8D9D3',
-        tabBarInactiveTintColor: '#fff',
+        tabBarActiveTintColor: '#8CBF1F',
+        tabBarInactiveTintColor: '#025940',
         tabBarShowLabel: true,
         tabBarStyle: {
           position: 'absolute',
-          backgroundColor: '#282A36',
+          backgroundColor: '#fff',
           width: '90%',
-          bottom: 5,
+          bottom: 8,
+          borderWidth: 0.5,
+          borderColor: '#DFEBF2',
           alignSelf: 'center',
           marginVertical: 5,
           marginHorizontal: 18,
-          elevation: 0,
+          elevation: 3,
           borderRadius: 60,
           height: 70,
           paddingTop: 10,
@@ -33,12 +35,12 @@ export default function TabLayout() {
         options={{
           title: 'Início',
           headerShown: true,
-          tabBarIcon: ({ color, size, focused }) => {
+          tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              return <Ionicons name="home" size={size} color={color} />;
+              return <Ionicons name="home" size={28} color={color} />;
             }
 
-            return <Ionicons name="home-outline" size={size} color={color} />;
+            return <Ionicons name="home-sharp" size={28} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>
@@ -55,7 +57,7 @@ export default function TabLayout() {
             </Link>
           ),
           headerStyle: {
-            backgroundColor: '#3E4A59',
+            backgroundColor: '#65A693',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -90,7 +92,7 @@ export default function TabLayout() {
             </Link>
           ),
           headerStyle: {
-            backgroundColor: '#3E4A59',
+            backgroundColor: '#65A693',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
@@ -125,7 +127,7 @@ export default function TabLayout() {
             </Link>
           ),
           headerStyle: {
-            backgroundColor: '#3E4A59',
+            backgroundColor: '#65A693',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
