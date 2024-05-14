@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from 'react-native';
 export default function Opcoes() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
+      <Text style={styles.title}>OPÇÕES</Text>
       <View style={styles.separator} />
     </View>
   );

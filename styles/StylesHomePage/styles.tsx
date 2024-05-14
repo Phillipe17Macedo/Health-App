@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F2F2F2',
   },
   containerCard: {
-    width: 320,
-    height: 200,
+    width: '100%', 
+    height: 'auto',
     marginTop: 35,
     borderRadius: 15,
     backgroundColor: '#107357',
@@ -17,9 +17,16 @@ export const styles = StyleSheet.create({
     borderColor: '#65A693',
   },
   componenteCard: {
-    width: '100%', 
-    height: '100%',
+    width: 320,
+    height: 200,
     padding: 20,
+  },
+  imagemLogo: {
+    position: 'absolute',
+    marginTop: 10,
+    marginLeft: '90%',
+    width: 50,
+    height: 25,
   },
   nomeCartao: {
     color: '#fff',
@@ -43,16 +50,10 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
-  imagemLogo: {
-    position: 'absolute',
-    marginTop: 10,
-    marginLeft: '90%',
-    width: 50,
-    height: 25,
-  },
   containerStatusPessoa: {
     flexDirection: 'row',
     marginTop: 30,
+    alignSelf: 'center',
   },
   descricaoStatusPessoa: {
     fontSize: 14,

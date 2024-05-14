@@ -19,11 +19,14 @@ export default function TabLayout() {
           alignSelf: 'center',
           marginVertical: 5,
           marginHorizontal: 18,
-          elevation: 3,
           borderRadius: 60,
           height: 70,
           paddingTop: 10,
           paddingBottom: 12,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.5,
+          shadowRadius: 4,          
         },
         tabBarLabelStyle: {
           fontSize: 12,
@@ -73,9 +76,9 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              return <MaterialIcons name="event" size={30} color={color} />;
+              return <FontAwesome6 name="sitemap" size={30} color={color} />;
             }
-            return <MaterialIcons name="event" size={30} color={color} />;
+            return <FontAwesome6 name="sitemap" size={30} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>
@@ -108,9 +111,9 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              return <MaterialIcons name="event" size={30} color={color} />;
+              return <FontAwesome6 name="gear" size={30} color={color} />;
             }
-            return <MaterialIcons name="event" size={30} color={color} />;
+            return <FontAwesome6 name="gear" size={30} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>
