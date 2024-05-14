@@ -1,11 +1,20 @@
-import { SafeAreaView, ScrollView,View, Text } from 'react-native';
-import { styles } from '../../styles/StylesHomePage/styles';
+import {
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { styles } from "../../styles/StylesHomePage/styles";
+import { Cartao } from "../../components/cartaoHome/Cartao";
+import { Carrossel } from "../../components/carrosselHome/Carrossel"
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>TELA INICIAL</Text>
-      <View style={styles.separator}/>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
+      <ScrollView>
+        <Cartao/>
+        <Carrossel/>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
