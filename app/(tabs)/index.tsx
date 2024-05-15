@@ -4,8 +4,8 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { styles } from "../../styles/StylesHomePage/styles";
-import { Cartao } from "../../components/cartaoHome/Cartao";
-import { Carrossel } from "../../components/carrosselHome/Carrossel"
+import { Cartao } from "../../components/Home/cartaoHome/Cartao";
+import { Carrossel } from "../../components/Home/carrosselHome/Carrossel"
 
 export default function TabOneScreen() {
   return (

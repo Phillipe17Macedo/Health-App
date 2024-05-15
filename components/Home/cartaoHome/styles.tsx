@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   containerCard: {
     width: "90%",
     height: "auto",
-    marginTop: 35,
+    marginTop: 25,
     borderRadius: 15,
     backgroundColor: "#107357",
     borderWidth: 1,

@@ -104,6 +104,41 @@ export default function TabLayout() {
           },
         }}
       />
+            <Tabs.Screen
+        name="pagamentos"
+        options={{
+          title: 'Pagamentos',
+          headerShown: true,
+          tabBarIcon: ({ color, focused }) => {
+            if (focused) {
+              return <FontAwesome6 name="credit-card" size={30} color={color} />;
+            }
+            return <FontAwesome6 name="credit-card" size={30} color={color} />;
+          },
+          headerRight: () => (
+            <Link href="/perfil" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Ionicons
+                    name="person-circle"
+                    size={48}
+                    color="#fff"
+                    style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
+          headerStyle: {
+            backgroundColor: '#107357',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 25,
+          },
+        }}
+      />
       <Tabs.Screen
         name="opcoes"
         options={{
