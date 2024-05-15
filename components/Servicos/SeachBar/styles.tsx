@@ -45,8 +45,8 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 15,
     backgroundColor: '#CACACA',
-    padding: 18,
-    width: '80%',
+    padding: 10,
+    width: '90%',
     borderRadius: 10,
     elevation: 5,
     borderWidth: 0.5,
@@ -56,6 +56,6 @@ export const styles = StyleSheet.create({
     textAlign: 'justify',
     fontWeight: 'bold',
     color: '#025940',
-    fontSize: 18,
+    fontSize: 14,
   },
 });
