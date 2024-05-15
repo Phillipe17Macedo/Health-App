@@ -2,7 +2,6 @@ import React from "react";
 import { TextInput, View, TouchableOpacity, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { styles } from "./styles";
-import { AbsoluteRoute } from '../../../.expo/types/router';
 
 export function SeachBar() {
   return (
@@ -26,6 +25,9 @@ export function SeachBar() {
         </Text>
         <Text style={[styles.orientacao]}>
             Qual é o seu Problema ?
+        </Text>
+        <Text style={[styles.orientacao]}>
+            Pesquise acima !
         </Text>
       </View>
     </>
