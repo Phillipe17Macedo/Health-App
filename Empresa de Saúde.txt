@@ -1,0 +1,30 @@
+>> Empresa de Saúde
+Espécie de App cartão de plano de saúde.
+
+>> Club de desconto.
+
+>> Funcionalidades.
+Profissionais parceiros do cartão.
+Consultas de profissionais conveniados para desconto
+
+>> Layout do App
+>> Carteira Digital
+
+>> Serviços:
+Emissão de guia de autorização -> consulta ou exame?
+Consulta-> Mesma a abaixo.
+Exame -> Informe o Laboratório -> tipo de exame.
+
+Agendamento de consultas e exames -> tipo de serviço: consulta/exame?
+Se for consulta -> Informe a especialidade
+Informe o médico -> Calendário
+
+>> Financeiro:
+GroupBox-> Contrato
+Mensalidades -> 
+
+>> Opções: 
+Meu Perfil
+
+>> Login:
+CPF -> Data de Nascimento -> Nome completo da Mãe
