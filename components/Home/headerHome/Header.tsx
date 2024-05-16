@@ -1,17 +1,14 @@
 import React from "react";
 import {
-  MaterialIcons,
   Ionicons,
-  AntDesign,
-  FontAwesome6,
 } from "@expo/vector-icons";
-import { View, Text, Pressable } from "react-native";
+import { Text, Pressable, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import { styles } from "./styles";
 
 export function Header() {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <Link href="/perfil" asChild>
         <Pressable>
           {({ pressed }) => (
@@ -24,9 +21,12 @@ export function Header() {
           )}
         </Pressable>
       </Link>
-      <View style={[styles.containerTextoHeader]}>
-        <Text>HEADER</Text>
-      </View>
-    </View>
+      <Link href='/perfil' asChild style={[styles.containerTextoHeader]}>
+        <Pressable>
+            <Text style={[styles.nomeUsuario]}>Olá, Maria</Text>
+            <Text style={[styles.textoPerfilConfi]}>Perfil e configurações </Text>
+        </Pressable>
+      </Link>
+    </TouchableOpacity>
   );
 }
