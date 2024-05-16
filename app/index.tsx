@@ -6,6 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "../styles/StylesLoginPage/styles";
 
 import { LogoLogin } from "../components/Login/LogoLogin/LogoLogin";
+import { InputLogin } from "../components/Login/InputLogin/InputLogin";
 
 export default function Login() {
   return (
@@ -18,11 +19,7 @@ export default function Login() {
         style={[styles.container]}
       >
         <LogoLogin/>
-        <View style={[styles.containerLink]}>
-          <Link href={"/(tabs)/home"}>
-            <Text style={[styles.textoLink]}>OLA LOGIN</Text>
-          </Link>
-        </View>
+        <InputLogin/>
       </LinearGradient>
     </View>
   );
