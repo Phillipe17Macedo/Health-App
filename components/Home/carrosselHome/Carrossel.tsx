@@ -11,17 +11,24 @@ export function Carrossel() {
       <View style={[styles.containerCarrossel]}>
         <TouchableOpacity style={[styles.carrossel]}>
           <Image
-            source={require("../../../assets/images/icons8-medical-94.png")}
+            source={require("../../../assets/images/Home/Carrossel/maleta-medica-50.png")}
             style={[styles.imagemCarrossel]}
           />
-          <Text style={[styles.textoSituacaoMedica]}>CORAÇÃO</Text>
+          <Text style={[styles.textoSituacaoMedica]}>CONSULTAS</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.carrossel]}>
           <Image
-            source={require("../../../assets/images/icons8-mind-94.png")}
+            source={require("../../../assets/images/Home/Carrossel/coracao-50.png")}
             style={[styles.imagemCarrossel]}
           />
-          <Text style={[styles.textoSituacaoMedica]}>DOR DE CABEÇA</Text>
+          <Text style={[styles.textoSituacaoMedica]}>EXAMES</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.carrossel]}>
+          <Image
+            source={require("../../../assets/images/Home/Carrossel/relatorio-50.png")}
+            style={[styles.imagemCarrossel]}
+          />
+          <Text style={[styles.textoSituacaoMedica]}>RELATÓRIOS</Text>
         </TouchableOpacity>
       </View>
 
@@ -30,17 +37,24 @@ export function Carrossel() {
       <View style={[styles.containerCarrossel, { marginBottom: 95 }]}>
         <TouchableOpacity style={[styles.carrossel]}>
           <Image
-            source={require("../../../assets/images/icons8-cash-94.png")}
+            source={require("../../../assets/images/Home/Carrossel/maleta-medica-50.png")}
             style={[styles.imagemCarrossel]}
           />
           <Text style={[styles.textoSituacaoMedica]}>PAGAMENTOS</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.carrossel]}>
           <Image
-            source={require("../../../assets/images/icons8-oferta-94.png")}
+            source={require("../../../assets/images/Home/Carrossel/maleta-medica-50.png")}
             style={[styles.imagemCarrossel]}
           />
           <Text style={[styles.textoSituacaoMedica]}>PLANOS</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.carrossel]}>
+          <Image
+            source={require("../../../assets/images/Home/Carrossel/maleta-medica-50.png")}
+            style={[styles.imagemCarrossel]}
+          />
+          <Text style={[styles.textoSituacaoMedica]}>CORAÇÃO</Text>
         </TouchableOpacity>
       </View>
     </>

@@ -8,7 +8,16 @@ export function ComponenteMedicos() {
     <>
       <View style={styles.containerMedicos}>
         <Image source={require('../../../assets/images/icone-pessoa/pessoa-60.png')} style={[styles.imagemIcone]}/>
-        <Text style={[styles.tituloMedico]}>Médicos</Text>
+
+        <View style={[styles.areaTextos]}>
+          <View style={[styles.textoNomeMedico]}>
+            <Text style={[styles.nomeMedico]}>MM CLÍNICA MEDICINA DO TRABALHO</Text>
+          </View>
+          <View style={[styles.textoEndereco]}>
+            <Text style={[styles.nomeEndereco]}>Endereço:</Text>
+          </View>
+        </View>
+
       </View>
     </>
   );
