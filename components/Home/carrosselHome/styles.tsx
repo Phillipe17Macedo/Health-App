@@ -15,16 +15,10 @@ export const styles = StyleSheet.create({
     height: 100,
     borderRadius: 15,
     elevation: 2,
-    //borderWidth: 1,
-    //borderColor: '#DFEBF2',
-    //padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
   imagemCarrossel: {
-    //width: '40%',
-    //height: '60%',
-    //marginTop: 15,
     alignSelf: 'center',
   },
   textoSituacaoMedica: {
