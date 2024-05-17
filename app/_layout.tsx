@@ -8,9 +8,11 @@ export const unstable_settings = {
 export default function RootLayout() {
   return (
     <Stack>
+        <Stack.Screen name="index" options={{ title: 'Login', headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="perfil" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{ title: 'Login', headerShown: false }} />
+        <Stack.Screen name="consulta" options={{ headerShown: false }} />
+        <Stack.Screen name="exame" options={{ headerShown: false }} />
     </Stack>
   );
 }

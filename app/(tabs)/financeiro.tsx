@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import { styles } from '../../styles/StylesPagamentoPage/styles';
+import { styles } from '../../styles/StylesFinanceiroPage/styles';
 
 export default function Financeiro() {
   return (
