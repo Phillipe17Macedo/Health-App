@@ -7,6 +7,7 @@ import { styles } from "../../styles/StylesHomePage/styles";
 import { Header } from "../../components/Home/headerHome/Header";
 import { Cartao } from "../../components/Home/cartaoHome/Cartao";
 import { Carrossel } from "../../components/Home/carrosselHome/Carrossel"
+import { user } from '../../components/Home/cartaoHome/dadosCartao';
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       <StatusBar style="auto" />
       <ScrollView>
         <Header/>
-        <Cartao/>
+        <Cartao user={user}/>
         <Carrossel/>
       </ScrollView>
     </SafeAreaView>
