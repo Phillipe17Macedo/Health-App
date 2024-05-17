@@ -4,16 +4,15 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#fff",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  areaInformacoes: {
+    position: 'absolute',
+    backgroundColor: '#D9D9D9',
+    width: '100%',
+    height: '90%',
+    marginTop: '40%',
+    borderRadius: 20,
+    alignItems: 'center',
+    paddingTop: 20,
   },
 });
