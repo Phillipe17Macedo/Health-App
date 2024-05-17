@@ -1,14 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, View, Text } from 'react-native';
-
-import { styles } from '../styles/StylesPerfilPage/styles'
+import { StatusBar } from "expo-status-bar";
+import { Platform, View, Text } from "react-native";
+import { Link } from "expo-router";
+import { styles } from "../styles/StylesPerfilPage/styles";
+import { HeaderPerfil } from "@/components/Perfil/HeaderPerfil/Header";
+import { ContainersPerfil } from "@/components/Perfil/Containers/ContainersPerfil";
 
 export default function Perfil() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
+      <HeaderPerfil />
+      <View style={[styles.areaInformacoes]}>
+        <ContainersPerfil/>
+      </View>
     </View>
   );
 }

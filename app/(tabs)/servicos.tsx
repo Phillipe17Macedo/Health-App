@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import { styles } from '../../styles/StylesServicosPage/styles';
 import { SeachBar } from '@/components/Servicos/SeachBar/SearchBar';
-import { ComponenteMedicos } from '../../components/Servicos/ComponenteMedicos/ComponenteMedicos';
+import { ComponentesConsulta } from '@/components/Servicos/ComponentesConsulta/ComponenteConsulta';
+import { ComponentesExame } from '@/components/Servicos/ComponentesExame/ComponenteExame';
 
 export default function Servicos() {
   return (
     <View style={[styles.container]}>
         <SeachBar/>
-        <ComponenteMedicos/>
+        <ComponentesConsulta/>
+        <ComponentesExame/>
     </View>
   );
 }

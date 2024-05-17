@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   containerAreaPesquisa: {
-    marginTop: 25,
+    marginTop: 50,
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',
@@ -44,11 +44,11 @@ export const styles = StyleSheet.create({
   containerOrientacao: {
     alignSelf: 'center',
     marginTop: 15,
-    backgroundColor: '#CACACA',
+    backgroundColor: '#DFF2ED',
     padding: 10,
     width: '90%',
     borderRadius: 10,
-    elevation: 5,
+    elevation: 3,
     borderWidth: 0.5,
     borderColor: '#DFF2ED',
   },

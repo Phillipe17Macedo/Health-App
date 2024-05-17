@@ -31,6 +31,9 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "expo-font": {
+      "fonts": ["./assets/fonts/Inter-Black.otf"]
     }
   }
 }
