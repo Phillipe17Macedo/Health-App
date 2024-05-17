@@ -1,26 +1,44 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  containerCard: {
-    width: "90%",
+  containerLink: {
     height: "auto",
     marginTop: 25,
     borderRadius: 15,
-    backgroundColor: "#107357",
+    alignSelf: 'center',
+    backgroundColor: 'gray',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerCard: {
+    width: '100%',
+    height: "auto",
+    marginTop: 25,
+    borderRadius: 15,
     borderWidth: 1,
     borderColor: "#65A693",
-    alignSelf: 'center',
   },
   componenteCard: {
-    width: 300,
+    width: 330,
     height: 200,
-    padding: 20,
+    padding: 12,
+    flexDirection: 'row'
+  },
+  containerImagemUser: {
+    backgroundColor: '#DFF2ED',
+    width: 94,
+    height: 94,
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  containerDadosUser: {
+    flexDirection: 'column',
   },
   nomeCartao: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 14,
-    marginTop: 30,
+    marginTop: 10,
   },
   descricaoNome: {
     fontSize: 8,
