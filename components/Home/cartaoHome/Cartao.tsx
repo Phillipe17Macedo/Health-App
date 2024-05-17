@@ -4,7 +4,16 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { styles } from "./styles";
 
-export function Cartao({ user }) {
+interface User {
+  nome: string;
+  dataNascimento: string;
+  status: string;
+};
+interface CartaoProps {
+  user: User;
+};
+
+export function Cartao({ user }: CartaoProps) {
   return (
     <>
       <TouchableOpacity>
