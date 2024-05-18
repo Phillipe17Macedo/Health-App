@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   containerAreaPesquisa: {
-    marginTop: 50,
+    marginTop: 25,
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',
