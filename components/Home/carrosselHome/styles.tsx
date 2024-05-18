@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerLink: {
-    backgroundColor: 'lightgray',
     justifyContent: 'center',
     alignItems: 'center',
     width: 100,

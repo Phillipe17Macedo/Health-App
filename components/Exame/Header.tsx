@@ -4,7 +4,7 @@ import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
 
-export function HeaderConsulta() {
+export function HeaderExame() {
   return (
     <>
       <View style={styles.container}>
