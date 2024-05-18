@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     textAlign: 'left',
-    paddingLeft: 35,
+    paddingLeft: 25,
     paddingTop: 35,
   },
   containerIcone: {

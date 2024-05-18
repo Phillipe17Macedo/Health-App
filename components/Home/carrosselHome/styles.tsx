@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  containerCarrossel: {
+  containerOpcoes: {
     alignSelf: 'center',
     justifyContent: 'space-between',
     width: '90%',
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
   },
-  carrossel: {
+  opcoes: {
     backgroundColor: '#DFF2ED',
     width: 100,
     height: 100,
@@ -18,10 +18,19 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  imagemCarrossel: {
-    alignSelf: 'center',
+  containerLink: {
+    backgroundColor: 'lightgray',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    height: 100,
+    borderRadius: 15,
   },
-  textoSituacaoMedica: {
+  imagemOpcoes: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  textoOpcoesIcone: {
     fontSize: 12,
     textAlign: 'center',
     color: '#025940',
