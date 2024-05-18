@@ -79,7 +79,7 @@ export default function TabLayout() {
         name="servicos"
         options={{
           title: "Serviços",
-          headerShown: false,
+          headerShown: true,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
               return <FontAwesome6 name="sitemap" size={30} color={color} />;
@@ -101,7 +101,7 @@ export default function TabLayout() {
             </Link>
           ),
           headerStyle: {
-            backgroundColor: "#107357",
+            backgroundColor: "#03A66A",
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
@@ -114,7 +114,7 @@ export default function TabLayout() {
         name="financeiro"
         options={{
           title: "Financeiro",
-          headerShown: false,
+          headerShown: true,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
               return (
@@ -138,7 +138,7 @@ export default function TabLayout() {
             </Link>
           ),
           headerStyle: {
-            backgroundColor: "#107357",
+            backgroundColor: "#03A66A",
           },
           headerTintColor: "#fff",
           headerTitleStyle: {
