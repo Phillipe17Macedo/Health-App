@@ -77,6 +77,12 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 5,
   },
+  statusAtivado: {
+    backgroundColor: "#8CBF1F",
+  },
+  statusDesativado: {
+    backgroundColor: "#E55951",
+  },
   textoStatus: {
     fontWeight: "bold",
     fontSize: 12,
