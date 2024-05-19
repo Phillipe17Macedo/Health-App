@@ -6,7 +6,13 @@ import { Text, Pressable, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import { styles } from "./styles";
 
-export function Header() {
+interface HeaderProps {
+  nomeUsuario?: string;
+}
+
+export function Header({ nomeUsuario }: HeaderProps) {
+  const primeiroNome = nomeUsuario ? nomeUsuario.split(' ')[0] : 'Usuário';
+
   return (
     <TouchableOpacity style={styles.container}>
       <Link href="/perfil" asChild>
@@ -23,7 +29,7 @@ export function Header() {
       </Link>
       <Link href='/perfil' asChild style={[styles.containerTextoHeader]}>
         <Pressable>
-            <Text style={[styles.nomeUsuario]}>Olá, Maria</Text>
+            <Text style={[styles.nomeUsuario]}>Olá, {primeiroNome}</Text>
             <Text style={[styles.textoPerfilConfi]}>Perfil e configurações </Text>
         </Pressable>
       </Link>

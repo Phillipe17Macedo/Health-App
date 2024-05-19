@@ -6,6 +6,7 @@ import { Header } from "../../components/Home/headerHome/Header";
 import { Cartao } from "../../components/Home/cartaoHome/Cartao";
 import { Carrossel } from "../../components/Home/carrosselHome/Carrossel";
 import { buscarUsuario } from "../../connection/buscarUsuario";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface User {
   nome: string;
@@ -18,9 +19,11 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
 
   async function loadUser() {
-    const userId = "04506739108";
-    const userData: User | null = await buscarUsuario(userId);
-    setUser(userData);
+    const userCpf = await AsyncStorage.getItem('userCpf');
+    if (userCpf) {
+      const userData: User | null = await buscarUsuario(userCpf);
+      setUser(userData);
+    }
   }
 
   useEffect(() => {
@@ -33,6 +36,10 @@ export default function Home() {
     setRefreshing(false);
   };
 
+  const getPrimeiroNome = (nomeCompleto: string) => {
+    return nomeCompleto.split(" ")[0];
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -41,7 +48,7 @@ export default function Home() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <Header />
+        <Header nomeUsuario={user ?.nome} />
         {user && <Cartao user={user} />}
         <Carrossel />
       </ScrollView>
