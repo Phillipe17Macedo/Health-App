@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "../styles/StylesLoginPage/styles";
