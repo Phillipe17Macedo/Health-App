@@ -14,6 +14,11 @@ interface CartaoProps {
 }
 
 export function Cartao({ user }: CartaoProps) {
+  const alterarEstiloStatus = () => {
+    return user.status.toLowerCase() === "ativado"
+      ? styles.statusAtivado
+      : styles.statusDesativado;
+  };
   return (
     <>
       <TouchableOpacity>
@@ -44,7 +49,7 @@ export function Cartao({ user }: CartaoProps) {
 
                 <View style={[styles.containerStatusPessoa]}>
                   <Text style={[styles.descricaoStatusPessoa]}>STATUS:</Text>
-                  <View style={[styles.containerStatus]}>
+                  <View style={[styles.containerStatus, alterarEstiloStatus()]}>
                     <Text style={[styles.textoStatus]}>{user.status}</Text>
                   </View>
                 </View>
