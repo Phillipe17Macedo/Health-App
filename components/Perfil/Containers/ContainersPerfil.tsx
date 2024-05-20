@@ -7,7 +7,9 @@ export function ContainersPerfil() {
   return (
     <>
         <TouchableOpacity style={[styles.container]}>
+          <Link href={'/perfilEditar'}>
             <Text style={[styles.textoContainer]}>Editar Perfil</Text>
+          </Link>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.container]}>
             <Text style={[styles.textoContainer]}>Contatos</Text>
