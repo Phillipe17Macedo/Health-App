@@ -40,6 +40,11 @@ export default function Especialidade({EspecialidadeCarregada}: EspecialidadePro
           }}
           setItems={setItens}
           placeholder="Selecione uma especialidade"
+          style={styles.dropdown}
+          placeholderStyle={styles.textoDropdown}
+          dropDownContainerStyle={styles.dropDownContainerStyle}
+          listItemLabelStyle={styles.itensLista}
+          selectedItemLabelStyle={styles.itemSelecionado}
         />
       </View>
     </>

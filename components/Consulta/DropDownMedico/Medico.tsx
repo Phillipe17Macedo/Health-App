@@ -41,7 +41,12 @@ export default function Medico({ especialidadeId }: MedicoProps) {
             setValue={setValor}
             setItems={setItens}
             placeholder="Selecione um Médico"
-            disabled={!especialidadeId}
+            style={styles.dropdown}
+            placeholderStyle={styles.textoDropdown}
+            dropDownContainerStyle={styles.dropDownContainerStyle}
+            listItemLabelStyle={styles.itensLista}
+            selectedItemLabelStyle={styles.itemSelecionado}
+            disabled={!especialidadeId}     
         />
       </View>
     </>
