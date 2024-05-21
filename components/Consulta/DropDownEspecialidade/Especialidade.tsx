@@ -45,6 +45,8 @@ export default function Especialidade({EspecialidadeCarregada}: EspecialidadePro
           dropDownContainerStyle={styles.dropDownContainerStyle}
           listItemLabelStyle={styles.itensLista}
           selectedItemLabelStyle={styles.itemSelecionado}
+          zIndex={3000}
+          zIndexInverse={1000}
         />
       </View>
     </>
