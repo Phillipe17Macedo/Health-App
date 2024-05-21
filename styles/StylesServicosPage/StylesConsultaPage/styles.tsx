@@ -63,12 +63,4 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 15,
     elevation: 2,
   },
-  containerOrientacao: {
-    marginTop: 20,
-    alignItems: "center",
-  },
-  orientacao: {
-    fontSize: 14,
-    color: "#888",
-  },
 });

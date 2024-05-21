@@ -7,6 +7,7 @@ import Especialidade from "@/components/Consulta/DropDownEspecialidade/Especiali
 import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import { buscarAreas } from "../connection/buscarAreas";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
+import { query } from "firebase/database";
 
 export default function Consulta() {
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
@@ -23,11 +24,20 @@ export default function Consulta() {
     }
   };
 
+  const handleSugestoes = async (query: string) => {
+    try {
+      const results = await buscarAreas(query);
+      setResultadoPesquisa(results);
+    } catch (error) {
+      console.error("Erro ao obter sugestões:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <HeaderConsulta />
-      <SearchBar onSearch={handlePesquisar} />
+      <SearchBar onSearch={handlePesquisar} onSugest={handleSugestoes} resultados={resultadoPesquisa} />
       <Especialidade EspecialidadeCarregada={setEspecialidadeId} />
       <Medico especialidadeId={especialidadeId} />
 

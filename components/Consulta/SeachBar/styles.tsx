@@ -58,4 +58,20 @@ export const styles = StyleSheet.create({
     color: '#025940',
     fontSize: 14,
   },
+  sugestaoContainer: {
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    elevation: 2,
+    marginHorizontal: 10,
+    marginTop: 5,
+    maxHeight: 200,
+  },
+  sugestaoItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
+  sugestaoText: {
+    fontSize: 16,
+  },
 });
