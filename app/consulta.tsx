@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { View, Modal, Text, FlatList, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
-import { SearchBar } from "../components/Consulta/SeachBar/SearchBar";
+import { SearchBar } from "../components/Consulta/SearchBar/SearchBar";
 import Especialidade from "@/components/Consulta/DropDownEspecialidade/Especialidade";
 import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import { buscarAreas } from "../connection/buscarAreas";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
-import { query } from "firebase/database";
 
 export default function Consulta() {
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
+  const [medicoId, setMedicoId] = useState<string | null>(null);
   const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
   const [modalVisivel, setModalVisivel] = useState(false);
 
@@ -33,13 +33,33 @@ export default function Consulta() {
     }
   };
 
+  const handleSelecaoSugestao = async (item: any) => {
+    if (item.type === "especialidade") {
+      setEspecialidadeId(item.id);
+    } else if (item.type === "medico") {
+      setMedicoId(item.id);
+      setEspecialidadeId(item.especialidadeId);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <HeaderConsulta />
-      <SearchBar onSearch={handlePesquisar} onSugest={handleSugestoes} resultados={resultadoPesquisa} />
-      <Especialidade EspecialidadeCarregada={setEspecialidadeId} />
-      <Medico especialidadeId={especialidadeId} />
+      <SearchBar 
+        onSearch={handlePesquisar} 
+        onSugest={handleSugestoes} 
+        resultados={resultadoPesquisa} 
+        onSelecionarSugestao={handleSelecaoSugestao}
+      />
+      <Especialidade 
+        EspecialidadeCarregada={setEspecialidadeId} 
+        especialidadeSelecionada={especialidadeId}
+      />
+      <Medico 
+        especialidadeId={especialidadeId} 
+        medicoSelecionado={medicoId}
+      />
 
       <Modal
         animationType="slide"

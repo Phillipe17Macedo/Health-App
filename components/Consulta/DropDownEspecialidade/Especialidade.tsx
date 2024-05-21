@@ -6,11 +6,12 @@ import { styles } from "./styles";
 
 interface EspecialidadeProps {
   EspecialidadeCarregada: (especialidadeId: string | null) => void;
+  especialidadeSelecionada: string | null;
 }
 
-export default function Especialidade({EspecialidadeCarregada}: EspecialidadeProps) {
+export default function Especialidade({ EspecialidadeCarregada, especialidadeSelecionada }: EspecialidadeProps) {
   const [abrir, setAbrir] = useState(false);
-  const [valor, setValor] = useState<string | null>(null);
+  const [valor, setValor] = useState<string | null>(especialidadeSelecionada);
   const [itens, setItens] = useState<{ label: string; value: string }[]>([]);
 
   useEffect(() => {
@@ -25,6 +26,10 @@ export default function Especialidade({EspecialidadeCarregada}: EspecialidadePro
 
     carregarEspecialidades();
   }, []);
+  
+  useEffect(() => {
+    setValor(especialidadeSelecionada);
+  }, [especialidadeSelecionada]);
 
   return (
     <>

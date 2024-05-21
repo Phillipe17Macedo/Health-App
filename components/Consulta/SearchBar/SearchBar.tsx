@@ -12,10 +12,11 @@ import { styles } from "./styles";
 interface SearchBarProps {
   onSearch: (query: string) => void;
   onSugest: (query: string) => void;
+  onSelecionarSugestao: (item: any) => void;
   resultados: any[];
 }
 
-export function SearchBar({ onSearch, onSugest, resultados }: SearchBarProps) {
+export function SearchBar({ onSearch, onSugest, onSelecionarSugestao, resultados }: SearchBarProps) {
   const [pesquisarTexto, setPesquisarTexto] = useState("");
 
   useEffect(() => {
@@ -50,12 +51,14 @@ export function SearchBar({ onSearch, onSugest, resultados }: SearchBarProps) {
             data={resultados}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => (
-              <View style={styles.sugestaoItem}>
+              <TouchableOpacity
+                onPress={() => onSelecionarSugestao(item)}
+                style={styles.sugestaoItem}
+              >
                 <Text style={styles.sugestaoText}>
-                  {item.nome} (
-                  {item.type === "especialidade" ? "Especialidade" : "Médico"})
+                  {item.nome} ({item.type === "especialidade" ? "Especialidade" : "Médico"})
                 </Text>
-              </View>
+              </TouchableOpacity>
             )}
           />
         </View>
