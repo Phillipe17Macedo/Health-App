@@ -3,7 +3,7 @@ import { TextInput, View, TouchableOpacity, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { styles } from "./styles";
 
-export function SeachBar() {
+export function SearchBar() {
   return (
     <>
       <View style={[styles.containerAreaPesquisa]}>
@@ -21,7 +21,7 @@ export function SeachBar() {
       </View>
       <View style={[styles.containerOrientacao]}>
         <Text style={[styles.orientacao]}>
-            Procurando uma consulta ?
+            Procurando um Exame ?
         </Text>
         <Text style={[styles.orientacao]}>
             Qual é o seu Problema ?
