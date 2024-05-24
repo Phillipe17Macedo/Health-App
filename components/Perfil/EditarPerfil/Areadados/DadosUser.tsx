@@ -14,10 +14,14 @@ export default function DadosUser() {
             keyboardType="number-pad"
           />
           <TextInput
-            placeholder="SENHA"
+            placeholder="ENDEREÇO"
             style={[styles.dadosInput]}
-            keyboardType="default"
-            secureTextEntry={true}
+            keyboardType="number-pad"
+          />
+          <TextInput
+            placeholder="EMAIL"
+            style={[styles.dadosInput]}
+            keyboardType="email-address"
           />
         </View>
         <TouchableOpacity style={[styles.containerButton]}>
