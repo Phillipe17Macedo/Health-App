@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, Modal, TouchableOpacity, Text, FlatList } from "react-native";
+import { Modal, View, Text, TouchableOpacity } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { styles } from "./styles";
 
 interface HorarioConsultaProps {
@@ -8,45 +9,40 @@ interface HorarioConsultaProps {
   onTimeSelect: (time: string) => void;
 }
 
-const horarios = [
-  "08:00",
-  "09:00",
-  "10:00",
-  "11:00",
-  "14:00",
-  "15:00",
-  "16:00",
-  "17:00",
-];
+export default function HorarioConsulta({ visivel, onClose, onTimeSelect }: HorarioConsultaProps) {
+  const [selectedTime, setSelectedTime] = useState<Date | null>(new Date());
 
-export default function HorarioConsulta({
-  visivel,
-  onClose,
-  onTimeSelect,
-}: HorarioConsultaProps) {
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-
-  const handleTimePress = (time: string) => {
-    setSelectedTime(time);
-    onTimeSelect(time);
-    onClose();
+  const handleConfirm = () => {
+    if (selectedTime) {
+      const formattedTime = selectedTime.toTimeString().split(" ")[0]; // Formatando o horário para HH:MM:SS
+      onTimeSelect(formattedTime);
+      onClose();
+    }
   };
 
   return (
-    <Modal visible={visivel} transparent={true} animationType="slide">
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={visivel}
+      onRequestClose={onClose}
+    >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <FlatList
-            data={horarios}
-            keyExtractor={(item) => item}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleTimePress(item)}>
-                <Text style={styles.timeItem}>{item}</Text>
-              </TouchableOpacity>
-            )}
+          <Text style={styles.modalTitle}>Selecione o Horário</Text>
+          <DateTimePicker
+            value={selectedTime}
+            mode="time"
+            display="default"
+            onChange={(event, date) => {
+              setSelectedTime(date || selectedTime);
+            }}
           />
-          <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-            <Text style={styles.closeButtonText}>Fechar</Text>
+          <TouchableOpacity
+            style={styles.confirmButton}
+            onPress={handleConfirm}
+          >
+            <Text style={styles.confirmButtonText}>Confirmar</Text>
           </TouchableOpacity>
         </View>
       </View>

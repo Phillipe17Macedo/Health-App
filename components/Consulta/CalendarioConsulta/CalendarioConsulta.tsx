@@ -1,33 +1,48 @@
 import React, { useState } from "react";
-import { View, Modal, TouchableOpacity, Text } from "react-native";
-import { Calendar } from "react-native-calendars";
+import { Modal, View, Text, TouchableOpacity } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { styles } from "./styles";
 
 interface CalendarioConsultaProps {
   visivel: boolean;
   onClose: () => void;
-  onDateSelected: (date: string) => void;
+  onDateSelect: (date: string) => void;
 }
 
-export function CalendarioConsulta({
-  visivel,
-  onClose,
-  onDateSelected,
-}: CalendarioConsultaProps) {
-  const [dataSelecionada, setDataSelecionada] = useState<string | null>(null);
+export default function CalendarioConsulta({ visivel, onClose, onDateSelect }: CalendarioConsultaProps) {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
-  const handleDayPress = (dia: any) => {
-    setDataSelecionada(dia.dateString);
-    onDateSelected(dia.dateString);
-    onClose();
+  const handleConfirm = () => {
+    if (selectedDate) {
+      const formattedDate = selectedDate.toISOString().split("T")[0]; // Formatando a data para yyyy-mm-dd
+      onDateSelect(formattedDate);
+      onClose();
+    }
   };
+
   return (
-    <Modal visible={visivel} transparent={true} animationType="slide">
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={visivel}
+      onRequestClose={onClose}
+    >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Calendar onDayPress={handleDayPress} />
-          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>Fechar</Text>
+          <Text style={styles.modalTitle}>Selecione a Data</Text>
+          <DateTimePicker
+            value={selectedDate}
+            mode="date"
+            display="default"
+            onChange={(event, date) => {
+              setSelectedDate(date || selectedDate);
+            }}
+          />
+          <TouchableOpacity
+            style={styles.confirmButton}
+            onPress={handleConfirm}
+          >
+            <Text style={styles.confirmButtonText}>Confirmar</Text>
           </TouchableOpacity>
         </View>
       </View>

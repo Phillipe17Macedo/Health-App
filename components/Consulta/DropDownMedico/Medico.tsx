@@ -7,22 +7,30 @@ import { styles } from "./styles";
 interface MedicoProps {
   especialidadeId: string | null;
   medicoSelecionado: string | null;
+  onMedicoSelect: (medico: any) => void;
 }
 
 export default function Medico({
   especialidadeId,
   medicoSelecionado,
+  onMedicoSelect,
 }: MedicoProps) {
   const [abrir, setAbrir] = useState(false);
   const [valor, setValor] = useState(medicoSelecionado);
-  const [itens, setItens] = useState<{ label: string; value: string }[]>([]);
+  const [itens, setItens] = useState<{ label: string; value: string; key: string }[]>([]);
 
   useEffect(() => {
     async function carregarMedicos() {
       if (especialidadeId) {
         try {
           const medicos = await buscarMedicosPorEspecialidade(especialidadeId);
-          setItens(medicos);
+          setItens(
+            medicos.map((medico: any) => ({
+              label: medico.label,
+              value: medico.value,
+              key: medico.key, // Adicionando a chave única aqui
+            }))
+          );
         } catch (error) {
           console.error("Erro ao carregar médicos:", error);
         }
@@ -38,27 +46,33 @@ export default function Medico({
     setValor(medicoSelecionado);
   }, [medicoSelecionado]);
 
+  const handleChangeValue = (value: string | null) => {
+    const selectedMedico = itens.find((item) => item.value === value);
+    if (selectedMedico) {
+      onMedicoSelect(selectedMedico);
+    }
+    setValor(value);
+  };
+
   return (
-    <>
-      <View style={styles.container}>
-        <DropDownPicker
-          open={abrir}
-          value={valor}
-          items={itens}
-          setOpen={setAbrir}
-          setValue={setValor}
-          setItems={setItens}
-          placeholder="Selecione um Médico"
-          style={styles.dropdown}
-          placeholderStyle={styles.textoDropdown}
-          dropDownContainerStyle={styles.dropDownContainerStyle}
-          listItemLabelStyle={styles.itensLista}
-          selectedItemLabelStyle={styles.itemSelecionado}
-          disabled={!especialidadeId}
-          zIndex={2000}
-          zIndexInverse={2000}
-        />
-      </View>
-    </>
+    <View style={styles.container}>
+      <DropDownPicker
+        open={abrir}
+        value={valor}
+        items={itens}
+        setOpen={setAbrir}
+        setValue={setValor}
+        onChangeValue={handleChangeValue}
+        placeholder="Selecione um Médico"
+        style={styles.dropdown}
+        placeholderStyle={styles.textoDropdown}
+        dropDownContainerStyle={styles.dropDownContainerStyle}
+        listItemLabelStyle={styles.itensLista}
+        selectedItemLabelStyle={styles.itemSelecionado}
+        disabled={!especialidadeId}
+        zIndex={2000}
+        zIndexInverse={2000}
+      />
+    </View>
   );
 }
