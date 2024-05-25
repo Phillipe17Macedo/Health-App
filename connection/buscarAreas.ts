@@ -13,7 +13,7 @@ export async function buscarAreas(query: string): Promise<any[]> {
       const especialidades = especialidadesSnapshot.val();
       for (const key in especialidades) {
         if (especialidades[key].nome.toLowerCase().includes(query.toLowerCase())) {
-          results.push({ ...especialidades[key], type: "especialidade" });
+          results.push({ ...especialidades[key], type: "especialidade", key });
         }
       }
     }
@@ -22,7 +22,7 @@ export async function buscarAreas(query: string): Promise<any[]> {
       const medicos = medicosSnapshot.val();
       for (const key in medicos) {
         if (medicos[key].nome.toLowerCase().includes(query.toLowerCase())) {
-          results.push({ ...medicos[key], type: "medico" });
+          results.push({ ...medicos[key], type: "medico", key });
         }
       }
     }

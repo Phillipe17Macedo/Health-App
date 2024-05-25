@@ -1,18 +1,35 @@
 import React, { useState } from "react";
-import { View, Modal, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Modal, Text, FlatList, TouchableOpacity, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
 import { SearchBar } from "../components/Consulta/SearchBar/SearchBar";
 import Especialidade from "@/components/Consulta/DropDownEspecialidade/Especialidade";
 import Medico from "@/components/Consulta/DropDownMedico/Medico";
+import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/CalendarioConsulta";
+import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
+import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
 import { buscarAreas } from "../connection/buscarAreas";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
+import { salvarConsulta } from "@/connection/salvarConsulta";
 
 export default function Consulta() {
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [medicoId, setMedicoId] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [medico, setMedico] = useState<any | null>(null);
   const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
   const [modalVisivel, setModalVisivel] = useState(false);
+  const [calendarioVisivel, setCalendarioVisivel] = useState(false);
+  const [horarioVisivel, setHorarioVisivel] = useState(false);
+  const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState<string | null>(null);
+  const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
+  const [consulta, setConsulta] = useState({
+    usuario: "Phillipe Ferreira Macedo",
+    especialidade: "",
+    medico: "",
+    data: "",
+    horario: "",
+  });
 
   const handlePesquisar = async (query: string) => {
     try {
@@ -35,10 +52,62 @@ export default function Consulta() {
 
   const handleSelecaoSugestao = async (item: any) => {
     if (item.type === "especialidade") {
-      setEspecialidadeId(item.id);
+      setEspecialidadeId(item.key);
+      setEspecialidadeNome(item.nome);
+      setConsulta((prev) => ({
+        ...prev,
+        especialidade: item.nome,
+      }));
     } else if (item.type === "medico") {
-      setMedicoId(item.id);
+      setMedico(item);
       setEspecialidadeId(item.especialidadeId);
+      setEspecialidadeNome(item.especialidade);
+      handleMedicoSelect(item);
+    }
+  };
+
+  const handleMedicoSelect = (medico: any) => {
+    setConsulta((prev) => ({
+      ...prev,
+      medico: medico.nome,
+      especialidade: especialidadeNome, // Garantindo que a especialidade está definida
+    }));
+    setCalendarioVisivel(true);
+  };
+
+  const handleDateSelect = (date: string) => {
+    setDataConsulta(date);
+    setConsulta((prev) => ({
+      ...prev,
+      data: date,
+    }));
+    setHorarioVisivel(true);
+  };
+
+  const handleTimeSelect = (time: string) => {
+    setHorarioConsulta(time);
+    setConsulta((prev) => ({
+      ...prev,
+      horario: time,
+    }));
+    setConfirmacaoVisivel(true);
+  };
+
+  const handleConfirm = async () => {
+    try {
+      if (!consulta.especialidade) throw new Error("Especialidade não definida.");
+      const novaConsulta = {
+        ...consulta,
+        data: dataConsulta,
+        horario: horarioConsulta,
+        especialidade: especialidadeNome,
+      };
+      await salvarConsulta(novaConsulta);
+      setConfirmacaoVisivel(false);
+      Alert.alert("Consulta confirmada!");
+    } catch (error) {
+      console.error("Erro ao salvar consulta:", error);
+      Alert.alert(`Erro ao confirmar consulta: ${error.message}`);
     }
   };
 
@@ -46,19 +115,27 @@ export default function Consulta() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <HeaderConsulta />
-      <SearchBar 
-        onSearch={handlePesquisar} 
-        onSugest={handleSugestoes} 
-        resultados={resultadoPesquisa} 
+      <SearchBar
+        onSearch={handlePesquisar}
+        onSugest={handleSugestoes}
+        resultados={resultadoPesquisa}
         onSelecionarSugestao={handleSelecaoSugestao}
       />
-      <Especialidade 
-        EspecialidadeCarregada={setEspecialidadeId} 
+      <Especialidade
+        EspecialidadeCarregada={(id, nome) => {
+          setEspecialidadeId(id);
+          setEspecialidadeNome(nome);
+          setConsulta((prev) => ({
+            ...prev,
+            especialidade: nome,
+          }));
+        }}
         especialidadeSelecionada={especialidadeId}
       />
-      <Medico 
-        especialidadeId={especialidadeId} 
-        medicoSelecionado={medicoId}
+      <Medico
+        especialidadeId={especialidadeId}
+        medicoSelecionado={medico ? medico.id : null}
+        onMedicoSelect={handleMedicoSelect}
       />
 
       <Modal
@@ -72,13 +149,20 @@ export default function Consulta() {
             {resultadoPesquisa.length > 0 ? (
               <FlatList
                 data={resultadoPesquisa}
-                keyExtractor={(item, index) => index.toString()}
+                keyExtractor={(item) => item.key}
                 renderItem={({ item }) => (
-                  <View style={styles.resultItem}>
+                  <TouchableOpacity
+                    onPress={() => handleSelecaoSugestao(item)}
+                    style={styles.resultItem}
+                  >
                     <Text style={styles.resultText}>
-                      {item.nome} ({item.type === "especialidade" ? "Especialidade" : "Médico"})
+                      {item.nome} (
+                      {item.type === "especialidade"
+                        ? "Especialidade"
+                        : "Médico"}
+                      )
                     </Text>
-                  </View>
+                  </TouchableOpacity>
                 )}
               />
             ) : (
@@ -95,6 +179,27 @@ export default function Consulta() {
           </View>
         </View>
       </Modal>
+
+      <CalendarioConsulta
+        visivel={calendarioVisivel}
+        onClose={() => setCalendarioVisivel(false)}
+        onDateSelect={handleDateSelect}
+      />
+
+      <HorarioConsulta
+        visivel={horarioVisivel}
+        onClose={() => setHorarioVisivel(false)}
+        onTimeSelect={handleTimeSelect}
+      />
+
+      {confirmacaoVisivel && consulta && (
+        <ConfirmacaoConsulta
+          visivel={confirmacaoVisivel}
+          onClose={() => setConfirmacaoVisivel(false)}
+          onConfirm={handleConfirm}
+          consulta={consulta}
+        />
+      )}
     </View>
   );
 }

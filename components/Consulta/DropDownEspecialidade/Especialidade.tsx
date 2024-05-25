@@ -5,20 +5,25 @@ import { buscarEspecialidades } from "@/connection/buscarEspecialidades";
 import { styles } from "./styles";
 
 interface EspecialidadeProps {
-  EspecialidadeCarregada: (especialidadeId: string | null) => void;
+  EspecialidadeCarregada: (especialidadeId: string | null, especialidadeNome: string | null) => void;
   especialidadeSelecionada: string | null;
 }
 
 export default function Especialidade({ EspecialidadeCarregada, especialidadeSelecionada }: EspecialidadeProps) {
   const [abrir, setAbrir] = useState(false);
   const [valor, setValor] = useState<string | null>(especialidadeSelecionada);
-  const [itens, setItens] = useState<{ label: string; value: string }[]>([]);
+  const [itens, setItens] = useState<{ label: string; value: string; key: string }[]>([]);
 
   useEffect(() => {
     async function carregarEspecialidades() {
       try {
         const especialidades = await buscarEspecialidades();
-        setItens(especialidades);
+        const especialidadesComChave = especialidades.map((especialidade: any) => ({
+          label: especialidade.nome,
+          value: especialidade.id,
+          key: especialidade.id, // Chave única para cada item
+        }));
+        setItens(especialidadesComChave);
       } catch (error) {
         console.error("Erro ao carregar especialidades:", error);
       }
@@ -26,10 +31,18 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
 
     carregarEspecialidades();
   }, []);
-  
+
   useEffect(() => {
     setValor(especialidadeSelecionada);
   }, [especialidadeSelecionada]);
+
+  const handleChangeValue = (value: string | null) => {
+    const selectedEspecialidade = itens.find((item) => item.value === value);
+    if (selectedEspecialidade) {
+      EspecialidadeCarregada(value, selectedEspecialidade.label);
+    }
+    setValor(value);
+  };
 
   return (
     <>
@@ -39,10 +52,8 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
           value={valor}
           items={itens}
           setOpen={setAbrir}
-          setValue={(value) => {
-            setValor(value);
-            EspecialidadeCarregada(value);
-          }}
+          setValue={setValor}
+          onChangeValue={handleChangeValue}
           setItems={setItens}
           placeholder="Selecione uma especialidade"
           style={styles.dropdown}
