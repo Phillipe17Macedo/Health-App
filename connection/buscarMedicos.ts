@@ -1,23 +1,20 @@
 import { ref, get, child } from "firebase/database";
 import { database } from "./firebase";
 
-export async function buscarMedicosPorEspecialidade(
-  especialidadeId: string
-): Promise<{ label: string; value: string; key: string }[]> {
+export async function buscarMedicosPorEspecialidade(especialidadeId: string): Promise<{ id: string; nome: string }[]> {
   const dbRef = ref(database);
   try {
     const snapshot = await get(child(dbRef, `medicos`));
     if (snapshot.exists()) {
-      const medicos: Record<string, any> = snapshot.val();
+      const medicos = snapshot.val();
       return Object.keys(medicos)
         .filter((key) => medicos[key].especialidadeId === especialidadeId)
         .map((key) => ({
-          label: medicos[key].nome,
-          value: key,
-          key,
+          id: key,
+          nome: medicos[key].nome,
         }));
     } else {
-      console.log("Não foi possivel encontrar os médicos");
+      console.log("Nenhum médico encontrado");
       return [];
     }
   } catch (error) {

@@ -24,13 +24,12 @@ export default function Medico({
       if (especialidadeId) {
         try {
           const medicos = await buscarMedicosPorEspecialidade(especialidadeId);
-          setItens(
-            medicos.map((medico: any) => ({
-              label: medico.label,
-              value: medico.value,
-              key: medico.key, // Adicionando a chave única aqui
-            }))
-          );
+          const medicosComChave = medicos.map((medico: any) => ({
+            label: medico.nome,
+            value: medico.id,
+            key: medico.id, // Chave única para cada item
+          }));
+          setItens(medicosComChave);
         } catch (error) {
           console.error("Erro ao carregar médicos:", error);
         }
@@ -55,24 +54,27 @@ export default function Medico({
   };
 
   return (
-    <View style={styles.container}>
-      <DropDownPicker
-        open={abrir}
-        value={valor}
-        items={itens}
-        setOpen={setAbrir}
-        setValue={setValor}
-        onChangeValue={handleChangeValue}
-        placeholder="Selecione um Médico"
-        style={styles.dropdown}
-        placeholderStyle={styles.textoDropdown}
-        dropDownContainerStyle={styles.dropDownContainerStyle}
-        listItemLabelStyle={styles.itensLista}
-        selectedItemLabelStyle={styles.itemSelecionado}
-        disabled={!especialidadeId}
-        zIndex={2000}
-        zIndexInverse={2000}
-      />
-    </View>
+    <>
+      <View style={styles.container}>
+        <DropDownPicker
+          open={abrir}
+          value={valor}
+          items={itens}
+          setOpen={setAbrir}
+          setValue={setValor}
+          onChangeValue={handleChangeValue}
+          setItems={setItens}
+          placeholder="Selecione um Médico"
+          style={styles.dropdown}
+          placeholderStyle={styles.textoDropdown}
+          dropDownContainerStyle={styles.dropDownContainerStyle}
+          listItemLabelStyle={styles.itensLista}
+          selectedItemLabelStyle={styles.itemSelecionado}
+          disabled={!especialidadeId}
+          zIndex={2000}
+          zIndexInverse={2000}
+        />
+      </View>
+    </>
   );
 }

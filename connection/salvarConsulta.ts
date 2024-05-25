@@ -1,4 +1,4 @@
-import { ref, push } from "firebase/database";
+import { ref, set, push } from "firebase/database";
 import { database } from "./firebase";
 
 interface Consulta {
@@ -9,12 +9,11 @@ interface Consulta {
   horario: string;
 }
 
-export async function salvarConsulta(consulta: Consulta) {
-  const consultasRef = ref(database, 'consultas');
-  try {
-    await push(consultasRef, consulta);
-  } catch (error) {
-    console.error("Erro ao salvar consulta:", error);
-    throw error;
+export async function salvarConsulta(consulta: Consulta): Promise<void> {
+  if (!consulta.especialidade) {
+    throw new Error("Especialidade não definida.");
   }
+  const consultasRef = ref(database, 'consultas');
+  const novaConsultaRef = push(consultasRef);
+  await set(novaConsultaRef, consulta);
 }
