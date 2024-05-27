@@ -14,7 +14,7 @@ import { salvarConsulta } from "@/connection/salvarConsulta";
 
 export default function Consulta() {
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null); // Armazenar o nome da especialidade
   const [medico, setMedico] = useState<any | null>(null);
   const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -24,7 +24,7 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [consulta, setConsulta] = useState({
-    usuario: "Phillipe Ferreira Macedo",
+    usuario: "Phillipe Ferreira Macedo", // Troque pelo nome real do usuário
     especialidade: "",
     medico: "",
     data: "",
@@ -53,7 +53,7 @@ export default function Consulta() {
   const handleSelecaoSugestao = async (item: any) => {
     if (item.type === "especialidade") {
       setEspecialidadeId(item.key);
-      setEspecialidadeNome(item.nome);
+      setEspecialidadeNome(item.nome); // Armazenar o nome da especialidade
       setConsulta((prev) => ({
         ...prev,
         especialidade: item.nome,
@@ -61,7 +61,7 @@ export default function Consulta() {
     } else if (item.type === "medico") {
       setMedico(item);
       setEspecialidadeId(item.especialidadeId);
-      setEspecialidadeNome(item.especialidade);
+      setEspecialidadeNome(item.especialidadeNome); // Armazenar o nome da especialidade associada ao médico
       handleMedicoSelect(item);
     }
   };
@@ -69,8 +69,8 @@ export default function Consulta() {
   const handleMedicoSelect = (medico: any) => {
     setConsulta((prev) => ({
       ...prev,
-      medico: medico.nome,
-      especialidade: especialidadeNome, // Garantindo que a especialidade está definida
+      medico: medico.nome, // Ajuste aqui para usar 'nome'
+      especialidade: especialidadeNome,
     }));
     setCalendarioVisivel(true);
   };
@@ -95,19 +95,17 @@ export default function Consulta() {
 
   const handleConfirm = async () => {
     try {
-      if (!consulta.especialidade) throw new Error("Especialidade não definida.");
       const novaConsulta = {
         ...consulta,
         data: dataConsulta,
         horario: horarioConsulta,
-        especialidade: especialidadeNome,
       };
       await salvarConsulta(novaConsulta);
       setConfirmacaoVisivel(false);
       Alert.alert("Consulta confirmada!");
     } catch (error) {
       console.error("Erro ao salvar consulta:", error);
-      Alert.alert(`Erro ao confirmar consulta: ${error.message}`);
+      Alert.alert("Erro ao confirmar consulta.");
     }
   };
 
@@ -124,7 +122,7 @@ export default function Consulta() {
       <Especialidade
         EspecialidadeCarregada={(id, nome) => {
           setEspecialidadeId(id);
-          setEspecialidadeNome(nome);
+          setEspecialidadeNome(nome); // Armazenar o nome da especialidade
           setConsulta((prev) => ({
             ...prev,
             especialidade: nome,
@@ -135,7 +133,14 @@ export default function Consulta() {
       <Medico
         especialidadeId={especialidadeId}
         medicoSelecionado={medico ? medico.id : null}
-        onMedicoSelect={handleMedicoSelect}
+        onMedicoSelect={(medico) => {
+          setMedico(medico);
+          setConsulta((prev) => ({
+            ...prev,
+            medico: medico.label, // Usar 'label' do dropdown
+          }));
+          setCalendarioVisivel(true);
+        }}
       />
 
       <Modal
