@@ -10,7 +10,7 @@ interface HorarioConsultaProps {
 }
 
 export default function HorarioConsulta({ visivel, onClose, onTimeSelect }: HorarioConsultaProps) {
-  const [selectedTime, setSelectedTime] = useState<Date | null>(new Date());
+  const [selectedTime, setSelectedTime] = useState<Date>(new Date());
 
   const handleConfirm = () => {
     if (selectedTime) {
@@ -35,7 +35,9 @@ export default function HorarioConsulta({ visivel, onClose, onTimeSelect }: Hora
             mode="time"
             display="default"
             onChange={(event, date) => {
-              setSelectedTime(date || selectedTime);
+              if (date) {
+                setSelectedTime(date);
+              }
             }}
           />
           <TouchableOpacity
