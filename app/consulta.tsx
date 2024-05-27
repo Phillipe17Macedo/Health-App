@@ -62,15 +62,15 @@ export default function Consulta() {
   const handleSelecaoSugestao = async (item: any) => {
     if (item.type === "especialidade") {
       setEspecialidadeId(item.key);
-      setEspecialidadeNome(item.nome); // Armazenar o nome da especialidade
+      setEspecialidadeNome(item.nome);
       setConsulta((prev) => ({
         ...prev,
-        especialidade: item.nome,
+        especialidade: item.nome || "",
       }));
     } else if (item.type === "medico") {
       setMedico(item);
       setEspecialidadeId(item.especialidadeId);
-      setEspecialidadeNome(item.especialidadeNome); // Armazenar o nome da especialidade associada ao médico
+      setEspecialidadeNome(item.especialidadeNome);
       handleMedicoSelect(item);
     }
   };
@@ -78,8 +78,8 @@ export default function Consulta() {
   const handleMedicoSelect = (medico: any) => {
     setConsulta((prev) => ({
       ...prev,
-      medico: medico.nome, // Ajuste aqui para usar 'nome'
-      especialidade: especialidadeNome,
+      medico: medico.nome || "",
+      especialidade: especialidadeNome || "",
     }));
     setCalendarioVisivel(true);
   };
@@ -88,7 +88,7 @@ export default function Consulta() {
     setDataConsulta(date);
     setConsulta((prev) => ({
       ...prev,
-      data: date,
+      data: date || "",
     }));
     setHorarioVisivel(true);
   };
@@ -97,7 +97,7 @@ export default function Consulta() {
     setHorarioConsulta(time);
     setConsulta((prev) => ({
       ...prev,
-      horario: time,
+      horario: time || "",
     }));
   };
 
@@ -105,8 +105,8 @@ export default function Consulta() {
     try {
       const novaConsulta = {
         ...consulta,
-        data: dataConsulta,
-        horario: horarioConsulta,
+        data: dataConsulta || "",
+        horario: horarioConsulta || "",
       };
       await salvarConsulta(novaConsulta);
       setConfirmacaoVisivel(false);
@@ -133,7 +133,7 @@ export default function Consulta() {
           setEspecialidadeNome(nome); // Armazenar o nome da especialidade
           setConsulta((prev) => ({
             ...prev,
-            especialidade: nome,
+            especialidade: nome || "",
           }));
         }}
         especialidadeSelecionada={especialidadeId}
@@ -145,7 +145,7 @@ export default function Consulta() {
           setMedico(medico);
           setConsulta((prev) => ({
             ...prev,
-            medico: medico.label, // Usar 'label' do dropdown
+            medico: medico.label || "",
           }));
           setCalendarioVisivel(true);
         }}
