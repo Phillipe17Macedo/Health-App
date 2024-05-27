@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Modal, Text, FlatList, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Modal,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
 import { SearchBar } from "../components/Consulta/SearchBar/SearchBar";
@@ -14,7 +21,9 @@ import { salvarConsulta } from "@/connection/salvarConsulta";
 
 export default function Consulta() {
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null); // Armazenar o nome da especialidade
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  ); // Armazenar o nome da especialidade
   const [medico, setMedico] = useState<any | null>(null);
   const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -90,7 +99,6 @@ export default function Consulta() {
       ...prev,
       horario: time,
     }));
-    setConfirmacaoVisivel(true);
   };
 
   const handleConfirm = async () => {
@@ -194,10 +202,13 @@ export default function Consulta() {
       <HorarioConsulta
         visivel={horarioVisivel}
         onClose={() => setHorarioVisivel(false)}
-        onTimeSelect={handleTimeSelect}
+        onTimeSelect={(time) => {
+          handleTimeSelect(time);
+          setConfirmacaoVisivel(true);
+        }}
       />
 
-      {confirmacaoVisivel && consulta && (
+      {confirmacaoVisivel && dataConsulta && horarioConsulta && (
         <ConfirmacaoConsulta
           visivel={confirmacaoVisivel}
           onClose={() => setConfirmacaoVisivel(false)}
