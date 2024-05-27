@@ -1,25 +1,30 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
-import { AntDesign } from '@expo/vector-icons';
+import {
+  AntDesign,
+  FontAwesome5,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { Anuncios } from "../anunciosHome/Anuncios";
 import { styles } from "./styles";
-import { FontAwesome6 } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 export function Carrossel() {
   return (
     <>
       <View style={[styles.containerOpcoes]}>
-        <View style={[styles.ContainertextoAcessoRapido]}> 
+        <View style={[styles.ContainertextoAcessoRapido]}>
           <Text style={[styles.textoAcessoRapido]}>ACESSO RÁPIDO</Text>
           <AntDesign name="doubleright" size={21} color="#03A66A" />
         </View>
         <TouchableOpacity>
           <Link href={"/consulta"} style={[styles.containerLink]}>
             <View style={[styles.opcoes]}>
-              <Image
-                source={require("../../../assets/images/Home/Carrossel/maleta-medica-50.png")}
-                style={[styles.imagemOpcoes]}
+              <MaterialIcons
+                name="medical-information"
+                size={50}
+                color="#107357"
               />
               <Text style={[styles.textoOpcoesIcone]}>CONSULTAS</Text>
             </View>
@@ -29,9 +34,10 @@ export function Carrossel() {
         <TouchableOpacity>
           <Link href={"/exame"} style={[styles.containerLink]}>
             <View style={[styles.opcoes]}>
-              <Image
-                source={require("../../../assets/images/Home/Carrossel/coracao-50.png")}
-                style={[styles.imagemOpcoes]}
+              <Fontisto
+                name="heartbeat"
+                size={48}
+                color="#107357"
               />
               <Text style={[styles.textoOpcoesIcone]}>EXAMES</Text>
             </View>
@@ -41,9 +47,10 @@ export function Carrossel() {
         <TouchableOpacity>
           <Link href={"/financeiro"} style={[styles.containerLink]}>
             <View style={[styles.opcoes]}>
-              <Image
-                source={require("../../../assets/images/Home/Carrossel/relatorio-50.png")}
-                style={[styles.imagemOpcoes]}
+              <MaterialCommunityIcons
+                name="file-document"
+                size={48}
+                color="#107357"
               />
               <Text style={[styles.textoOpcoesIcone]}>RELATÓRIOS</Text>
             </View>
@@ -54,15 +61,19 @@ export function Carrossel() {
       <Anuncios />
 
       <View style={[styles.containerOpcoes, { marginBottom: 95 }]}>
-        <View style={[styles.ContainertextoAcessoRapido]}> 
+        <View style={[styles.ContainertextoAcessoRapido]}>
           <Text style={[styles.textoAcessoRapido]}>ACESSO RÁPIDO</Text>
           <AntDesign name="doubleright" size={21} color="#03A66A" />
         </View>
         <TouchableOpacity>
           <Link href={"/exame"} style={[styles.containerLink]}>
             <View style={[styles.opcoes]}>
-              <FontAwesome6 name="x-ray" size={48} color="#107357"/>
-              <Text style={[styles.textoOpcoesIcone]}>RAIO-X</Text>
+              <MaterialCommunityIcons
+                name="calendar-clock-outline"
+                size={48}
+                color="#107357"
+              />
+              <Text style={[styles.textoOpcoesIcone]}>CONSULTAS MARCADAS</Text>
             </View>
           </Link>
         </TouchableOpacity>
@@ -70,8 +81,12 @@ export function Carrossel() {
         <TouchableOpacity>
           <Link href={"/exame"} style={[styles.containerLink]}>
             <View style={[styles.opcoes]}>
-              <Ionicons name="pulse" size={48} color="#107357" />
-              <Text style={[styles.textoOpcoesIcone]}>CORAÇÃO</Text>
+              <MaterialCommunityIcons
+                name="clipboard-text-clock-outline"
+                size={48}
+                color="#107357"
+              />
+              <Text style={[styles.textoOpcoesIcone]}>EXAMES MARCADOS</Text>
             </View>
           </Link>
         </TouchableOpacity>
@@ -79,8 +94,8 @@ export function Carrossel() {
         <TouchableOpacity>
           <Link href={"/consulta"} style={[styles.containerLink]}>
             <View style={[styles.opcoes]}>
-              <FontAwesome6 name="user-doctor" size={48} color="#107357" />
-              <Text style={[styles.textoOpcoesIcone]}>PEDIATRIA</Text>
+              <FontAwesome5 name="money-bill-alt" size={45} color="#107357" />
+              <Text style={[styles.textoOpcoesIcone]}>PENDÊNCIAS</Text>
             </View>
           </Link>
         </TouchableOpacity>
