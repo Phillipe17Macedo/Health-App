@@ -1,5 +1,12 @@
-import React, { useState } from "react";
-import { View, Modal, Text, FlatList, TouchableOpacity, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Modal,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
 import { SearchBar } from "../components/Consulta/SearchBar/SearchBar";
@@ -8,13 +15,16 @@ import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/CalendarioConsulta";
 import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
+import { buscarUsuarioLogadoPorCPF } from "@/connection/buscarUsuarioPorCPF";
 import { buscarAreas } from "../connection/buscarAreas";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
 
 export default function Consulta() {
+  const [usuario, setUsuario] = useState<string | null>(null); // Estado para armazenar o nome do usuário logado
+  const [cpfUsuario, setCpfUsuario] = useState<string | null>();
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null); // Armazenar o nome da especialidade
   const [medico, setMedico] = useState<any | null>(null);
   const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -24,12 +34,31 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [consulta, setConsulta] = useState({
-    usuario: "Phillipe Ferreira Macedo",
+    usuario: "", 
     especialidade: "",
     medico: "",
     data: "",
     horario: "",
   });
+
+  useEffect(() => {
+    async function fetchUsuarioLogado() {
+      try {
+        if (cpfUsuario) {
+          const usuarioLogado = await buscarUsuarioLogadoPorCPF(cpfUsuario);
+          setUsuario(usuarioLogado.nome);
+          setConsulta((prev) => ({
+            ...prev,
+            usuario: usuarioLogado.nome, // Definir o nome do usuário logado na consulta
+          }));
+        }
+      } catch (error) {
+        console.error("Erro ao buscar usuário logado:", error);
+      }
+    }
+
+    fetchUsuarioLogado();
+  }, [cpfUsuario]);
 
   const handlePesquisar = async (query: string) => {
     try {
@@ -56,12 +85,12 @@ export default function Consulta() {
       setEspecialidadeNome(item.nome);
       setConsulta((prev) => ({
         ...prev,
-        especialidade: item.nome,
+        especialidade: item.nome || "",
       }));
     } else if (item.type === "medico") {
       setMedico(item);
       setEspecialidadeId(item.especialidadeId);
-      setEspecialidadeNome(item.especialidade);
+      setEspecialidadeNome(item.especialidadeNome);
       handleMedicoSelect(item);
     }
   };
@@ -69,8 +98,8 @@ export default function Consulta() {
   const handleMedicoSelect = (medico: any) => {
     setConsulta((prev) => ({
       ...prev,
-      medico: medico.nome,
-      especialidade: especialidadeNome, // Garantindo que a especialidade está definida
+      medico: medico.nome || "",
+      especialidade: especialidadeNome || "",
     }));
     setCalendarioVisivel(true);
   };
@@ -79,7 +108,7 @@ export default function Consulta() {
     setDataConsulta(date);
     setConsulta((prev) => ({
       ...prev,
-      data: date,
+      data: date || "",
     }));
     setHorarioVisivel(true);
   };
@@ -88,26 +117,24 @@ export default function Consulta() {
     setHorarioConsulta(time);
     setConsulta((prev) => ({
       ...prev,
-      horario: time,
+      horario: time || "",
     }));
-    setConfirmacaoVisivel(true);
   };
 
   const handleConfirm = async () => {
     try {
-      if (!consulta.especialidade) throw new Error("Especialidade não definida.");
       const novaConsulta = {
         ...consulta,
-        data: dataConsulta,
-        horario: horarioConsulta,
-        especialidade: especialidadeNome,
+        usuario: usuario || "",
+        data: dataConsulta || "",
+        horario: horarioConsulta || "",
       };
       await salvarConsulta(novaConsulta);
       setConfirmacaoVisivel(false);
       Alert.alert("Consulta confirmada!");
     } catch (error) {
       console.error("Erro ao salvar consulta:", error);
-      Alert.alert(`Erro ao confirmar consulta: ${error.message}`);
+      Alert.alert("Erro ao confirmar consulta.");
     }
   };
 
@@ -124,10 +151,10 @@ export default function Consulta() {
       <Especialidade
         EspecialidadeCarregada={(id, nome) => {
           setEspecialidadeId(id);
-          setEspecialidadeNome(nome);
+          setEspecialidadeNome(nome); // Armazenar o nome da especialidade
           setConsulta((prev) => ({
             ...prev,
-            especialidade: nome,
+            especialidade: nome || "",
           }));
         }}
         especialidadeSelecionada={especialidadeId}
@@ -135,7 +162,14 @@ export default function Consulta() {
       <Medico
         especialidadeId={especialidadeId}
         medicoSelecionado={medico ? medico.id : null}
-        onMedicoSelect={handleMedicoSelect}
+        onMedicoSelect={(medico) => {
+          setMedico(medico);
+          setConsulta((prev) => ({
+            ...prev,
+            medico: medico.label || "",
+          }));
+          setCalendarioVisivel(true);
+        }}
       />
 
       <Modal
@@ -189,10 +223,13 @@ export default function Consulta() {
       <HorarioConsulta
         visivel={horarioVisivel}
         onClose={() => setHorarioVisivel(false)}
-        onTimeSelect={handleTimeSelect}
+        onTimeSelect={(time) => {
+          handleTimeSelect(time);
+          setConfirmacaoVisivel(true);
+        }}
       />
 
-      {confirmacaoVisivel && consulta && (
+      {confirmacaoVisivel && dataConsulta && horarioConsulta && (
         <ConfirmacaoConsulta
           visivel={confirmacaoVisivel}
           onClose={() => setConfirmacaoVisivel(false)}

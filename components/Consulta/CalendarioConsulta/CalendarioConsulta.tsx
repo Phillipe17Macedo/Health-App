@@ -10,11 +10,11 @@ interface CalendarioConsultaProps {
 }
 
 export default function CalendarioConsulta({ visivel, onClose, onDateSelect }: CalendarioConsultaProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const handleConfirm = () => {
     if (selectedDate) {
-      const formattedDate = selectedDate.toISOString().split("T")[0]; // Formatando a data para yyyy-mm-dd
+      const formattedDate = selectedDate.toISOString().split("T")[0];
       onDateSelect(formattedDate);
       onClose();
     }
@@ -35,7 +35,9 @@ export default function CalendarioConsulta({ visivel, onClose, onDateSelect }: C
             mode="date"
             display="default"
             onChange={(event, date) => {
-              setSelectedDate(date || selectedDate);
+              if (date) {
+                setSelectedDate(date); 
+              }
             }}
           />
           <TouchableOpacity
