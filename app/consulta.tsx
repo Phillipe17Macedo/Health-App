@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Modal,
@@ -15,15 +15,16 @@ import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/CalendarioConsulta";
 import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
+import { buscarUsuarioLogadoPorCPF } from "@/connection/buscarUsuarioPorCPF";
 import { buscarAreas } from "../connection/buscarAreas";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
 
 export default function Consulta() {
+  const [usuario, setUsuario] = useState<string | null>(null); // Estado para armazenar o nome do usuário logado
+  const [cpfUsuario, setCpfUsuario] = useState<string | null>();
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  ); // Armazenar o nome da especialidade
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null); // Armazenar o nome da especialidade
   const [medico, setMedico] = useState<any | null>(null);
   const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -33,12 +34,31 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [consulta, setConsulta] = useState({
-    usuario: "Phillipe Ferreira Macedo", // Troque pelo nome real do usuário
+    usuario: "", 
     especialidade: "",
     medico: "",
     data: "",
     horario: "",
   });
+
+  useEffect(() => {
+    async function fetchUsuarioLogado() {
+      try {
+        if (cpfUsuario) {
+          const usuarioLogado = await buscarUsuarioLogadoPorCPF(cpfUsuario);
+          setUsuario(usuarioLogado.nome);
+          setConsulta((prev) => ({
+            ...prev,
+            usuario: usuarioLogado.nome, // Definir o nome do usuário logado na consulta
+          }));
+        }
+      } catch (error) {
+        console.error("Erro ao buscar usuário logado:", error);
+      }
+    }
+
+    fetchUsuarioLogado();
+  }, [cpfUsuario]);
 
   const handlePesquisar = async (query: string) => {
     try {
@@ -105,6 +125,7 @@ export default function Consulta() {
     try {
       const novaConsulta = {
         ...consulta,
+        usuario: usuario || "",
         data: dataConsulta || "",
         horario: horarioConsulta || "",
       };
