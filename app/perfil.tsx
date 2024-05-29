@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { Platform, View, Text } from "react-native";
-import { Link } from "expo-router";
 import { styles } from "../styles/StylesPerfilPage/styles";
 import { HeaderPerfil } from "@/components/Perfil/HeaderPerfil/Header";
 import { ContainersPerfil } from "@/components/Perfil/Containers/ContainersPerfil";
