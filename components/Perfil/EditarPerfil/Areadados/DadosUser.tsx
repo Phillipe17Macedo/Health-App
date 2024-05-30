@@ -14,7 +14,7 @@ export default function DadosUser({cpf}: {cpf: string}) {
         const usuario = await buscarUsuario(cpf);
         if (usuario) {
           setTelefone(usuario.telefone || "");
-          setEendereco(usuario.dataNascimento || "");
+          setEendereco(usuario.Endereco || "");
           setEmail(usuario.email || "");
         }
       } catch (error) {
