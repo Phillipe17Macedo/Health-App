@@ -42,6 +42,7 @@ export default function CalendarioConsulta({
 
   useEffect(() => {
     const today = new Date();
+    const todayFormatted = today.toISOString().split("T")[0];
     const novaDataMarcada: Record<
       string,
       {
@@ -53,15 +54,15 @@ export default function CalendarioConsulta({
       }
     > = {};
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = -30; i < 30; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() + i);
       const formattedDate = date.toISOString().split("T")[0];
       const dayOfWeek = diasUteis[date.getDay()];
 
       novaDataMarcada[formattedDate] = {
-        disabled: !diasDisponiveis.includes(dayOfWeek),
-        textColor: diasDisponiveis.includes(dayOfWeek) ? "blue" : "gray",
+        disabled: !diasDisponiveis.includes(dayOfWeek) || formattedDate < todayFormatted,
+        textColor: diasDisponiveis.includes(dayOfWeek)  && formattedDate >= todayFormatted ? "green" : "darkgray",
       };
     }
 
@@ -83,7 +84,6 @@ export default function CalendarioConsulta({
             selectedColor: undefined,
           };
         }
-
         // Adicionar a marcação ao novo dia selecionado
         newMarkedDates[date] = {
           ...newMarkedDates[date],
@@ -110,7 +110,7 @@ export default function CalendarioConsulta({
       visible={visivel}
       onRequestClose={onClose}
     >
-      <View style={styles.modalContainer}>
+      <View style={styles.modalContainer}>  
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Selecione a Data</Text>
           <Calendar
@@ -122,9 +122,10 @@ export default function CalendarioConsulta({
               selectedDayTextColor: "white",
               todayTextColor: "red",
               dayTextColor: "green",
-              textDisabledColor: "gray",
+              textDisabledColor: "darkgray",
               arrowColor: "blue",
             }}
+            minDate={new Date().toISOString().split('T')[0]}
           />
           <TouchableOpacity
             style={styles.confirmButton}
