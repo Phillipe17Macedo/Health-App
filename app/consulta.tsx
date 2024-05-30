@@ -15,7 +15,7 @@ import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/CalendarioConsulta";
 import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
-import { buscarUsuarioLogadoPorCPF } from "@/connection/buscarUsuarioPorCPF";
+import { buscarUsuarioPorCPF } from "@/connection/buscarUsuarioPorCPF";
 import { buscarAreas } from "../connection/buscarAreas";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
@@ -45,7 +45,7 @@ export default function Consulta() {
     async function fetchUsuarioLogado() {
       try {
         if (cpfUsuario) {
-          const usuarioLogado = await buscarUsuarioLogadoPorCPF(cpfUsuario);
+          const usuarioLogado = await buscarUsuarioPorCPF(cpfUsuario);
           setUsuario(usuarioLogado.nome);
           setConsulta((prev) => ({
             ...prev,

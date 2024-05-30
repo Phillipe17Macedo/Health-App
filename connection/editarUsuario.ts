@@ -2,7 +2,6 @@ import { getDatabase, ref, update } from "firebase/database";
 import { database } from "./firebase";
 
 interface Usuario {
-  id: string;
   telefone: string;
   endereco: string;
   email: string;

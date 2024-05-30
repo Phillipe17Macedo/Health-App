@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { buscarUsuario } from "@/connection/buscarUsuario";
+import { editarUsuario } from "@/connection/editarUsuario";
 import { styles } from "./styles";
 
-export default function DadosUser({cpf}: {cpf: string}) {
+export default function DadosUser({ cpf }: { cpf: string }) {
   const [telefone, setTelefone] = useState<string>("");
   const [endereco, setEendereco] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [editando, setEditando] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -14,7 +16,7 @@ export default function DadosUser({cpf}: {cpf: string}) {
         const usuario = await buscarUsuario(cpf);
         if (usuario) {
           setTelefone(usuario.telefone || "");
-          setEendereco(usuario.Endereco || "");
+          setEendereco(usuario.endereco || "");
           setEmail(usuario.email || "");
         }
       } catch (error) {
@@ -25,8 +27,19 @@ export default function DadosUser({cpf}: {cpf: string}) {
     fetchData();
   }, [cpf]);
 
-  const handleSalvarEdicao = () => {
-    console.log("Salvando dados do usuário");
+  const handleSalvarEdicao = async () => {
+    if (editando) {
+      try {
+        await editarUsuario(cpf, { telefone, endereco, email });
+        console.log("Dados do usuário atualizados com sucesso.");
+        setEditando(false);
+      } catch (error) {
+        console.error("Erro ao atualizar dados do usuário:", error);
+      }
+    } else {
+      // Entrar em modo de edição
+      setEditando(true);
+    }
   };
 
   return (
@@ -38,6 +51,7 @@ export default function DadosUser({cpf}: {cpf: string}) {
             style={[styles.dadosInput]}
             keyboardType="number-pad"
             value={telefone}
+            editable={editando}
             onChangeText={setTelefone}
           />
           <TextInput
@@ -45,6 +59,7 @@ export default function DadosUser({cpf}: {cpf: string}) {
             style={[styles.dadosInput]}
             keyboardType="number-pad"
             value={endereco}
+            editable={editando}
             onChangeText={setEendereco}
           />
           <TextInput
@@ -52,11 +67,15 @@ export default function DadosUser({cpf}: {cpf: string}) {
             style={[styles.dadosInput]}
             keyboardType="email-address"
             value={email}
+            editable={editando}
             onChangeText={setEmail}
           />
         </View>
-        <TouchableOpacity style={[styles.containerButton]} onPress={handleSalvarEdicao}>
-          <Text style={[styles.textoButton]}>EDITAR</Text>
+        <TouchableOpacity
+          style={[styles.containerButton]}
+          onPress={handleSalvarEdicao}
+        >
+          <Text style={[styles.textoButton]}>{editando ? "SALVAR" : "EDITAR"}</Text>
         </TouchableOpacity>
       </View>
     </>
