@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { Calendar, DateData } from "react-native-calendars";
 import { styles } from "./styles";
@@ -19,12 +19,50 @@ export default function CalendarioConsulta({
   diasDisponiveis,
 }: CalendarioConsultaProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [dataMarcada, setDataMarcada] = useState<{
+    [date: string]: {
+      selected?: boolean;
+      marked?: boolean;
+      selectedColor?: string;
+      disabled?: boolean;
+      textColor?: string;
+    };
+  }>({});
+
+  useEffect(() => {
+    const today = new Date();
+    const novaDataMarcada: Record<string, {
+      selected?: boolean;
+      marked?: boolean; 
+      selectedColor?: string; 
+      disabled?: boolean; 
+      textColor?: string;
+    }> = {};
+
+    for (let i = 0; i < 30; i++) {
+      // Considerando um mês
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      const formattedDate = date.toISOString().split("T")[0];
+      const dayOfWeek = diasUteis[date.getDay()];
+
+      novaDataMarcada[formattedDate] = {
+        disabled: !diasDisponiveis.includes(dayOfWeek),
+        textColor: diasDisponiveis.includes(dayOfWeek) ? "blue" : "gray",
+      };
+    }
+
+    setDataMarcada(novaDataMarcada);
+  }, [diasDisponiveis]);
 
   const handleDiaPress = (dia: DateData) => {
     const date = dia.dateString;
-    const dayOfWeek = diasUteis[new Date(date).getDay()];
-    if (diasDisponiveis.includes(dayOfWeek)) {
+    if (!dataMarcada[date]?.disabled) {
       setSelectedDate(date);
+      setDataMarcada((prev) => ({
+        ...prev,
+        [date]: { ...prev[date], selected: true, selectedColor: "green" },
+      }));
     }
   };
 
@@ -33,17 +71,6 @@ export default function CalendarioConsulta({
       onDateSelect(selectedDate);
       onClose();
     }
-  };
-
-  const renderDay = (day: DateData) => {
-    const date = day.dateString;
-    const dayOfWeek = diasUteis[new Date(date).getDay()];
-    const isDisabled = !diasDisponiveis.includes(dayOfWeek);
-
-    return {
-      textColor: isDisabled ? "gray" : "black",
-      disabled: isDisabled,
-    };
   };
 
   return (
@@ -58,23 +85,8 @@ export default function CalendarioConsulta({
           <Text style={styles.modalTitle}>Selecione a Data</Text>
           <Calendar
             onDayPress={handleDiaPress}
-            markingType={"custom"}
-            markedDates={{
-              [selectedDate || ""]: {
-                selected: true,
-                marked: true,
-                selectedColor: "blue",
-              },
-            }}
-            dayComponent={({ date }) => {
-              if (!date) return null;
-              const { textColor, disabled } = renderDay(date);
-              return (
-                <View style={{ width: 32, height: 32, justifyContent: "center", alignItems: "center" }}>
-                  <Text style={{ color: textColor }}>{date.day}</Text>
-                </View>
-              );
-            }}
+            markedDates={dataMarcada}
+            markingType={"period"}
           />
           <TouchableOpacity
             style={styles.confirmButton}
