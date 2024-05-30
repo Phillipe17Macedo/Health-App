@@ -21,11 +21,12 @@ import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
 
 export default function Consulta() {
-  const [usuario, setUsuario] = useState<string | null>(null); // Estado para armazenar o nome do usuário logado
+  const [usuario, setUsuario] = useState<string | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>();
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null); // Armazenar o nome da especialidade
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
+  const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
   const [modalVisivel, setModalVisivel] = useState(false);
   const [calendarioVisivel, setCalendarioVisivel] = useState(false);
@@ -34,7 +35,7 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [consulta, setConsulta] = useState({
-    usuario: "", 
+    usuario: "Phillipe Ferreira Macedo", 
     especialidade: "",
     medico: "",
     data: "",
@@ -101,6 +102,7 @@ export default function Consulta() {
       medico: medico.nome || "",
       especialidade: especialidadeNome || "",
     }));
+    setDiasDisponiveis(medico.diasAtendimento || []);
     setCalendarioVisivel(true);
   };
 
@@ -168,6 +170,7 @@ export default function Consulta() {
             ...prev,
             medico: medico.label || "",
           }));
+          setDiasDisponiveis(medico.diasAtendimento || []);
           setCalendarioVisivel(true);
         }}
       />
@@ -218,6 +221,7 @@ export default function Consulta() {
         visivel={calendarioVisivel}
         onClose={() => setCalendarioVisivel(false)}
         onDateSelect={handleDateSelect}
+        diasDisponiveis={diasDisponiveis}
       />
 
       <HorarioConsulta
@@ -229,7 +233,7 @@ export default function Consulta() {
         }}
       />
 
-      {confirmacaoVisivel && dataConsulta && horarioConsulta && (
+      {confirmacaoVisivel && consulta && (
         <ConfirmacaoConsulta
           visivel={confirmacaoVisivel}
           onClose={() => setConfirmacaoVisivel(false)}

@@ -15,9 +15,9 @@ export default function DadosUser({ cpf }: { cpf: string }) {
       try {
         const usuario = await buscarUsuario(cpf);
         if (usuario) {
-          setTelefone(usuario.telefone || "");
-          setEendereco(usuario.endereco || "");
-          setEmail(usuario.email || "");
+          setTelefone(usuario.telefone || "Não encontrado");
+          setEendereco(usuario.endereco || "Não encontrado");
+          setEmail(usuario.email || "Não encontrado");
         }
       } catch (error) {
         console.error("Erro ao buscar usuário:", error);

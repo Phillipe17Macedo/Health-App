@@ -1,23 +1,49 @@
 import React, { useState } from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import { Calendar, DateData } from "react-native-calendars";
 import { styles } from "./styles";
 
 interface CalendarioConsultaProps {
   visivel: boolean;
   onClose: () => void;
   onDateSelect: (date: string) => void;
+  diasDisponiveis: string[];
 }
 
-export default function CalendarioConsulta({ visivel, onClose, onDateSelect }: CalendarioConsultaProps) {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+const diasUteis = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+
+export default function CalendarioConsulta({
+  visivel,
+  onClose,
+  onDateSelect,
+  diasDisponiveis,
+}: CalendarioConsultaProps) {
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+
+  const handleDiaPress = (dia: DateData) => {
+    const date = dia.dateString;
+    const dayOfWeek = diasUteis[new Date(date).getDay()];
+    if (diasDisponiveis.includes(dayOfWeek)) {
+      setSelectedDate(date);
+    }
+  };
 
   const handleConfirm = () => {
     if (selectedDate) {
-      const formattedDate = selectedDate.toISOString().split("T")[0];
-      onDateSelect(formattedDate);
+      onDateSelect(selectedDate);
       onClose();
     }
+  };
+
+  const renderDay = (day: DateData) => {
+    const date = day.dateString;
+    const dayOfWeek = diasUteis[new Date(date).getDay()];
+    const isDisabled = !diasDisponiveis.includes(dayOfWeek);
+
+    return {
+      textColor: isDisabled ? "gray" : "black",
+      disabled: isDisabled,
+    };
   };
 
   return (
@@ -30,14 +56,24 @@ export default function CalendarioConsulta({ visivel, onClose, onDateSelect }: C
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Selecione a Data</Text>
-          <DateTimePicker
-            value={selectedDate}
-            mode="date"
-            display="default"
-            onChange={(event, date) => {
-              if (date) {
-                setSelectedDate(date); 
-              }
+          <Calendar
+            onDayPress={handleDiaPress}
+            markingType={"custom"}
+            markedDates={{
+              [selectedDate || ""]: {
+                selected: true,
+                marked: true,
+                selectedColor: "blue",
+              },
+            }}
+            dayComponent={({ date }) => {
+              if (!date) return null;
+              const { textColor, disabled } = renderDay(date);
+              return (
+                <View style={{ width: 32, height: 32, justifyContent: "center", alignItems: "center" }}>
+                  <Text style={{ color: textColor }}>{date.day}</Text>
+                </View>
+              );
             }}
           />
           <TouchableOpacity
