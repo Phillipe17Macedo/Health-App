@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
-import { Calendar, DateData } from "react-native-calendars";
+import { Calendar, DateData, CalendarProps } from "react-native-calendars";
 import { styles } from "./styles";
 
 interface CalendarioConsultaProps {
@@ -19,28 +19,25 @@ export default function CalendarioConsulta({
   diasDisponiveis,
 }: CalendarioConsultaProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [dataMarcada, setDataMarcada] = useState<{
-    [date: string]: {
-      selected?: boolean;
-      marked?: boolean;
-      selectedColor?: string;
-      disabled?: boolean;
-      textColor?: string;
-    };
-  }>({});
+  const [dataMarcada, setDataMarcada] = useState<Record<string, { 
+    selected?: boolean; 
+    marked?: boolean; 
+    selectedColor?: string; 
+    disabled?: boolean; 
+    textColor?: string; 
+  }>>({});
 
   useEffect(() => {
     const today = new Date();
-    const novaDataMarcada: Record<string, {
-      selected?: boolean;
+    const novaDataMarcada: Record<string, { 
+      selected?: boolean; 
       marked?: boolean; 
       selectedColor?: string; 
       disabled?: boolean; 
-      textColor?: string;
+      textColor?: string; 
     }> = {};
 
     for (let i = 0; i < 30; i++) {
-      // Considerando um mês
       const date = new Date(today);
       date.setDate(today.getDate() + i);
       const formattedDate = date.toISOString().split("T")[0];
@@ -86,7 +83,15 @@ export default function CalendarioConsulta({
           <Calendar
             onDayPress={handleDiaPress}
             markedDates={dataMarcada}
-            markingType={"period"}
+            markingType={"simple"}
+            theme={{
+              selectedDayBackgroundColor: 'green',
+              selectedDayTextColor: 'white',
+              todayTextColor: 'red',
+              dayTextColor: 'green',
+              textDisabledColor: 'gray',
+              arrowColor: 'blue',
+            }}
           />
           <TouchableOpacity
             style={styles.confirmButton}
