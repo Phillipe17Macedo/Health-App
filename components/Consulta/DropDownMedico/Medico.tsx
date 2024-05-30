@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { buscarMedicosPorEspecialidade } from "@/connection/buscarMedicos";
+import { buscarMedicos } from "@/connection/buscarMedicos";
 import { styles } from "./styles";
 
 interface MedicoProps {
@@ -17,19 +17,22 @@ export default function Medico({
 }: MedicoProps) {
   const [abrir, setAbrir] = useState(false);
   const [valor, setValor] = useState(medicoSelecionado);
-  const [itens, setItens] = useState<{ label: string; value: string; key: string }[]>([]);
+  const [itens, setItens] = useState<
+    { label: string; value: string; diasAtendimento: string[] }[]
+  >([]);
 
   useEffect(() => {
     async function carregarMedicos() {
       if (especialidadeId) {
         try {
-          const medicos = await buscarMedicosPorEspecialidade(especialidadeId);
-          const medicosComChave = medicos.map((medico: any) => ({
-            label: medico.nome,
-            value: medico.id,
-            key: medico.id, // Chave única para cada item
-          }));
-          setItens(medicosComChave);
+          const medicos = await buscarMedicos(especialidadeId);
+          setItens(
+            medicos.map((medico) => ({
+              label: medico.nome,
+              value: medico.id,
+              diasAtendimento: medico.diasAtendimento,
+            }))
+          );
         } catch (error) {
           console.error("Erro ao carregar médicos:", error);
         }

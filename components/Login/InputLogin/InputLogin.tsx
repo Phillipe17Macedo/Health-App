@@ -7,14 +7,14 @@ import { useRouter } from "expo-router";
 
 export function InputLogin() {
   const [cpf, setCpf] = useState('');
-  const [isCpfEmpty, setIsCpfEmpty] = useState(true);
+  const [cpfExiste, setCpfExiste] = useState(true);
   const router = useRouter();
 
-  const formatCpf = (input: string) => {
+  const formatoCPF = (input: string) => {
     const cleaned = input.replace(/\D/g, '');
     const formatted = cleaned.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
     setCpf(formatted);
-    setIsCpfEmpty(cleaned === '');
+    setCpfExiste(cleaned === '');
   };
 
   const handleLogin = async () => {
@@ -40,11 +40,11 @@ export function InputLogin() {
           keyboardType="numeric" 
           style={[styles.textInput]}
           value={cpf}
-          onChangeText={formatCpf}
+          onChangeText={formatoCPF}
         />
       </View>
-      <TouchableOpacity  style={[styles.containerButtonEntrar]} disabled={isCpfEmpty} onPress={handleLogin}>
-          <Text style={[styles.textoButton]} >Entrar</Text>
+      <TouchableOpacity  style={[styles.containerButtonEntrar]} disabled={cpfExiste} onPress={handleLogin}>
+          <Text style={[styles.textoButton]}>Entrar</Text>
       </TouchableOpacity>
     </View>
   );
