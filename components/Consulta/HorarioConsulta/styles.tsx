@@ -30,4 +30,19 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold'
   },
+  timeItem: {
+    padding: 10,
+    backgroundColor: "#f0f0f0",
+    borderRadius: 4,
+    marginVertical: 5,
+  },
+  selectedTimeItem: {
+    backgroundColor: "blue",
+  },
+  timeText: {
+    fontSize: 16,
+  },
+  selectedTimeText: {
+    color: "white",
+  },
 });

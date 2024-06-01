@@ -11,7 +11,6 @@ interface CalendarioConsultaProps {
 }
 
 const diasUteis = [
-  "domingo",
   "segunda",
   "terça",
   "quarta",
