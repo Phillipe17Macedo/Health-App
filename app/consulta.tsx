@@ -24,9 +24,12 @@ export default function Consulta() {
   const [usuario, setUsuario] = useState<string | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>();
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  );
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
+  const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
   const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
   const [modalVisivel, setModalVisivel] = useState(false);
   const [calendarioVisivel, setCalendarioVisivel] = useState(false);
@@ -35,7 +38,7 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [consulta, setConsulta] = useState({
-    usuario: "Phillipe Ferreira Macedo", 
+    usuario: "Phillipe Ferreira Macedo",
     especialidade: "",
     medico: "",
     data: "",
@@ -89,30 +92,72 @@ export default function Consulta() {
         especialidade: item.nome || "",
       }));
     } else if (item.type === "medico") {
-      setMedico(item);
-      setEspecialidadeId(item.especialidadeId);
-      setEspecialidadeNome(item.especialidadeNome);
-      handleMedicoSelect(item);
+      const medicoData = item;
+      console.log("Medico Selecionado: ", medicoData);
+      setMedico(medicoData);
+      setEspecialidadeId(medicoData.especialidadeId);
+      setEspecialidadeNome(medicoData.especialidadeNome);
+      handleMedicoSelect(medicoData);
     }
   };
 
   const handleMedicoSelect = (medico: any) => {
+    console.log("Medico Selecionado: ", medico);
     setConsulta((prev) => ({
       ...prev,
       medico: medico.nome || "",
       especialidade: especialidadeNome || "",
     }));
-    setDiasDisponiveis(medico.diasAtendimento || []);
+    setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
+    setHorariosDisponiveis(medico.diasAtendimento || []);
     setCalendarioVisivel(true);
   };
 
   const handleDateSelect = (date: string) => {
-    setDataConsulta(date);
-    setConsulta((prev) => ({
-      ...prev,
-      data: date || "",
-    }));
-    setHorarioVisivel(true);
+    const dateObject = new Date(date);
+    const daysOfWeek = [
+      "segunda",
+      "terça",
+      "quarta",
+      "quinta",
+      "sexta",
+      "sábado",
+      "domingo",
+    ];
+    const dayOfWeek = daysOfWeek[dateObject.getDay()];
+    console.log("Data Selecionada: ", date);
+    console.log("Dia da Semana Selecionado: ", dayOfWeek); // Log para depuração
+    console.log("Dados do Médico: ", medico); // Log para depuração
+    console.log("Horários de Atendimento: ", medico.diasAtendimento); // Log para depuração
+    console.log(
+      "Horários Disponíveis: ",
+      medico.diasAtendimento
+        ? medico.diasAtendimento[dayOfWeek]
+        : "Não Disponível"
+    ); // Log para depuração
+
+    if (medico && medico.diasAtendimento && medico.diasAtendimento[dayOfWeek]) {
+      console.log(
+        "Horários Disponíveis para ",
+        dayOfWeek,
+        ": ",
+        medico.diasAtendimento[dayOfWeek]
+      ); // Log para depuração
+      setHorariosDisponiveis(medico.diasAtendimento[dayOfWeek]);
+      setDataConsulta(date);
+      setConsulta((prev) => ({
+        ...prev,
+        data: date || "",
+      }));
+      setHorarioVisivel(true);
+    } else {
+      console.error(
+        `Horários de atendimento não definidos para o dia ${dayOfWeek}.`
+      );
+      Alert.alert(
+        "Horários de atendimento não definidos para o dia selecionado."
+      );
+    }
   };
 
   const handleTimeSelect = (time: string) => {
@@ -165,12 +210,14 @@ export default function Consulta() {
         especialidadeId={especialidadeId}
         medicoSelecionado={medico ? medico.id : null}
         onMedicoSelect={(medico) => {
+          handleMedicoSelect(medico);
           setMedico(medico);
           setConsulta((prev) => ({
             ...prev,
             medico: medico.label || "",
           }));
-          setDiasDisponiveis(medico.diasAtendimento || []);
+          setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
+          setHorariosDisponiveis(medico.diasAtendimento || []);
           setCalendarioVisivel(true);
         }}
       />
@@ -231,6 +278,7 @@ export default function Consulta() {
           handleTimeSelect(time);
           setConfirmacaoVisivel(true);
         }}
+        horariosDisponiveis={horariosDisponiveis}
       />
 
       {confirmacaoVisivel && consulta && (

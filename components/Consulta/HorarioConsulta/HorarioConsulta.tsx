@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { Modal, View, Text, TouchableOpacity } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import React from "react";
+import { Modal, View, Text, TouchableOpacity, FlatList } from "react-native";
 import { styles } from "./styles";
 
 interface HorarioConsultaProps {
   visivel: boolean;
   onClose: () => void;
   onTimeSelect: (time: string) => void;
+  horariosDisponiveis: string[];
 }
 
-export default function HorarioConsulta({ visivel, onClose, onTimeSelect }: HorarioConsultaProps) {
-  const [selectedTime, setSelectedTime] = useState<Date>(new Date());
-
-  const handleConfirm = () => {
-    if (selectedTime) {
-      const formattedTime = selectedTime.toTimeString().split(" ")[0]; // Formatando o horário para HH:MM:SS
-      onTimeSelect(formattedTime);
-      onClose();
-    }
+export default function HorarioConsulta({
+  visivel,
+  onClose,
+  onTimeSelect,
+  horariosDisponiveis,
+}: HorarioConsultaProps) {
+  const handleTimePress = (time: string) => {
+    onTimeSelect(time);
+    onClose();
   };
 
   return (
@@ -30,21 +30,25 @@ export default function HorarioConsulta({ visivel, onClose, onTimeSelect }: Hora
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Selecione o Horário</Text>
-          <DateTimePicker
-            value={selectedTime}
-            mode="time"
-            display="default"
-            onChange={(event, date) => {
-              if (date) {
-                setSelectedTime(date);
-              }
-            }}
+          <FlatList
+            data={horariosDisponiveis}
+            keyExtractor={(item) => item}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.timeItem}
+                onPress={() => handleTimePress(item)}
+              >
+                <Text style={styles.timeText}>{item}</Text>
+              </TouchableOpacity>
+            )}
+            numColumns={3}
+            columnWrapperStyle={styles.columnWrapper}
           />
           <TouchableOpacity
-            style={styles.confirmButton}
-            onPress={handleConfirm}
+            style={styles.closeButton}
+            onPress={onClose}
           >
-            <Text style={styles.confirmButtonText}>Confirmar</Text>
+            <Text style={styles.closeButtonText}>Fechar</Text>
           </TouchableOpacity>
         </View>
       </View>
