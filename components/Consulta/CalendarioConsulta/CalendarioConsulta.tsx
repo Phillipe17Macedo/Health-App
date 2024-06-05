@@ -11,7 +11,6 @@ interface CalendarioConsultaProps {
 }
 
 const diasUteis = [
-  "domingo",
   "segunda",
   "terça",
   "quarta",
@@ -60,9 +59,11 @@ export default function CalendarioConsulta({
       const formattedDate = date.toISOString().split("T")[0];
       const dayOfWeek = diasUteis[date.getDay()];
 
+      console.log(`Data: ${formattedDate}, Dia da Semana: ${dayOfWeek}, Disponível: ${diasDisponiveis.includes(dayOfWeek)}`);
+
       novaDataMarcada[formattedDate] = {
         disabled: !diasDisponiveis.includes(dayOfWeek) || formattedDate < todayFormatted,
-        textColor: diasDisponiveis.includes(dayOfWeek)  && formattedDate >= todayFormatted ? "green" : "darkgray",
+        textColor: diasDisponiveis.includes(dayOfWeek) && formattedDate >= todayFormatted ? "green" : "darkgray",
       };
     }
 
@@ -110,7 +111,7 @@ export default function CalendarioConsulta({
       visible={visivel}
       onRequestClose={onClose}
     >
-      <View style={styles.modalContainer}>  
+      <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Selecione a Data</Text>
           <Calendar
