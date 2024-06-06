@@ -18,6 +18,7 @@ const firebaseConfig = {
   databaseURL: "https://healthapp-a18c2-default-rtdb.firebaseio.com/",
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
