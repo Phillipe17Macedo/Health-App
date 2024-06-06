@@ -14,19 +14,19 @@ import Especialidade from "@/components/Consulta/DropDownEspecialidade/Especiali
 import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/CalendarioConsulta";
 import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
+import SelecaoDependente from "@/components/Consulta/SelecaoDependenteConsulta/SelecaoDependente";
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
 import { buscarUsuarioPorCPF } from "@/connection/buscarUsuarioPorCPF";
 import { buscarAreas } from "../connection/buscarAreas";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Consulta() {
-  const [usuario, setUsuario] = useState<string | null>(null);
-  const [cpfUsuario, setCpfUsuario] = useState<string | null>();
+  const [usuario, setUsuario] = useState<any | null>(null);
+  const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -34,11 +34,14 @@ export default function Consulta() {
   const [modalVisivel, setModalVisivel] = useState(false);
   const [calendarioVisivel, setCalendarioVisivel] = useState(false);
   const [horarioVisivel, setHorarioVisivel] = useState(false);
+  const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
   const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
+  const [isDependente, setIsDependente] = useState(false);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [consulta, setConsulta] = useState({
-    usuario: "Phillipe Ferreira Macedo",
+    usuario: "",
     especialidade: "",
     medico: "",
     data: "",
@@ -46,11 +49,13 @@ export default function Consulta() {
   });
 
   useEffect(() => {
-    async function fetchUsuarioLogado() {
+    const fetchUsuarioLogado = async () => {
       try {
-        if (cpfUsuario) {
-          const usuarioLogado = await buscarUsuarioPorCPF(cpfUsuario);
-          setUsuario(usuarioLogado.nome);
+        const cpfDoBanco = await AsyncStorage.getItem("userCpf");
+        if (cpfDoBanco) {
+          setCpfUsuario(cpfDoBanco);
+          const usuarioLogado = await buscarUsuarioPorCPF(cpfDoBanco);
+          setUsuario(usuarioLogado);
           setConsulta((prev) => ({
             ...prev,
             usuario: usuarioLogado.nome, // Definir o nome do usuário logado na consulta
@@ -58,11 +63,12 @@ export default function Consulta() {
         }
       } catch (error) {
         console.error("Erro ao buscar usuário logado:", error);
+        Alert.alert("Erro", "Usuário não encontrado");
       }
-    }
+    };
 
     fetchUsuarioLogado();
-  }, [cpfUsuario]);
+  }, []);
 
   const handlePesquisar = async (query: string) => {
     try {
@@ -166,13 +172,29 @@ export default function Consulta() {
       ...prev,
       horario: time || "",
     }));
+    setSelectDependenteVisivel(true);
+  };
+
+  const handleConfirmDependente = () => {
+    if (isDependente && dependenteSelecionado) {
+      setConsulta((prev) => ({
+        ...prev,
+        usuario: dependenteSelecionado || "",
+      }));
+    } else {
+      setConsulta((prev) => ({
+        ...prev,
+        usuario: usuario.nome || "",
+      }));
+    }
+    setSelectDependenteVisivel(false);
+    setConfirmacaoVisivel(true);
   };
 
   const handleConfirm = async () => {
     try {
       const novaConsulta = {
         ...consulta,
-        usuario: usuario || "",
         data: dataConsulta || "",
         horario: horarioConsulta || "",
       };
@@ -274,11 +296,21 @@ export default function Consulta() {
       <HorarioConsulta
         visivel={horarioVisivel}
         onClose={() => setHorarioVisivel(false)}
-        onTimeSelect={(time) => {
-          handleTimeSelect(time);
-          setConfirmacaoVisivel(true);
-        }}
+        onTimeSelect={handleTimeSelect}
         horariosDisponiveis={horariosDisponiveis}
+      />
+
+      <SelecaoDependente
+        visivel={selectDependenteVisivel}
+        onClose={() => setSelectDependenteVisivel(false)}
+        onConfirm={handleConfirmDependente}
+        isDependente={isDependente}
+        setIsDependente={setIsDependente}
+        dependentes={
+          usuario?.dependentes ? Object.values(usuario.dependentes) : []
+        }
+        selectedDependente={dependenteSelecionado}
+        setSelectedDependente={setDependenteSelecionado}
       />
 
       {confirmacaoVisivel && consulta && (
