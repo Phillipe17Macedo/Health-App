@@ -181,6 +181,11 @@ export default function Consulta() {
         ...prev,
         usuario: dependenteSelecionado || "",
       }));
+    } else {
+      setConsulta((prev) => ({
+        ...prev,
+        usuario: usuario.nome || "",
+      }));
     }
     setSelectDependenteVisivel(false);
     setConfirmacaoVisivel(true);
@@ -190,7 +195,6 @@ export default function Consulta() {
     try {
       const novaConsulta = {
         ...consulta,
-        usuario: usuario.nome || "",
         data: dataConsulta || "",
         horario: horarioConsulta || "",
       };
@@ -292,10 +296,7 @@ export default function Consulta() {
       <HorarioConsulta
         visivel={horarioVisivel}
         onClose={() => setHorarioVisivel(false)}
-        onTimeSelect={(time) => {
-          handleTimeSelect(time);
-          setConfirmacaoVisivel(true);
-        }}
+        onTimeSelect={handleTimeSelect}
         horariosDisponiveis={horariosDisponiveis}
       />
 
