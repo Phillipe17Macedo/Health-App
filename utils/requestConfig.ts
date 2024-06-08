@@ -3,7 +3,7 @@ import axiosConfig from './constants/axiosConfig';
 // Função para buscar aderentes (usuários)
 export async function buscarAderente(cpf: string): Promise<any> {
   try {
-    const response = await axiosConfig.get(`/Aderente/GetAderente/${cpf}`);
+    const response = await axiosConfig.get(`/Aderente/GetAderente/${cpf}/true`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar aderente:", error);
@@ -12,9 +12,9 @@ export async function buscarAderente(cpf: string): Promise<any> {
 }
 
 // Função para buscar dependentes
-export async function buscarDependentes(cpf: string): Promise<any> {
+export async function buscarDependentes(idAderente: number): Promise<any> {
   try {
-    const response = await axiosConfig.get(`/Dependentes/GetDependentes/${cpf}`);
+    const response = await axiosConfig.get(`/Dependentes/GetDependentes/${idAderente}`);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar dependentes:", error);
