@@ -19,10 +19,11 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
       try {
         const response = await buscarEspecialidades();
         const especialidades = response.data;
+
         const especialidadesComChave = especialidades.map((especialidade: any) => ({
           label: especialidade.nome,
-          value: especialidade.id,
-          key: especialidade.id, // Chave única para cada item
+          value: especialidade.id.toString(),
+          key: especialidade.id.toString(), // Usar id como chave
         }));
         setItens(especialidadesComChave);
       } catch (error) {
@@ -46,26 +47,24 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        <DropDownPicker
-          open={abrir}
-          value={valor}
-          items={itens}
-          setOpen={setAbrir}
-          setValue={setValor}
-          onChangeValue={handleChangeValue}
-          setItems={setItens}
-          placeholder="Selecione uma especialidade"
-          style={styles.dropdown}
-          placeholderStyle={styles.textoDropdown}
-          dropDownContainerStyle={styles.dropDownContainerStyle}
-          listItemLabelStyle={styles.itensLista}
-          selectedItemLabelStyle={styles.itemSelecionado}
-          zIndex={3000}
-          zIndexInverse={1000}
-        />
-      </View>
-    </>
+    <View style={styles.container}>
+      <DropDownPicker
+        open={abrir}
+        value={valor}
+        items={itens}
+        setOpen={setAbrir}
+        setValue={setValor}
+        onChangeValue={handleChangeValue}
+        setItems={setItens}
+        placeholder="Selecione uma especialidade"
+        style={styles.dropdown}
+        placeholderStyle={styles.textoDropdown}
+        dropDownContainerStyle={styles.dropDownContainerStyle}
+        listItemLabelStyle={styles.itensLista}
+        selectedItemLabelStyle={styles.itemSelecionado}
+        zIndex={3000}
+        zIndexInverse={1000}
+      />
+    </View>
   );
 }

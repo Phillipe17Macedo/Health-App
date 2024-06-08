@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { buscarMedicos } from "@/connection/buscarMedicos";
+import { buscarMedicosEspecialidade } from "@/utils/requestConfig";
 import { styles } from "./styles";
 
 interface MedicoProps {
@@ -18,18 +18,20 @@ export default function Medico({
   const [abrir, setAbrir] = useState(false);
   const [valor, setValor] = useState(medicoSelecionado);
   const [itens, setItens] = useState<
-    { label: string; value: string; diasAtendimento: string[] }[]
+    { label: string; value: string; key: string; diasAtendimento: string[] }[]
   >([]);
 
   useEffect(() => {
     async function carregarMedicos() {
       if (especialidadeId) {
         try {
-          const medicos = await buscarMedicos(especialidadeId);
+          const response = await buscarMedicosEspecialidade(especialidadeId);
+          const medicos = response.data;
           setItens(
             medicos.map((medico) => ({
-              label: medico.nome,
-              value: medico.id,
+              label: medico.nomeMedico,
+              value: medico.idMedico.toString(),
+              key: medico.idMedico.toString(), // Usar idMedico como chave
               diasAtendimento: medico.diasAtendimento,
             }))
           );
@@ -57,27 +59,25 @@ export default function Medico({
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        <DropDownPicker
-          open={abrir}
-          value={valor}
-          items={itens}
-          setOpen={setAbrir}
-          setValue={setValor}
-          onChangeValue={handleChangeValue}
-          setItems={setItens}
-          placeholder="Selecione um Médico"
-          style={styles.dropdown}
-          placeholderStyle={styles.textoDropdown}
-          dropDownContainerStyle={styles.dropDownContainerStyle}
-          listItemLabelStyle={styles.itensLista}
-          selectedItemLabelStyle={styles.itemSelecionado}
-          disabled={!especialidadeId}
-          zIndex={2000}
-          zIndexInverse={2000}
-        />
-      </View>
-    </>
+    <View style={styles.container}>
+      <DropDownPicker
+        open={abrir}
+        value={valor}
+        items={itens}
+        setOpen={setAbrir}
+        setValue={setValor}
+        onChangeValue={handleChangeValue}
+        setItems={setItens}
+        placeholder="Selecione um Médico"
+        style={styles.dropdown}
+        placeholderStyle={styles.textoDropdown}
+        dropDownContainerStyle={styles.dropDownContainerStyle}
+        listItemLabelStyle={styles.itensLista}
+        selectedItemLabelStyle={styles.itemSelecionado}
+        disabled={!especialidadeId}
+        zIndex={2000}
+        zIndexInverse={2000}
+      />
+    </View>
   );
 }
