@@ -28,7 +28,7 @@ export default function Medico({
           const response = await buscarMedicosEspecialidade(especialidadeId);
           const medicos = response.data;
           setItens(
-            medicos.map((medico) => ({
+            medicos.map((medico: any) => ({
               label: medico.nomeMedico,
               value: medico.idMedico.toString(),
               key: medico.idMedico.toString(), // Usar idMedico como chave
