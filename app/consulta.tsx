@@ -16,8 +16,11 @@ import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/Calend
 import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
 import SelecaoDependente from "@/components/Consulta/SelecaoDependenteConsulta/SelecaoDependente";
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
-import { buscarUsuarioPorCPF } from "@/connection/buscarUsuarioPorCPF";
-import { buscarAreas } from "../connection/buscarAreas";
+import {
+  buscarAderente,
+  buscarMedicosEspecialidade,
+  buscarEspecialidades,
+} from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,8 +28,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
+  const [especialidades, setEspecialidades] = useState<any[]>([]);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  );
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -39,7 +45,9 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<
+    string | null
+  >(null);
   const [consulta, setConsulta] = useState({
     usuario: "",
     especialidade: "",
@@ -54,12 +62,17 @@ export default function Consulta() {
         const cpfDoBanco = await AsyncStorage.getItem("userCpf");
         if (cpfDoBanco) {
           setCpfUsuario(cpfDoBanco);
-          const usuarioLogado = await buscarUsuarioPorCPF(cpfDoBanco);
-          setUsuario(usuarioLogado);
-          setConsulta((prev) => ({
-            ...prev,
-            usuario: usuarioLogado.nome, // Definir o nome do usuário logado na consulta
-          }));
+          console.log("Buscando usuário com CPF:", cpfDoBanco);
+          const response = await buscarAderente(cpfDoBanco, true);
+          const usuarioLogado = response.data;
+          console.log("Dados do usuário:", usuarioLogado);
+          if (usuarioLogado) {
+            setUsuario(usuarioLogado);
+            setConsulta((prev) => ({
+              ...prev,
+              usuario: usuarioLogado.nome,
+            }));
+          }
         }
       } catch (error) {
         console.error("Erro ao buscar usuário logado:", error);
@@ -67,12 +80,24 @@ export default function Consulta() {
       }
     };
 
+    const fetchEspecialidades = async () => {
+      try {
+        const especialidadesData = await buscarEspecialidades();
+        setEspecialidades(especialidadesData);
+      } catch (error) {
+        console.error("Erro ao buscar especialidades:", error);
+      }
+    };
+
     fetchUsuarioLogado();
+    fetchEspecialidades();
   }, []);
 
   const handlePesquisar = async (query: string) => {
     try {
-      const results = await buscarAreas(query);
+      const results = especialidades.filter(especialidade =>
+        especialidade.nome.toLowerCase().includes(query.toLowerCase())
+      );
       setResultadoPesquisa(results);
       setModalVisivel(true);
     } catch (error) {
@@ -82,7 +107,9 @@ export default function Consulta() {
 
   const handleSugestoes = async (query: string) => {
     try {
-      const results = await buscarAreas(query);
+      const results = especialidades.filter(especialidade =>
+        especialidade.nome.toLowerCase().includes(query.toLowerCase())
+      );
       setResultadoPesquisa(results);
     } catch (error) {
       console.error("Erro ao obter sugestões:", error);
@@ -97,6 +124,7 @@ export default function Consulta() {
         ...prev,
         especialidade: item.nome || "",
       }));
+      handleEspecialidadeSelect(item.key);
     } else if (item.type === "medico") {
       const medicoData = item;
       console.log("Medico Selecionado: ", medicoData);
@@ -104,6 +132,16 @@ export default function Consulta() {
       setEspecialidadeId(medicoData.especialidadeId);
       setEspecialidadeNome(medicoData.especialidadeNome);
       handleMedicoSelect(medicoData);
+    }
+  };
+
+  const handleEspecialidadeSelect = async (especialidadeId: string) => {
+    try {
+      const response = await buscarMedicosEspecialidade(especialidadeId);
+      const medicosData = response.data;
+      setResultadoPesquisa(medicosData);
+    } catch (error) {
+      console.error("Erro ao buscar médicos:", error);
     }
   };
 
