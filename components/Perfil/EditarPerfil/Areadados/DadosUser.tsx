@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import { buscarUsuario } from "@/connection/buscarUsuario";
-import { editarUsuario } from "@/connection/editarUsuario";
+import { buscarAderente } from "@/utils/requestConfig";
 import { styles } from "./styles";
 
 export default function DadosUser({ cpf }: { cpf: string }) {
-  const [telefone, setTelefone] = useState<string>("");
-  const [endereco, setEendereco] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [editando, setEditando] = useState<boolean>(false);
+  const [nome, setNome] = useState<string>("");
+  const [cpfUser, setCpfUser] = useState<string>("");
+  const [dataNasc, setDataNasc] = useState<string>("");
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const usuario = await buscarUsuario(cpf);
+        console.log("Buscando usuário com CPF:", cpf);
+        const response = await buscarAderente(cpf, true);
+        console.log("Dados do usuário:", response); // Log dos dados do usuário
+        const usuario = response.data;
         if (usuario) {
-          setTelefone(usuario.telefone || "Não encontrado");
-          setEendereco(usuario.endereco || "Não encontrado");
-          setEmail(usuario.email || "Não encontrado");
+          setNome(usuario.nome || "Não encontrado");
+          setCpfUser(usuario.cpf || "Não encontrado");
+          setDataNasc(usuario.dataNasc || "Não encontrado");
         }
       } catch (error) {
         console.error("Erro ao buscar usuário:", error);
@@ -27,56 +28,32 @@ export default function DadosUser({ cpf }: { cpf: string }) {
     fetchData();
   }, [cpf]);
 
-  const handleSalvarEdicao = async () => {
-    if (editando) {
-      try {
-        await editarUsuario(cpf, { telefone, endereco, email });
-        console.log("Dados do usuário atualizados com sucesso.");
-        setEditando(false);
-      } catch (error) {
-        console.error("Erro ao atualizar dados do usuário:", error);
-      }
-    } else {
-      // Entrar em modo de edição
-      setEditando(true);
-    }
-  };
-
   return (
     <>
       <View style={[styles.container]}>
         <View>
           <TextInput
-            placeholder="TELEFONE"
+            placeholder="NOME COMPLETO"
             style={[styles.dadosInput]}
-            keyboardType="number-pad"
-            value={telefone}
-            editable={editando}
-            onChangeText={setTelefone}
+            keyboardType="default"
+            value={nome}
+            editable={false}
           />
           <TextInput
-            placeholder="ENDEREÇO"
+            placeholder="CPF DO USUÁRIO"
             style={[styles.dadosInput]}
-            keyboardType="number-pad"
-            value={endereco}
-            editable={editando}
-            onChangeText={setEendereco}
+            keyboardType="default"
+            value={cpfUser}
+            editable={false}
           />
           <TextInput
-            placeholder="EMAIL"
+            placeholder="DATA DE NASCIMENTO"
             style={[styles.dadosInput]}
-            keyboardType="email-address"
-            value={email}
-            editable={editando}
-            onChangeText={setEmail}
+            keyboardType="default"
+            value={dataNasc}
+            editable={false}
           />
         </View>
-        <TouchableOpacity
-          style={[styles.containerButton]}
-          onPress={handleSalvarEdicao}
-        >
-          <Text style={[styles.textoButton]}>{editando ? "SALVAR" : "EDITAR"}</Text>
-        </TouchableOpacity>
       </View>
     </>
   );

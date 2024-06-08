@@ -11,6 +11,7 @@ export default function PerfilEditar() {
   useEffect(() => {
     const getCpfDoBanco = async () => {
       const cpfDoBanco = await AsyncStorage.getItem("userCpf");
+      console.log("CPF do banco: ", cpfDoBanco);
       setCpf(cpfDoBanco);
     };
 
