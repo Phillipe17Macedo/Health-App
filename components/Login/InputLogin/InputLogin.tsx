@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextInput, View, TouchableOpacity, Text, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from './styles';
-import { buscarUsuario } from "@/connection/buscarUsuario";
+import { buscarAderente } from "@/utils/requestConfig";
 import { useRouter } from "expo-router";
 
 export function InputLogin() {
@@ -20,9 +20,11 @@ export function InputLogin() {
   const handleLogin = async () => {
     const cleanedCpf = cpf.replace(/\D/g, '');
     try {
-      const userData = await buscarUsuario(cleanedCpf);
+      const userData = await buscarAderente(cleanedCpf);
       if (userData) {
         await AsyncStorage.setItem('userCpf', cleanedCpf);
+        await AsyncStorage.setItem('userId', userData.idAderente.toString());
+        await AsyncStorage.setItem('isTitular', userData.titularDoContrato.toString());
         router.push("/(tabs)/home");
       } else {
         Alert.alert("Erro", "CPF não cadastrado");
