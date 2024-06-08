@@ -22,7 +22,8 @@ export default function Home() {
   async function loadUser() {
     const userCpf = await AsyncStorage.getItem('userCpf');
     if (userCpf) {
-      const userData: User | null = await buscarAderente(userCpf);
+      const response = await buscarAderente(userCpf);
+      const userData: User | null = response.data;
       setUser(userData);
     }
   }
