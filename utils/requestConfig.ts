@@ -1,9 +1,10 @@
 import axiosConfig from './constants/axiosConfig';
 
 // Função para buscar aderentes (usuários)
-export async function buscarAderente(cpf: string): Promise<any> {
+export async function buscarAderente(cpf: string, titular: boolean = true): Promise<any> {
   try {
-    const response = await axiosConfig.get(`/Aderente/GetAderente/${cpf}/true`);
+    const response = await axiosConfig.get(`/Aderente/GetAderente/${cpf}/${titular}`);
+    console.log("Resposta da API:", response.data);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar aderente:", error);

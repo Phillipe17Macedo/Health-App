@@ -20,7 +20,10 @@ export function InputLogin() {
   const handleLogin = async () => {
     const cleanedCpf = cpf.replace(/\D/g, '');
     try {
-      const userData = await buscarAderente(cleanedCpf);
+      console.log("Buscando aderente para CPF:", cleanedCpf);
+      const response = await buscarAderente(cleanedCpf);
+      const userData = response.data;
+      console.log("Dados do usuário:", userData);
       if (userData) {
         await AsyncStorage.setItem('userCpf', cleanedCpf);
         await AsyncStorage.setItem('userId', userData.idAderente.toString());
@@ -31,6 +34,7 @@ export function InputLogin() {
       }
     } catch (error) {
       Alert.alert("Erro", "Falha ao verificar o CPF");
+      console.log("Erro ao verificar o CPF:", error);
     }
   };
 

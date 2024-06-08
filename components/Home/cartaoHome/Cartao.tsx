@@ -6,8 +6,8 @@ import { styles } from "./styles";
 
 interface User {
   nome: string;
-  dataNascimento: string;
-  status: string;
+  dataNasc: string;
+  statusContrato: boolean;
 }
 interface CartaoProps {
   user: User;
@@ -15,10 +15,11 @@ interface CartaoProps {
 
 export function Cartao({ user }: CartaoProps) {
   const alterarEstiloStatus = () => {
-    return user.status.toLowerCase() === "ativado"
-      ? styles.statusAtivado
-      : styles.statusDesativado;
+    return user.statusContrato ? styles.statusAtivado : styles.statusDesativado;
   };
+
+  const statusText = user.statusContrato ? "Ativado" : "Desativado";
+
   return (
     <>
       <TouchableOpacity>
@@ -41,7 +42,7 @@ export function Cartao({ user }: CartaoProps) {
                 <Text style={[styles.descricaoNome]}>Nome do Beneficiário</Text>
 
                 <Text style={[styles.dataNascimentoCartao]}>
-                  {user.dataNascimento}
+                  {user.dataNasc}
                 </Text>
                 <Text style={[styles.descricaoDataNascimento]}>
                   Data de Nascimento
@@ -50,7 +51,7 @@ export function Cartao({ user }: CartaoProps) {
                 <View style={[styles.containerStatusPessoa]}>
                   <Text style={[styles.descricaoStatusPessoa]}>STATUS:</Text>
                   <View style={[styles.containerStatus, alterarEstiloStatus()]}>
-                    <Text style={[styles.textoStatus]}>{user.status}</Text>
+                    <Text style={[styles.textoStatus]}>{statusText}</Text>
                   </View>
                 </View>
               </View>

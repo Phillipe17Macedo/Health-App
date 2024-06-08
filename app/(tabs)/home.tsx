@@ -11,8 +11,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface User {
   nome: string;
-  dataNascimento: string;
-  status: string;
+  dataNasc: string;
+  statusContrato: boolean;
 }
 
 export default function Home() {
