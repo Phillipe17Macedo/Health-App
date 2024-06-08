@@ -6,6 +6,7 @@ import { Header } from "../../components/Home/headerHome/Header";
 import { Cartao } from "../../components/Home/cartaoHome/Cartao";
 import { Carrossel } from "../../components/Home/carrosselHome/Carrossel";
 import { buscarUsuario } from "../../connection/buscarUsuario";
+import { buscarAderente } from "@/utils/requestConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface User {
@@ -21,7 +22,7 @@ export default function Home() {
   async function loadUser() {
     const userCpf = await AsyncStorage.getItem('userCpf');
     if (userCpf) {
-      const userData: User | null = await buscarUsuario(userCpf);
+      const userData: User | null = await buscarAderente(userCpf);
       setUser(userData);
     }
   }
