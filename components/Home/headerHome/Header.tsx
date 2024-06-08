@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Ionicons,
-} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { Text, Pressable, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import { styles } from "./styles";
