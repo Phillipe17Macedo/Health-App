@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { buscarEspecialidades } from "@/connection/buscarEspecialidades";
+import { buscarEspecialidades } from "@/utils/requestConfig";
 import { styles } from "./styles";
 
 interface EspecialidadeProps {
@@ -17,7 +17,8 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
   useEffect(() => {
     async function carregarEspecialidades() {
       try {
-        const especialidades = await buscarEspecialidades();
+        const response = await buscarEspecialidades();
+        const especialidades = response.data;
         const especialidadesComChave = especialidades.map((especialidade: any) => ({
           label: especialidade.nome,
           value: especialidade.id,

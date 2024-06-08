@@ -16,11 +16,7 @@ import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/Calend
 import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
 import SelecaoDependente from "@/components/Consulta/SelecaoDependenteConsulta/SelecaoDependente";
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
-import {
-  buscarAderente,
-  buscarMedicosEspecialidade,
-  buscarEspecialidades,
-} from "@/utils/requestConfig";
+import { buscarAderente, buscarMedicosEspecialidade, buscarEspecialidades } from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -28,11 +24,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
-  const [especialidades, setEspecialidades] = useState<any[]>([]);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -45,9 +38,7 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<
-    string | null
-  >(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [consulta, setConsulta] = useState({
     usuario: "",
     especialidade: "",
@@ -80,24 +71,12 @@ export default function Consulta() {
       }
     };
 
-    const fetchEspecialidades = async () => {
-      try {
-        const especialidadesData = await buscarEspecialidades();
-        setEspecialidades(especialidadesData);
-      } catch (error) {
-        console.error("Erro ao buscar especialidades:", error);
-      }
-    };
-
     fetchUsuarioLogado();
-    fetchEspecialidades();
   }, []);
 
   const handlePesquisar = async (query: string) => {
     try {
-      const results = especialidades.filter(especialidade =>
-        especialidade.nome.toLowerCase().includes(query.toLowerCase())
-      );
+      const results = await buscarEspecialidades(query);
       setResultadoPesquisa(results);
       setModalVisivel(true);
     } catch (error) {
@@ -107,9 +86,7 @@ export default function Consulta() {
 
   const handleSugestoes = async (query: string) => {
     try {
-      const results = especialidades.filter(especialidade =>
-        especialidade.nome.toLowerCase().includes(query.toLowerCase())
-      );
+      const results = await buscarEspecialidades(query);
       setResultadoPesquisa(results);
     } catch (error) {
       console.error("Erro ao obter sugestões:", error);
