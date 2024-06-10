@@ -37,11 +37,11 @@ export const styles = StyleSheet.create({
   containerDadosUser: {
     flexDirection: 'column',
   },
-  nomeCartao: {
+  textoPadraoUser: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 14,
-    marginTop: 10,
+    marginTop: 5,
   },
   descricaoNome: {
     fontSize: 8,
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
   },
   containerStatusPessoa: {
     flexDirection: "row",
-    marginTop: 30,
+    marginTop: 15,
     alignSelf: "center",
   },
   descricaoStatusPessoa: {
@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
     paddingTop: 3,
   },
   containerStatus: {
-    marginLeft: 10,
+    marginLeft: 5,
     backgroundColor: "#8CBF1F", //STATUS ATIVO: #8CBF1F, STATUS DESATIVADO: #E55951
     width: "auto",
     height: 25,
@@ -91,4 +91,10 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: "#fff",
   },
+  userTitular: {
+    color: '#9AEBA3'
+  },
+  userDependente: {
+    color: '#DAFDBA'
+  }
 });

@@ -7,7 +7,9 @@ import { styles } from "./styles";
 interface User {
   nome: string;
   dataNasc: string;
+  tipoAdesao: string;
   statusContrato: boolean;
+  titularDoContrato: boolean;
   fotoBase64: string;
 }
 interface CartaoProps {
@@ -19,8 +21,13 @@ export function Cartao({ user }: CartaoProps) {
     return user.statusContrato ? styles.statusAtivado : styles.statusDesativado;
   };
 
+  const alterarEstiloUsuario = () => {
+    return user.titularDoContrato ? styles.userTitular : styles.userDependente;
+  };
+
   const statusText = user.statusContrato ? "Ativado" : "Desativado";
 
+  const titularContrato = user.titularDoContrato ? "Titular" : "Dependente";
 
   // Aqui eu convert a string base64 para um URI utilizável pelo componente <Image />
   const fotoUri = `data:image/jpeg;base64,${user.fotoBase64}`;
@@ -44,18 +51,24 @@ export function Cartao({ user }: CartaoProps) {
               </View>
 
               <View style={[styles.containerDadosUser]}>
-                <Text style={[styles.nomeCartao]}>{user.nome}</Text>
+                <Text style={[styles.textoPadraoUser]}>{user.nome}</Text>
                 <Text style={[styles.descricaoNome]}>Nome do Beneficiário</Text>
 
-                <Text style={[styles.dataNascimentoCartao]}>
+                <Text style={[styles.textoPadraoUser]}>
                   {user.dataNasc}
                 </Text>
                 <Text style={[styles.descricaoDataNascimento]}>
                   Data de Nascimento
                 </Text>
 
+                <Text style={[styles.textoPadraoUser]}>{user.tipoAdesao}</Text>
+                <Text style={[styles.descricaoDataNascimento]}>Tipo de Adesão</Text>
+
+                <Text style={[styles.textoPadraoUser, alterarEstiloUsuario()]}>{titularContrato}</Text>
+                <Text style={[styles.descricaoDataNascimento]}>Tipo de Usuário</Text>
+
                 <View style={[styles.containerStatusPessoa]}>
-                  <Text style={[styles.descricaoStatusPessoa]}>STATUS:</Text>
+                  <Text style={[styles.descricaoStatusPessoa]}>STATUS CONTRATO:</Text>
                   <View style={[styles.containerStatus, alterarEstiloStatus()]}>
                     <Text style={[styles.textoStatus]}>{statusText}</Text>
                   </View>
