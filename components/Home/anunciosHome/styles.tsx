@@ -41,8 +41,8 @@ export const styles = StyleSheet.create({
     textAlign: 'justify',
     alignSelf: 'center',
     marginLeft: 105,
-    marginBottom: 10,
-    fontSize: 11.3,
+    marginBottom: 2,
+    fontSize: 11,
     color: '#fff',
   },
 });
