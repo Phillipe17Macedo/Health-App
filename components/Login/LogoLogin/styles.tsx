@@ -10,8 +10,8 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   imagemLogin: {
-    width: 250,
-    height: 220,
+    width: 200,
+    height: 180,
     alignSelf: 'center',
     justifyContent: 'center',
     //backgroundColor: 'lightgray'
