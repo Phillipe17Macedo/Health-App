@@ -27,9 +27,12 @@ export const styles = StyleSheet.create({
   containerImagemUser: {
     backgroundColor: '#DFF2ED',
     width: 94,
-    height: 94,
-    borderRadius: 8,
+    height: 124,
+    borderRadius: 10,
     marginRight: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3
   },
   containerDadosUser: {
     flexDirection: 'column',
