@@ -5,6 +5,7 @@ import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
 import { buscarAderente } from "@/utils/requestConfig";
 import { useRouter } from "expo-router";
+import { AxiosError } from "axios"; // Importação do AxiosError
 
 export function InputLogin() {
   const [cpf, setCpf] = useState("");
@@ -56,7 +57,7 @@ export function InputLogin() {
       }
 
     } catch (error) {
-      if (error.response && error.response.status === 400) {
+      if (error instanceof AxiosError && error.response && error.response.status === 400) {
         Alert.alert("Erro", "Falha ao verificar o CPF. Por favor, verifique se as informações estão corretas.");
       } else {
         Alert.alert("Erro", "Falha ao verificar o CPF");
