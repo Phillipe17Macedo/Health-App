@@ -17,7 +17,7 @@ const diasUteis = [
   "quarta",
   "quinta",
   "sexta",
-  "sábado",
+  "sábado"
 ];
 
 export default function CalendarioConsulta({
