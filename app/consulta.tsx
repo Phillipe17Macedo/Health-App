@@ -16,7 +16,11 @@ import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/Calend
 import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
 import SelecaoDependente from "@/components/Consulta/SelecaoDependenteConsulta/SelecaoDependente";
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
-import { buscarAderente, buscarMedicosEspecialidade, buscarEspecialidades } from "@/utils/requestConfig";
+import {
+  buscarAderente,
+  buscarMedicosEspecialidade,
+  buscarEspecialidades,
+} from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,7 +29,9 @@ export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  );
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -38,7 +44,9 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<
+    string | null
+  >(null);
   const [consulta, setConsulta] = useState({
     usuario: "",
     especialidade: "",
@@ -53,17 +61,19 @@ export default function Consulta() {
         const cpfDoBanco = await AsyncStorage.getItem("userCpf");
         if (cpfDoBanco) {
           setCpfUsuario(cpfDoBanco);
+
           console.log("Buscando usuário com CPF:", cpfDoBanco);
+
           const response = await buscarAderente(cpfDoBanco, true);
           const usuarioLogado = response.data;
+
           console.log("Dados do usuário:", usuarioLogado);
-          if (usuarioLogado) {
-            setUsuario(usuarioLogado);
-            setConsulta((prev) => ({
-              ...prev,
-              usuario: usuarioLogado.nome,
-            }));
-          }
+
+          setUsuario(usuarioLogado);
+          setConsulta((prev) => ({
+            ...prev,
+            usuario: usuarioLogado.nome,
+          }));
         }
       } catch (error) {
         console.error("Erro ao buscar usuário logado:", error);
@@ -74,20 +84,20 @@ export default function Consulta() {
     fetchUsuarioLogado();
   }, []);
 
-  const handlePesquisar = async (query: string) => {
+  const handlePesquisar = async () => {
     try {
-      const results = await buscarEspecialidades(query);
-      setResultadoPesquisa(results);
+      const results = await buscarEspecialidades();
+      setResultadoPesquisa(results.data);
       setModalVisivel(true);
     } catch (error) {
       console.error("Erro ao realizar pesquisa:", error);
     }
   };
 
-  const handleSugestoes = async (query: string) => {
+  const handleSugestoes = async () => {
     try {
-      const results = await buscarEspecialidades(query);
-      setResultadoPesquisa(results);
+      const results = await buscarEspecialidades();
+      setResultadoPesquisa(results.data);
     } catch (error) {
       console.error("Erro ao obter sugestões:", error);
     }
@@ -102,6 +112,7 @@ export default function Consulta() {
         especialidade: item.nome || "",
       }));
       handleEspecialidadeSelect(item.key);
+
     } else if (item.type === "medico") {
       const medicoData = item;
       console.log("Medico Selecionado: ", medicoData);

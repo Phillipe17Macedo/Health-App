@@ -13,16 +13,17 @@ export function Anuncios() {
         style={[styles.anuncio]}
       >
         <View style={[styles.iconAnuncio]}>
-          <Image source={require("../../../assets/images/icons8-person-94.png")} />
+          <Image
+            source={require("../../../assets/images/icons8-person-94.png")}
+          />
         </View>
         <View style={[styles.containerTextoAnuncio]}>
-          <Text style={[styles.textoTituloAnuncio]}>ANUNCIO EVENTO</Text>
-          <Text style={[styles.textoDescricaoAnuncio]}>
-            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
-            consectetur, adipisci velit..." "There is no one who loves pain
-            itself, who seeks after it and wants to have it, simply because it
-            is pain..."
-          </Text>
+          <Text style={[styles.textoTituloAnuncio]}>CONSULTA MARCADA</Text>
+          <Text style={[styles.textoDescricaoAnuncio]}>DATA: 00/00/0000</Text>
+          <Text style={[styles.textoDescricaoAnuncio]}>HORÁRIO: 00:00:00</Text>
+          <Text style={[styles.textoDescricaoAnuncio]}>MÉDICO: DR. MÉDICO MEDINA</Text>
+          <Text style={[styles.textoDescricaoAnuncio]}>TIPO: TIPO CONSULTA</Text>
+          <Text style={[styles.textoDescricaoAnuncio]}>USUÁRIO: USUÁRIO TITULAR</Text>
         </View>
       </LinearGradient>
     </TouchableOpacity>
