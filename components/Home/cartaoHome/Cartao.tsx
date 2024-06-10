@@ -8,6 +8,7 @@ interface User {
   nome: string;
   dataNasc: string;
   statusContrato: boolean;
+  fotoBase64: string;
 }
 interface CartaoProps {
   user: User;
@@ -19,6 +20,10 @@ export function Cartao({ user }: CartaoProps) {
   };
 
   const statusText = user.statusContrato ? "Ativado" : "Desativado";
+
+
+  // Aqui eu convert a string base64 para um URI utilizável pelo componente <Image />
+  const fotoUri = `data:image/jpeg;base64,${user.fotoBase64}`;
 
   return (
     <>
@@ -33,7 +38,7 @@ export function Cartao({ user }: CartaoProps) {
             <View style={[styles.componenteCard]}>
               <View style={[styles.containerImagemUser]}>
                 <Image
-                  source={require("../../../assets/images/icons8-person-94.png")}
+                  source={{ uri: fotoUri }}
                 />
               </View>
 

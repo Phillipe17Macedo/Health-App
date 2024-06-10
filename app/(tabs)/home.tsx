@@ -12,6 +12,7 @@ interface User {
   nome: string;
   dataNasc: string;
   statusContrato: boolean;
+  fotoBase64: string;
 }
 
 export default function Home() {
@@ -37,10 +38,6 @@ export default function Home() {
     setRefreshing(true);
     await loadUser();
     setRefreshing(false);
-  };
-
-  const getPrimeiroNome = (nomeCompleto: string) => {
-    return nomeCompleto.split(" ")[0];
   };
 
   return (
