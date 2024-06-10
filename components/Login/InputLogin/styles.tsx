@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
   textoCheckBox: {
     fontWeight: 'bold',
     fontSize: 16,
+    color: '#3E4A59'
   },
   containerInput: {
     width: '90%',

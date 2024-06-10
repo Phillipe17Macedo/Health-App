@@ -9,6 +9,7 @@ import { useRouter } from "expo-router";
 export function InputLogin() {
   const [cpf, setCpf] = useState("");
   const [cpfExiste, setCpfExiste] = useState(true);
+  const [isDependente, setIsDependente] = useState(false);
   const router = useRouter();
 
   const formatoCPF = (input: string) => {
@@ -25,22 +26,41 @@ export function InputLogin() {
     const cleanedCpf = cpf.replace(/\D/g, "");
     try {
       console.log("Buscando aderente para CPF:", cleanedCpf);
-      const response = await buscarAderente(cleanedCpf);
+      const titular = !isDependente;
+      const response = await buscarAderente(cleanedCpf, titular);
       const userData = response.data;
+
+      if (typeof userData === "string") {
+        Alert.alert("Erro", "CPF não cadastrado");
+        console.log("Erro, CPF não cadastrado.");
+        return;
+      }
+
       console.log("Dados do usuário:", userData);
-      if (userData) {
+
+      if (!isDependente && userData.titularDoContrato) {
+        // Caso titular e checkbox não marcado
         await AsyncStorage.setItem("userCpf", cleanedCpf);
         await AsyncStorage.setItem("userId", userData.idAderente.toString());
-        await AsyncStorage.setItem(
-          "isTitular",
-          userData.titularDoContrato.toString()
-        );
+        await AsyncStorage.setItem("isTitular", userData.titularDoContrato.toString());
+        router.push("/(tabs)/home");
+      } else if (isDependente && !userData.titularDoContrato) {
+        // Caso dependente e checkbox marcado
+        await AsyncStorage.setItem("userCpf", cleanedCpf);
+        await AsyncStorage.setItem("userId", userData.idAderente.toString());
+        await AsyncStorage.setItem("isTitular", userData.titularDoContrato.toString());
         router.push("/(tabs)/home");
       } else {
-        Alert.alert("Erro", "CPF não cadastrado");
+        Alert.alert("Erro", "Não é possível acessar a aplicação com essas credenciais.");
+        console.log("Erro, não é possível acessar a aplicação com essas credenciais.");
       }
+
     } catch (error) {
-      Alert.alert("Erro", "Falha ao verificar o CPF");
+      if (error.response && error.response.status === 400) {
+        Alert.alert("Erro", "Falha ao verificar o CPF. Por favor, verifique se as informações estão corretas.");
+      } else {
+        Alert.alert("Erro", "Falha ao verificar o CPF");
+      }
       console.log("Erro ao verificar o CPF:", error);
     }
   };
@@ -48,7 +68,10 @@ export function InputLogin() {
   return (
     <View style={styles.container}>
       <View style={[styles.containerCheckbox]}>
-        <Checkbox />
+        <Checkbox
+          status={isDependente ? "checked" : "unchecked"}
+          onPress={() => setIsDependente(!isDependente)}
+        />
         <Text style={[styles.textoCheckBox]}>Você é um Dependente ?</Text>
       </View>
       <View style={[styles.containerInput]}>
