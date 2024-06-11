@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, View, TouchableOpacity, Text, Alert, Dimensions } from "react-native";
+import { TextInput, View, TouchableOpacity, Text, Alert, Dimensions, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
@@ -11,6 +11,7 @@ export function InputLogin() {
   const [cpf, setCpf] = useState("");
   const [cpfExiste, setCpfExiste] = useState(true);
   const [isDependente, setIsDependente] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const formatoCPF = (input: string) => {
@@ -25,6 +26,7 @@ export function InputLogin() {
 
   const handleLogin = async () => {
     const cleanedCpf = cpf.replace(/\D/g, "");
+    setLoading(true);
     try {
       console.log("Buscando aderente para CPF:", cleanedCpf);
       const titular = !isDependente;
@@ -63,6 +65,8 @@ export function InputLogin() {
         Alert.alert("Erro", "Falha ao verificar o CPF");
       }
       console.log("Erro ao verificar o CPF:", error);
+    } finally {
+      setLoading(false); // Para o carregamento
     }
   };
 
@@ -88,10 +92,17 @@ export function InputLogin() {
       </View>
       <TouchableOpacity
         style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
-        disabled={cpfExiste}
+        disabled={cpfExiste || loading} // Desabilita o botão durante o carregamento
         onPress={handleLogin}
       >
-        <Text style={[styles.textoButton, { fontSize: width * 0.05 }]}>Entrar</Text>
+        {loading ? (
+          <ActivityIndicator size="small" color="#025940" style={[{marginBottom: -10, marginTop: 4}]} />
+        ) : (
+          <Text style={[styles.textoButton, { fontSize: width * 0.05 }]}>Entrar</Text>
+        )}
+        {loading && (
+          <Text style={[styles.textoButton, { marginTop: 10, fontSize: width * 0.04 }]}>Carregando</Text>
+        )}
       </TouchableOpacity>
     </View>
   );

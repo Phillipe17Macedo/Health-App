@@ -14,9 +14,6 @@ export function ContainersPerfil() {
         <TouchableOpacity style={[styles.container]}>
             <Text style={[styles.textoContainer]}>Contatos</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.container]}>
-            <Text style={[styles.textoContainer]}>Sair</Text>
-        </TouchableOpacity>
     </>
   );
 }

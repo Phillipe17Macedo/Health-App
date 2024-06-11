@@ -1,7 +1,6 @@
 import {
   MaterialIcons,
   Ionicons,
-  AntDesign,
   FontAwesome6,
 } from "@expo/vector-icons";
 import { Link, Tabs } from "expo-router";
@@ -82,9 +81,9 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              return <FontAwesome6 name="sitemap" size={30} color={color} />;
+              return <FontAwesome6 name="hand-holding-medical" size={28} color={color} />;
             }
-            return <FontAwesome6 name="sitemap" size={30} color={color} />;
+            return <FontAwesome6 name="hand-holding-medical" size={28} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>
