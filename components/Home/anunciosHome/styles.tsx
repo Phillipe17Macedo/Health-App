@@ -1,48 +1,42 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { width, height } = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 'auto',
     marginTop: 25,
     alignSelf: 'center',
     alignItems: 'center',
   },
   anuncio: {
-    width: 320,
-    height: 120,
+    width: width * 0.9,
+    height: width * 0.45,
     borderRadius: 20,
-    padding: 15,
-  },
-  iconAnuncio: {
-    width: 90,
-    height: 90,
-    backgroundColor: '#fff',
-    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    elevation: 3,
+
   },
   containerTextoAnuncio: {
-    position: 'absolute',
-    alignItems: 'center',
-    marginLeft: 10,
-    marginTop: 10,
+    width: '100%',
+    height: '100%',
+    padding: 15,
+    //backgroundColor: '#fff',
   },
   textoTituloAnuncio: {
-    alignSelf: 'center',
-    fontSize: 16,
+    fontSize: height * 0.025,
     fontWeight: 'bold',
     color: '#fff',
-    marginLeft: 100,
+    textAlign: 'center',
+    marginBottom: 10,
   },
   textoDescricaoAnuncio: {
     width: 190,
-    textAlignVertical: 'bottom',
     textAlign: 'justify',
-    alignSelf: 'center',
-    marginLeft: 105,
-    marginBottom: 2,
-    fontSize: 11,
+    marginBottom: 3,
+    fontSize: 12,
     color: '#fff',
+    marginLeft: 5
   },
 });

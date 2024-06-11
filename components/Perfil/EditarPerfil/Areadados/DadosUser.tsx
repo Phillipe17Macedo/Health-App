@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Dimensions } from "react-native";
 import { buscarAderente } from "@/utils/requestConfig";
 import { styles } from "./styles";
 
@@ -7,6 +7,8 @@ export default function DadosUser({ cpf }: { cpf: string }) {
   const [nome, setNome] = useState<string>("");
   const [cpfUser, setCpfUser] = useState<string>("");
   const [dataNasc, setDataNasc] = useState<string>("");
+
+  const { width, height } = Dimensions.get('screen');
 
   useEffect(() => {
     async function fetchData() {
@@ -31,29 +33,36 @@ export default function DadosUser({ cpf }: { cpf: string }) {
   return (
     <>
       <View style={[styles.container]}>
-        <View>
-          <TextInput
-            placeholder="NOME COMPLETO"
-            style={[styles.dadosInput]}
-            keyboardType="default"
-            value={nome}
-            editable={false}
-          />
-          <TextInput
-            placeholder="CPF DO USUÁRIO"
-            style={[styles.dadosInput]}
-            keyboardType="default"
-            value={cpfUser}
-            editable={false}
-          />
-          <TextInput
-            placeholder="DATA DE NASCIMENTO"
-            style={[styles.dadosInput]}
-            keyboardType="default"
-            value={dataNasc}
-            editable={false}
-          />
+        <View style={[styles.containerDescricao]}>
+          <Text style={[styles.descricaoDados, {marginLeft: width * 0.02}]}>NOME COMPLETO:</Text>
         </View>
+        <TextInput
+          placeholder="NOME COMPLETO"
+          style={[styles.dadosInput]}
+          keyboardType="default"
+          value={nome}
+          editable={false}
+        />
+        <View style={[styles.containerDescricao]}>
+          <Text style={[styles.descricaoDados, {marginLeft: width * 0.02}]}>CPF:</Text>
+        </View>
+        <TextInput
+          placeholder="CPF DO USUÁRIO"
+          style={[styles.dadosInput]}
+          keyboardType="default"
+          value={cpfUser}
+          editable={false}
+        />
+        <View style={[styles.containerDescricao]}>
+          <Text style={[styles.descricaoDados, {marginLeft: width * 0.02}]}>DATA DE NASCIMENTO:</Text>
+        </View>
+        <TextInput
+          placeholder="DATA DE NASCIMENTO"
+          style={[styles.dadosInput]}
+          keyboardType="default"
+          value={dataNasc}
+          editable={false}
+        />
       </View>
     </>
   );

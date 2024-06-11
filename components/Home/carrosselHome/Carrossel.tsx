@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
 import {
   AntDesign,
@@ -9,7 +9,8 @@ import {
 } from "@expo/vector-icons";
 import { Anuncios } from "../anunciosHome/Anuncios";
 import { styles } from "./styles";
-import { Fontisto } from '@expo/vector-icons';
+import { Fontisto } from "@expo/vector-icons";
+
 export function Carrossel() {
   return (
     <>
@@ -34,11 +35,7 @@ export function Carrossel() {
         <TouchableOpacity>
           <Link href={"/exame"} style={[styles.containerLink]}>
             <View style={[styles.opcoes]}>
-              <Fontisto
-                name="heartbeat"
-                size={48}
-                color="#107357"
-              />
+              <Fontisto name="heartbeat" size={48} color="#107357" />
               <Text style={[styles.textoOpcoesIcone]}>EXAMES</Text>
             </View>
           </Link>

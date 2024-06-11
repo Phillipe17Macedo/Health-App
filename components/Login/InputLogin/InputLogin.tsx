@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, View, TouchableOpacity, Text, Alert } from "react-native";
+import { TextInput, View, TouchableOpacity, Text, Alert, Dimensions, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
@@ -11,6 +11,7 @@ export function InputLogin() {
   const [cpf, setCpf] = useState("");
   const [cpfExiste, setCpfExiste] = useState(true);
   const [isDependente, setIsDependente] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const formatoCPF = (input: string) => {
@@ -25,6 +26,7 @@ export function InputLogin() {
 
   const handleLogin = async () => {
     const cleanedCpf = cpf.replace(/\D/g, "");
+    setLoading(true);
     try {
       console.log("Buscando aderente para CPF:", cleanedCpf);
       const titular = !isDependente;
@@ -63,33 +65,44 @@ export function InputLogin() {
         Alert.alert("Erro", "Falha ao verificar o CPF");
       }
       console.log("Erro ao verificar o CPF:", error);
+    } finally {
+      setLoading(false); // Para o carregamento
     }
   };
 
+  const { width, height } = Dimensions.get('window');
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { padding: width * 0.05 }]}>
       <View style={[styles.containerCheckbox]}>
         <Checkbox
           status={isDependente ? "checked" : "unchecked"}
           onPress={() => setIsDependente(!isDependente)}
         />
-        <Text style={[styles.textoCheckBox]}>Você é um Dependente ?</Text>
+        <Text style={[styles.textoCheckBox, { fontSize: width * 0.04 }]}>Você é um Dependente ?</Text>
       </View>
       <View style={[styles.containerInput]}>
         <TextInput
           placeholder="CPF 000.000.000-00"
           keyboardType="numeric"
-          style={[styles.textInput]}
+          style={[styles.textInput, { fontSize: width * 0.05 }]}
           value={cpf}
           onChangeText={formatoCPF}
         />
       </View>
       <TouchableOpacity
-        style={[styles.containerButtonEntrar]}
-        disabled={cpfExiste}
+        style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
+        disabled={cpfExiste || loading} // Desabilita o botão durante o carregamento
         onPress={handleLogin}
       >
-        <Text style={[styles.textoButton]}>Entrar</Text>
+        {loading ? (
+          <ActivityIndicator size="small" color="#025940" style={[{marginBottom: -10, marginTop: 4}]} />
+        ) : (
+          <Text style={[styles.textoButton, { fontSize: width * 0.05 }]}>Entrar</Text>
+        )}
+        {loading && (
+          <Text style={[styles.textoButton, { marginTop: 10, fontSize: width * 0.04 }]}>Carregando</Text>
+        )}
       </TouchableOpacity>
     </View>
   );

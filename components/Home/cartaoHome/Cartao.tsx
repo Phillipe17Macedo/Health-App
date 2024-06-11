@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TouchableOpacity, Text, Image } from "react-native";
+import { View, TouchableOpacity, Text, Image, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import { styles } from "./styles";
@@ -12,6 +12,7 @@ interface User {
   titularDoContrato: boolean;
   fotoBase64: string;
 }
+
 interface CartaoProps {
   user: User;
 }
@@ -32,6 +33,8 @@ export function Cartao({ user }: CartaoProps) {
   // Aqui eu convert a string base64 para um URI utilizável pelo componente <Image />
   const fotoUri = `data:image/jpeg;base64,${user.fotoBase64}`;
 
+  const { width, height } = Dimensions.get('screen');
+
   return (
     <>
       <TouchableOpacity>
@@ -51,26 +54,26 @@ export function Cartao({ user }: CartaoProps) {
               </View>
 
               <View style={[styles.containerDadosUser]}>
-                <Text style={[styles.textoPadraoUser]}>{user.nome}</Text>
-                <Text style={[styles.descricaoNome]}>Nome do Beneficiário</Text>
+                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{user.nome}</Text>
+                <Text style={[styles.descricaoNome, { fontSize: width * 0.022, fontWeight: 'normal' }]}>Nome do Beneficiário</Text>
 
-                <Text style={[styles.textoPadraoUser]}>
+                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>
                   {user.dataNasc}
                 </Text>
-                <Text style={[styles.descricaoDataNascimento]}>
+                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.022, fontWeight: 'normal' }]}>
                   Data de Nascimento
                 </Text>
 
-                <Text style={[styles.textoPadraoUser]}>{user.tipoAdesao}</Text>
-                <Text style={[styles.descricaoDataNascimento]}>Tipo de Adesão</Text>
+                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{user.tipoAdesao}</Text>
+                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.022, fontWeight: 'normal' }]}>Tipo de Adesão</Text>
 
-                <Text style={[styles.textoPadraoUser, alterarEstiloUsuario()]}>{titularContrato}</Text>
-                <Text style={[styles.descricaoDataNascimento]}>Tipo de Usuário</Text>
+                <Text style={[styles.textoPadraoUser, alterarEstiloUsuario(), { fontSize: width * 0.032 }]}>{titularContrato}</Text>
+                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.022, fontWeight: 'normal' }]}>Tipo de Usuário</Text>
 
-                <View style={[styles.containerStatusPessoa]}>
-                  <Text style={[styles.descricaoStatusPessoa]}>STATUS CONTRATO:</Text>
+                <View style={[styles.containerStatusPessoa,]}>
+                  <Text style={[styles.descricaoStatusPessoa, { fontSize: width * 0.032, paddingTop: height * 0.005 }]}>STATUS CONTRATO:</Text>
                   <View style={[styles.containerStatus, alterarEstiloStatus()]}>
-                    <Text style={[styles.textoStatus]}>{statusText}</Text>
+                    <Text style={[styles.textoStatus, { fontSize: width * 0.032 }]}>{statusText}</Text>
                   </View>
                 </View>
               </View>
