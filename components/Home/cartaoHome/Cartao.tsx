@@ -12,6 +12,7 @@ interface User {
   titularDoContrato: boolean;
   fotoBase64: string;
 }
+
 interface CartaoProps {
   user: User;
 }
