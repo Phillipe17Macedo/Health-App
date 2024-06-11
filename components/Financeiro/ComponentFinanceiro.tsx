@@ -50,6 +50,7 @@ export function ComponentFinanceiro() {
             <View style={[styles.containerIcone]}>
               <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
             </View>
+            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
           </View>
 
           <View style={[styles.containerItem]}>
@@ -57,6 +58,7 @@ export function ComponentFinanceiro() {
             <View style={[styles.containerIcone]}>
               <MaterialIcons name="monetization-on" size={64} color={'#F22222'} />
             </View>
+            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
           </View>
 
           <View style={[styles.containerItem]}>
@@ -64,6 +66,7 @@ export function ComponentFinanceiro() {
             <View style={[styles.containerIcone]}>
               <MaterialIcons name="monetization-on" size={64} color={'#F22222'} />
             </View>
+            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
           </View>
           
           <View style={[styles.containerItem]}>
@@ -71,6 +74,7 @@ export function ComponentFinanceiro() {
             <View style={[styles.containerIcone]}>
               <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
             </View>
+            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
           </View>
 
           <View style={[styles.containerItem]}>
@@ -78,6 +82,7 @@ export function ComponentFinanceiro() {
             <View style={[styles.containerIcone]}>
               <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
             </View>
+            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
           </View>
 
         </View>

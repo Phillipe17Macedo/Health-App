@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { width, height } = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
   container: {
@@ -36,7 +38,7 @@ export const styles = StyleSheet.create({
   containerIcone: {
     width: 64,
     position: 'absolute',
-    marginLeft: 280,
+    marginLeft: width * 0.65,
     marginTop: 18 
   },
   textoDescricaoItem: {
