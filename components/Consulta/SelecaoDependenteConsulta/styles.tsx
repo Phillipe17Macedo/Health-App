@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   cancelButton: {
     marginTop: 10,
     padding: 10,
-    backgroundColor: "red",
+    backgroundColor: "#F22222",
     borderRadius: 5,
   },
   cancelButtonText: {
