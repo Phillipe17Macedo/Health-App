@@ -1,4 +1,12 @@
-import { SafeAreaView, ScrollView, RefreshControl } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  RefreshControl,
+  Modal,
+  View,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { styles } from "../../styles/StylesHomePage/styles";
@@ -20,16 +28,19 @@ interface User {
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function loadUser() {
-    const userCpf = await AsyncStorage.getItem('userCpf');
-    const isTitular = await AsyncStorage.getItem('isTitular');
+    setLoading(true);
+    const userCpf = await AsyncStorage.getItem("userCpf");
+    const isTitular = await AsyncStorage.getItem("isTitular");
 
     if (userCpf) {
-      const response = await buscarAderente(userCpf, isTitular === 'true');
+      const response = await buscarAderente(userCpf, isTitular === "true");
       const userData: User | null = response.data;
       setUser(userData);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -50,10 +61,23 @@ export default function Home() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <Header nomeUsuario={user ?.nome} />
+        <Header nomeUsuario={user?.nome} />
         {user && <Cartao user={user} />}
         <Carrossel />
       </ScrollView>
+      <Modal
+        transparent={true}
+        animationType="slide"
+        visible={loading}
+        onRequestClose={() => {}}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            <ActivityIndicator size="large" color="#8CBF1F" />
+            <Text style={styles.loadingText}>Buscando Informações...</Text>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }

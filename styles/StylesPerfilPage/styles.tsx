@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
   areaInformacoes: {
     position: 'absolute',
-    backgroundColor: '#D9D9D9',
+    backgroundColor: '#fff',
     width: '100%',
     height: '90%',
     marginTop: '40%',
