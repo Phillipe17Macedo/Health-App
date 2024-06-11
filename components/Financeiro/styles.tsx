@@ -20,11 +20,27 @@ export const styles = StyleSheet.create({
   },
   containerItem: {
     width: '100%',
-    height: 70,
+    height: 100,
     backgroundColor: '#fff',
     alignSelf: 'center',  
     elevation: 3,
     borderRadius: 10,
     padding: 15,
+    marginBottom: 20,
+  },
+  tituloTextoItem: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'justify',
+  },
+  containerIcone: {
+    width: 64,
+    position: 'absolute',
+    marginLeft: 280,
+    marginTop: 18 
+  },
+  textoDescricaoItem: {
+    fontSize: 12,
+
   }
 });

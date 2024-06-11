@@ -8,6 +8,7 @@ import {
   Image
 } from "react-native";
 import { styles } from "./styles";
+import { MaterialIcons } from '@expo/vector-icons';
 
 export function ComponentFinanceiro() {
   return (
@@ -37,7 +38,46 @@ export function ComponentFinanceiro() {
           </TouchableOpacity>
 
           <View style={[styles.containerItem]}>
-            <Text>Mês de Maio 2024</Text>
+            <Text style={[styles.tituloTextoItem]}>Mês de Junho 2024</Text>
+            <View style={[styles.containerIcone]}>
+              <MaterialIcons name="monetization-on" size={64} color={'#F22222'} />
+            </View>
+            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
+          </View>
+
+          <View style={[styles.containerItem]}>
+            <Text style={[styles.tituloTextoItem]}>Mês de Maio 2024</Text>
+            <View style={[styles.containerIcone]}>
+              <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
+            </View>
+          </View>
+
+          <View style={[styles.containerItem]}>
+            <Text style={[styles.tituloTextoItem]}>Mês de Abril 2024</Text>
+            <View style={[styles.containerIcone]}>
+              <MaterialIcons name="monetization-on" size={64} color={'#F22222'} />
+            </View>
+          </View>
+
+          <View style={[styles.containerItem]}>
+            <Text style={[styles.tituloTextoItem]}>Mês de Março 2024</Text>
+            <View style={[styles.containerIcone]}>
+              <MaterialIcons name="monetization-on" size={64} color={'#F22222'} />
+            </View>
+          </View>
+          
+          <View style={[styles.containerItem]}>
+            <Text style={[styles.tituloTextoItem]}>Mês de Fevereiro 2024</Text>
+            <View style={[styles.containerIcone]}>
+              <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
+            </View>
+          </View>
+
+          <View style={[styles.containerItem]}>
+            <Text style={[styles.tituloTextoItem]}>Mês de Janeiro 2024</Text>
+            <View style={[styles.containerIcone]}>
+              <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
+            </View>
           </View>
 
         </View>
