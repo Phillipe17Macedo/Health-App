@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, View, TouchableOpacity, Text, Alert } from "react-native";
+import { TextInput, View, TouchableOpacity, Text, Alert, Dimensions } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
@@ -66,30 +66,32 @@ export function InputLogin() {
     }
   };
 
+  const { width, height } = Dimensions.get('window');
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { padding: width * 0.05 }]}>
       <View style={[styles.containerCheckbox]}>
         <Checkbox
           status={isDependente ? "checked" : "unchecked"}
           onPress={() => setIsDependente(!isDependente)}
         />
-        <Text style={[styles.textoCheckBox]}>Você é um Dependente ?</Text>
+        <Text style={[styles.textoCheckBox, { fontSize: width * 0.04 }]}>Você é um Dependente ?</Text>
       </View>
       <View style={[styles.containerInput]}>
         <TextInput
           placeholder="CPF 000.000.000-00"
           keyboardType="numeric"
-          style={[styles.textInput]}
+          style={[styles.textInput, { fontSize: width * 0.05 }]}
           value={cpf}
           onChangeText={formatoCPF}
         />
       </View>
       <TouchableOpacity
-        style={[styles.containerButtonEntrar]}
+        style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
         disabled={cpfExiste}
         onPress={handleLogin}
       >
-        <Text style={[styles.textoButton]}>Entrar</Text>
+        <Text style={[styles.textoButton, { fontSize: width * 0.05 }]}>Entrar</Text>
       </TouchableOpacity>
     </View>
   );

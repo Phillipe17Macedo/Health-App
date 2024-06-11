@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,10 +14,11 @@ export const styles = StyleSheet.create({
     marginTop: 290,
     justifyContent: 'center',
     elevation: 3,
+    padding: width * 0.05,
   },
   containerCheckbox: {
     flexDirection: 'row',
-    width: '80%',
+    width: '90%',
     alignItems: 'center',
     alignSelf: 'center',
     backgroundColor: '#F2F2F2',
@@ -27,13 +30,13 @@ export const styles = StyleSheet.create({
   },
   textoCheckBox: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: width * 0.04,
     color: '#3E4A59'
   },
   containerInput: {
     width: '90%',
     height: 60,
-    marginTop: 20,
+    marginTop: height * 0.025,
     backgroundColor: '#F2F2F2',
     alignSelf: 'center',
     justifyContent: 'center',
