@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+
+const { width, height } = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
   containerLink: {
@@ -11,18 +13,21 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerCard: {
-    width: '100%',
-    height: "auto",
+    width: width * 0.9,
+    height: width * 0.6,
     marginTop: 25,
     borderRadius: 15,
     borderWidth: 1,
     borderColor: "#65A693",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   componenteCard: {
-    width: 330,
-    height: 200,
-    padding: 12,
-    flexDirection: 'row'
+    width: '100%',
+    height: '100%',
+    padding: width * 0.03,
+    flexDirection: 'row', 
+    paddingTop: width * 0.05
   },
   containerImagemUser: {
     backgroundColor: '#DFF2ED',
@@ -41,7 +46,7 @@ export const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 14,
-    marginTop: 5,
+    marginTop: height * 0.003,
   },
   descricaoNome: {
     fontSize: 8,
