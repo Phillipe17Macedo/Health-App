@@ -1,7 +1,7 @@
 {
   "name": "health-app",
   "main": "expo-router/entry",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -31,7 +31,7 @@
     "firebase": "^10.12.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.74.1",
+    "react-native": "0.74.2",
     "react-native-calendars": "^1.1305.0",
     "react-native-check-box": "^2.1.7",
     "react-native-dropdown-picker": "^5.4.6",

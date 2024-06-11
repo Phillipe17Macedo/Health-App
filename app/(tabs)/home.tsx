@@ -11,7 +11,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 interface User {
   nome: string;
   dataNasc: string;
+  tipoAdesao: string;
   statusContrato: boolean;
+  titularDoContrato: boolean;
   fotoBase64: string;
 }
 

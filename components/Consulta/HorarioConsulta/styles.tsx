@@ -38,13 +38,14 @@ export const styles = StyleSheet.create({
     color: "white",
   },
   closeButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#8CBF1F',
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     width: 100,
     height: 50,
     marginTop: 15,
+    elevation: 3
   },
   closeButtonText: {
     color: '#fff',
