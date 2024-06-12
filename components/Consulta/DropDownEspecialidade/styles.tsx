@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -26,6 +28,7 @@ export const styles = StyleSheet.create({
     borderWidth: 0.5,
     elevation: 2,
     borderRadius: 15,
+    zIndex: height * 3000
   },
   itensLista: {
     color: '#025940',

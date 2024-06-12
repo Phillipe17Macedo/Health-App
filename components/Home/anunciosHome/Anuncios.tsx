@@ -19,7 +19,7 @@ export function Anuncios() {
           <Text style={[styles.textoDescricaoAnuncio]}>DATA: 00/00/0000</Text>
           <Text style={[styles.textoDescricaoAnuncio]}>HORÁRIO: 00:00:00</Text>
           <Text style={[styles.textoDescricaoAnuncio]}>
-            MÉDICO: DR. MÉDICO MEDINA
+            MÉDICO: DR. MÉDICO MEDICINA
           </Text>
           <Text style={[styles.textoDescricaoAnuncio]}>
             TIPO: TIPO CONSULTA

@@ -6,6 +6,8 @@ import {
   FlatList,
   TouchableOpacity,
   Alert,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
@@ -112,7 +114,6 @@ export default function Consulta() {
         especialidade: item.nome || "",
       }));
       handleEspecialidadeSelect(item.key);
-
     } else if (item.type === "medico") {
       const medicoData = item;
       console.log("Medico Selecionado: ", medicoData);
@@ -234,119 +235,120 @@ export default function Consulta() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <HeaderConsulta />
-      <SearchBar
-        onSearch={handlePesquisar}
-        onSugest={handleSugestoes}
-        resultados={resultadoPesquisa}
-        onSelecionarSugestao={handleSelecaoSugestao}
-      />
-      <Especialidade
-        EspecialidadeCarregada={(id, nome) => {
-          setEspecialidadeId(id);
-          setEspecialidadeNome(nome); // Armazenar o nome da especialidade
-          setConsulta((prev) => ({
-            ...prev,
-            especialidade: nome || "",
-          }));
-        }}
-        especialidadeSelecionada={especialidadeId}
-      />
-      <Medico
-        especialidadeId={especialidadeId}
-        medicoSelecionado={medico ? medico.id : null}
-        onMedicoSelect={(medico) => {
-          handleMedicoSelect(medico);
-          setMedico(medico);
-          setConsulta((prev) => ({
-            ...prev,
-            medico: medico.label || "",
-          }));
-          setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
-          setHorariosDisponiveis(medico.diasAtendimento || []);
-          setCalendarioVisivel(true);
-        }}
-      />
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisivel}
-        onRequestClose={() => setModalVisivel(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            {resultadoPesquisa.length > 0 ? (
-              <FlatList
-                data={resultadoPesquisa}
-                keyExtractor={(item) => item.key}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    onPress={() => handleSelecaoSugestao(item)}
-                    style={styles.resultItem}
-                  >
-                    <Text style={styles.resultText}>
-                      {item.nome} (
-                      {item.type === "especialidade"
-                        ? "Especialidade"
-                        : "Médico"}
-                      )
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              />
-            ) : (
-              <Text style={styles.noResultsText}>
-                Nenhum resultado encontrado
-              </Text>
-            )}
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisivel(false)}
-            >
-              <Text style={styles.closeButtonText}>Fechar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      <CalendarioConsulta
-        visivel={calendarioVisivel}
-        onClose={() => setCalendarioVisivel(false)}
-        onDateSelect={handleDateSelect}
-        diasDisponiveis={diasDisponiveis}
-      />
-
-      <HorarioConsulta
-        visivel={horarioVisivel}
-        onClose={() => setHorarioVisivel(false)}
-        onTimeSelect={handleTimeSelect}
-        horariosDisponiveis={horariosDisponiveis}
-      />
-
-      <SelecaoDependente
-        visivel={selectDependenteVisivel}
-        onClose={() => setSelectDependenteVisivel(false)}
-        onConfirm={handleConfirmDependente}
-        isDependente={isDependente}
-        setIsDependente={setIsDependente}
-        dependentes={
-          usuario?.dependentes ? Object.values(usuario.dependentes) : []
-        }
-        selectedDependente={dependenteSelecionado}
-        setSelectedDependente={setDependenteSelecionado}
-      />
-
-      {confirmacaoVisivel && consulta && (
-        <ConfirmacaoConsulta
-          visivel={confirmacaoVisivel}
-          onClose={() => setConfirmacaoVisivel(false)}
-          onConfirm={handleConfirm}
-          consulta={consulta}
+      <View>
+        <HeaderConsulta />
+        <SearchBar
+          onSearch={handlePesquisar}
+          onSugest={handleSugestoes}
+          resultados={resultadoPesquisa}
+          onSelecionarSugestao={handleSelecaoSugestao}
         />
-      )}
-    </View>
+        <Especialidade
+          EspecialidadeCarregada={(id, nome) => {
+            setEspecialidadeId(id);
+            setEspecialidadeNome(nome); // Armazenar o nome da especialidade
+            setConsulta((prev) => ({
+              ...prev,
+              especialidade: nome || "",
+            }));
+          }}
+          especialidadeSelecionada={especialidadeId}
+        />
+        <Medico
+          especialidadeId={especialidadeId}
+          medicoSelecionado={medico ? medico.id : null}
+          onMedicoSelect={(medico) => {
+            handleMedicoSelect(medico);
+            setMedico(medico);
+            setConsulta((prev) => ({
+              ...prev,
+              medico: medico.label || "",
+            }));
+            setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
+            setHorariosDisponiveis(medico.diasAtendimento || []);
+            setCalendarioVisivel(true);
+          }}
+        />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisivel}
+          onRequestClose={() => setModalVisivel(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              {resultadoPesquisa.length > 0 ? (
+                <FlatList
+                  data={resultadoPesquisa}
+                  keyExtractor={(item) => item.key}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity
+                      onPress={() => handleSelecaoSugestao(item)}
+                      style={styles.resultItem}
+                    >
+                      <Text style={styles.resultText}>
+                        {item.nome} (
+                        {item.type === "especialidade"
+                          ? "Especialidade"
+                          : "Médico"}
+                        )
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                />
+              ) : (
+                <Text style={styles.noResultsText}>
+                  Nenhum resultado encontrado
+                </Text>
+              )}
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => setModalVisivel(false)}
+              >
+                <Text style={styles.closeButtonText}>Fechar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        <CalendarioConsulta
+          visivel={calendarioVisivel}
+          onClose={() => setCalendarioVisivel(false)}
+          onDateSelect={handleDateSelect}
+          diasDisponiveis={diasDisponiveis}
+        />
+
+        <HorarioConsulta
+          visivel={horarioVisivel}
+          onClose={() => setHorarioVisivel(false)}
+          onTimeSelect={handleTimeSelect}
+          horariosDisponiveis={horariosDisponiveis}
+        />
+
+        <SelecaoDependente
+          visivel={selectDependenteVisivel}
+          onClose={() => setSelectDependenteVisivel(false)}
+          onConfirm={handleConfirmDependente}
+          isDependente={isDependente}
+          setIsDependente={setIsDependente}
+          dependentes={
+            usuario?.dependentes ? Object.values(usuario.dependentes) : []
+          }
+          selectedDependente={dependenteSelecionado}
+          setSelectedDependente={setDependenteSelecionado}
+        />
+
+        {confirmacaoVisivel && consulta && (
+          <ConfirmacaoConsulta
+            visivel={confirmacaoVisivel}
+            onClose={() => setConfirmacaoVisivel(false)}
+            onConfirm={handleConfirm}
+            consulta={consulta}
+          />
+        )}
+      </View>
+    </SafeAreaView>
   );
 }
