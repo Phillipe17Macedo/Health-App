@@ -25,7 +25,7 @@ import {
 } from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
-import ModalCarregamento from "@/components/Consulta/ModalCarregamento/ModalCarregamento";
+import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Consulta() {
