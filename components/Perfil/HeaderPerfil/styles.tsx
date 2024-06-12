@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     marginRight: 10,
   },
   textoHeader: {
-    color: '#D9D9D9',
+    color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
     fontVariant: ['small-caps'],
