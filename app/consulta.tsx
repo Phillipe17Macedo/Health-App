@@ -25,6 +25,7 @@ import {
 } from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
+import ModalCarregamento from "@/components/Consulta/ModalCarregamento/ModalCarregamento";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Consulta() {
@@ -49,6 +50,8 @@ export default function Consulta() {
   const [dependenteSelecionado, setDependenteSelecionado] = useState<
     string | null
   >(null);
+  const [loading, setLoading] = useState(false);
+
   const [consulta, setConsulta] = useState({
     usuario: "",
     especialidade: "",
@@ -60,6 +63,7 @@ export default function Consulta() {
   useEffect(() => {
     const fetchUsuarioLogado = async () => {
       try {
+        setLoading(true);
         const cpfDoBanco = await AsyncStorage.getItem("userCpf");
         if (cpfDoBanco) {
           setCpfUsuario(cpfDoBanco);
@@ -70,7 +74,6 @@ export default function Consulta() {
           const usuarioLogado = response.data;
 
           console.log("Dados do usuário:", usuarioLogado);
-
           setUsuario(usuarioLogado);
           setConsulta((prev) => ({
             ...prev,
@@ -80,6 +83,8 @@ export default function Consulta() {
       } catch (error) {
         console.error("Erro ao buscar usuário logado:", error);
         Alert.alert("Erro", "Usuário não encontrado");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -88,24 +93,31 @@ export default function Consulta() {
 
   const handlePesquisar = async () => {
     try {
+      setLoading(true);
       const results = await buscarEspecialidades();
       setResultadoPesquisa(results.data);
       setModalVisivel(true);
     } catch (error) {
       console.error("Erro ao realizar pesquisa:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSugestoes = async () => {
     try {
+      setLoading(true);
       const results = await buscarEspecialidades();
       setResultadoPesquisa(results.data);
     } catch (error) {
       console.error("Erro ao obter sugestões:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSelecaoSugestao = async (item: any) => {
+    setLoading(true);
     if (item.type === "especialidade") {
       setEspecialidadeId(item.key);
       setEspecialidadeNome(item.nome);
@@ -122,15 +134,19 @@ export default function Consulta() {
       setEspecialidadeNome(medicoData.especialidadeNome);
       handleMedicoSelect(medicoData);
     }
+    setLoading(false);
   };
 
   const handleEspecialidadeSelect = async (especialidadeId: string) => {
     try {
+      setLoading(true);
       const response = await buscarMedicosEspecialidade(especialidadeId);
       const medicosData = response.data;
       setResultadoPesquisa(medicosData);
     } catch (error) {
       console.error("Erro ao buscar médicos:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -220,6 +236,7 @@ export default function Consulta() {
 
   const handleConfirm = async () => {
     try {
+      setLoading(true);
       const novaConsulta = {
         ...consulta,
         data: dataConsulta || "",
@@ -231,6 +248,8 @@ export default function Consulta() {
     } catch (error) {
       console.error("Erro ao salvar consulta:", error);
       Alert.alert("Erro ao confirmar consulta.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -312,6 +331,8 @@ export default function Consulta() {
             </View>
           </View>
         </Modal>
+
+        <ModalCarregamento visivel={loading} />
 
         <CalendarioConsulta
           visivel={calendarioVisivel}

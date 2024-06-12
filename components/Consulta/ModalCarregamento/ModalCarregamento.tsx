@@ -1,12 +1,24 @@
-import React from 'react';
-import { View } from 'react-native';
+import React from "react";
+import { View, Modal, Text, ActivityIndicator } from "react-native";
 
-import { styles } from './styles';
+import { styles } from "./styles";
 
-export default function ModalCarregamento() {
+interface ModalCarreegamentoProps {
+  visivel: boolean;
+  onClose?: () => void;
+}
+
+export default function ModalCarregamento({
+  visivel,
+}: ModalCarreegamentoProps) {
   return (
-    <View style={styles.container}>
-
-    </View>
+    <Modal visible={visivel} transparent={true} animationType="fade">
+      <View style={styles.modalBackground}>
+        <View style={[styles.modalContainer]}>
+          <ActivityIndicator size="large" color="#8CBF1F" />
+          <Text style={styles.loadingText}>Buscando Informações...</Text>
+        </View>
+      </View>
+    </Modal>
   );
 }
