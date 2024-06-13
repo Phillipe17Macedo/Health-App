@@ -11,7 +11,7 @@ export function ComponenteMedicos() {
 
         <View style={[styles.areaTextos]}>
           <View style={[styles.textoNomeMedico]}>
-            <Text style={[styles.nomeMedico]}>MM CLÍNICA MEDICINA DO TRABALHO</Text>
+            <Text style={[styles.nomeMedico]}>CLÍNICA MEDICINA DO TRABALHO</Text>
           </View>
           <View style={[styles.textoEndereco]}>
             <Text style={[styles.nomeEndereco]}>Endereço:</Text>
