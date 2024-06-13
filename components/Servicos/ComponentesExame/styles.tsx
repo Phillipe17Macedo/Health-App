@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 25,
     paddingLeft: 20,
+    marginBottom: 25
   },
   containerLink: {
     width: '95%',

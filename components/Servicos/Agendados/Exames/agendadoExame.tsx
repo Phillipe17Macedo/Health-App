@@ -1,12 +1,30 @@
 import React from 'react';
-import { View } from 'react-native';
-
+import { View, Text } from 'react-native';
 import { styles } from './styles';
 
-export default function AgendadoExame() {
+interface Exame {
+  id: number;
+  tipo: string;
+  data: string;
+  hora: string;
+}
+
+interface AgendadoExameProps {
+  exames: Exame[];
+}
+
+const AgendadoExame: React.FC<AgendadoExameProps> = ({ exames }) => {
   return (
     <View style={styles.container}>
-
+      {exames.map((exame) => (
+        <View key={exame.id} style={styles.item}>
+          <Text style={styles.text}>Tipo: {exame.tipo}</Text>
+          <Text style={styles.text}>Data: {exame.data}</Text>
+          <Text style={styles.text}>Hora: {exame.hora}</Text>
+        </View>
+      ))}
     </View>
   );
 }
+
+export default AgendadoExame;
