@@ -70,17 +70,10 @@ export function InputLogin() {
     }
   };
 
-  const { width, height } = Dimensions.get('window');
+  const { width } = Dimensions.get('window');
 
   return (
     <View style={[styles.container, { padding: width * 0.05 }]}>
-      <View style={[styles.containerCheckbox]}>
-        <Checkbox
-          status={isDependente ? "checked" : "unchecked"}
-          onPress={() => setIsDependente(!isDependente)}
-        />
-        <Text style={[styles.textoCheckBox, { fontSize: width * 0.04 }]}>Você é um Dependente ?</Text>
-      </View>
       <View style={[styles.containerInput]}>
         <TextInput
           placeholder="CPF 000.000.000-00"
@@ -89,6 +82,13 @@ export function InputLogin() {
           value={cpf}
           onChangeText={formatoCPF}
         />
+      </View>
+      <View style={[styles.containerCheckbox]}>
+        <Checkbox
+          status={isDependente ? "checked" : "unchecked"}
+          onPress={() => setIsDependente(!isDependente)}
+        />
+        <Text style={[styles.textoCheckBox, { fontSize: width * 0.04 }]}>Sou Dependente</Text>
       </View>
       <TouchableOpacity
         style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
