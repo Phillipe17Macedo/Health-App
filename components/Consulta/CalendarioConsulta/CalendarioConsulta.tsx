@@ -56,6 +56,7 @@ export default function CalendarioConsulta({
         selectedColor?: string;
         disabled?: boolean;
         textColor?: string;
+        customStyles?: { text: { textDecorationLine: string } };
       }
     >
   >({});
@@ -71,6 +72,7 @@ export default function CalendarioConsulta({
         selectedColor?: string;
         disabled?: boolean;
         textColor?: string;
+        customStyles?: { text: { textDecorationLine: string } };
       }
     > = {};
 
@@ -84,7 +86,12 @@ export default function CalendarioConsulta({
 
       novaDataMarcada[formattedDate] = {
         disabled: !diasDisponiveis.includes(dayOfWeek) || formattedDate < todayFormatted,
-        textColor: diasDisponiveis.includes(dayOfWeek) && formattedDate >= todayFormatted ? "#03A66A" : "darkgray",
+        textColor: diasDisponiveis.includes(dayOfWeek) && formattedDate >= todayFormatted ? "#03A66A" : "#878787",
+        customStyles: {
+          text: {
+            textDecorationLine: !diasDisponiveis.includes(dayOfWeek) || formattedDate < todayFormatted ? 'line-through' : 'none',
+          },
+        },
       };
     }
 
@@ -148,6 +155,7 @@ export default function CalendarioConsulta({
               arrowColor: "#03A66A",
             }}
             minDate={new Date().toISOString().split('T')[0]}
+            
           />
           <TouchableOpacity
             style={styles.confirmButton}
