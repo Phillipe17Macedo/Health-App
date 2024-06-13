@@ -4,12 +4,12 @@ const { height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    marginLeft: 35,
-    marginRight: 35,
     marginTop: 25,
     marginBottom: 25,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '90%',
+    alignSelf: 'center'
   },
   dropdown: {
     backgroundColor: '#DFF2ED',
@@ -38,5 +38,30 @@ export const styles = StyleSheet.create({
   itemSelecionado: {
     fontWeight: 'bold',
     color: '#8CBF1F',
+  },
+  containerOrientacao: {
+    alignSelf: 'center',
+    backgroundColor: '#03A66A',
+    padding: 10,
+    width: '100%',
+    borderRadius: 5,
+    elevation: 3,
+    borderWidth: 0.5,
+    borderColor: '#025940',
+    marginBottom: 5
+  },
+  tituloOrientacao: {
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 15
+  },
+  orientacao: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#fff',
+    fontSize: 14,
   },
 });
