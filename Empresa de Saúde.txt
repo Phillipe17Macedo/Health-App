@@ -37,6 +37,7 @@ CPF TITULAR 34110143691
 CPF DEPENDENTE 62276885092
 
 Mudar o checkbox para baixo do cpf >> OK
+textInput limitar 11 digitos do CPF >> OK
 header 
 cartão
 tela serviços

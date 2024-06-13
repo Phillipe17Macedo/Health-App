@@ -4,12 +4,13 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    height: 60,
-    marginTop: 25,
+    height: 95,
     flexDirection: 'row',
+    //backgroundColor: 'red',
+    paddingTop: 35,
   },
   headerRight: {
-    marginLeft: 15, // id de costumização do icone do header
+    marginLeft: 15, 
   },
   containerTextoHeader: {
     width: '100%',
@@ -21,6 +22,7 @@ export const styles = StyleSheet.create({
   nomeUsuario: {
     fontSize: 21,
     fontWeight: 'bold',
+    color: '#202022',
   },
   textoPerfilConfi: {
     fontSize: 12,
