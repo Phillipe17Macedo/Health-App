@@ -5,6 +5,7 @@ import { styles } from './styles';
 
 interface Consulta {
   id: number;
+  usuario: string;
   medico: string;
   especialidade: string;
   data: string;
@@ -20,6 +21,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas }) => {
     <View style={styles.container}>
       {consultas.map((consulta) => (
         <View key={consulta.id} style={styles.item}>
+          <Text style={styles.text}>Usuário: {consulta.usuario}</Text>
           <Text style={styles.text}>Médico: {consulta.medico}</Text>
           <Text style={styles.text}>Especialidade: {consulta.especialidade}</Text>
           <Text style={styles.text}>Data: {consulta.data}</Text>

@@ -7,6 +7,7 @@ interface Exame {
   tipo: string;
   data: string;
   hora: string;
+  local: string;
 }
 
 interface AgendadoExameProps {
@@ -21,6 +22,7 @@ const AgendadoExame: React.FC<AgendadoExameProps> = ({ exames }) => {
           <Text style={styles.text}>Tipo: {exame.tipo}</Text>
           <Text style={styles.text}>Data: {exame.data}</Text>
           <Text style={styles.text}>Hora: {exame.hora}</Text>
+          <Text style={styles.text}>Local: {exame.local}</Text>
         </View>
       ))}
     </View>

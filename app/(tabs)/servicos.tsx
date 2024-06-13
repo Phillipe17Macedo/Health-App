@@ -4,20 +4,17 @@ import { SafeAreaView, View, Text, ScrollView } from "react-native";
 import { styles } from "../../styles/StylesServicosPage/styles";
 import { ComponentesConsulta } from "@/components/Servicos/ComponentesConsulta/ComponenteConsulta";
 import { ComponentesExame } from "@/components/Servicos/ComponentesExame/ComponenteExame";
-import AgendadoConsulta from "@/components/Servicos/Agendados/Consulta/agendadoConsulta";
-import AgendadoExame from "@/components/Servicos/Agendados/Exames/agendadoExame";
-import {
-  ConsultasFicticias,
-  ExamesFicticios,
-} from "@/components/Servicos/Agendados/agedamentosFiciticios";
+import AgendadoConsulta from "@/components/Servicos/Agendados/Consulta/AgendadoConsulta";
+import AgendadoExame from "@/components/Servicos/Agendados/Exames/AgendadoExame";
+import { ConsultasFicticias, ExamesFicticios } from "@/components/Servicos/Agendados/AgedamentosFiciticios";
 
 export default function Servicos() {
   const [consultas, setConsultas] = useState(ConsultasFicticias);
   const [exames, setExames] = useState(ExamesFicticios);
 
   useEffect(() => {
-    console.log("Consultas: ", ConsultasFicticias);
-    console.log("Exames: ", ExamesFicticios);
+    console.log("Dados Consultas: ", ConsultasFicticias);
+    console.log("Dados Exames: ", ExamesFicticios);
     setConsultas(ConsultasFicticias);
     setExames(ExamesFicticios);
   }, []);
