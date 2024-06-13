@@ -5,7 +5,7 @@ import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
 import { buscarAderente } from "@/utils/requestConfig";
 import { useRouter } from "expo-router";
-import { AxiosError } from "axios"; // Importação do AxiosError
+import { AxiosError } from "axios";
 
 export function InputLogin() {
   const [cpf, setCpf] = useState("");
@@ -15,7 +15,7 @@ export function InputLogin() {
   const router = useRouter();
 
   const formatoCPF = (input: string) => {
-    const cleaned = input.replace(/\D/g, "");
+    const cleaned = input.replace(/\D/g, "").slice(0, 11);
     const formatted = cleaned.replace(
       /^(\d{3})(\d{3})(\d{3})(\d{2})$/,
       "$1.$2.$3-$4"
