@@ -41,12 +41,15 @@ export const styles = StyleSheet.create({
   },
   containerDadosUser: {
     flexDirection: 'column',
+    //backgroundColor: 'red',
+    justifyContent: 'space-around',
+    height: '95%'
   },
   textoPadraoUser: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 14,
-    marginTop: height * 0.003,
+    marginTop: height * 0.001,
   },
   descricaoNome: {
     fontSize: 8,
@@ -66,8 +69,9 @@ export const styles = StyleSheet.create({
   },
   containerStatusPessoa: {
     flexDirection: "row",
-    marginTop: 15,
-    alignSelf: "center",
+    marginTop: 10,
+    alignSelf: "flex-start",
+    //backgroundColor: 'red'
   },
   descricaoStatusPessoa: {
     fontSize: 14,

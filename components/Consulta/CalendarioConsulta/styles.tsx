@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTitle: {
-    fontSize: 21,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 20,
   },

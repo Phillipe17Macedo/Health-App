@@ -1,10 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+
+const { height } = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
   container: {
     marginRight: 35,
     marginLeft: 35,
-    marginBottom: 25,
+    marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -12,8 +14,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#DFF2ED',
     borderColor: '#65A693',
     borderWidth: 0.5,
-    elevation: 2,
-    borderRadius: 15,
+    elevation: 3,
+    borderRadius: 5,
   },
   textoDropdown: {
     color: '#025940',
@@ -24,7 +26,8 @@ export const styles = StyleSheet.create({
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,
-    borderRadius: 15,
+    borderRadius: 5,
+    zIndex: height * 3000,
   },
   itensLista: {
     color: '#025940',

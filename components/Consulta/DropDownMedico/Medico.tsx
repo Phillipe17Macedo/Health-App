@@ -75,7 +75,7 @@ export default function Medico({
         listItemLabelStyle={styles.itensLista}
         selectedItemLabelStyle={styles.itemSelecionado}
         disabled={!especialidadeId}
-        zIndex={2000}
+        zIndex={1000}
         zIndexInverse={2000}
       />
     </View>

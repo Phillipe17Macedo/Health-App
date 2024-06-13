@@ -5,7 +5,7 @@ import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
 import { buscarAderente } from "@/utils/requestConfig";
 import { useRouter } from "expo-router";
-import { AxiosError } from "axios"; // Importação do AxiosError
+import { AxiosError } from "axios";
 
 export function InputLogin() {
   const [cpf, setCpf] = useState("");
@@ -15,7 +15,7 @@ export function InputLogin() {
   const router = useRouter();
 
   const formatoCPF = (input: string) => {
-    const cleaned = input.replace(/\D/g, "");
+    const cleaned = input.replace(/\D/g, "").slice(0, 11);
     const formatted = cleaned.replace(
       /^(\d{3})(\d{3})(\d{3})(\d{2})$/,
       "$1.$2.$3-$4"
@@ -70,17 +70,10 @@ export function InputLogin() {
     }
   };
 
-  const { width, height } = Dimensions.get('window');
+  const { width } = Dimensions.get('window');
 
   return (
     <View style={[styles.container, { padding: width * 0.05 }]}>
-      <View style={[styles.containerCheckbox]}>
-        <Checkbox
-          status={isDependente ? "checked" : "unchecked"}
-          onPress={() => setIsDependente(!isDependente)}
-        />
-        <Text style={[styles.textoCheckBox, { fontSize: width * 0.04 }]}>Você é um Dependente ?</Text>
-      </View>
       <View style={[styles.containerInput]}>
         <TextInput
           placeholder="CPF 000.000.000-00"
@@ -89,6 +82,13 @@ export function InputLogin() {
           value={cpf}
           onChangeText={formatoCPF}
         />
+      </View>
+      <View style={[styles.containerCheckbox]}>
+        <Checkbox
+          status={isDependente ? "checked" : "unchecked"}
+          onPress={() => setIsDependente(!isDependente)}
+        />
+        <Text style={[styles.textoCheckBox, { fontSize: width * 0.04 }]}>Sou Dependente</Text>
       </View>
       <TouchableOpacity
         style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}

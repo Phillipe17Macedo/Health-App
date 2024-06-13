@@ -5,13 +5,14 @@ export const styles = StyleSheet.create({
     width: '90%',
     height: 60,
     backgroundColor: '#DFF2ED',
-    borderRadius: 10,
+    borderRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',
     elevation: 3,
     alignSelf: 'center',
     marginTop: 25,
     paddingLeft: 20,
+    marginBottom: 25
   },
   containerLink: {
     width: '95%',

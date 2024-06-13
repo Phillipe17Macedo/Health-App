@@ -27,6 +27,11 @@ export function SearchBar({ onSearch, onSugest, onSelecionarSugestao, resultados
 
   return (
     <>
+      <View style={styles.containerOrientacao}>
+        <Text style={[styles.tituloOrientacao]}>AGENDAMENTO DE CONSULTA</Text>
+        <Text style={styles.orientacao}>Procurando uma consulta ?</Text>
+        <Text style={styles.orientacao}>Pesquise abaixo pela especialidade ou médico caso não saiba.</Text>
+      </View>
       <View style={styles.containerAreaPesquisa}>
         <View style={styles.containerTextInput}>
           <TextInput
@@ -63,11 +68,6 @@ export function SearchBar({ onSearch, onSugest, onSelecionarSugestao, resultados
           />
         </View>
       )}
-      <View style={styles.containerOrientacao}>
-        <Text style={styles.orientacao}>Procurando uma consulta ?</Text>
-        <Text style={styles.orientacao}>Qual é o seu Problema ?</Text>
-        <Text style={styles.orientacao}>Pesquise acima !</Text>
-      </View>
     </>
   );
 }

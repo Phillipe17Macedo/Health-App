@@ -7,7 +7,7 @@ export function LogoLogin() {
   return (
     <View style={styles.container}>
         <Image source={require("../../../assets/images/Login/medical-image.png")} style={[styles.imagemLogin]}/>
-        <Text style={[styles.tituloLogo]}>HEALTH APP</Text>
+        <Text style={[styles.tituloLogo]}>ASERPA SAÚDE</Text>
     </View>
   );
 }

@@ -9,7 +9,7 @@ export function HeaderPerfil() {
     <View style={styles.container}>
         <View style={[styles.containerItensHeader]}>
             <Link href="/home" style={[styles.linkIcone]}>
-                <Ionicons name="arrow-back-circle" size={48} color="#D9D9D9"/>
+                <Ionicons name="arrow-back-circle" size={48} color="#fff"/>
             </Link>
             <Text style={[styles.textoHeader]}>Perfil e Configurações</Text>
         </View>

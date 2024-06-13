@@ -15,6 +15,7 @@ import { Cartao } from "../../components/Home/cartaoHome/Cartao";
 import { Carrossel } from "../../components/Home/carrosselHome/Carrossel";
 import { buscarAderente } from "@/utils/requestConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ModalCarregamento from "@/components/constants/ModalCarregamento";
 
 interface User {
   nome: string;
@@ -65,19 +66,7 @@ export default function Home() {
         {user && <Cartao user={user} />}
         <Carrossel />
       </ScrollView>
-      <Modal
-        transparent={true}
-        animationType="slide"
-        visible={loading}
-        onRequestClose={() => {}}
-      >
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            <ActivityIndicator size="large" color="#8CBF1F" />
-            <Text style={styles.loadingText}>Buscando Informações...</Text>
-          </View>
-        </View>
-      </Modal>
+      <ModalCarregamento visivel={loading}/>
     </SafeAreaView>
   );
 }

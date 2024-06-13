@@ -35,3 +35,18 @@ http://cartaoaserpa.enoki.com.br/Resources/Images/FotosParceiro/00011239557/id17
 
 CPF TITULAR 34110143691
 CPF DEPENDENTE 62276885092
+
+Mudar o checkbox para baixo do cpf >> OK
+textInput limitar 11 digitos do CPF >> OK
+header >> OK
+cartão >> OK
+tela serviços visualização dos agendamentos >> OK
+tela consulta >> OK
+calendário >> OK
+dependentes >> OK
+mudar titulo da tela >> OK
+mudar o sistema de médicos >> 
+
+agendamento em clinicas aserpa
+consulta -> agendar
+solicitar autorização de guias

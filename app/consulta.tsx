@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Alert,
+  SafeAreaView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
@@ -23,6 +24,7 @@ import {
 } from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
+import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Consulta() {
@@ -47,6 +49,8 @@ export default function Consulta() {
   const [dependenteSelecionado, setDependenteSelecionado] = useState<
     string | null
   >(null);
+  const [loading, setLoading] = useState(false);
+
   const [consulta, setConsulta] = useState({
     usuario: "",
     especialidade: "",
@@ -58,6 +62,7 @@ export default function Consulta() {
   useEffect(() => {
     const fetchUsuarioLogado = async () => {
       try {
+        setLoading(true);
         const cpfDoBanco = await AsyncStorage.getItem("userCpf");
         if (cpfDoBanco) {
           setCpfUsuario(cpfDoBanco);
@@ -68,7 +73,6 @@ export default function Consulta() {
           const usuarioLogado = response.data;
 
           console.log("Dados do usuário:", usuarioLogado);
-
           setUsuario(usuarioLogado);
           setConsulta((prev) => ({
             ...prev,
@@ -78,6 +82,8 @@ export default function Consulta() {
       } catch (error) {
         console.error("Erro ao buscar usuário logado:", error);
         Alert.alert("Erro", "Usuário não encontrado");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -86,24 +92,31 @@ export default function Consulta() {
 
   const handlePesquisar = async () => {
     try {
+      setLoading(true);
       const results = await buscarEspecialidades();
       setResultadoPesquisa(results.data);
       setModalVisivel(true);
     } catch (error) {
       console.error("Erro ao realizar pesquisa:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSugestoes = async () => {
     try {
+      setLoading(true);
       const results = await buscarEspecialidades();
       setResultadoPesquisa(results.data);
     } catch (error) {
       console.error("Erro ao obter sugestões:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleSelecaoSugestao = async (item: any) => {
+    setLoading(true);
     if (item.type === "especialidade") {
       setEspecialidadeId(item.key);
       setEspecialidadeNome(item.nome);
@@ -112,7 +125,6 @@ export default function Consulta() {
         especialidade: item.nome || "",
       }));
       handleEspecialidadeSelect(item.key);
-
     } else if (item.type === "medico") {
       const medicoData = item;
       console.log("Medico Selecionado: ", medicoData);
@@ -121,15 +133,19 @@ export default function Consulta() {
       setEspecialidadeNome(medicoData.especialidadeNome);
       handleMedicoSelect(medicoData);
     }
+    setLoading(false);
   };
 
   const handleEspecialidadeSelect = async (especialidadeId: string) => {
     try {
+      setLoading(true);
       const response = await buscarMedicosEspecialidade(especialidadeId);
       const medicosData = response.data;
       setResultadoPesquisa(medicosData);
     } catch (error) {
       console.error("Erro ao buscar médicos:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -142,7 +158,7 @@ export default function Consulta() {
     }));
     setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
     setHorariosDisponiveis(medico.diasAtendimento || []);
-    setCalendarioVisivel(true);
+    setSelectDependenteVisivel(true);
   };
 
   const handleDateSelect = (date: string) => {
@@ -158,15 +174,15 @@ export default function Consulta() {
     ];
     const dayOfWeek = daysOfWeek[dateObject.getDay()];
     console.log("Data Selecionada: ", date);
-    console.log("Dia da Semana Selecionado: ", dayOfWeek); // Log para depuração
-    console.log("Dados do Médico: ", medico); // Log para depuração
-    console.log("Horários de Atendimento: ", medico.diasAtendimento); // Log para depuração
+    console.log("Dia da Semana Selecionado: ", dayOfWeek);
+    console.log("Dados do Médico: ", medico);
+    console.log("Horários de Atendimento: ", medico.diasAtendimento);
     console.log(
       "Horários Disponíveis: ",
       medico.diasAtendimento
         ? medico.diasAtendimento[dayOfWeek]
         : "Não Disponível"
-    ); // Log para depuração
+    );
 
     if (medico && medico.diasAtendimento && medico.diasAtendimento[dayOfWeek]) {
       console.log(
@@ -174,7 +190,7 @@ export default function Consulta() {
         dayOfWeek,
         ": ",
         medico.diasAtendimento[dayOfWeek]
-      ); // Log para depuração
+      );
       setHorariosDisponiveis(medico.diasAtendimento[dayOfWeek]);
       setDataConsulta(date);
       setConsulta((prev) => ({
@@ -198,7 +214,7 @@ export default function Consulta() {
       ...prev,
       horario: time || "",
     }));
-    setSelectDependenteVisivel(true);
+    setConfirmacaoVisivel(true);
   };
 
   const handleConfirmDependente = () => {
@@ -214,11 +230,12 @@ export default function Consulta() {
       }));
     }
     setSelectDependenteVisivel(false);
-    setConfirmacaoVisivel(true);
+    setCalendarioVisivel(true);
   };
 
   const handleConfirm = async () => {
     try {
+      setLoading(true);
       const novaConsulta = {
         ...consulta,
         data: dataConsulta || "",
@@ -230,123 +247,128 @@ export default function Consulta() {
     } catch (error) {
       console.error("Erro ao salvar consulta:", error);
       Alert.alert("Erro ao confirmar consulta.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <HeaderConsulta />
-      <SearchBar
-        onSearch={handlePesquisar}
-        onSugest={handleSugestoes}
-        resultados={resultadoPesquisa}
-        onSelecionarSugestao={handleSelecaoSugestao}
-      />
-      <Especialidade
-        EspecialidadeCarregada={(id, nome) => {
-          setEspecialidadeId(id);
-          setEspecialidadeNome(nome); // Armazenar o nome da especialidade
-          setConsulta((prev) => ({
-            ...prev,
-            especialidade: nome || "",
-          }));
-        }}
-        especialidadeSelecionada={especialidadeId}
-      />
-      <Medico
-        especialidadeId={especialidadeId}
-        medicoSelecionado={medico ? medico.id : null}
-        onMedicoSelect={(medico) => {
-          handleMedicoSelect(medico);
-          setMedico(medico);
-          setConsulta((prev) => ({
-            ...prev,
-            medico: medico.label || "",
-          }));
-          setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
-          setHorariosDisponiveis(medico.diasAtendimento || []);
-          setCalendarioVisivel(true);
-        }}
-      />
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisivel}
-        onRequestClose={() => setModalVisivel(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            {resultadoPesquisa.length > 0 ? (
-              <FlatList
-                data={resultadoPesquisa}
-                keyExtractor={(item) => item.key}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    onPress={() => handleSelecaoSugestao(item)}
-                    style={styles.resultItem}
-                  >
-                    <Text style={styles.resultText}>
-                      {item.nome} (
-                      {item.type === "especialidade"
-                        ? "Especialidade"
-                        : "Médico"}
-                      )
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              />
-            ) : (
-              <Text style={styles.noResultsText}>
-                Nenhum resultado encontrado
-              </Text>
-            )}
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisivel(false)}
-            >
-              <Text style={styles.closeButtonText}>Fechar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      <CalendarioConsulta
-        visivel={calendarioVisivel}
-        onClose={() => setCalendarioVisivel(false)}
-        onDateSelect={handleDateSelect}
-        diasDisponiveis={diasDisponiveis}
-      />
-
-      <HorarioConsulta
-        visivel={horarioVisivel}
-        onClose={() => setHorarioVisivel(false)}
-        onTimeSelect={handleTimeSelect}
-        horariosDisponiveis={horariosDisponiveis}
-      />
-
-      <SelecaoDependente
-        visivel={selectDependenteVisivel}
-        onClose={() => setSelectDependenteVisivel(false)}
-        onConfirm={handleConfirmDependente}
-        isDependente={isDependente}
-        setIsDependente={setIsDependente}
-        dependentes={
-          usuario?.dependentes ? Object.values(usuario.dependentes) : []
-        }
-        selectedDependente={dependenteSelecionado}
-        setSelectedDependente={setDependenteSelecionado}
-      />
-
-      {confirmacaoVisivel && consulta && (
-        <ConfirmacaoConsulta
-          visivel={confirmacaoVisivel}
-          onClose={() => setConfirmacaoVisivel(false)}
-          onConfirm={handleConfirm}
-          consulta={consulta}
+      <View>
+        <HeaderConsulta />
+        <SearchBar
+          onSearch={handlePesquisar}
+          onSugest={handleSugestoes}
+          resultados={resultadoPesquisa}
+          onSelecionarSugestao={handleSelecaoSugestao}
         />
-      )}
-    </View>
+        <Especialidade
+          EspecialidadeCarregada={(id, nome) => {
+            setEspecialidadeId(id);
+            setEspecialidadeNome(nome); // Armazenar o nome da especialidade
+            setConsulta((prev) => ({
+              ...prev,
+              especialidade: nome || "",
+            }));
+          }}
+          especialidadeSelecionada={especialidadeId}
+        />
+        <Medico
+          especialidadeId={especialidadeId}
+          medicoSelecionado={medico ? medico.id : null}
+          onMedicoSelect={(medico) => {
+            handleMedicoSelect(medico);
+            setMedico(medico);
+            setConsulta((prev) => ({
+              ...prev,
+              medico: medico.label || "",
+            }));
+            setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
+            setHorariosDisponiveis(medico.diasAtendimento || []);
+            setSelectDependenteVisivel(true);
+          }}
+        />
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisivel}
+          onRequestClose={() => setModalVisivel(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              {resultadoPesquisa.length > 0 ? (
+                <FlatList
+                  data={resultadoPesquisa}
+                  keyExtractor={(item) => item.key}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity
+                      onPress={() => handleSelecaoSugestao(item)}
+                      style={styles.resultItem}
+                    >
+                      <Text style={styles.resultText}>
+                        {item.nome} (
+                        {item.type === "especialidade"
+                          ? "Especialidade"
+                          : "Médico"}
+                        )
+                      </Text>
+                    </TouchableOpacity>
+                  )}
+                />
+              ) : (
+                <Text style={styles.noResultsText}>
+                  Nenhum resultado encontrado
+                </Text>
+              )}
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => setModalVisivel(false)}
+              >
+                <Text style={styles.closeButtonText}>Fechar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        <ModalCarregamento visivel={loading} />
+
+        <SelecaoDependente
+          visivel={selectDependenteVisivel}
+          onClose={() => setSelectDependenteVisivel(false)}
+          onConfirm={handleConfirmDependente}
+          isDependente={isDependente}
+          setIsDependente={setIsDependente}
+          dependentes={
+            usuario?.dependentes ? Object.values(usuario.dependentes) : []
+          }
+          selectedDependente={dependenteSelecionado}
+          setSelectedDependente={setDependenteSelecionado}
+        />
+
+        <CalendarioConsulta
+          visivel={calendarioVisivel}
+          onClose={() => setCalendarioVisivel(false)}
+          onDateSelect={handleDateSelect}
+          diasDisponiveis={diasDisponiveis}
+        />
+
+        <HorarioConsulta
+          visivel={horarioVisivel}
+          onClose={() => setHorarioVisivel(false)}
+          onTimeSelect={handleTimeSelect}
+          horariosDisponiveis={horariosDisponiveis}
+        />
+
+        {confirmacaoVisivel && consulta && (
+          <ConfirmacaoConsulta
+            visivel={confirmacaoVisivel}
+            onClose={() => setConfirmacaoVisivel(false)}
+            onConfirm={handleConfirm}
+            consulta={consulta}
+          />
+        )}
+      </View>
+    </SafeAreaView>
   );
 }

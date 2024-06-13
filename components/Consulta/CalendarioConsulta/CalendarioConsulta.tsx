@@ -1,7 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
-import { Calendar, DateData } from "react-native-calendars";
+import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
 import { styles } from "./styles";
+
+// Configurar as traduções para o português
+LocaleConfig.locales['pt'] = {
+  monthNames: [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ],
+  monthNamesShort: [
+    'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+    'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+  ],
+  dayNames: [
+    'Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'
+  ],
+  dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+  today: 'Hoje'
+};
+
+// Definir a configuração global de localidade para 'pt'
+LocaleConfig.defaultLocale = 'pt';
 
 interface CalendarioConsultaProps {
   visivel: boolean;
@@ -36,6 +56,7 @@ export default function CalendarioConsulta({
         selectedColor?: string;
         disabled?: boolean;
         textColor?: string;
+        customStyles?: { text: { textDecorationLine: string } };
       }
     >
   >({});
@@ -51,6 +72,7 @@ export default function CalendarioConsulta({
         selectedColor?: string;
         disabled?: boolean;
         textColor?: string;
+        customStyles?: { text: { textDecorationLine: string } };
       }
     > = {};
 
@@ -64,7 +86,12 @@ export default function CalendarioConsulta({
 
       novaDataMarcada[formattedDate] = {
         disabled: !diasDisponiveis.includes(dayOfWeek) || formattedDate < todayFormatted,
-        textColor: diasDisponiveis.includes(dayOfWeek) && formattedDate >= todayFormatted ? "green" : "darkgray",
+        textColor: diasDisponiveis.includes(dayOfWeek) && formattedDate >= todayFormatted ? "#03A66A" : "#878787",
+        customStyles: {
+          text: {
+            textDecorationLine: !diasDisponiveis.includes(dayOfWeek) || formattedDate < todayFormatted ? 'line-through' : 'none',
+          },
+        },
       };
     }
 
@@ -90,7 +117,7 @@ export default function CalendarioConsulta({
         newMarkedDates[date] = {
           ...newMarkedDates[date],
           selected: true,
-          selectedColor: "green",
+          selectedColor: "#03A66A",
         };
 
         return newMarkedDates;
@@ -114,18 +141,18 @@ export default function CalendarioConsulta({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Selecione a Data</Text>
+          <Text style={styles.modalTitle}>Selecione uma Data Disponível</Text>
           <Calendar
             onDayPress={handleDiaPress}
             markedDates={dataMarcada}
             markingType={"custom"}
             theme={{
-              selectedDayBackgroundColor: "green",
-              selectedDayTextColor: "white",
-              todayTextColor: "red",
-              dayTextColor: "green",
-              textDisabledColor: "darkgray",
-              arrowColor: "blue",
+              selectedDayBackgroundColor: "#03A66A",
+              selectedDayTextColor: "#fff",
+              todayTextColor: "#0106E6",
+              dayTextColor: "#03A66A",
+              textDisabledColor: "#878787",
+              arrowColor: "#03A66A",
             }}
             minDate={new Date().toISOString().split('T')[0]}
           />
