@@ -41,6 +41,9 @@ export const styles = StyleSheet.create({
   },
   containerDadosUser: {
     flexDirection: 'column',
+    //backgroundColor: 'red',
+    justifyContent: 'space-around',
+    height: '95%'
   },
   textoPadraoUser: {
     color: "#fff",
@@ -66,7 +69,7 @@ export const styles = StyleSheet.create({
   },
   containerStatusPessoa: {
     flexDirection: "row",
-    marginTop: 15,
+    marginTop: 10,
     alignSelf: "flex-start",
     //backgroundColor: 'red'
   },
