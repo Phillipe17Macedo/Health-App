@@ -1,9 +1,14 @@
+// styles.js
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F2F2F2",
+  },
+  medicosContainer: {
+    maxHeight: 300, // Ajuste conforme necessário
+    marginVertical: 10,
   },
   modalContainer: {
     flex: 1,
@@ -62,5 +67,20 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
     paddingHorizontal: 15,
     elevation: 2,
+  },
+  medicoCard: {
+    backgroundColor: "#fff",
+    padding: 15,
+    marginVertical: 5,
+    borderRadius: 10,
+    elevation: 3,
+  },
+  medicoName: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  medicoDetails: {
+    fontSize: 14,
+    color: "#555",
   },
 });
