@@ -40,7 +40,7 @@ Mudar o checkbox para baixo do cpf >> OK
 textInput limitar 11 digitos do CPF >> OK
 header >> OK
 cartão >> OK
-tela serviços
+tela serviços visualização dos agendamentos >> OK
 tela consulta - calendário - dependentes - mudar titulo da tela
 mudar o sistema de médicos
 
