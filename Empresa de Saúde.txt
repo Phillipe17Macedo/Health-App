@@ -39,7 +39,7 @@ CPF DEPENDENTE 62276885092
 Mudar o checkbox para baixo do cpf >> OK
 textInput limitar 11 digitos do CPF >> OK
 header >> OK
-cartão
+cartão >> OK
 tela serviços
 tela consulta - calendário - dependentes - mudar titulo da tela
 mudar o sistema de médicos
