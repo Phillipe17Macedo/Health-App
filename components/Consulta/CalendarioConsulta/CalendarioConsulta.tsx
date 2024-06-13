@@ -155,7 +155,6 @@ export default function CalendarioConsulta({
               arrowColor: "#03A66A",
             }}
             minDate={new Date().toISOString().split('T')[0]}
-            
           />
           <TouchableOpacity
             style={styles.confirmButton}

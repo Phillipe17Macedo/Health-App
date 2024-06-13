@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Alert,
   SafeAreaView,
-  ScrollView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
@@ -159,7 +158,7 @@ export default function Consulta() {
     }));
     setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
     setHorariosDisponiveis(medico.diasAtendimento || []);
-    setCalendarioVisivel(true);
+    setSelectDependenteVisivel(true);
   };
 
   const handleDateSelect = (date: string) => {
@@ -175,15 +174,15 @@ export default function Consulta() {
     ];
     const dayOfWeek = daysOfWeek[dateObject.getDay()];
     console.log("Data Selecionada: ", date);
-    console.log("Dia da Semana Selecionado: ", dayOfWeek); // Log para depuração
-    console.log("Dados do Médico: ", medico); // Log para depuração
-    console.log("Horários de Atendimento: ", medico.diasAtendimento); // Log para depuração
+    console.log("Dia da Semana Selecionado: ", dayOfWeek);
+    console.log("Dados do Médico: ", medico);
+    console.log("Horários de Atendimento: ", medico.diasAtendimento);
     console.log(
       "Horários Disponíveis: ",
       medico.diasAtendimento
         ? medico.diasAtendimento[dayOfWeek]
         : "Não Disponível"
-    ); // Log para depuração
+    );
 
     if (medico && medico.diasAtendimento && medico.diasAtendimento[dayOfWeek]) {
       console.log(
@@ -191,7 +190,7 @@ export default function Consulta() {
         dayOfWeek,
         ": ",
         medico.diasAtendimento[dayOfWeek]
-      ); // Log para depuração
+      );
       setHorariosDisponiveis(medico.diasAtendimento[dayOfWeek]);
       setDataConsulta(date);
       setConsulta((prev) => ({
@@ -215,7 +214,7 @@ export default function Consulta() {
       ...prev,
       horario: time || "",
     }));
-    setSelectDependenteVisivel(true);
+    setConfirmacaoVisivel(true);
   };
 
   const handleConfirmDependente = () => {
@@ -231,7 +230,7 @@ export default function Consulta() {
       }));
     }
     setSelectDependenteVisivel(false);
-    setConfirmacaoVisivel(true);
+    setCalendarioVisivel(true);
   };
 
   const handleConfirm = async () => {
@@ -287,7 +286,7 @@ export default function Consulta() {
             }));
             setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
             setHorariosDisponiveis(medico.diasAtendimento || []);
-            setCalendarioVisivel(true);
+            setSelectDependenteVisivel(true);
           }}
         />
         <Modal
@@ -334,6 +333,19 @@ export default function Consulta() {
 
         <ModalCarregamento visivel={loading} />
 
+        <SelecaoDependente
+          visivel={selectDependenteVisivel}
+          onClose={() => setSelectDependenteVisivel(false)}
+          onConfirm={handleConfirmDependente}
+          isDependente={isDependente}
+          setIsDependente={setIsDependente}
+          dependentes={
+            usuario?.dependentes ? Object.values(usuario.dependentes) : []
+          }
+          selectedDependente={dependenteSelecionado}
+          setSelectedDependente={setDependenteSelecionado}
+        />
+
         <CalendarioConsulta
           visivel={calendarioVisivel}
           onClose={() => setCalendarioVisivel(false)}
@@ -346,19 +358,6 @@ export default function Consulta() {
           onClose={() => setHorarioVisivel(false)}
           onTimeSelect={handleTimeSelect}
           horariosDisponiveis={horariosDisponiveis}
-        />
-
-        <SelecaoDependente
-          visivel={selectDependenteVisivel}
-          onClose={() => setSelectDependenteVisivel(false)}
-          onConfirm={handleConfirmDependente}
-          isDependente={isDependente}
-          setIsDependente={setIsDependente}
-          dependentes={
-            usuario?.dependentes ? Object.values(usuario.dependentes) : []
-          }
-          selectedDependente={dependenteSelecionado}
-          setSelectedDependente={setDependenteSelecionado}
         />
 
         {confirmacaoVisivel && consulta && (
