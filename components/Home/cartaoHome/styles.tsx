@@ -46,7 +46,7 @@ export const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 14,
-    marginTop: height * 0.003,
+    marginTop: height * 0.001,
   },
   descricaoNome: {
     fontSize: 8,
@@ -67,7 +67,8 @@ export const styles = StyleSheet.create({
   containerStatusPessoa: {
     flexDirection: "row",
     marginTop: 15,
-    alignSelf: "center",
+    alignSelf: "flex-start",
+    //backgroundColor: 'red'
   },
   descricaoStatusPessoa: {
     fontSize: 14,

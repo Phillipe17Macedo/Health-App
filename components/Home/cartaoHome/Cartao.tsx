@@ -35,6 +35,27 @@ export function Cartao({ user }: CartaoProps) {
 
   const { width, height } = Dimensions.get('screen');
 
+  const formatarNomeLinhas = (nome: string) => {
+    if (nome.length <= 25){
+      return [nome];
+    }
+
+    const palavras = nome.split(" ");
+    let linha1 = "";
+    let linha2 = "";
+
+    for (let palavra of palavras) {
+      if ((linha1 + palavra).length <= 26) {
+        linha1 += palavra + " ";
+      } else {
+        linha2 += palavra + " ";
+      }
+    }
+    return [linha1.trim(), linha2.trim()];
+  };
+
+  const [linha1, linha2] = formatarNomeLinhas(user.nome);
+
   return (
     <>
       <TouchableOpacity>
@@ -54,21 +75,22 @@ export function Cartao({ user }: CartaoProps) {
               </View>
 
               <View style={[styles.containerDadosUser]}>
-                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{user.nome}</Text>
-                <Text style={[styles.descricaoNome, { fontSize: width * 0.022, fontWeight: 'normal' }]}>Nome do Beneficiário</Text>
+                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha1}</Text>
+                {linha2 && <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha2}</Text>}
+                <Text style={[styles.descricaoNome, { fontSize: width * 0.025, fontWeight: 'normal' }]}>Nome do Beneficiário</Text>
 
                 <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>
                   {user.dataNasc}
                 </Text>
-                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.022, fontWeight: 'normal' }]}>
+                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.025, fontWeight: 'normal' }]}>
                   Data de Nascimento
                 </Text>
 
                 <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{user.tipoAdesao}</Text>
-                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.022, fontWeight: 'normal' }]}>Tipo de Adesão</Text>
+                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.025, fontWeight: 'normal' }]}>Tipo de Adesão</Text>
 
                 <Text style={[styles.textoPadraoUser, alterarEstiloUsuario(), { fontSize: width * 0.032 }]}>{titularContrato}</Text>
-                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.022, fontWeight: 'normal' }]}>Tipo de Usuário</Text>
+                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.025, fontWeight: 'normal' }]}>Tipo de Usuário</Text>
 
                 <View style={[styles.containerStatusPessoa,]}>
                   <Text style={[styles.descricaoStatusPessoa, { fontSize: width * 0.032, paddingTop: height * 0.005 }]}>STATUS CONTRATO:</Text>
