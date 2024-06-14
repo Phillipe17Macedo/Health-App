@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   containerAreaPesquisa: {
-    marginTop: 25,
+    marginTop: 5,
     flexDirection: 'row',
     alignSelf: 'center',
     alignItems: 'center',
@@ -13,17 +13,17 @@ export const styles = StyleSheet.create({
     paddingRight: 15,
   },
   containerTextInput: {
-    borderWidth: 1,
-    borderColor: '#DFF2ED',
+    borderWidth: 0.5,
+    borderColor: '#65A693',
     backgroundColor: '#F2F2F2',
     paddingTop: 8,
     paddingBottom: 8,
     paddingLeft: 15,
     paddingRight: 10,
     borderRadius: 60,
-    width: '80%',
+    width: '82%',
     height: 'auto',
-    elevation: 8,
+    elevation: 3,
   },
   textoTextInput: {
     fontSize: 16,
@@ -31,19 +31,19 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   containerIconePesquisar: {
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     backgroundColor: '#F2F2F2',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 60,
-    borderWidth: 1,
-    borderColor: '#DFF2ED',
-    elevation: 8,
+    borderWidth: 0.5,
+    borderColor: '#65A693',
+    elevation: 3,
   },
   containerOrientacao: {
     alignSelf: 'center',
-    marginTop: 25,
+    marginTop: 20,
     backgroundColor: '#03A66A',
     padding: 10,
     width: '90%',
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 15
+    marginBottom: 15,
   },
   orientacao: {
     textAlign: 'justify',
