@@ -20,6 +20,7 @@ import SelecaoDependente from "@/components/Consulta/SelecaoDependenteConsulta/S
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
 import {
   buscarAderente,
+  buscarDependentes,
   buscarMedicosEspecialidade,
   buscarEspecialidades,
 } from "@/utils/requestConfig";
@@ -47,6 +48,7 @@ export default function Consulta() {
   const [isDependente, setIsDependente] = useState(false);
   const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [dependentes, setDependentes] = useState<any[]>([]);
 
   const [consulta, setConsulta] = useState({
     usuario: "",
@@ -75,6 +77,11 @@ export default function Consulta() {
             ...prev,
             usuario: usuarioLogado.nome,
           }));
+
+          if (usuarioLogado && usuarioLogado.idAderente) {
+            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
+            setDependentes(dependentesResponse.data);
+          }
         }
       } catch (error) {
         console.error("Erro ao buscar usuário logado:", error);
@@ -276,7 +283,7 @@ export default function Consulta() {
         <Especialidade
           EspecialidadeCarregada={(id, nome) => {
             setEspecialidadeId(id);
-            setEspecialidadeNome(nome); // Armazenar o nome da especialidade
+            setEspecialidadeNome(nome); 
             setConsulta((prev) => ({
               ...prev,
               especialidade: nome || "",
@@ -351,9 +358,7 @@ export default function Consulta() {
           onConfirm={handleConfirmDependente}
           isDependente={isDependente}
           setIsDependente={setIsDependente}
-          dependentes={
-            usuario?.dependentes ? Object.values(usuario.dependentes) : []
-          }
+          dependentes={dependentes} // Passa os dependentes para o modal
           selectedDependente={dependenteSelecionado}
           setSelectedDependente={setDependenteSelecionado}
         />

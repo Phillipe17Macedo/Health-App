@@ -16,6 +16,7 @@ export async function buscarAderente(cpf: string, titular: boolean): Promise<any
 export async function buscarDependentes(idAderente: number): Promise<any> {
   try {
     const response = await axiosConfig.get(`/Dependentes/GetDependentes/${idAderente}`);
+    console.log("Dependentes:", response.data);
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar dependentes:", error);

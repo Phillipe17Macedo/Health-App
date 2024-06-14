@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
-import { Checkbox } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import { styles } from "./styles";
 
