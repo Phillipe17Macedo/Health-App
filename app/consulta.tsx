@@ -33,9 +33,7 @@ export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -48,11 +46,10 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<
-    string | null
-  >(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
 
   const [consulta, setConsulta] = useState({
     usuario: "",
@@ -148,13 +145,15 @@ export default function Consulta() {
   const handleSelecaoSugestao = async (item: any) => {
     setLoading(true);
     if (item.type === "especialidade") {
-      setEspecialidadeId(item.key);
+      setEspecialidadeId(item.id);
       setEspecialidadeNome(item.nome);
       setConsulta((prev) => ({
         ...prev,
         especialidade: item.nome || "",
       }));
-      handleEspecialidadeSelect(item.key);
+
+      // Atualiza o componente Especialidade
+      setEspecialidadeSelecionada(item.id);
     }
     setLoading(false);
   };
@@ -254,26 +253,6 @@ export default function Consulta() {
     }
     setSelectDependenteVisivel(false);
   };
-  /*
-    const handleConfirm = async () => {
-    try {
-      setLoading(true);
-      const novaConsulta = {
-        ...consulta,
-        data: dataConsulta || "",
-        horario: horarioConsulta || "",
-      };
-      await salvarConsulta(novaConsulta);
-      setConfirmacaoVisivel(false);
-      Alert.alert("Consulta confirmada!");
-    } catch (error) {
-      console.error("Erro ao salvar consulta:", error);
-      Alert.alert("Erro ao confirmar consulta.");
-    } finally {
-      setLoading(false);
-    }
-  };
-*/
 
   const handleConfirm = () => {
     const consultaJSON = JSON.stringify(consulta, null, 2);
@@ -316,7 +295,7 @@ export default function Consulta() {
               especialidade: nome || "",
             }));
           }}
-          especialidadeSelecionada={especialidadeId}
+          especialidadeSelecionada={especialidadeSelecionada}
         />
         {especialidadeId && (
           <Medico
@@ -353,11 +332,7 @@ export default function Consulta() {
                       style={styles.resultItem}
                     >
                       <Text style={styles.resultText}>
-                        {item.nome} (
-                        {item.type === "especialidade"
-                          ? "Especialidade"
-                          : "Médico"}
-                        )
+                        {item.nome} (Especialidade)
                       </Text>
                     </TouchableOpacity>
                   )}
