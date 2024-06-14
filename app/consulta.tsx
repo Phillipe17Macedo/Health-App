@@ -53,7 +53,6 @@ export default function Consulta() {
   >(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
-  const [dependenteModalExibido, setDependenteModalExibido] = useState(false);
 
   const [consulta, setConsulta] = useState({
     usuario: "",
@@ -272,9 +271,8 @@ export default function Consulta() {
 
   const handleCheckboxChange = (checked: boolean) => {
     setIsDependente(checked);
-    if (checked && !dependenteModalExibido) {
+    if (checked) {
       setSelectDependenteVisivel(true);
-      setDependenteModalExibido(true);
     }
   };
 
@@ -374,7 +372,7 @@ export default function Consulta() {
           onConfirm={handleConfirmDependente}
           isDependente={isDependente}
           setIsDependente={setIsDependente}
-          dependentes={dependentes}
+          dependentes={dependentes} // Passa os dependentes para o modal
           selectedDependente={dependenteSelecionado}
           setSelectedDependente={setDependenteSelecionado}
         />
