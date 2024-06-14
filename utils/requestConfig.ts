@@ -30,9 +30,14 @@ export async function buscarMedicosEspecialidade(especialidadeId: string): Promi
     const response = await axiosConfig.get(`/Medico/GetMedicosEspecialidade/${especialidadeId}`);
     const medicos = response.data.data;
 
+    // Verificar se medicos é um array antes de usar map
+    if (!Array.isArray(medicos)) {
+      throw new Error("Resposta inesperada da API: medicos não é um array");
+    }
+
     // Adicionando dias e horários fictícios
     const diasFicticios = ["segunda", "quarta", "sexta"];
-    const horariosFicticios = ["09:00", "09;30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"];
+    const horariosFicticios = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"];
 
     const medicosComHorarios = medicos.map((medico: any) => ({
       ...medico,
