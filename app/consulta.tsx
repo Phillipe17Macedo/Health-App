@@ -33,7 +33,9 @@ export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  );
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -46,7 +48,9 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<
+    string | null
+  >(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
 
@@ -79,7 +83,9 @@ export default function Consulta() {
           }));
 
           if (usuarioLogado && usuarioLogado.idAderente) {
-            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
+            const dependentesResponse = await buscarDependentes(
+              usuarioLogado.idAderente
+            );
             setDependentes(dependentesResponse.data);
           }
         }
@@ -235,8 +241,8 @@ export default function Consulta() {
     }
     setSelectDependenteVisivel(false);
   };
-
-  const handleConfirm = async () => {
+  /*
+    const handleConfirm = async () => {
     try {
       setLoading(true);
       const novaConsulta = {
@@ -253,6 +259,14 @@ export default function Consulta() {
     } finally {
       setLoading(false);
     }
+  };
+*/
+
+  const handleConfirm = () => {
+    const consultaJSON = JSON.stringify(consulta, null, 2);
+    console.log("Consulta confirmada:", consultaJSON);
+    Alert.alert("Consulta confirmada!", consultaJSON);
+    setConfirmacaoVisivel(false);
   };
 
   const handleCheckboxChange = (checked: boolean) => {
@@ -283,7 +297,7 @@ export default function Consulta() {
         <Especialidade
           EspecialidadeCarregada={(id, nome) => {
             setEspecialidadeId(id);
-            setEspecialidadeNome(nome); 
+            setEspecialidadeNome(nome);
             setConsulta((prev) => ({
               ...prev,
               especialidade: nome || "",
