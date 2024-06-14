@@ -47,7 +47,7 @@ dependentes >> OK
 mudar titulo da tela >> OK
 mudar o sistema de médicos >> OK
 mudar seleção de dependentes >> OK
-mudar busca de dependentes >> 
+mudar busca de dependentes >> OK
 corrigir bug da searchbar >> 
 
 agendamento em clinicas aserpa
