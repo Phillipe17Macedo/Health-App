@@ -44,7 +44,7 @@ export default function Consulta() {
   const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
-  const [isDependente, setIsDependente] = useState(false); // Adicionei aqui
+  const [isDependente, setIsDependente] = useState(false);
   const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -249,6 +249,13 @@ export default function Consulta() {
     }
   };
 
+  const handleCheckboxChange = (checked: boolean) => {
+    setIsDependente(checked);
+    if (checked) {
+      setSelectDependenteVisivel(true);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -263,7 +270,7 @@ export default function Consulta() {
         <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
-            onPress={() => setIsDependente(!isDependente)}
+            onPress={() => handleCheckboxChange(!isDependente)}
           />
           <Text style={styles.label}>Para um dependente?</Text>
         </View>
