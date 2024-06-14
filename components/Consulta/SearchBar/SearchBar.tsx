@@ -30,7 +30,7 @@ export function SearchBar({ onSearch, onSugest, onSelecionarSugestao, resultados
       <View style={styles.containerOrientacao}>
         <Text style={[styles.tituloOrientacao]}>AGENDAMENTO DE CONSULTA</Text>
         <Text style={styles.orientacao}>Procurando uma consulta ?</Text>
-        <Text style={styles.orientacao}>Pesquise abaixo pela especialidade ou médico caso não saiba.</Text>
+        <Text style={styles.orientacao}>Pesquise abaixo pela especialidade.</Text>
       </View>
       <View style={styles.containerAreaPesquisa}>
         <View style={styles.containerTextInput}>
@@ -61,7 +61,7 @@ export function SearchBar({ onSearch, onSugest, onSelecionarSugestao, resultados
                 style={styles.sugestaoItem}
               >
                 <Text style={styles.sugestaoText}>
-                  {item.nome} ({item.type === "especialidade" ? "Especialidade" : "Médico"})
+                  {item.nome} (Especialidade)
                 </Text>
               </TouchableOpacity>
             )}

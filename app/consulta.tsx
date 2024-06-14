@@ -104,20 +104,17 @@ export default function Consulta() {
     try {
       setLoading(true);
       const results = await buscarEspecialidades();
-      const medicosResults = await buscarMedicosEspecialidade(query);
 
-      const combinedResults = [
-        ...results.data.map((especialidade: any) => ({
+      const filteredResults = results.data.filter((especialidade: any) =>
+        especialidade.nome.toLowerCase().includes(query.toLowerCase())
+      );
+
+      setResultadoPesquisa(
+        filteredResults.map((especialidade: any) => ({
           ...especialidade,
-          type: 'especialidade',
-        })),
-        ...medicosResults.data.map((medico: any) => ({
-          ...medico,
-          type: 'medico',
-        })),
-      ];
-
-      setResultadoPesquisa(combinedResults);
+          type: "especialidade",
+        }))
+      );
       setModalVisivel(true);
     } catch (error) {
       console.error("Erro ao realizar pesquisa:", error);
@@ -129,39 +126,18 @@ export default function Consulta() {
   const handleSugestoes = async (query: string) => {
     try {
       setLoading(true);
-  
-      // Busca especialidades
       const especialidadesResults = await buscarEspecialidades();
-      // Filtra especialidades pelo nome da consulta
-      const especialidadesFiltradas = especialidadesResults.data.filter((especialidade: any) => 
+  
+      const filteredResults = especialidadesResults.data.filter((especialidade: any) =>
         especialidade.nome.toLowerCase().includes(query.toLowerCase())
       );
   
-      // Busca médicos
-      let medicosResults: any[] = [];
-      if (especialidadesFiltradas.length > 0) {
-        for (const especialidade of especialidadesFiltradas) {
-          try {
-            const response = await buscarMedicosEspecialidade(especialidade.id);
-            medicosResults = medicosResults.concat(response.data);
-          } catch (error) {
-            console.error(`Erro ao buscar médicos para a especialidade ${especialidade.id}:`, error);
-          }
-        }
-      }
-  
-      const combinedResults = [
-        ...especialidadesFiltradas.map((especialidade: any) => ({
+      setResultadoPesquisa(
+        filteredResults.map((especialidade: any) => ({
           ...especialidade,
-          type: 'especialidade',
-        })),
-        ...medicosResults.map((medico: any) => ({
-          ...medico,
-          type: 'medico',
-        })),
-      ];
-  
-      setResultadoPesquisa(combinedResults);
+          type: "especialidade",
+        }))
+      );
     } catch (error) {
       console.error("Erro ao obter sugestões:", error);
     } finally {
@@ -179,13 +155,6 @@ export default function Consulta() {
         especialidade: item.nome || "",
       }));
       handleEspecialidadeSelect(item.key);
-    } else if (item.type === "medico") {
-      const medicoData = item;
-      console.log("Medico Selecionado: ", medicoData);
-      setMedico(medicoData);
-      setEspecialidadeId(medicoData.especialidadeId);
-      setEspecialidadeNome(medicoData.especialidadeNome);
-      handleMedicoSelect(medicoData);
     }
     setLoading(false);
   };

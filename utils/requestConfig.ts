@@ -30,8 +30,10 @@ export async function buscarMedicosEspecialidade(especialidadeId: string): Promi
     const response = await axiosConfig.get(`/Medico/GetMedicosEspecialidade/${especialidadeId}`);
     const medicos = response.data.data;
 
-    // Verificar se medicos é um array antes de usar map
+    console.log("Resposta da API - Médicos:", medicos);
+
     if (!Array.isArray(medicos)) {
+      console.error("Resposta inesperada da API: medicos não é um array", medicos);
       throw new Error("Resposta inesperada da API: medicos não é um array");
     }
 
