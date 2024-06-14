@@ -8,6 +8,7 @@ import {
   Alert,
   SafeAreaView,
 } from "react-native";
+import { Checkbox } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
 import { SearchBar } from "../components/Consulta/SearchBar/SearchBar";
@@ -31,9 +32,7 @@ export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -45,10 +44,8 @@ export default function Consulta() {
   const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
-  const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<
-    string | null
-  >(null);
+  const [isDependente, setIsDependente] = useState(false); // Adicionei aqui
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const [consulta, setConsulta] = useState({
@@ -263,6 +260,13 @@ export default function Consulta() {
           resultados={resultadoPesquisa}
           onSelecionarSugestao={handleSelecaoSugestao}
         />
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            status={isDependente ? "checked" : "unchecked"}
+            onPress={() => setIsDependente(!isDependente)}
+          />
+          <Text style={styles.label}>Para um dependente?</Text>
+        </View>
         <Especialidade
           EspecialidadeCarregada={(id, nome) => {
             setEspecialidadeId(id);

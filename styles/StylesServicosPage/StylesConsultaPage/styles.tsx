@@ -68,19 +68,26 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 15,
     elevation: 2,
   },
-  medicoCard: {
-    backgroundColor: "#fff",
-    padding: 15,
-    marginVertical: 5,
-    borderRadius: 10,
-    elevation: 3,
+  checkboxContainer: {
+    width: '90%',
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+    alignSelf: 'center',
+    backgroundColor: '#03A66A',
+    padding: 10,
+    borderRadius: 5,
   },
-  medicoName: {
-    fontSize: 18,
-    fontWeight: "bold",
+  label: {
+    marginLeft: 5,
+    fontWeight: 'bold',
+    textAlign: 'justify',
+    color: '#fff',
+    fontSize: 16,
   },
-  medicoDetails: {
-    fontSize: 14,
-    color: "#555",
+  picker: {
+    height: 50,
+    width: "100%",
+    color: '#fff'
   },
 });
