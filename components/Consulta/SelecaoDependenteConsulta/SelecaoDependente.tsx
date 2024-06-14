@@ -34,13 +34,13 @@ export default function SelecaoDependente({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Informações Adicionais</Text>
+          <Text style={styles.modalTitle}>Informações Importantes !</Text>
           <View style={styles.checkboxContainer}>
             <Checkbox
               status={isDependente ? "checked" : "unchecked"}
               onPress={() => setIsDependente(!isDependente)}
             />
-            <Text style={styles.label}>É para algum dependente?</Text>
+            <Text style={styles.label}>É para um dependente? Se for marque ao lado e selecione o dependente.</Text>
           </View>
           {isDependente && (
             <Picker

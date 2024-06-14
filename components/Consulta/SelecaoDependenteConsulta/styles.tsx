@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
   },
   modalContent: {
     width: "80%",
-    padding: 20,
+    paddingHorizontal: 30,
+    paddingVertical: 20,
     backgroundColor: "#fff",
     borderRadius: 10,
     alignItems: "center",
@@ -47,8 +48,9 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
   },
   label: {
-    marginLeft: 8,
-    fontWeight: 'bold'
+    marginLeft: 5,
+    fontWeight: 'bold',
+    textAlign: 'justify'
   },
   picker: {
     height: 50,
