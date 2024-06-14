@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 5,
     zIndex: height * 3000,
+
   },
   itensLista: {
     color: '#025940',

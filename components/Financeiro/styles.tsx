@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     marginTop: 30,
     fontWeight: 'bold',
     fontSize: 24,
-    color: '#202022',
+    color: '#025940',
     fontVariant: ['small-caps'],
     marginBottom: 15,
   },
@@ -26,14 +26,17 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignSelf: 'center',  
     elevation: 3,
-    borderRadius: 10,
+    borderRadius: 5,
     padding: 15,
     marginBottom: 20,
+    borderWidth: 0.5,
+    borderColor: '#65A693'
   },
   tituloTextoItem: {
     fontWeight: 'bold',
     fontSize: 18,
     textAlign: 'justify',
+    color: '#025940'
   },
   containerIcone: {
     width: 64,
@@ -43,6 +46,6 @@ export const styles = StyleSheet.create({
   },
   textoDescricaoItem: {
     fontSize: 12,
-
+    color: '#025940'
   }
 });

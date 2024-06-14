@@ -45,7 +45,8 @@ tela consulta >> OK
 calendário >> OK
 dependentes >> OK
 mudar titulo da tela >> OK
-mudar o sistema de médicos >> 
+mudar o sistema de médicos >> OK
+mudar seleção de dependentes >>  
 
 agendamento em clinicas aserpa
 consulta -> agendar
