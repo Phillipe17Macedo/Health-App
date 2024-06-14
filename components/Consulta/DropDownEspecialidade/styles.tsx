@@ -4,8 +4,8 @@ const { height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 25,
-    marginBottom: 25,
+    marginTop: 20,
+    marginBottom: 15,
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
@@ -28,7 +28,8 @@ export const styles = StyleSheet.create({
     borderWidth: 0.5,
     elevation: 2,
     borderRadius: 5,
-    zIndex: height * 3000
+    zIndex: height * 3000,
+    height: height * 0.27
   },
   itensLista: {
     color: '#025940',

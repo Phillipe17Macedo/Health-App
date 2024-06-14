@@ -21,19 +21,21 @@ export function ComponentFinanceiro() {
               width: "95%",
               height: 1000,
               alignSelf: "center",
-              borderRadius: 20,
+              borderRadius: 5,
               paddingHorizontal: 15,
               flexDirection: 'column',
               marginTop: 25,
               elevation: 3,
-              marginBottom: 100
+              marginBottom: 100,
+              borderWidth: 0.5,
+              borderColor: '#65A693'
             },
           ]}
         >
           <Text style={[styles.textoTituloContainer]}>Contratos em Aberto:</Text>
           <TouchableOpacity>
             <Image source={require('../../assets/images/grafico-barras-teste-786x424.png')}
-              style={[{alignSelf: 'center', borderRadius: 10, borderWidth: 1, borderColor: 'black', marginBottom: 25}]}
+              style={[{alignSelf: 'center', borderRadius: 5, borderWidth: 1, borderColor: '#65A693', marginBottom: 25}]}
             />
           </TouchableOpacity>
 

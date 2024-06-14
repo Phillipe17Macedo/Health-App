@@ -8,10 +8,11 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    width: "80%",
-    padding: 20,
+    width: "90%",
+    paddingHorizontal: 10,
+    paddingVertical: 20,
     backgroundColor: "#fff",
-    borderRadius: 10,
+    borderRadius: 5,
     alignItems: "center",
   },
   modalTitle: {
@@ -41,17 +42,10 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  checkboxContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  label: {
-    marginLeft: 8,
-    fontWeight: 'bold'
-  },
   picker: {
     height: 50,
     width: "100%",
+    backgroundColor: '#F0F0F0',
+    elevation: 3,
   },
 });

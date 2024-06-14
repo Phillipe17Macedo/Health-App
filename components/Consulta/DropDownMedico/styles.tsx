@@ -9,6 +9,8 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '90%',
+    alignSelf: 'center'
   },
   dropdown: {
     backgroundColor: '#DFF2ED',
@@ -28,6 +30,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 5,
     zIndex: height * 3000,
+
   },
   itensLista: {
     color: '#025940',
@@ -37,5 +40,22 @@ export const styles = StyleSheet.create({
   itemSelecionado: {
     fontWeight: 'bold',
     color: '#8CBF1F',
+  },
+  containerOrientacao: {
+    alignSelf: 'center',
+    backgroundColor: '#03A66A',
+    padding: 10,
+    width: '100%',
+    borderRadius: 5,
+    elevation: 3,
+    borderWidth: 0.5,
+    borderColor: '#025940',
+    marginBottom: 5
+  },
+  orientacao: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#fff',
+    fontSize: 14,
   },
 });

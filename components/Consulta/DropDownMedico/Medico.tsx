@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { buscarMedicosEspecialidade } from "@/utils/requestConfig";
 import { styles } from "./styles";
@@ -60,6 +60,9 @@ export default function Medico({
 
   return (
     <View style={styles.container}>
+      <View style={styles.containerOrientacao}>
+        <Text style={styles.orientacao}>Selecione a Especialidade Primeiro</Text>
+      </View>
       <DropDownPicker
         open={abrir}
         value={valor}

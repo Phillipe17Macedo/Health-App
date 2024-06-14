@@ -11,7 +11,9 @@ export const styles = StyleSheet.create({
     backgroundColor: '#DFF2ED',
     borderRadius: 5,
     elevation: 3,
-    width: '95%'
+    width: '95%',
+    borderWidth: 0.5,
+    borderColor: '#65A693'
   },
   text: {
     fontSize: 16,

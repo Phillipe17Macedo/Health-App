@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
-import { Checkbox } from "react-native-paper";
 import { Picker } from "@react-native-picker/picker";
 import { styles } from "./styles";
 
@@ -34,14 +33,7 @@ export default function SelecaoDependente({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Informações Adicionais</Text>
-          <View style={styles.checkboxContainer}>
-            <Checkbox
-              status={isDependente ? "checked" : "unchecked"}
-              onPress={() => setIsDependente(!isDependente)}
-            />
-            <Text style={styles.label}>É para algum dependente?</Text>
-          </View>
+          <Text style={styles.modalTitle}>Selecione o Dependente</Text>
           {isDependente && (
             <Picker
               selectedValue={selectedDependente}

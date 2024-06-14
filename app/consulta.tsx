@@ -8,6 +8,7 @@ import {
   Alert,
   SafeAreaView,
 } from "react-native";
+import { Checkbox } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
 import { SearchBar } from "../components/Consulta/SearchBar/SearchBar";
@@ -19,6 +20,7 @@ import SelecaoDependente from "@/components/Consulta/SelecaoDependenteConsulta/S
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
 import {
   buscarAderente,
+  buscarDependentes,
   buscarMedicosEspecialidade,
   buscarEspecialidades,
 } from "@/utils/requestConfig";
@@ -31,9 +33,7 @@ export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -46,10 +46,10 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<
-    string | null
-  >(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [dependentes, setDependentes] = useState<any[]>([]);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
 
   const [consulta, setConsulta] = useState({
     usuario: "",
@@ -78,6 +78,13 @@ export default function Consulta() {
             ...prev,
             usuario: usuarioLogado.nome,
           }));
+
+          if (usuarioLogado && usuarioLogado.idAderente) {
+            const dependentesResponse = await buscarDependentes(
+              usuarioLogado.idAderente
+            );
+            setDependentes(dependentesResponse.data);
+          }
         }
       } catch (error) {
         console.error("Erro ao buscar usuário logado:", error);
@@ -90,11 +97,21 @@ export default function Consulta() {
     fetchUsuarioLogado();
   }, []);
 
-  const handlePesquisar = async () => {
+  const handlePesquisar = async (query: string) => {
     try {
       setLoading(true);
       const results = await buscarEspecialidades();
-      setResultadoPesquisa(results.data);
+
+      const filteredResults = results.data.filter((especialidade: any) =>
+        especialidade.nome.toLowerCase().includes(query.toLowerCase())
+      );
+
+      setResultadoPesquisa(
+        filteredResults.map((especialidade: any) => ({
+          ...especialidade,
+          type: "especialidade",
+        }))
+      );
       setModalVisivel(true);
     } catch (error) {
       console.error("Erro ao realizar pesquisa:", error);
@@ -103,11 +120,21 @@ export default function Consulta() {
     }
   };
 
-  const handleSugestoes = async () => {
+  const handleSugestoes = async (query: string) => {
     try {
       setLoading(true);
-      const results = await buscarEspecialidades();
-      setResultadoPesquisa(results.data);
+      const especialidadesResults = await buscarEspecialidades();
+  
+      const filteredResults = especialidadesResults.data.filter((especialidade: any) =>
+        especialidade.nome.toLowerCase().includes(query.toLowerCase())
+      );
+  
+      setResultadoPesquisa(
+        filteredResults.map((especialidade: any) => ({
+          ...especialidade,
+          type: "especialidade",
+        }))
+      );
     } catch (error) {
       console.error("Erro ao obter sugestões:", error);
     } finally {
@@ -118,20 +145,15 @@ export default function Consulta() {
   const handleSelecaoSugestao = async (item: any) => {
     setLoading(true);
     if (item.type === "especialidade") {
-      setEspecialidadeId(item.key);
+      setEspecialidadeId(item.id);
       setEspecialidadeNome(item.nome);
       setConsulta((prev) => ({
         ...prev,
         especialidade: item.nome || "",
       }));
-      handleEspecialidadeSelect(item.key);
-    } else if (item.type === "medico") {
-      const medicoData = item;
-      console.log("Medico Selecionado: ", medicoData);
-      setMedico(medicoData);
-      setEspecialidadeId(medicoData.especialidadeId);
-      setEspecialidadeNome(medicoData.especialidadeNome);
-      handleMedicoSelect(medicoData);
+
+      // Atualiza o componente Especialidade
+      setEspecialidadeSelecionada(item.id);
     }
     setLoading(false);
   };
@@ -158,7 +180,7 @@ export default function Consulta() {
     }));
     setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
     setHorariosDisponiveis(medico.diasAtendimento || []);
-    setSelectDependenteVisivel(true);
+    setCalendarioVisivel(true);
   };
 
   const handleDateSelect = (date: string) => {
@@ -230,25 +252,19 @@ export default function Consulta() {
       }));
     }
     setSelectDependenteVisivel(false);
-    setCalendarioVisivel(true);
   };
 
-  const handleConfirm = async () => {
-    try {
-      setLoading(true);
-      const novaConsulta = {
-        ...consulta,
-        data: dataConsulta || "",
-        horario: horarioConsulta || "",
-      };
-      await salvarConsulta(novaConsulta);
-      setConfirmacaoVisivel(false);
-      Alert.alert("Consulta confirmada!");
-    } catch (error) {
-      console.error("Erro ao salvar consulta:", error);
-      Alert.alert("Erro ao confirmar consulta.");
-    } finally {
-      setLoading(false);
+  const handleConfirm = () => {
+    const consultaJSON = JSON.stringify(consulta, null, 2);
+    console.log("Consulta confirmada:", consultaJSON);
+    Alert.alert("Consulta confirmada!", consultaJSON);
+    setConfirmacaoVisivel(false);
+  };
+
+  const handleCheckboxChange = (checked: boolean) => {
+    setIsDependente(checked);
+    if (checked) {
+      setSelectDependenteVisivel(true);
     }
   };
 
@@ -263,32 +279,41 @@ export default function Consulta() {
           resultados={resultadoPesquisa}
           onSelecionarSugestao={handleSelecaoSugestao}
         />
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            status={isDependente ? "checked" : "unchecked"}
+            onPress={() => handleCheckboxChange(!isDependente)}
+          />
+          <Text style={styles.label}>Para um dependente?</Text>
+        </View>
         <Especialidade
           EspecialidadeCarregada={(id, nome) => {
             setEspecialidadeId(id);
-            setEspecialidadeNome(nome); // Armazenar o nome da especialidade
+            setEspecialidadeNome(nome);
             setConsulta((prev) => ({
               ...prev,
               especialidade: nome || "",
             }));
           }}
-          especialidadeSelecionada={especialidadeId}
+          especialidadeSelecionada={especialidadeSelecionada}
         />
-        <Medico
-          especialidadeId={especialidadeId}
-          medicoSelecionado={medico ? medico.id : null}
-          onMedicoSelect={(medico) => {
-            handleMedicoSelect(medico);
-            setMedico(medico);
-            setConsulta((prev) => ({
-              ...prev,
-              medico: medico.label || "",
-            }));
-            setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
-            setHorariosDisponiveis(medico.diasAtendimento || []);
-            setSelectDependenteVisivel(true);
-          }}
-        />
+        {especialidadeId && (
+          <Medico
+            especialidadeId={especialidadeId}
+            medicoSelecionado={medico ? medico.id : null}
+            onMedicoSelect={(medico) => {
+              handleMedicoSelect(medico);
+              setMedico(medico);
+              setConsulta((prev) => ({
+                ...prev,
+                medico: medico.label || "",
+              }));
+              setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
+              setHorariosDisponiveis(medico.diasAtendimento || []);
+              setSelectDependenteVisivel(false);
+            }}
+          />
+        )}
         <Modal
           animationType="slide"
           transparent={true}
@@ -307,11 +332,7 @@ export default function Consulta() {
                       style={styles.resultItem}
                     >
                       <Text style={styles.resultText}>
-                        {item.nome} (
-                        {item.type === "especialidade"
-                          ? "Especialidade"
-                          : "Médico"}
-                        )
+                        {item.nome} (Especialidade)
                       </Text>
                     </TouchableOpacity>
                   )}
@@ -339,9 +360,7 @@ export default function Consulta() {
           onConfirm={handleConfirmDependente}
           isDependente={isDependente}
           setIsDependente={setIsDependente}
-          dependentes={
-            usuario?.dependentes ? Object.values(usuario.dependentes) : []
-          }
+          dependentes={dependentes} // Passa os dependentes para o modal
           selectedDependente={dependenteSelecionado}
           setSelectedDependente={setDependenteSelecionado}
         />
