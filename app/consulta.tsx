@@ -274,21 +274,23 @@ export default function Consulta() {
           }}
           especialidadeSelecionada={especialidadeId}
         />
-        <Medico
-          especialidadeId={especialidadeId}
-          medicoSelecionado={medico ? medico.id : null}
-          onMedicoSelect={(medico) => {
-            handleMedicoSelect(medico);
-            setMedico(medico);
-            setConsulta((prev) => ({
-              ...prev,
-              medico: medico.label || "",
-            }));
-            setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
-            setHorariosDisponiveis(medico.diasAtendimento || []);
-            setSelectDependenteVisivel(true);
-          }}
-        />
+        {especialidadeId && (
+          <Medico
+            especialidadeId={especialidadeId}
+            medicoSelecionado={medico ? medico.id : null}
+            onMedicoSelect={(medico) => {
+              handleMedicoSelect(medico);
+              setMedico(medico);
+              setConsulta((prev) => ({
+                ...prev,
+                medico: medico.label || "",
+              }));
+              setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
+              setHorariosDisponiveis(medico.diasAtendimento || []);
+              setSelectDependenteVisivel(true);
+            }}
+          />
+        )}
         <Modal
           animationType="slide"
           transparent={true}
