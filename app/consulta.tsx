@@ -155,7 +155,7 @@ export default function Consulta() {
     }));
     setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
     setHorariosDisponiveis(medico.diasAtendimento || []);
-    setSelectDependenteVisivel(true);
+    setCalendarioVisivel(true);
   };
 
   const handleDateSelect = (date: string) => {
@@ -227,7 +227,6 @@ export default function Consulta() {
       }));
     }
     setSelectDependenteVisivel(false);
-    setCalendarioVisivel(true);
   };
 
   const handleConfirm = async () => {
