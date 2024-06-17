@@ -72,7 +72,7 @@ export function Cartao({ user }: CartaoProps) {
               <View style={[styles.containerImagemUser]}>
                 <Image
                   source={fotoUri ? { uri: fotoUri } : imagemPadrao}
-                  style={[{width: 90, height: 120, borderRadius: 8, borderWidth: 0.7, borderColor: 'black'}]}
+                  style={[{width: 94, height: 120, borderRadius: 15, resizeMode: 'contain'}]}
                 />
               </View>
 

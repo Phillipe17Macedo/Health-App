@@ -8,23 +8,25 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    width: "80%",
+    width: "90%",
     padding: 20,
     backgroundColor: "#fff",
     borderRadius: 10,
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   modalTitle: {
     fontSize: 21,
     fontWeight: "bold",
     marginBottom: 20,
+    alignSelf: 'center',
   },
   confirmText: {
     fontSize: 16,
-    marginVertical: 5,
+    marginVertical: 3,
     fontWeight: 'bold',
   },
   confirmButton: {
+    alignSelf: 'center',
     marginTop: 20,
     padding: 10,
     backgroundColor: "#8CBF1F",
@@ -36,6 +38,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   cancelButton: {
+    alignSelf: 'center',
     marginTop: 10,
     padding: 10,
     backgroundColor: "#F22222",

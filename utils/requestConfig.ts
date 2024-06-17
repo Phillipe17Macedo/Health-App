@@ -24,24 +24,35 @@ export async function buscarDependentes(idAderente: number): Promise<any> {
   }
 }
 
-// Função para buscar médicos por especialidade
-export async function buscarMedicosEspecialidade(especialidadeId: string): Promise<any> {
+// Função para buscar especialidades
+export async function buscarEspecialidades(): Promise<any> {
   try {
-    const response = await axiosConfig.get(`/Medico/GetMedicosEspecialidade/${especialidadeId}`);
-    const medicos = response.data.data;
+    const response = await axiosConfig.get('/Especialidades/GetEspecialidades');
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar especialidades:", error);
+    throw error;
+  }
+}
 
-    console.log("Resposta da API - Médicos:", medicos);
+// Função para buscar médicos por especialidade
+export async function buscarMedicosEspecialidade(especialidadeId: string, unidadeAtendimentoId: string): Promise<any> {
+  try {
+    const response = await axiosConfig.get(`/Medico/GetMedicosEspecialidade/${especialidadeId}/${unidadeAtendimentoId}`);
+    const { data } = response.data;
 
-    if (!Array.isArray(medicos)) {
-      console.error("Resposta inesperada da API: medicos não é um array", medicos);
+    console.log("Resposta da API - Médicos:", data);
+
+    if (!Array.isArray(data)) {
+      console.error("Resposta inesperada da API: medicos não é um array", data);
       throw new Error("Resposta inesperada da API: medicos não é um array");
     }
 
     // Adicionando dias e horários fictícios
     const diasFicticios = ["segunda", "quarta", "sexta"];
-    const horariosFicticios = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"];
+    const horariosFicticios = ["09:00:00", "09:30:00", "10:00:00", "10:30:00", "11:00:00", "11:30:00", "14:00:00", "14:30:00", "15:00:00", "15:30:00", "16:00:00"];
 
-    const medicosComHorarios = medicos.map((medico: any) => ({
+    const medicosComHorarios = data.map((medico: any) => ({
       ...medico,
       diasAtendimento: diasFicticios.reduce((acc: any, dia: string) => {
         acc[dia] = horariosFicticios;
@@ -56,13 +67,27 @@ export async function buscarMedicosEspecialidade(especialidadeId: string): Promi
   }
 }
 
-// Função para buscar especialidades
-export async function buscarEspecialidades(): Promise<any> {
+// Função para buscar Horario Disponivel Pela Data
+export async function buscarHorarioDisponivelPorData(medicoId: string, diaSemana: string, dataConsulta: string): Promise<any> {
   try {
-    const response = await axiosConfig.get('/Especialidades/GetEspecialidades');
+    const response = await axiosConfig.get(`/Medico/GetHorarioDisponivelPorData/${medicoId}/${diaSemana}/${dataConsulta}`);
+    const hoariosDisponiveis = response.data;
+
+    console.log("Resposta da API - Horários Disponiveis: ", hoariosDisponiveis);
+
+  } catch (error) {
+    console.log("Erro ao buscar Horários Disponiveis: ", error);
+    throw error;
+  }
+}
+
+// Função para buscar Unidades de Atendimento
+export async function buscarUnidadeAtendimento(): Promise<any> {
+  try {
+    const response = await axiosConfig.get('/UnidadeAtendimento/GetUnidadesAtendimento');
     return response.data;
   } catch (error) {
-    console.error("Erro ao buscar especialidades:", error);
+    console.log("Erro ao buscar Unidades de Atendimento: ", error);
     throw error;
   }
 }

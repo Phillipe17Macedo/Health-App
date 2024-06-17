@@ -6,12 +6,14 @@ import { styles } from "./styles";
 
 interface MedicoProps {
   especialidadeId: string | null;
+  unidadeAtendimentoId: string | null;
   medicoSelecionado: string | null;
   onMedicoSelect: (medico: any) => void;
 }
 
 export default function Medico({
   especialidadeId,
+  unidadeAtendimentoId,
   medicoSelecionado,
   onMedicoSelect,
 }: MedicoProps) {
@@ -23,9 +25,9 @@ export default function Medico({
 
   useEffect(() => {
     async function carregarMedicos() {
-      if (especialidadeId) {
+      if (especialidadeId && unidadeAtendimentoId) {
         try {
-          const response = await buscarMedicosEspecialidade(especialidadeId);
+          const response = await buscarMedicosEspecialidade(especialidadeId, unidadeAtendimentoId);
           const medicos = response.data;
           setItens(
             medicos.map((medico: any) => ({
@@ -44,7 +46,7 @@ export default function Medico({
     }
 
     carregarMedicos();
-  }, [especialidadeId]);
+  }, [especialidadeId, unidadeAtendimentoId]);
 
   useEffect(() => {
     setValor(medicoSelecionado);
@@ -60,9 +62,6 @@ export default function Medico({
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerOrientacao}>
-        <Text style={styles.orientacao}>Selecione a Especialidade Primeiro</Text>
-      </View>
       <DropDownPicker
         open={abrir}
         value={valor}
@@ -77,7 +76,7 @@ export default function Medico({
         dropDownContainerStyle={styles.dropDownContainerStyle}
         listItemLabelStyle={styles.itensLista}
         selectedItemLabelStyle={styles.itemSelecionado}
-        disabled={!especialidadeId}
+        disabled={!especialidadeId || !unidadeAtendimentoId}
         zIndex={1000}
         zIndexInverse={2000}
       />

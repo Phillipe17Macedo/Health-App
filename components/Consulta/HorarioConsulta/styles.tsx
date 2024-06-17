@@ -8,20 +8,20 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   modalContent: {
-    width: "90%",
+    width: "95%",
     padding: 20,
     backgroundColor: "#fff",
     borderRadius: 10,
     alignItems: "center",
   },
   modalTitle: {
-    fontSize: 21,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 20,
   },
   timeItem: {
     flex: 1,
-    padding: 10,
+    padding: 5,
     backgroundColor: "#f0f0f0",
     borderRadius: 5,
     alignItems: "center",
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     marginVertical: 5,
   },
   timeText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold'
   },
   selectedTimeText: {

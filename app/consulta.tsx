@@ -11,7 +11,7 @@ import {
 import { Checkbox } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
-import { SearchBar } from "../components/Consulta/SearchBar/SearchBar";
+import { DicaAgendamento } from "../components/Consulta/ComponenteDicaAgendamento/DicaAgendamento";
 import Especialidade from "@/components/Consulta/DropDownEspecialidade/Especialidade";
 import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/CalendarioConsulta";
@@ -28,17 +28,25 @@ import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento/DropDownUnidadeAtendimento";
 
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
+  const [dependente, setDependente] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
+  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<
+    string | null
+  >(null);
+  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<
+    string | null
+  >(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  );
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
-  const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
-  const [modalVisivel, setModalVisivel] = useState(false);
   const [calendarioVisivel, setCalendarioVisivel] = useState(false);
   const [horarioVisivel, setHorarioVisivel] = useState(false);
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
@@ -46,17 +54,26 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<
+    string | null
+  >(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
+  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] =
+    useState<string | null>(null);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
+    string | null
+  >(null);
 
   const [consulta, setConsulta] = useState({
     usuario: "",
-    especialidade: "",
+    dependente: "null",
+    unidadeAtendimento: "",
     medico: "",
+    especialidade: "",
     data: "",
     horario: "",
+    telefoneContato: "(34) 99931-7302",
   });
 
   useEffect(() => {
@@ -96,80 +113,6 @@ export default function Consulta() {
 
     fetchUsuarioLogado();
   }, []);
-
-  const handlePesquisar = async (query: string) => {
-    try {
-      setLoading(true);
-      const results = await buscarEspecialidades();
-
-      const filteredResults = results.data.filter((especialidade: any) =>
-        especialidade.nome.toLowerCase().includes(query.toLowerCase())
-      );
-
-      setResultadoPesquisa(
-        filteredResults.map((especialidade: any) => ({
-          ...especialidade,
-          type: "especialidade",
-        }))
-      );
-      setModalVisivel(true);
-    } catch (error) {
-      console.error("Erro ao realizar pesquisa:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSugestoes = async (query: string) => {
-    try {
-      setLoading(true);
-      const especialidadesResults = await buscarEspecialidades();
-  
-      const filteredResults = especialidadesResults.data.filter((especialidade: any) =>
-        especialidade.nome.toLowerCase().includes(query.toLowerCase())
-      );
-  
-      setResultadoPesquisa(
-        filteredResults.map((especialidade: any) => ({
-          ...especialidade,
-          type: "especialidade",
-        }))
-      );
-    } catch (error) {
-      console.error("Erro ao obter sugestões:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSelecaoSugestao = async (item: any) => {
-    setLoading(true);
-    if (item.type === "especialidade") {
-      setEspecialidadeId(item.id);
-      setEspecialidadeNome(item.nome);
-      setConsulta((prev) => ({
-        ...prev,
-        especialidade: item.nome || "",
-      }));
-
-      // Atualiza o componente Especialidade
-      setEspecialidadeSelecionada(item.id);
-    }
-    setLoading(false);
-  };
-
-  const handleEspecialidadeSelect = async (especialidadeId: string) => {
-    try {
-      setLoading(true);
-      const response = await buscarMedicosEspecialidade(especialidadeId);
-      const medicosData = response.data;
-      setResultadoPesquisa(medicosData);
-    } catch (error) {
-      console.error("Erro ao buscar médicos:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleMedicoSelect = (medico: any) => {
     console.log("Medico Selecionado: ", medico);
@@ -273,12 +216,20 @@ export default function Consulta() {
       <StatusBar style="auto" />
       <View>
         <HeaderConsulta />
-        <SearchBar
-          onSearch={handlePesquisar}
-          onSugest={handleSugestoes}
-          resultados={resultadoPesquisa}
-          onSelecionarSugestao={handleSelecaoSugestao}
+        <DicaAgendamento />
+
+        <UnidadeAtendimento
+          UnidadeAtendimentoCarregada={(id, nome) => {
+            setUnidadeAtendimentoId(id);
+            setUnidadeAtendimentoNome(nome);
+            setConsulta((prev) => ({
+              ...prev,
+              unidadeAtendimento: nome || "",
+            }));
+          }}
+          unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
         />
+        
         <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
@@ -286,20 +237,25 @@ export default function Consulta() {
           />
           <Text style={styles.label}>Para um dependente?</Text>
         </View>
-        <Especialidade
-          EspecialidadeCarregada={(id, nome) => {
-            setEspecialidadeId(id);
-            setEspecialidadeNome(nome);
-            setConsulta((prev) => ({
-              ...prev,
-              especialidade: nome || "",
-            }));
-          }}
-          especialidadeSelecionada={especialidadeSelecionada}
-        />
+
+        {unidadeAtendimentoId && (
+          <Especialidade
+            EspecialidadeCarregada={(id, nome) => {
+              setEspecialidadeId(id);
+              setEspecialidadeNome(nome);
+              setConsulta((prev) => ({
+                ...prev,
+                especialidade: nome || "",
+              }));
+            }}
+            especialidadeSelecionada={especialidadeSelecionada}
+          />
+        )}
+
         {especialidadeId && (
           <Medico
             especialidadeId={especialidadeId}
+            unidadeAtendimentoId={unidadeAtendimentoId}
             medicoSelecionado={medico ? medico.id : null}
             onMedicoSelect={(medico) => {
               handleMedicoSelect(medico);
@@ -314,44 +270,6 @@ export default function Consulta() {
             }}
           />
         )}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisivel}
-          onRequestClose={() => setModalVisivel(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              {resultadoPesquisa.length > 0 ? (
-                <FlatList
-                  data={resultadoPesquisa}
-                  keyExtractor={(item) => item.key}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      onPress={() => handleSelecaoSugestao(item)}
-                      style={styles.resultItem}
-                    >
-                      <Text style={styles.resultText}>
-                        {item.nome} (Especialidade)
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              ) : (
-                <Text style={styles.noResultsText}>
-                  Nenhum resultado encontrado
-                </Text>
-              )}
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => setModalVisivel(false)}
-              >
-                <Text style={styles.closeButtonText}>Fechar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-
         <ModalCarregamento visivel={loading} />
 
         <SelecaoDependente

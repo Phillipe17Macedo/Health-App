@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   containerLink: {
     height: "auto",
     marginTop: 25,
-    borderRadius: 15,
+    borderRadius: 10,
     alignSelf: 'center',
     backgroundColor: 'gray',
     alignItems: 'center',
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     width: width * 0.9,
     height: width * 0.6,
     marginTop: 25,
-    borderRadius: 15,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: "#65A693",
     alignItems: 'center',

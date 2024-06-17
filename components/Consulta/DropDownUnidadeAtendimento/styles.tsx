@@ -1,11 +1,11 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-const { height } = Dimensions.get('screen');
+const { height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    marginRight: 35,
-    marginLeft: 35,
+    marginTop: 10,
+    marginBottom: 5,
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#DFF2ED',
     borderColor: '#65A693',
     borderWidth: 0.5,
-    elevation: 3,
+    elevation: 2,
     borderRadius: 5,
   },
   textoDropdown: {
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 5,
     zIndex: height * 3000,
-
+    height: height * 0.27
   },
   itensLista: {
     color: '#025940',
