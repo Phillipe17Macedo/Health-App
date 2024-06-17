@@ -9,65 +9,30 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import { styles } from "./styles";
 
-interface SearchBarProps {
-  onSearch: (query: string) => void;
-  onSugest: (query: string) => void;
-  onSelecionarSugestao: (item: any) => void;
-  resultados: any[];
-}
-
-export function SearchBar({ onSearch, onSugest, onSelecionarSugestao, resultados }: SearchBarProps) {
-  const [pesquisarTexto, setPesquisarTexto] = useState("");
-
-  useEffect(() => {
-    if (pesquisarTexto.length > 0) {
-      onSugest(pesquisarTexto);
-    }
-  }, [pesquisarTexto]);
-
+export function SearchBar() {
   return (
     <>
       <View style={styles.containerOrientacao}>
         <Text style={[styles.tituloOrientacao]}>AGENDAMENTO DE CONSULTA</Text>
-        <Text style={styles.orientacao}>Procurando uma consulta ?</Text>
-        <Text style={styles.orientacao}>Pesquise abaixo pela especialidade.</Text>
+        <Text style={styles.orientacao}>
+          Para agendar uma consulta, siga os passos abaixo:
+        </Text>
+        <Text style={styles.orientacao}>
+          1- Selecione a Unidade de Atendimento.
+        </Text>
+        <Text style={styles.orientacao}>
+          2- Selecione se é para um Dependente ou Não.
+        </Text>
+        <Text style={styles.orientacao}>
+          3- Selecione a Especialidade da consulta.
+        </Text>
+        <Text style={styles.orientacao}>
+          4- Selecione o Médico.
+        </Text>
+        <Text style={styles.orientacao}>
+          5- Selecione o Dia e Horário Disponíveis.
+        </Text>
       </View>
-      <View style={styles.containerAreaPesquisa}>
-        <View style={styles.containerTextInput}>
-          <TextInput
-            placeholder="PESQUISAR..."
-            style={styles.textoTextInput}
-            value={pesquisarTexto}
-            onChangeText={setPesquisarTexto}
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.containerIconePesquisar}
-          onPress={() => onSearch(pesquisarTexto)}
-        >
-          <View>
-            <FontAwesome name="search" size={18} color="black" />
-          </View>
-        </TouchableOpacity>
-      </View>
-      {pesquisarTexto.length > 0 && (
-        <View style={styles.sugestaoContainer}>
-          <FlatList
-            data={resultados}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => onSelecionarSugestao(item)}
-                style={styles.sugestaoItem}
-              >
-                <Text style={styles.sugestaoText}>
-                  {item.nome} (Especialidade)
-                </Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      )}
     </>
   );
 }
