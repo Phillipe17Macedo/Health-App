@@ -75,5 +75,5 @@ incluir logos e fotos da Aserpa na aplicação >> OK
 
 << MUDANÇAS URGÊNTES TELA HOME:
 agendamento em clinicas aserpa >> OK
-consulta -> agendar >>
-solicitar autorização de guias >> 
+consulta -> agendar >> OK
+solicitar autorização de guias >> OK
