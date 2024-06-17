@@ -6,12 +6,14 @@ import { styles } from "./styles";
 
 interface MedicoProps {
   especialidadeId: string | null;
+  unidadeAtendimentoId: string | null;
   medicoSelecionado: string | null;
   onMedicoSelect: (medico: any) => void;
 }
 
 export default function Medico({
   especialidadeId,
+  unidadeAtendimentoId,
   medicoSelecionado,
   onMedicoSelect,
 }: MedicoProps) {
@@ -23,9 +25,9 @@ export default function Medico({
 
   useEffect(() => {
     async function carregarMedicos() {
-      if (especialidadeId) {
+      if (especialidadeId && unidadeAtendimentoId) {
         try {
-          const response = await buscarMedicosEspecialidade(especialidadeId);
+          const response = await buscarMedicosEspecialidade(especialidadeId, unidadeAtendimentoId);
           const medicos = response.data;
           setItens(
             medicos.map((medico: any) => ({

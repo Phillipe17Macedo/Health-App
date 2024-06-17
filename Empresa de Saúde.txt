@@ -65,7 +65,7 @@ mudar busca de dependentes >> OK
 << MUDANÇAS 17/06/24:
 informativo orientação tela consulta/Agendamento >> OK
 REMOVER SearchBar >> OK
-incluir dropdown unidade médica Aserpa >> 
+incluir dropdown unidade médica Aserpa >> OK
 incluir e modificar métodos de consulta médicos >>
 incluir e modificar métodos de data e horário de atendimento >>
 incluir e modificar métodos de agendamento de consultas >>
