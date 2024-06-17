@@ -48,9 +48,6 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerOrientacao}>
-        <Text style={styles.orientacao}>Selecione primeiro a Especialidade do Médico</Text>
-      </View>
       <DropDownPicker
         open={abrir}
         value={valor}

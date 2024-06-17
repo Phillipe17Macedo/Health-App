@@ -60,9 +60,6 @@ export default function Medico({
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerOrientacao}>
-        <Text style={styles.orientacao}>Selecione a Especialidade Primeiro</Text>
-      </View>
       <DropDownPicker
         open={abrir}
         value={valor}
