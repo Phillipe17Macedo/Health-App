@@ -33,10 +33,16 @@ import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
-  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<string | null>(null);
-  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<string | null>(null);
+  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<
+    string | null
+  >(null);
+  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<
+    string | null
+  >(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  );
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -52,7 +58,8 @@ export default function Consulta() {
   >(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
-  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] = useState<string | null>(null);
+  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] =
+    useState<string | null>(null);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
     string | null
   >(null);
@@ -206,6 +213,7 @@ export default function Consulta() {
       <View>
         <HeaderConsulta />
         <DicaAgendamento />
+
         <UnidadeAtendimento
           UnidadeAtendimentoCarregada={(id, nome) => {
             setUnidadeAtendimentoId(id);
@@ -224,17 +232,21 @@ export default function Consulta() {
           />
           <Text style={styles.label}>Para um dependente?</Text>
         </View>
-        <Especialidade
-          EspecialidadeCarregada={(id, nome) => {
-            setEspecialidadeId(id);
-            setEspecialidadeNome(nome);
-            setConsulta((prev) => ({
-              ...prev,
-              especialidade: nome || "",
-            }));
-          }}
-          especialidadeSelecionada={especialidadeSelecionada}
-        />
+
+        {unidadeAtendimentoId && (
+          <Especialidade
+            EspecialidadeCarregada={(id, nome) => {
+              setEspecialidadeId(id);
+              setEspecialidadeNome(nome);
+              setConsulta((prev) => ({
+                ...prev,
+                especialidade: nome || "",
+              }));
+            }}
+            especialidadeSelecionada={especialidadeSelecionada}
+          />
+        )}
+        
         {especialidadeId && (
           <Medico
             especialidadeId={especialidadeId}
