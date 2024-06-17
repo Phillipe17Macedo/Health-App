@@ -9,7 +9,7 @@ import {
 import { FontAwesome } from "@expo/vector-icons";
 import { styles } from "./styles";
 
-export function SearchBar() {
+export function DicaAgendamento() {
   return (
     <>
       <View style={styles.containerOrientacao}>
@@ -21,7 +21,7 @@ export function SearchBar() {
           1- Selecione a Unidade de Atendimento.
         </Text>
         <Text style={styles.orientacao}>
-          2- Selecione se é para um Dependente ou Não.
+          2- Marque se é para um Dependente ou Não.
         </Text>
         <Text style={styles.orientacao}>
           3- Selecione a Especialidade da consulta.

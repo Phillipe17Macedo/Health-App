@@ -11,7 +11,7 @@ import {
 import { Checkbox } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
-import { SearchBar } from "../components/Consulta/SearchBar/SearchBar";
+import { DicaAgendamento } from "../components/Consulta/SearchBar/DicaAgendamento";
 import Especialidade from "@/components/Consulta/DropDownEspecialidade/Especialidade";
 import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/CalendarioConsulta";
@@ -273,12 +273,7 @@ export default function Consulta() {
       <StatusBar style="auto" />
       <View>
         <HeaderConsulta />
-        <SearchBar
-          onSearch={handlePesquisar}
-          onSugest={handleSugestoes}
-          resultados={resultadoPesquisa}
-          onSelecionarSugestao={handleSelecaoSugestao}
-        />
+        <DicaAgendamento/>
         <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
