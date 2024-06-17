@@ -11,7 +11,7 @@ import {
 import { Checkbox } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
-import { DicaAgendamento } from "../components/Consulta/SearchBar/DicaAgendamento";
+import { DicaAgendamento } from "../components/Consulta/ComponenteDicaAgendamento/DicaAgendamento";
 import Especialidade from "@/components/Consulta/DropDownEspecialidade/Especialidade";
 import Medico from "@/components/Consulta/DropDownMedico/Medico";
 import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/CalendarioConsulta";
@@ -66,6 +66,7 @@ export default function Consulta() {
 
   const [consulta, setConsulta] = useState({
     usuario: "",
+    unidadeAtendimento: "",
     especialidade: "",
     medico: "",
     data: "",
