@@ -24,11 +24,22 @@ export async function buscarDependentes(idAderente: number): Promise<any> {
   }
 }
 
-// Função para buscar médicos por especialidade
-export async function buscarMedicosEspecialidade(especialidadeId: string): Promise<any> {
+// Função para buscar especialidades
+export async function buscarEspecialidades(): Promise<any> {
   try {
-    const response = await axiosConfig.get(`/Medico/GetMedicosEspecialidade/${especialidadeId}`);
-    const medicos = response.data.data;
+    const response = await axiosConfig.get('/Especialidades/GetEspecialidades');
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar especialidades:", error);
+    throw error;
+  }
+}
+
+// Função para buscar médicos por especialidade
+export async function buscarMedicosEspecialidade(especialidadeId: string, unidadeAtendimentoId: string): Promise<any> {
+  try {
+    const response = await axiosConfig.get(`/Medico/GetMedicosEspecialidade/${especialidadeId}/${unidadeAtendimentoId}`);
+    const medicos = response.data;
 
     console.log("Resposta da API - Médicos:", medicos);
 
@@ -56,13 +67,16 @@ export async function buscarMedicosEspecialidade(especialidadeId: string): Promi
   }
 }
 
-// Função para buscar especialidades
-export async function buscarEspecialidades(): Promise<any> {
+// Função para buscar Horario Disponivel Pela Data
+export async function buscarHorarioDisponivelPorData(medicoId: string, diaSemana: string, dataConsulta: string): Promise<any> {
   try {
-    const response = await axiosConfig.get('/Especialidades/GetEspecialidades');
-    return response.data;
+    const response = await axiosConfig.get(`/Medico/GetHorarioDisponivelPorData/${medicoId}/${diaSemana}/${dataConsulta}`);
+    const hoariosDisponiveis = response.data;
+
+    console.log("Resposta da API - Horários Disponiveis: ", hoariosDisponiveis);
+
   } catch (error) {
-    console.error("Erro ao buscar especialidades:", error);
+    console.log("Erro ao buscar Horários Disponiveis: ", error);
     throw error;
   }
 }

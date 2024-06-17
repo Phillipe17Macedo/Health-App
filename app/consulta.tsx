@@ -33,7 +33,9 @@ export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  );
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -46,10 +48,14 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<
+    string | null
+  >(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
+    string | null
+  >(null);
 
   const [consulta, setConsulta] = useState({
     usuario: "",
@@ -96,80 +102,6 @@ export default function Consulta() {
 
     fetchUsuarioLogado();
   }, []);
-
-  const handlePesquisar = async (query: string) => {
-    try {
-      setLoading(true);
-      const results = await buscarEspecialidades();
-
-      const filteredResults = results.data.filter((especialidade: any) =>
-        especialidade.nome.toLowerCase().includes(query.toLowerCase())
-      );
-
-      setResultadoPesquisa(
-        filteredResults.map((especialidade: any) => ({
-          ...especialidade,
-          type: "especialidade",
-        }))
-      );
-      setModalVisivel(true);
-    } catch (error) {
-      console.error("Erro ao realizar pesquisa:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSugestoes = async (query: string) => {
-    try {
-      setLoading(true);
-      const especialidadesResults = await buscarEspecialidades();
-  
-      const filteredResults = especialidadesResults.data.filter((especialidade: any) =>
-        especialidade.nome.toLowerCase().includes(query.toLowerCase())
-      );
-  
-      setResultadoPesquisa(
-        filteredResults.map((especialidade: any) => ({
-          ...especialidade,
-          type: "especialidade",
-        }))
-      );
-    } catch (error) {
-      console.error("Erro ao obter sugestões:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSelecaoSugestao = async (item: any) => {
-    setLoading(true);
-    if (item.type === "especialidade") {
-      setEspecialidadeId(item.id);
-      setEspecialidadeNome(item.nome);
-      setConsulta((prev) => ({
-        ...prev,
-        especialidade: item.nome || "",
-      }));
-
-      // Atualiza o componente Especialidade
-      setEspecialidadeSelecionada(item.id);
-    }
-    setLoading(false);
-  };
-
-  const handleEspecialidadeSelect = async (especialidadeId: string) => {
-    try {
-      setLoading(true);
-      const response = await buscarMedicosEspecialidade(especialidadeId);
-      const medicosData = response.data;
-      setResultadoPesquisa(medicosData);
-    } catch (error) {
-      console.error("Erro ao buscar médicos:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleMedicoSelect = (medico: any) => {
     console.log("Medico Selecionado: ", medico);
@@ -273,7 +205,7 @@ export default function Consulta() {
       <StatusBar style="auto" />
       <View>
         <HeaderConsulta />
-        <DicaAgendamento/>
+        <DicaAgendamento />
         <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
@@ -309,44 +241,6 @@ export default function Consulta() {
             }}
           />
         )}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisivel}
-          onRequestClose={() => setModalVisivel(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              {resultadoPesquisa.length > 0 ? (
-                <FlatList
-                  data={resultadoPesquisa}
-                  keyExtractor={(item) => item.key}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity
-                      onPress={() => handleSelecaoSugestao(item)}
-                      style={styles.resultItem}
-                    >
-                      <Text style={styles.resultText}>
-                        {item.nome} (Especialidade)
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                />
-              ) : (
-                <Text style={styles.noResultsText}>
-                  Nenhum resultado encontrado
-                </Text>
-              )}
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => setModalVisivel(false)}
-              >
-                <Text style={styles.closeButtonText}>Fechar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-
         <ModalCarregamento visivel={loading} />
 
         <SelecaoDependente
