@@ -29,7 +29,7 @@ export default function HorarioConsulta({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Selecione o Horário</Text>
+          <Text style={styles.modalTitle}>Selecione um Horário Disponível</Text>
           <FlatList
             data={horariosDisponiveis}
             keyExtractor={(item) => item}
