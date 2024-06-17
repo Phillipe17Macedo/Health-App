@@ -84,7 +84,7 @@ export async function buscarHorarioDisponivelPorData(medicoId: string, diaSemana
 // Função para buscar Unidades de Atendimento
 export async function buscarUnidadeAtendimento(): Promise<any> {
   try {
-    const response = await axiosConfig.get('/UnidadeAtendimento/GetUnidadeAtendimento');
+    const response = await axiosConfig.get('/UnidadeAtendimento/GetUnidadesAtendimento');
     return response.data;
   } catch (error) {
     console.log("Erro ao buscar Unidades de Atendimento: ", error);

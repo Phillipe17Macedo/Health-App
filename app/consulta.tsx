@@ -28,19 +28,18 @@ import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento/DropDownUnidadeAtendimento";
 
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
+  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<string | null>(null);
+  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
-  const [resultadoPesquisa, setResultadoPesquisa] = useState<any[]>([]);
-  const [modalVisivel, setModalVisivel] = useState(false);
   const [calendarioVisivel, setCalendarioVisivel] = useState(false);
   const [horarioVisivel, setHorarioVisivel] = useState(false);
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
@@ -53,6 +52,7 @@ export default function Consulta() {
   >(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
+  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] = useState<string | null>(null);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
     string | null
   >(null);
@@ -206,6 +206,17 @@ export default function Consulta() {
       <View>
         <HeaderConsulta />
         <DicaAgendamento />
+        <UnidadeAtendimento
+          UnidadeAtendimentoCarregada={(id, nome) => {
+            setUnidadeAtendimentoId(id);
+            setUnidadeAtendimentoNome(nome);
+            setConsulta((prev) => ({
+              ...prev,
+              unidadeAtendimento: nome || "",
+            }));
+          }}
+          unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
+        />
         <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
