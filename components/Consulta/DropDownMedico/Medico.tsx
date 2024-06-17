@@ -46,7 +46,7 @@ export default function Medico({
     }
 
     carregarMedicos();
-  }, [especialidadeId]);
+  }, [especialidadeId, unidadeAtendimentoId]);
 
   useEffect(() => {
     setValor(medicoSelecionado);
@@ -76,7 +76,7 @@ export default function Medico({
         dropDownContainerStyle={styles.dropDownContainerStyle}
         listItemLabelStyle={styles.itensLista}
         selectedItemLabelStyle={styles.itemSelecionado}
-        disabled={!especialidadeId}
+        disabled={!especialidadeId || !unidadeAtendimentoId}
         zIndex={1000}
         zIndexInverse={2000}
       />

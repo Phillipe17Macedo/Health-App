@@ -225,6 +225,7 @@ export default function Consulta() {
           }}
           unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
         />
+        
         <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
@@ -246,10 +247,11 @@ export default function Consulta() {
             especialidadeSelecionada={especialidadeSelecionada}
           />
         )}
-        
+
         {especialidadeId && (
           <Medico
             especialidadeId={especialidadeId}
+            unidadeAtendimentoId={unidadeAtendimentoId}
             medicoSelecionado={medico ? medico.id : null}
             onMedicoSelect={(medico) => {
               handleMedicoSelect(medico);

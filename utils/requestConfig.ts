@@ -39,12 +39,12 @@ export async function buscarEspecialidades(): Promise<any> {
 export async function buscarMedicosEspecialidade(especialidadeId: string, unidadeAtendimentoId: string): Promise<any> {
   try {
     const response = await axiosConfig.get(`/Medico/GetMedicosEspecialidade/${especialidadeId}/${unidadeAtendimentoId}`);
-    const medicos = response.data;
+    const { data } = response.data;
 
-    console.log("Resposta da API - Médicos:", medicos);
+    console.log("Resposta da API - Médicos:", data);
 
-    if (!Array.isArray(medicos)) {
-      console.error("Resposta inesperada da API: medicos não é um array", medicos);
+    if (!Array.isArray(data)) {
+      console.error("Resposta inesperada da API: medicos não é um array", data);
       throw new Error("Resposta inesperada da API: medicos não é um array");
     }
 
@@ -52,7 +52,7 @@ export async function buscarMedicosEspecialidade(especialidadeId: string, unidad
     const diasFicticios = ["segunda", "quarta", "sexta"];
     const horariosFicticios = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00"];
 
-    const medicosComHorarios = medicos.map((medico: any) => ({
+    const medicosComHorarios = data.map((medico: any) => ({
       ...medico,
       diasAtendimento: diasFicticios.reduce((acc: any, dia: string) => {
         acc[dia] = horariosFicticios;
