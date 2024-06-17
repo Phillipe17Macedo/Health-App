@@ -66,3 +66,14 @@ export async function buscarEspecialidades(): Promise<any> {
     throw error;
   }
 }
+
+// Função para buscar Unidades de Atendimento
+export async function buscarUnidadeAtendimento(): Promise<any> {
+  try {
+    const response = await axiosConfig.get('/UnidadeAtendimento/GetUnidadeAtendimento');
+    return response.data;
+  } catch (error) {
+    console.log("Erro ao buscar Unidades de Atendimento: ", error);
+    throw error;
+  }
+}
