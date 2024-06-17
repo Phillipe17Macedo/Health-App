@@ -1,41 +1,50 @@
 >> Empresa de Saúde
-Espécie de App cartão de plano de saúde.
+Espécie de App cartão de plano de saúde. >> OK
 
->> Club de desconto.
+>> Club de desconto. >> OK
 
 >> Funcionalidades.
-Profissionais parceiros do cartão.
-Consultas de profissionais conveniados para desconto
+Profissionais parceiros do cartão. >> OK
+Consultas de profissionais conveniados para desconto >> OK
 
->> Layout do App
->> Carteira Digital
+>> Layout do App >> OK
+>> Carteira Digital >> OK
 
 >> Serviços:
-Emissão de guia de autorização -> consulta ou exame?
-Consulta-> Mesma a abaixo.
-Exame -> Informe o Laboratório -> tipo de exame.
+Emissão de guia de autorização -> consulta ou exame? >> OK
+Consulta-> Mesma a abaixo. >> OK
+Exame -> Informe o Laboratório -> tipo de exame. >> OK
 
-Agendamento de consultas e exames -> tipo de serviço: consulta/exame?
-Se for consulta -> Informe a especialidade
-Informe o médico -> Calendário
+Agendamento de consultas e exames -> tipo de serviço: consulta/exame? >> OK
+Se for consulta -> Informe a especialidade >> OK
+Informe o médico -> Calendário >> OK
 
 >> Financeiro:
-GroupBox-> Contrato
-Mensalidades -> 
+GroupBox-> Contrato >> OK
+Mensalidades -> >> OK
 
 >> Opções: 
-Meu Perfil
+Meu Perfil >> OK
 
 >> Login:
-CPF -> Data de Nascimento -> Nome completo da Mãe
+CPF -> Data de Nascimento -> Nome completo da Mãe >> OK
 
 
-http://cartaoaserpa.enoki.com.br/Resources/Images/FotosParceiro/00011239557/id17911_cpf00011239557_281021_162501.jpg
+************************************************************************//*****************************************************************************************
 
 
+<< CPF PARA SEREM UTILIZADOS DE TESTE:
 CPF TITULAR 34110143691
 CPF DEPENDENTE 62276885092
 
+<< PLATAFORMA DA ASERPA:
+http://homosaude.enoki.com.br/ERP.lab >> site da plataforma
+
+
+************************************************************************//*****************************************************************************************
+
+
+<< MUDANÇAS SEMANA PASSADA:
 Mudar o checkbox para baixo do cpf >> OK
 textInput limitar 11 digitos do CPF >> OK
 header >> OK
@@ -48,8 +57,22 @@ mudar titulo da tela >> OK
 mudar o sistema de médicos >> OK
 mudar seleção de dependentes >> OK
 mudar busca de dependentes >> OK
-corrigir bug da searchbar >> 
 
-agendamento em clinicas aserpa
-consulta -> agendar
-solicitar autorização de guias
+
+************************************************************************//*****************************************************************************************
+
+
+<< MUDANÇAS 17/06/24:
+informativo orientação tela consulta/Agendamento >>
+corrigir bug da searchbar DELET >>
+incluir dropdown unidade médica Aserpa >>
+incluir e modificar métodos de consulta médicos >>
+incluir e modificar métodos de data e horário de atendimento >>
+incluir e modificar métodos de agendamento de consultas >>
+incluir e modificar métodos de agendamento de exames >>
+incluir logos e fotos da Aserpa na aplicação >> 
+
+<< MUDANÇAS URGÊNTES TELA HOME:
+agendamento em clinicas aserpa >>
+consulta -> agendar >>
+solicitar autorização de guias >> 
