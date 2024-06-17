@@ -1,12 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  container: {
+    //backgroundColor: 'blue',
+    marginTop: 25,
+  },
   containerOpcoes: {
     alignSelf: 'center',
-    justifyContent: 'space-between',
-    width: '90%',
+    justifyContent: 'space-evenly',
+    width: '100%',
     height: 140,
-    marginTop: 25,
     borderRadius: 10,
     flexDirection: 'row',
   },
@@ -14,6 +17,8 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     flexDirection: 'row',
+    //backgroundColor: 'yellow',
+    paddingLeft: 15,
   },
   textoAcessoRapido: {
     fontSize: 18,
@@ -27,17 +32,19 @@ export const styles = StyleSheet.create({
     backgroundColor: '#DFF2ED',
     width: 100,
     height: 100,
-    borderRadius: 15,
+    borderRadius: 5,
     elevation: 2,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 0.5,
+    borderColor: '#65A693'
   },
   containerLink: {
     justifyContent: 'center',
     alignItems: 'center',
     width: 100,
     height: 100,
-    borderRadius: 15,
+    borderRadius: 5,
     marginTop: 35,
   },
   imagemOpcoes: {

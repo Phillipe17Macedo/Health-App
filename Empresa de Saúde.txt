@@ -67,9 +67,10 @@ informativo orientação tela consulta/Agendamento >> OK
 REMOVER SearchBar >> OK
 incluir dropdown unidade médica Aserpa >> OK
 incluir e modificar métodos de consulta médicos >> OK
-incluir e modificar métodos de data e horário de atendimento >>
-incluir e modificar métodos de agendamento de consultas >>
-incluir e modificar métodos de agendamento de exames >>
+incluir método do horário de atendimento >> OK
+incluir método ds data/dia de atendimento >>
+incluir método de agendamento de consultas >>
+incluir método de agendamento de exames >>
 incluir logos e fotos da Aserpa na aplicação >> 
 
 << MUDANÇAS URGÊNTES TELA HOME:
