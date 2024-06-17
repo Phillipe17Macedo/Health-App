@@ -71,9 +71,9 @@ incluir método do horário de atendimento >> OK
 incluir método ds data/dia de atendimento >>
 incluir método de agendamento de consultas >>
 incluir método de agendamento de exames >>
-incluir logos e fotos da Aserpa na aplicação >> 
+incluir logos e fotos da Aserpa na aplicação >> OK
 
 << MUDANÇAS URGÊNTES TELA HOME:
-agendamento em clinicas aserpa >>
+agendamento em clinicas aserpa >> OK
 consulta -> agendar >>
 solicitar autorização de guias >> 

@@ -31,7 +31,7 @@ export function Carrossel() {
                   size={50}
                   color="#107357"
                 />
-                <Text style={[styles.textoOpcoesIcone]}>CONSULTAS</Text>
+                <Text style={[styles.textoOpcoesIcone]}>AGENDAR CONSULTA</Text>
               </View>
             </Link>
           </TouchableOpacity>
@@ -40,7 +40,7 @@ export function Carrossel() {
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
                 <Fontisto name="heartbeat" size={48} color="#107357" />
-                <Text style={[styles.textoOpcoesIcone]}>EXAMES</Text>
+                <Text style={[styles.textoOpcoesIcone]}>AGENDAR EXAME</Text>
               </View>
             </Link>
           </TouchableOpacity>
@@ -49,7 +49,7 @@ export function Carrossel() {
             <Link href={"/consulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
                 <FontAwesome5 name="money-bill-alt" size={45} color="#107357" />
-                <Text style={[styles.textoOpcoesIcone]}>FINANCEIRO</Text>
+                <Text style={[styles.textoOpcoesIcone]}>FINANCEIRO TESTE</Text>
               </View>
             </Link>
           </TouchableOpacity>
