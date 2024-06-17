@@ -8,11 +8,13 @@ interface ConfirmacaoConsultaProps {
   onConfirm: () => void;
   consulta: {
     usuario: string;
+    dependente: string;
     unidadeAtendimento: string;
     especialidade: string;
     medico: string;
     data: string;
     horario: string;
+    telefoneContato: string;
   };
 }
 
@@ -27,12 +29,14 @@ export default function ConfirmacaoConsulta({ visivel, onClose, onConfirm, consu
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Confirmação da Consulta</Text>
-          <Text style={styles.confirmText}>Usuário: {consulta.usuario}</Text>
+          <Text style={styles.confirmText}>Aderente: {consulta.usuario}</Text>
+          <Text style={styles.confirmText}>Dependente: {consulta.dependente}</Text>
           <Text style={styles.confirmText}>Unidade de Atendimento: {consulta.unidadeAtendimento}</Text>
-          <Text style={styles.confirmText}>Especialidade: {consulta.especialidade}</Text>
           <Text style={styles.confirmText}>Médico: {consulta.medico}</Text>
+          <Text style={styles.confirmText}>Especialidade: {consulta.especialidade}</Text>
           <Text style={styles.confirmText}>Data: {consulta.data}</Text>
           <Text style={styles.confirmText}>Horário: {consulta.horario}</Text>
+          <Text style={styles.confirmText}>Telefone de Contato: {consulta.telefoneContato}</Text>
           <TouchableOpacity
             style={styles.confirmButton}
             onPress={onConfirm}

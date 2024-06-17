@@ -32,6 +32,7 @@ import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento
 
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
+  const [dependente, setDependente] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<
     string | null
@@ -66,11 +67,13 @@ export default function Consulta() {
 
   const [consulta, setConsulta] = useState({
     usuario: "",
+    dependente: "null",
     unidadeAtendimento: "",
-    especialidade: "",
     medico: "",
+    especialidade: "",
     data: "",
     horario: "",
+    telefoneContato: "(34) 99931-7302",
   });
 
   useEffect(() => {
