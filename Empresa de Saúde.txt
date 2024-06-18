@@ -83,4 +83,4 @@ solicitar autorização de guias >> OK
 
 
 << MUDANÇAS 18/06/24:
-implementar a tela de solicitação dee guia de consulta >> 
+implementar a tela de solicitação de guia de consulta >> 
