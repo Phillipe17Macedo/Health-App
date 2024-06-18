@@ -67,7 +67,7 @@ export default function Consulta() {
 
   const [consulta, setConsulta] = useState({
     usuario: "",
-    dependente: "null",
+    dependente: null,
     unidadeAtendimento: "",
     medico: "",
     especialidade: "",
@@ -186,11 +186,13 @@ export default function Consulta() {
     if (isDependente && dependenteSelecionado) {
       setConsulta((prev) => ({
         ...prev,
+        dependente: usuario.nome || "",
         usuario: dependenteSelecionado || "",
       }));
     } else {
       setConsulta((prev) => ({
         ...prev,
+        dependente: null,
         usuario: usuario.nome || "",
       }));
     }
