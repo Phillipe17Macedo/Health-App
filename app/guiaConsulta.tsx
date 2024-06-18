@@ -15,6 +15,7 @@ import {
   buscarMedicosEspecialidade,
   buscarEspecialidades,
 } from "@/utils/requestConfig";
+import UnidadeAtendimento from "@/components/GuiaConsulta/UnidadeAtendimento/DropDownUnidadeAtendimento";
 
 export default function GuiaConsulta() {
   const [loading, setLoading] = useState(false);
@@ -37,6 +38,11 @@ export default function GuiaConsulta() {
     string | null
   >(null);
   const [medico, setMedico] = useState<any | null>(null);
+  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] =
+    useState<string | null>(null);
+  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<
+    string | null
+  >(null);
   const [consulta, setConsulta] = useState({
     usuario: "",
     dependente: "",
@@ -124,6 +130,17 @@ export default function GuiaConsulta() {
       <HeaderGuiaConsulta />
       <ModalCarregamento visivel={loading} />
       <DicaGuiaConsulta />
+      <UnidadeAtendimento
+        UnidadeAtendimentoCarregada={(id, nome) => {
+          setUnidadeAtendimentoId(id);
+          setUnidadeAtendimentoNome(nome);
+          setConsulta((prev) => ({
+            ...prev,
+            unidadeAtendimento: nome || "",
+          }));
+        }}
+        unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
+      />
       <View style={styles.checkboxContainer}>
         <Checkbox
           status={isDependente ? "checked" : "unchecked"}
@@ -131,17 +148,19 @@ export default function GuiaConsulta() {
         />
         <Text style={styles.label}>Para um dependente?</Text>
       </View>
-      <Especialidade
-        EspecialidadeCarregada={(id, nome) => {
-          setEspecialidadeId(id);
-          setEspecialidadeNome(nome);
-          setConsulta((prev) => ({
-            ...prev,
-            especialidade: nome || "",
-          }));
-        }}
-        especialidadeSelecionada={especialidadeSelecionada}
-      />
+      {unidadeAtendimentoId && (
+        <Especialidade
+          EspecialidadeCarregada={(id, nome) => {
+            setEspecialidadeId(id);
+            setEspecialidadeNome(nome);
+            setConsulta((prev) => ({
+              ...prev,
+              especialidade: nome || "",
+            }));
+          }}
+          especialidadeSelecionada={especialidadeSelecionada}
+        />
+      )}
       {especialidadeId && (
         <Medico
           especialidadeId={especialidadeId}
