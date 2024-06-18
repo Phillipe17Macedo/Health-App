@@ -63,7 +63,7 @@ export function Carrossel() {
         </View>
         <View style={[styles.containerOpcoes, { marginBottom: 95 }]}>
           <TouchableOpacity>
-            <Link href={"/exame"} style={[styles.containerLink]}>
+            <Link href={"/guiaConsulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
                 <MaterialCommunityIcons
                   name="calendar-clock-outline"
