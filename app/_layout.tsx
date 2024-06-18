@@ -1,5 +1,4 @@
 import { Stack } from 'expo-router';
-import { View, Text, StyleSheet } from 'react-native';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -14,6 +13,7 @@ export default function RootLayout() {
         <Stack.Screen name="consulta" options={{ headerShown: false }} />
         <Stack.Screen name="exame" options={{ headerShown: false }} />
         <Stack.Screen name="perfilEditar" options={{headerShown: false}}/>
+        <Stack.Screen name="guiaConsulta" options={{headerShown: false}} />
     </Stack>
   );
 }
