@@ -10,7 +10,6 @@ export default function Exame() {
   return (
     <View style={styles.container}>
       <HeaderExame/>
-      <SearchBar/>
       <DropDownExame/>
       <DropDownLaboratorio/>
     </View>
