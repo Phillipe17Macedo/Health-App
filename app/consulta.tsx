@@ -30,9 +30,19 @@ import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento/DropDownUnidadeAtendimento";
 
+interface Consulta {
+  usuario: string;
+  dependente: string;
+  unidadeAtendimento: string;
+  medico: string;
+  especialidade: string;
+  data: string;
+  horario: string;
+  telefoneContato: string;
+}
+
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
-  const [dependente, setDependente] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<
     string | null
@@ -67,7 +77,7 @@ export default function Consulta() {
 
   const [consulta, setConsulta] = useState({
     usuario: "",
-    dependente: null,
+    dependente: "",
     unidadeAtendimento: "",
     medico: "",
     especialidade: "",
@@ -186,13 +196,13 @@ export default function Consulta() {
     if (isDependente && dependenteSelecionado) {
       setConsulta((prev) => ({
         ...prev,
-        dependente: usuario.nome || "",
-        usuario: dependenteSelecionado || "",
+        dependente: dependenteSelecionado || "",
+        usuario: usuario.nome || "",
       }));
     } else {
       setConsulta((prev) => ({
         ...prev,
-        dependente: null,
+        dependente: "null",
         usuario: usuario.nome || "",
       }));
     }

@@ -8,7 +8,7 @@ interface ConfirmacaoConsultaProps {
   onConfirm: () => void;
   consulta: {
     usuario: string;
-    dependente: string | null;
+    dependente: string;
     unidadeAtendimento: string;
     especialidade: string;
     medico: string;
