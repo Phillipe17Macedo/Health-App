@@ -38,10 +38,12 @@ export default function DadosUser({ cpf }: { cpf: string }) {
         </View>
         <TextInput
           placeholder="NOME COMPLETO"
-          style={[styles.dadosInput]}
+          style={[styles.dadosInput, { height: 'auto' }]}
           keyboardType="default"
           value={nome}
           editable={false}
+          multiline={true}
+          numberOfLines={2} // Pode ajustar conforme necessário
         />
         <View style={[styles.containerDescricao]}>
           <Text style={[styles.descricaoDados, {marginLeft: width * 0.02}]}>CPF:</Text>
