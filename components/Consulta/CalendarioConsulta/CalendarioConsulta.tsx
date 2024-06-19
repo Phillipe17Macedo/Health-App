@@ -30,6 +30,8 @@ interface CalendarioConsultaProps {
   diasDisponiveis: string[];
 }
 
+
+// Minha função que defini os dias da semana, coloquei uteis, mas são os dias corridos
 const diasUteis = [
   "domingo",
   "segunda",
@@ -62,8 +64,15 @@ export default function CalendarioConsulta({
   >({});
 
   useEffect(() => {
-    const today = new Date();
-    const todayFormatted = today.toISOString().split("T")[0];
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = hoje.getMonth();
+    
+    // Obter o último dia do mês atual
+    const ultimoDiaMes = new Date(ano, mes + 1, 0);
+    const hojeFormatado = hoje.toISOString().split("T")[0];
+    const ultimoDiaFormatado = ultimoDiaMes.toISOString().split("T")[0];
+
     const novaDataMarcada: Record<
       string,
       {
@@ -76,20 +85,17 @@ export default function CalendarioConsulta({
       }
     > = {};
 
-    for (let i = -30; i < 30; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
+    for (let i = 0; i <= ultimoDiaMes.getDate(); i++) {
+      const date = new Date(ano, mes, i + 1);
       const formattedDate = date.toISOString().split("T")[0];
       const dayOfWeek = diasUteis[date.getDay()];
 
-      console.log(`Data: ${formattedDate}, Dia da Semana: ${dayOfWeek}, Disponível: ${diasDisponiveis.includes(dayOfWeek)}`);
-
       novaDataMarcada[formattedDate] = {
-        disabled: !diasDisponiveis.includes(dayOfWeek) || formattedDate < todayFormatted,
-        textColor: diasDisponiveis.includes(dayOfWeek) && formattedDate >= todayFormatted ? "#03A66A" : "#878787",
+        disabled: !diasDisponiveis.includes(dayOfWeek) || formattedDate < hojeFormatado,
+        textColor: diasDisponiveis.includes(dayOfWeek) && formattedDate >= hojeFormatado ? "#03A66A" : "#878787",
         customStyles: {
           text: {
-            textDecorationLine: !diasDisponiveis.includes(dayOfWeek) || formattedDate < todayFormatted ? 'line-through' : 'none',
+            textDecorationLine: !diasDisponiveis.includes(dayOfWeek) || formattedDate < hojeFormatado ? 'line-through' : 'none',
           },
         },
       };
@@ -155,6 +161,7 @@ export default function CalendarioConsulta({
               arrowColor: "#03A66A",
             }}
             minDate={new Date().toISOString().split('T')[0]}
+            maxDate={new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString().split('T')[0]}
           />
           <TouchableOpacity
             style={styles.confirmButton}
