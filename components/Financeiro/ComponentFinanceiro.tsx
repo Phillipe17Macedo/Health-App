@@ -43,12 +43,17 @@ export function ComponentFinanceiro() {
     color: (opacity = 1) => `rgba(3, 166, 106, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(3, 166, 106, ${opacity})`,
     style: {
-      borderRadius: 16,
+      borderRadius: 10,
     },
     propsForDots: {
       r: "6",
       strokeWidth: "2",
       stroke: "#03A66A",
+    },
+    propsForLabels: {
+      fontSize: 9,  // Adjust font size here
+      fontWeight: 'bold',  // Adjust font weight here
+      fontFamily: 'Arial',  // Set your desired font family here
     },
   };
 
