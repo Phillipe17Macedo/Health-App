@@ -71,7 +71,6 @@ export default function CalendarioConsulta({
     // Obter o último dia do mês atual
     const ultimoDiaMes = new Date(ano, mes + 1, 0);
     const hojeFormatado = hoje.toISOString().split("T")[0];
-    const ultimoDiaFormatado = ultimoDiaMes.toISOString().split("T")[0];
 
     const novaDataMarcada: Record<
       string,
