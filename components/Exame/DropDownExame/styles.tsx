@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,
-    borderRadius: 15,
+    borderRadius: 5,
   },
   textoDropdown: {
     color: '#025940',
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,
-    borderRadius: 15,
+    borderRadius: 5,
   },
   itensLista: {
     color: '#025940',
