@@ -5,12 +5,14 @@ export const styles = StyleSheet.create({
     backgroundColor: '#DFF2ED',
     width: '90%',
     height: 65,
-    borderRadius: 15,
+    borderRadius: 5,
     elevation: 3,
     marginBottom: 20,
     textAlign: 'left',
     padding: 20,
     justifyContent: 'center',
+    borderWidth: 0.5,
+    borderColor: '#65A693'
   },
   textoContainer: {
     fontSize: 21,

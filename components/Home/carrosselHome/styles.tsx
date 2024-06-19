@@ -37,7 +37,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 0.5,
-    borderColor: '#65A693'
+    borderColor: '#65A693',
+    paddingHorizontal: 5,
   },
   containerLink: {
     justifyContent: 'center',
