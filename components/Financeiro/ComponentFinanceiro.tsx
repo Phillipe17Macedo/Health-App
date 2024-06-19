@@ -5,19 +5,19 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { styles } from "./styles";
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
 import { ModalFinanceiro } from "./ModalFinanceiro/ModalFinanceiro";
-import { BarChart } from 'react-native-chart-kit';
-import { Dimensions } from 'react-native';
+import { BarChart } from "react-native-chart-kit";
 
 const screenWidth = Dimensions.get("window").width;
 
 export function ComponentFinanceiro() {
   const [modalVisivel, setModalVisivel] = useState(false);
   const [mesSelecionado, setMesSelecionado] = useState("");
-  
+
   const handleOpenModal = (mes: string) => {
     setMesSelecionado(mes);
     setModalVisivel(true);
@@ -51,9 +51,9 @@ export function ComponentFinanceiro() {
       stroke: "#03A66A",
     },
     propsForLabels: {
-      fontSize: 9,  // Adjust font size here
-      fontWeight: 'bold',  // Adjust font weight here
-      fontFamily: 'Arial',  // Set your desired font family here
+      fontSize: 9,
+      fontWeight: "bold",
+      fontFamily: "Arial",
     },
   };
 
@@ -69,75 +69,132 @@ export function ComponentFinanceiro() {
               alignSelf: "center",
               borderRadius: 5,
               paddingHorizontal: 15,
-              flexDirection: 'column',
+              flexDirection: "column",
               marginTop: 25,
               elevation: 3,
               marginBottom: 100,
               borderWidth: 0.5,
-              borderColor: '#65A693'
+              borderColor: "#65A693",
             },
           ]}
         >
-          <Text style={[styles.textoTituloContainer]}>Contratos em Aberto:</Text>
-          
-          <BarChart
-            data={data}
-            width={screenWidth * 0.9}
-            height={220}
-            chartConfig={chartConfig}
-            yAxisLabel="R$"
-            yAxisSuffix=""
-            style={{ alignSelf: 'center', borderRadius: 5, marginBottom: 25 }}
-          />
+          <Text style={[styles.textoTituloContainer]}>
+            Contratos em Aberto:
+          </Text>
 
-          <TouchableOpacity style={[styles.containerItem]} onPress={() => handleOpenModal("Junho 2024")}>
+          <ScrollView horizontal style={[{marginBottom: 10, borderRadius: 5}]}>
+            <BarChart
+              data={data}
+              width={screenWidth * 1.2}
+              height={180}
+              chartConfig={chartConfig}
+              yAxisLabel="R$"
+              yAxisSuffix=""
+              style={{ alignSelf: "center", borderRadius: 5 }}
+            />
+          </ScrollView>
+
+          <TouchableOpacity
+            style={[styles.containerItem]}
+            onPress={() => handleOpenModal("Junho 2024")}
+          >
             <Text style={[styles.tituloTextoItem]}>Mês de Junho 2024</Text>
             <View style={[styles.containerIcone]}>
-              <MaterialIcons name="monetization-on" size={64} color={'#F22222'} />
+              <MaterialIcons
+                name="monetization-on"
+                size={64}
+                color={"#F22222"}
+              />
             </View>
-            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
+            <Text style={[styles.textoDescricaoItem]}>
+              Clique para mais informações
+            </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.containerItem]} onPress={() => handleOpenModal("Maio 2024")}>
+          <TouchableOpacity
+            style={[styles.containerItem]}
+            onPress={() => handleOpenModal("Maio 2024")}
+          >
             <Text style={[styles.tituloTextoItem]}>Mês de Maio 2024</Text>
             <View style={[styles.containerIcone]}>
-              <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
+              <MaterialIcons
+                name="monetization-on"
+                size={64}
+                color={"#8CBF1F"}
+              />
             </View>
-            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
+            <Text style={[styles.textoDescricaoItem]}>
+              Clique para mais informações
+            </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.containerItem]} onPress={() => handleOpenModal("Abril 2024")}>
+          <TouchableOpacity
+            style={[styles.containerItem]}
+            onPress={() => handleOpenModal("Abril 2024")}
+          >
             <Text style={[styles.tituloTextoItem]}>Mês de Abril 2024</Text>
             <View style={[styles.containerIcone]}>
-              <MaterialIcons name="monetization-on" size={64} color={'#F22222'} />
+              <MaterialIcons
+                name="monetization-on"
+                size={64}
+                color={"#F22222"}
+              />
             </View>
-            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
+            <Text style={[styles.textoDescricaoItem]}>
+              Clique para mais informações
+            </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.containerItem]} onPress={() => handleOpenModal("Março 2024")}>
+          <TouchableOpacity
+            style={[styles.containerItem]}
+            onPress={() => handleOpenModal("Março 2024")}
+          >
             <Text style={[styles.tituloTextoItem]}>Mês de Março 2024</Text>
             <View style={[styles.containerIcone]}>
-              <MaterialIcons name="monetization-on" size={64} color={'#F22222'} />
+              <MaterialIcons
+                name="monetization-on"
+                size={64}
+                color={"#F22222"}
+              />
             </View>
-            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
+            <Text style={[styles.textoDescricaoItem]}>
+              Clique para mais informações
+            </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity style={[styles.containerItem]} onPress={() => handleOpenModal("Fevereiro 2024")}>
+
+          <TouchableOpacity
+            style={[styles.containerItem]}
+            onPress={() => handleOpenModal("Fevereiro 2024")}
+          >
             <Text style={[styles.tituloTextoItem]}>Mês de Fevereiro 2024</Text>
             <View style={[styles.containerIcone]}>
-              <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
+              <MaterialIcons
+                name="monetization-on"
+                size={64}
+                color={"#8CBF1F"}
+              />
             </View>
-            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
+            <Text style={[styles.textoDescricaoItem]}>
+              Clique para mais informações
+            </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.containerItem]} onPress={() => handleOpenModal("Janeiro 2024")}>
+          <TouchableOpacity
+            style={[styles.containerItem]}
+            onPress={() => handleOpenModal("Janeiro 2024")}
+          >
             <Text style={[styles.tituloTextoItem]}>Mês de Janeiro 2024</Text>
             <View style={[styles.containerIcone]}>
-              <MaterialIcons name="monetization-on" size={64} color={'#8CBF1F'} />
+              <MaterialIcons
+                name="monetization-on"
+                size={64}
+                color={"#8CBF1F"}
+              />
             </View>
-            <Text style={[styles.textoDescricaoItem]}>Clique para mais informações</Text>
+            <Text style={[styles.textoDescricaoItem]}>
+              Clique para mais informações
+            </Text>
           </TouchableOpacity>
-
         </View>
       </ScrollView>
 
@@ -149,9 +206,9 @@ export function ComponentFinanceiro() {
         consultasFeitas={5}
         examesFeitos={3}
         dependentesUsaram={["Maria", "José"]}
-        valorConsultas={250.00}
-        valorExames={150.00}
-        valorTotal={400.00}
+        valorConsultas={250.0}
+        valorExames={150.0}
+        valorTotal={400.0}
       />
     </SafeAreaView>
   );
