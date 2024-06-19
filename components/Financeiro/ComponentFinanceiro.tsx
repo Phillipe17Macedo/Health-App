@@ -5,11 +5,14 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  Image
 } from "react-native";
 import { styles } from "./styles";
 import { MaterialIcons } from '@expo/vector-icons';
 import { ModalFinanceiro } from "./ModalFinanceiro/ModalFinanceiro";
+import { BarChart } from 'react-native-chart-kit';
+import { Dimensions } from 'react-native';
+
+const screenWidth = Dimensions.get("window").width;
 
 export function ComponentFinanceiro() {
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -22,6 +25,31 @@ export function ComponentFinanceiro() {
 
   const handleCloseModal = () => {
     setModalVisivel(false);
+  };
+
+  const data = {
+    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+    datasets: [
+      {
+        data: [300, 450, 280, 800, 990, 430],
+      },
+    ],
+  };
+
+  const chartConfig = {
+    backgroundGradientFrom: "#FFF",
+    backgroundGradientTo: "#FFF",
+    decimalPlaces: 2, // optional, defaults to 2dp
+    color: (opacity = 1) => `rgba(3, 166, 106, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(3, 166, 106, ${opacity})`,
+    style: {
+      borderRadius: 16,
+    },
+    propsForDots: {
+      r: "6",
+      strokeWidth: "2",
+      stroke: "#03A66A",
+    },
   };
 
   return (
@@ -46,11 +74,16 @@ export function ComponentFinanceiro() {
           ]}
         >
           <Text style={[styles.textoTituloContainer]}>Contratos em Aberto:</Text>
-          <TouchableOpacity>
-            <Image source={require('../../assets/images/grafico-barras-teste-786x424.png')}
-              style={[{alignSelf: 'center', borderRadius: 5, borderWidth: 1, borderColor: '#65A693', marginBottom: 25}]}
-            />
-          </TouchableOpacity>
+          
+          <BarChart
+            data={data}
+            width={screenWidth * 0.9}
+            height={220}
+            chartConfig={chartConfig}
+            yAxisLabel="R$"
+            yAxisSuffix=""
+            style={{ alignSelf: 'center', borderRadius: 5, marginBottom: 25 }}
+          />
 
           <TouchableOpacity style={[styles.containerItem]} onPress={() => handleOpenModal("Junho 2024")}>
             <Text style={[styles.tituloTextoItem]}>Mês de Junho 2024</Text>
