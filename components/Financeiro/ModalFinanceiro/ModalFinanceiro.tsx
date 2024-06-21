@@ -37,7 +37,7 @@ export function ModalFinanceiro({
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <ScrollView>
-            <Text style={styles.modalTitle}>Detalhes do {mes}</Text>
+            <Text style={styles.modalTitle}>Detalhes de {mes}</Text>
             <Text style={styles.modalText}>Nome do Aderente: {nomeAderente}</Text>
             <Text style={styles.modalText}>Consultas Feitas: {consultasFeitas}</Text>
             <Text style={styles.modalText}>Exames Feitos: {examesFeitos}</Text>

@@ -40,7 +40,7 @@ export function ComponentFinanceiro() {
     backgroundGradientFrom: "#FFF",
     backgroundGradientTo: "#FFF",
     decimalPlaces: 2, // optional, defaults to 2dp
-    color: (opacity = 1) => `rgba(3, 166, 106, ${opacity})`,
+    color: (opacity = 1) => `rgba(140, 191, 31, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(3, 166, 106, ${opacity})`,
     style: {
       borderRadius: 10,
