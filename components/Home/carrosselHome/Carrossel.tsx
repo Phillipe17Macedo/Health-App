@@ -17,9 +17,9 @@ export function Carrossel() {
         
         <View style={[styles.ContainertextoAcessoRapido]}>
           <Text style={[styles.textoAcessoRapido]}>
-            AGENDAMENTOS CLÍNICAS ASERPA
+            Agendamentos Clínicas Aserpa
           </Text>
-          <FontAwesome6 name="hospital" size={18} color="#03A66A" />
+          <FontAwesome6 name="hospital" size={18} color="#3E3D3D" />
         </View>
 
         <View style={[styles.containerOpcoes]}>
@@ -27,7 +27,7 @@ export function Carrossel() {
             <Link href={"/consulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
                 <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Consulta.png')} style={[styles.imagemOpcoes]} />
-                <Text style={[styles.textoOpcoesIcone]}>AGENDAR CONSULTA</Text>
+                <Text style={[styles.textoOpcoesIcone]}>Agendar Consulta</Text>
               </View>
             </Link>
           </TouchableOpacity>
@@ -36,7 +36,7 @@ export function Carrossel() {
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
                 <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/exame.png')} style={[styles.imagemOpcoes]} />
-                <Text style={[styles.textoOpcoesIcone]}>AGENDAR EXAME</Text>
+                <Text style={[styles.textoOpcoesIcone]}>Agendar Exame</Text>
               </View>
             </Link>
           </TouchableOpacity>
@@ -45,8 +45,8 @@ export function Carrossel() {
 
       <View style={[styles.container]}>
         <View style={[styles.ContainertextoAcessoRapido]}>
-          <Text style={[styles.textoAcessoRapido]}>SOLICITAÇÃO DE GUIAS</Text>
-          <FontAwesome6 name="hospital-user" size={18} color="#03A66A" />
+          <Text style={[styles.textoAcessoRapido]}>Solicitação de Guias</Text>
+          <FontAwesome6 name="hospital-user" size={18} color="#3E3D3D" />
         </View>
         <View style={[styles.containerOpcoes, { marginBottom: 95 }]}>
           <TouchableOpacity>
@@ -54,7 +54,7 @@ export function Carrossel() {
               <View style={[styles.opcoes]}>
                 <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Guia de Consulta.png')} style={[styles.imagemOpcoes]} />
                 <Text style={[styles.textoOpcoesIcone]}>
-                  GUIA DE CONSULTAS
+                  Guia de Consultas
                 </Text>
               </View>
             </Link>
@@ -64,7 +64,7 @@ export function Carrossel() {
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
                 <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Guisa de Exame.png')} style={[styles.imagemOpcoes]} />
-                <Text style={[styles.textoOpcoesIcone]}>GUIA DE EXAMES</Text>
+                <Text style={[styles.textoOpcoesIcone]}>Guia de Exames</Text>
               </View>
             </Link>
           </TouchableOpacity>

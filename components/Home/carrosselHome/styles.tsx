@@ -15,10 +15,9 @@ export const styles = StyleSheet.create({
   textoAcessoRapido: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#03A66A',
+    color: '#3E3D3D',
     marginLeft: 5,
     marginRight: 5,
-    fontVariant: ['small-caps'],
   },
   containerOpcoes: {
     alignSelf: 'center',
@@ -55,7 +54,7 @@ export const styles = StyleSheet.create({
     height: 50
   },
   textoOpcoesIcone: {
-    fontSize: 11,
+    fontSize: 14,
     textAlign: 'center',
     color: '#202022',
     fontWeight: 'normal',

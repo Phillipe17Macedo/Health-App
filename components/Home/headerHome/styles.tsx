@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   nomeUsuario: {
     fontSize: 21,
     fontWeight: 'bold',
-    color: '#202022',
+    color: '#3E3D3D',
   },
   textoPerfilConfi: {
     fontSize: 12,
