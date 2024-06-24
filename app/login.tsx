@@ -11,15 +11,8 @@ export default function Login() {
   return (
     <View style={[styles.container]}>
       <StatusBar style="auto" />
-      <LinearGradient
-        colors={["#025940", "#8CBF1F"]}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1.3, y: 0.4 }}
-        style={[styles.container]}
-      >
         <LogoLogin/>
         <InputLogin/>
-      </LinearGradient>
     </View>
   );
 }

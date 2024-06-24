@@ -23,7 +23,7 @@ export default function TabLayout() {
           alignSelf: "center",
           marginVertical: 5,
           marginHorizontal: 18,
-          borderRadius: 60,
+          borderRadius: 15,
           height: 70,
           paddingTop: 10,
           paddingBottom: 12,

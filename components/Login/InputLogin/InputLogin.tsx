@@ -98,7 +98,7 @@ export function InputLogin() {
         onPress={handleLogin}
       >
         {loading ? (
-          <ActivityIndicator size="small" color="#025940" style={[{marginBottom: -10, marginTop: 4}]} />
+          <ActivityIndicator size="small" color="#fff" style={[{marginBottom: -10, marginTop: 4}]} />
         ) : (
           <Text style={[styles.textoButton, { fontSize: width * 0.05 }]}>Entrar</Text>
         )}
