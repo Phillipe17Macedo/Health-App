@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { View, Image } from "react-native";
 import { useRouter } from "expo-router";
-import { Link } from "expo-router";
-import { FontAwesome6 } from "@expo/vector-icons";
 import { styles } from "../styles/StylesIndexPage/styles";
 
 export default function Index() {
