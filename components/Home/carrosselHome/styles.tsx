@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     //backgroundColor: 'blue',
-    marginTop: 25,
+    marginTop: 15,
   },
   containerOpcoes: {
     alignSelf: 'center',
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textoOpcoesIcone: {
-    fontSize: 10,
+    fontSize: 11,
     textAlign: 'center',
     color: '#025940',
     fontWeight: 'normal',

@@ -34,17 +34,8 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Fontisto name="heartbeat" size={45} color="#107357" />
+                <Image source={require('@/assets/images/Home/Carrossel/icons8-medical-color/icons8-medical-48.png')} />
                 <Text style={[styles.textoOpcoesIcone]}>AGENDAR EXAME</Text>
-              </View>
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <Link href={"/financeiro"} style={[styles.containerLink]}>
-              <View style={[styles.opcoes]}>
-                <FontAwesome5 name="money-bill-alt" size={45} color="#107357" />
-                <Text style={[styles.textoOpcoesIcone]}>FINANCEIRO TESTE</Text>
               </View>
             </Link>
           </TouchableOpacity>
@@ -54,17 +45,13 @@ export function Carrossel() {
       <View style={[styles.container]}>
         <View style={[styles.ContainertextoAcessoRapido]}>
           <Text style={[styles.textoAcessoRapido]}>SOLICITAÇÃO DE GUIAS</Text>
-          <AntDesign name="doubleright" size={21} color="#03A66A" />
+          <FontAwesome6 name="hospital-user" size={18} color="#03A66A" />
         </View>
         <View style={[styles.containerOpcoes, { marginBottom: 95 }]}>
           <TouchableOpacity>
             <Link href={"/guiaConsulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <MaterialCommunityIcons
-                  name="calendar-clock-outline"
-                  size={48}
-                  color="#107357"
-                />
+                <Image source={require('@/assets/images/Home/Carrossel/icons8-health-lineal-color/icons8-health-48.png')} />
                 <Text style={[styles.textoOpcoesIcone]}>
                   GUIA DE CONSULTAS
                 </Text>
@@ -75,21 +62,8 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <MaterialCommunityIcons
-                  name="clipboard-text-clock-outline"
-                  size={48}
-                  color="#107357"
-                />
+                <Image source={require('@/assets/images/Home/Carrossel/icons8-docs-color/icons8-docs-48.png')} />
                 <Text style={[styles.textoOpcoesIcone]}>GUIA DE EXAMES</Text>
-              </View>
-            </Link>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <Link href={"/financeiro"} style={[styles.containerLink]}>
-              <View style={[styles.opcoes]}>
-                <FontAwesome5 name="money-bill-alt" size={45} color="#107357" />
-                <Text style={[styles.textoOpcoesIcone]}>TESTE</Text>
               </View>
             </Link>
           </TouchableOpacity>
