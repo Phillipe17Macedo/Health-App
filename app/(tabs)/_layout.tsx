@@ -10,8 +10,8 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#8CBF1F",
-        tabBarInactiveTintColor: "#025940",
+        tabBarActiveTintColor: "#03A66A",
+        tabBarInactiveTintColor: "#9B9B9B",
         tabBarShowLabel: true,
         tabBarStyle: {
           position: "absolute",
@@ -33,8 +33,8 @@ export default function TabLayout() {
           shadowRadius: 4,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: "bold",
+          fontSize: 11,
+          fontWeight: "normal",
         },
       }}
     >
@@ -45,10 +45,10 @@ export default function TabLayout() {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              return <Ionicons name="home" size={28} color={color} />;
+              return <Ionicons name="home" size={25} color={color} />;
             }
 
-            return <Ionicons name="home-sharp" size={28} color={color} />;
+            return <Ionicons name="home-sharp" size={25} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>
@@ -81,9 +81,9 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              return <FontAwesome6 name="hand-holding-medical" size={28} color={color} />;
+              return <FontAwesome6 name="hand-holding-medical" size={25} color={color} />;
             }
-            return <FontAwesome6 name="hand-holding-medical" size={28} color={color} />;
+            return <FontAwesome6 name="hand-holding-medical" size={25} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>
@@ -117,10 +117,10 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
               return (
-                <FontAwesome6 name="credit-card" size={30} color={color} />
+                <FontAwesome6 name="credit-card" size={25} color={color} />
               );
             }
-            return <FontAwesome6 name="credit-card" size={30} color={color} />;
+            return <FontAwesome6 name="credit-card" size={25} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>

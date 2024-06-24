@@ -13,7 +13,7 @@ export function ComponentesConsulta() {
           <FontAwesome5
             name="hand-holding-medical"
             size={21}
-            color="#025940"
+            color="#3E3D3D"
           />
         </Link>
       </TouchableOpacity>

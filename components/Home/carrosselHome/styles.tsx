@@ -23,23 +23,24 @@ export const styles = StyleSheet.create({
   containerOpcoes: {
     alignSelf: 'center',
     width: '100%',
-    height: 200,
+    height: 'auto',
     borderRadius: 10,
     //backgroundColor: 'blue',
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-evenly',
+    marginTop: 15
   },
   containerLink: {
     justifyContent: 'center',
-    width: "90%",
+    width: 110,
     //backgroundColor: 'gray',
     alignSelf: 'center',
-    flexDirection: 'column',
+    flexDirection: 'row',
   },
   opcoes: {
     backgroundColor: '#F2F2F2',
-    width: 325,
-    height: 80,
+    width: 110,
+    height: 90,
     borderRadius: 10,
     elevation: 2,
     alignItems: 'center',
@@ -50,6 +51,8 @@ export const styles = StyleSheet.create({
   imagemOpcoes: {
     alignSelf: 'center',
     justifyContent: 'center',
+    resizeMode: 'contain',
+    height: 50
   },
   textoOpcoesIcone: {
     fontSize: 11,

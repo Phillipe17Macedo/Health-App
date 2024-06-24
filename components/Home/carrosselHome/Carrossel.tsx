@@ -26,7 +26,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/consulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons8-plano-de-saúde-48.png')} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Consulta.png')} style={[styles.imagemOpcoes]} />
                 <Text style={[styles.textoOpcoesIcone]}>AGENDAR CONSULTA</Text>
               </View>
             </Link>
@@ -35,7 +35,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons8-exame-de-corpo-48.png')} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/exame.png')} style={[styles.imagemOpcoes]} />
                 <Text style={[styles.textoOpcoesIcone]}>AGENDAR EXAME</Text>
               </View>
             </Link>
@@ -52,7 +52,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/guiaConsulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons8-health-lineal-color/icons8-health-48.png')} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Guia de Consulta.png')} style={[styles.imagemOpcoes]} />
                 <Text style={[styles.textoOpcoesIcone]}>
                   GUIA DE CONSULTAS
                 </Text>
@@ -63,7 +63,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons8-exame-48.png')} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Guisa de Exame.png')} style={[styles.imagemOpcoes]} />
                 <Text style={[styles.textoOpcoesIcone]}>GUIA DE EXAMES</Text>
               </View>
             </Link>
