@@ -14,6 +14,7 @@ export function Carrossel() {
   return (
     <>
       <View style={[styles.container]}>
+        
         <View style={[styles.ContainertextoAcessoRapido]}>
           <Text style={[styles.textoAcessoRapido]}>
             AGENDAMENTOS CLÍNICAS ASERPA
@@ -25,7 +26,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/consulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons8-doctors-bag-color/icons8-doctors-bag-48.png')} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons8-plano-de-saúde-48.png')} />
                 <Text style={[styles.textoOpcoesIcone]}>AGENDAR CONSULTA</Text>
               </View>
             </Link>
@@ -34,7 +35,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons8-medical-color/icons8-medical-48.png')} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons8-exame-de-corpo-48.png')} />
                 <Text style={[styles.textoOpcoesIcone]}>AGENDAR EXAME</Text>
               </View>
             </Link>
@@ -62,7 +63,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons8-docs-color/icons8-docs-48.png')} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons8-exame-48.png')} />
                 <Text style={[styles.textoOpcoesIcone]}>GUIA DE EXAMES</Text>
               </View>
             </Link>
