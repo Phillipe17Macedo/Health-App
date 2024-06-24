@@ -1,18 +1,18 @@
 export const ConsultasFicticias = [
   {
     id: 1,
-    usuario: 'ADAILTON FERREIRA ANDRÉ DA SILVA JUNIOR',
+    usuario: 'Adailton Ferreira André da Silva Junior',
     medico: 'Dr. José Silva',
     especialidade: 'Cardiologia',
-    data: '2023-06-15',
+    data: '15-06-2024',
     hora: '14:00',
   },
   {
     id: 2,
-    usuario: 'ADAILTON FERREIRA ANDRÉ DA SILVA JUNIOR',
+    usuario: 'Adailton Ferreira André da Silva Junior',
     medico: 'Dra. Maria Oliveira',
     especialidade: 'Dermatologia',
-    data: '2023-06-20',
+    data: '20-06-2024',
     hora: '10:00',
   },
 ];
@@ -21,15 +21,15 @@ export const ExamesFicticios = [
   {
     id: 1,
     tipo: 'Exame de Sangue',
-    data: '2023-06-17',
+    data: '17-06-2024',
     hora: '08:00',
-    local: 'CLÍNICA ASERPA SAÚDE',
+    local: 'Clínica Aserpa Saúde',
   },
   {
     id: 2,
     tipo: 'Raio-X',
-    data: '2023-06-22',
+    data: '22-06-2024',
     hora: '09:30',
-    local: 'CLÍNICA ASERPA SAÚDE',
+    local: 'Clínica Aserpa Saúde',
   },
 ];

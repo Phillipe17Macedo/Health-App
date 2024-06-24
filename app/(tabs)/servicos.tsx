@@ -25,7 +25,7 @@ export default function Servicos() {
         <ComponentesConsulta />
         <ComponentesExame />
         <View style={styles.secaoContainer}>
-          <Text style={[styles.textoSecao]}>CONSULTAS AGENDADAS</Text>
+          <Text style={[styles.textoSecao]}>Consultas Agendadas</Text>
           {consultas.length === 0 ? (
             <Text style={styles.naoAgendamentosText}>
               Nenhuma consulta agendada
@@ -35,7 +35,7 @@ export default function Servicos() {
           )}
         </View>
         <View style={[styles.secaoContainer, {marginBottom: 90}]}>
-          <Text style={[styles.textoSecao]}>EXAMES AGENDADOS</Text>
+          <Text style={[styles.textoSecao]}>Exames Agendados</Text>
           {exames.length === 0 ? (
             <Text style={styles.naoAgendamentosText}>
               Nenhum exame agendado

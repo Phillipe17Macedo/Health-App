@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { styles } from './styles';
+import React from "react";
+import { View, Text } from "react-native";
+import { styles } from "./styles";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface Exame {
   id: number;
@@ -19,6 +20,10 @@ const AgendadoExame: React.FC<AgendadoExameProps> = ({ exames }) => {
     <View style={styles.container}>
       {exames.map((exame) => (
         <View key={exame.id} style={styles.item}>
+          <View style={[styles.constainerIcone]}>
+            <MaterialCommunityIcons name="flask-round-bottom" size={28} color="#52D981" />
+            <Text style={[styles.textoIcone]}>Consulta</Text>
+          </View>
           <Text style={styles.text}>Tipo: {exame.tipo}</Text>
           <Text style={styles.text}>Data: {exame.data}</Text>
           <Text style={styles.text}>Hora: {exame.hora}</Text>
@@ -27,6 +32,6 @@ const AgendadoExame: React.FC<AgendadoExameProps> = ({ exames }) => {
       ))}
     </View>
   );
-}
+};
 
 export default AgendadoExame;

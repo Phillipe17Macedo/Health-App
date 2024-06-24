@@ -6,7 +6,7 @@ import { styles } from './styles';
 export function LogoLogin() {
   return (
     <View style={styles.container}>
-        <Image source={require("../../../assets/images/logo-aserpa/logo-aserpa-branco.png")} style={[styles.imagemLogin]}/>
+        <Image source={require("@/assets/images/logo-aserpa/LOGO-NOME-VERTICAL.png")} style={[styles.imagemLogin]}/>
     </View>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, View, TouchableOpacity, Text, Alert, Dimensions, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FontAwesome6 } from '@expo/vector-icons';
 import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
 import { buscarAderente } from "@/utils/requestConfig";
@@ -88,7 +89,8 @@ export function InputLogin() {
           status={isDependente ? "checked" : "unchecked"}
           onPress={() => setIsDependente(!isDependente)}
         />
-        <Text style={[styles.textoCheckBox, { fontSize: width * 0.04 }]}>Sou Dependente</Text>
+        <Text style={[styles.textoCheckBox, { fontSize: width * 0.04, marginRight: 10 }]}>Sou Dependente</Text>
+        <FontAwesome6 name="person-circle-check" size={18} color="#3E4A59" />
       </View>
       <TouchableOpacity
         style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
@@ -96,7 +98,7 @@ export function InputLogin() {
         onPress={handleLogin}
       >
         {loading ? (
-          <ActivityIndicator size="small" color="#025940" style={[{marginBottom: -10, marginTop: 4}]} />
+          <ActivityIndicator size="small" color="#fff" style={[{marginBottom: -10, marginTop: 4}]} />
         ) : (
           <Text style={[styles.textoButton, { fontSize: width * 0.05 }]}>Entrar</Text>
         )}

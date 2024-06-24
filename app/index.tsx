@@ -1,25 +1,27 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { LinearGradient } from "expo-linear-gradient";
-import { styles } from "../styles/StylesLoginPage/styles";
+import React, { useEffect } from "react";
+import { View, Image } from "react-native";
+import { useRouter } from "expo-router";
+import { styles } from "../styles/StylesIndexPage/styles";
 
-import { LogoLogin } from "../components/Login/LogoLogin/LogoLogin";
-import { InputLogin } from "../components/Login/InputLogin/InputLogin";
+export default function Index() {
+  const router = useRouter();
 
-export default function Login() {
+  useEffect(() => {
+    const temporizador = setTimeout(() => {
+      router.push("/login");
+    }, 3000);
+
+    return () => clearTimeout(temporizador);
+  }, [router]);
+
   return (
-    <View style={[styles.container]}>
-      <StatusBar style="auto" />
-      <LinearGradient
-        colors={["#025940", "#8CBF1F"]}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1.3, y: 0.4 }}
-        style={[styles.container]}
-      >
-        <LogoLogin/>
-        <InputLogin/>
-      </LinearGradient>
+    <View style={styles.container}>
+      <View style={[styles.containerImage]}>
+        <Image
+          source={require("../assets/images/logo-aserpa/logo-animated.gif")}
+          style={[styles.imageStyle]}
+        />
+      </View>
     </View>
   );
 }

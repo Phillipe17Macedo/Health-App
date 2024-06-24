@@ -4,8 +4,8 @@ export const styles = StyleSheet.create({
   container: {
     width: '90%',
     height: 60,
-    backgroundColor: '#DFF2ED',
-    borderRadius: 5,
+    backgroundColor: '#F8F8F6',
+    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
     elevation: 3,
@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     marginBottom: 25,
     borderWidth: 0.5,
-    borderColor: '#65A693'
+    borderColor: '#B2B2B2'
   },
   containerLink: {
     width: '95%',
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: 'bold',
     fontVariant: ['small-caps'],
-    color: '#025940',
+    color: '#3E3D3D',
     marginRight: 15,
   },
 });

@@ -13,7 +13,7 @@ export function ComponentesExame() {
           <FontAwesome5
             name="file-medical-alt"
             size={21}
-            color="#025940"
+            color="#3E3D3D"
           />
         </Link>
       </TouchableOpacity>

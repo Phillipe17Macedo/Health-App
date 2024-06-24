@@ -19,7 +19,7 @@ export function Header({ nomeUsuario }: HeaderProps) {
             <Ionicons
               name="person-circle"
               size={58}
-              color="#65A693"
+              color="#03A66A"
               style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
             />
           )}
