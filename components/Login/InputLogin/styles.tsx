@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     elevation: 3,
     borderWidth: 0.5,
-    borderColor: '#65A693',
+    borderColor: '#3E4A59',
     padding: 3,
     marginTop: 15,
   },
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 5,
     borderWidth: 0.5,
-    borderColor: '#65A693',
+    borderColor: '#3E4A59',
     padding: 15,
     elevation: 3,
   },
@@ -61,8 +61,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     elevation: 3,
-    borderWidth: 0.5,
-    borderColor: '#65A693'
   },
   buttonEntrar: {
     backgroundColor: '#DFF2ED',
