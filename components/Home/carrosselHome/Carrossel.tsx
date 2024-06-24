@@ -19,7 +19,7 @@ export function Carrossel() {
           <Text style={[styles.textoAcessoRapido]}>
             Agendamentos Clínicas Aserpa
           </Text>
-          <FontAwesome6 name="hospital" size={18} color="#3E3D3D" />
+          <FontAwesome6 name="hospital" size={18} color="#03A66A" />
         </View>
 
         <View style={[styles.containerOpcoes]}>
@@ -46,7 +46,7 @@ export function Carrossel() {
       <View style={[styles.container]}>
         <View style={[styles.ContainertextoAcessoRapido]}>
           <Text style={[styles.textoAcessoRapido]}>Solicitação de Guias</Text>
-          <FontAwesome6 name="hospital-user" size={18} color="#3E3D3D" />
+          <FontAwesome6 name="hospital-user" size={18} color="#03A66A" />
         </View>
         <View style={[styles.containerOpcoes, { marginBottom: 95 }]}>
           <TouchableOpacity>

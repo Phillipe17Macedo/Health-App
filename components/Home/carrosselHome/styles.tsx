@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   textoAcessoRapido: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#3E3D3D',
+    color: '#03A66A',
     marginLeft: 5,
     marginRight: 5,
   },
