@@ -26,7 +26,8 @@ export const styles = StyleSheet.create({
   textoSecao: {
     fontWeight: 'bold',
     fontSize: 22,
-    alignSelf: 'center',
-    color: '#025940',
+    alignSelf: 'flex-start',
+    color: '#3E3D3D',
+    marginLeft: 25,
   }
 });
