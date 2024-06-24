@@ -14,12 +14,12 @@ export const styles = StyleSheet.create({
   },
   imagemIcone: {
     marginRight: 15,
-    backgroundColor: 'lightgray',
+    //backgroundColor: 'lightgray',
     width: 50,
     height: 60,
     borderRadius: 10,
     borderWidth: 0.4,
-    borderColor: 'gray',
+    //borderColor: 'gray',
   },
   areaTextos: {
     position: 'absolute',
