@@ -90,7 +90,7 @@ export function InputLogin() {
           onPress={() => setIsDependente(!isDependente)}
         />
         <Text style={[styles.textoCheckBox, { fontSize: width * 0.04, marginRight: 10 }]}>Sou Dependente</Text>
-        <FontAwesome6 name="person-circle-check" size={20} color="#3E4A59" />
+        <FontAwesome6 name="person-circle-check" size={18} color="#3E4A59" />
       </View>
       <TouchableOpacity
         style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
