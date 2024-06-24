@@ -1,13 +1,12 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import { Link } from "expo-router";
 import {
   AntDesign,
   FontAwesome5,
   MaterialCommunityIcons,
-  MaterialIcons,
+  FontAwesome6,
 } from "@expo/vector-icons";
-import { Anuncios } from "../anunciosHome/Anuncios";
 import { styles } from "./styles";
 import { Fontisto } from "@expo/vector-icons";
 
@@ -19,18 +18,14 @@ export function Carrossel() {
           <Text style={[styles.textoAcessoRapido]}>
             AGENDAMENTOS CLÍNICAS ASERPA
           </Text>
-          <AntDesign name="doubleright" size={21} color="#03A66A" />
+          <FontAwesome6 name="hospital" size={18} color="#03A66A" />
         </View>
 
         <View style={[styles.containerOpcoes]}>
           <TouchableOpacity>
             <Link href={"/consulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <MaterialIcons
-                  name="medical-information"
-                  size={50}
-                  color="#107357"
-                />
+                <Image source={require('@/assets/images/Home/Carrossel/icons8-doctors-bag-color/icons8-doctors-bag-48.png')} />
                 <Text style={[styles.textoOpcoesIcone]}>AGENDAR CONSULTA</Text>
               </View>
             </Link>
