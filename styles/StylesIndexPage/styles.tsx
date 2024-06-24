@@ -1,32 +1,33 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from "react-native";
 
-const { height } = Dimensions.get('screen');
+const { height } = Dimensions.get("screen");
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
+    justifyContent: "center",
   },
   containerImage: {
-    alignSelf: 'center',
-    marginTop: height * 0.2
+    alignSelf: "center",
+    height: "85%",
+    justifyContent: "space-evenly",
   },
   imageStyle: {
-    resizeMode: 'contain',
+    resizeMode: "contain",
     height: 280,
   },
   areaButton: {
-    //backgroundColor: 'red',
-    width: '100%',
+    width: "100%",
     height: 70,
-    marginTop: height * 0.15,
-    justifyContent: 'center'
+    position: "absolute",
+    alignSelf: "center",
+    bottom: 0,
   },
   containerButton: {
-    //backgroundColor: 'gray',
-    height: '100%', 
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "flex-end",
     paddingRight: 25,
-  }
+  },
 });
