@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { View, Image } from "react-native";
+import { useRouter } from "expo-router";
 import { Link } from "expo-router";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { styles } from "../styles/StylesIndexPage/styles";
 
 export default function Index() {
-  const [botaoVisivel, setBotaoVisivel] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const temporizador = setTimeout(() => {
-      setBotaoVisivel(true);
+      router.push("/login");
     }, 3000);
 
     return () => clearTimeout(temporizador);
-  }, []);
+  }, [router]);
 
   return (
     <View style={styles.container}>
@@ -22,19 +23,6 @@ export default function Index() {
           source={require("../assets/images/logo-aserpa/logo-animated.gif")}
           style={[styles.imageStyle]}
         />
-        {botaoVisivel && (
-          <View style={[styles.areaButton]}>
-            <View style={[styles.containerButton]}>
-              <Link href={"/login"}>
-                <FontAwesome6
-                  name="circle-arrow-right"
-                  size={54}
-                  color="#8CBF1F"
-                />
-              </Link>
-            </View>
-          </View>
-        )}
       </View>
     </View>
   );
