@@ -35,15 +35,15 @@ interface Consulta {
   usuarioId: string;
   usuario: string;
   dependenteId: string | null;
-  dependente: string; 
+  dependente: string;
   unidadeAtendimento: string;
-  unidadeAtendimentoId: string; 
+  unidadeAtendimentoId: string;
   medico: string;
   medicoId: string;
   especialidade: string;
-  especialidadeId: string; 
+  especialidadeId: string;
   data: string;
-  horarioId: string; 
+  horarioId: string;
   horario: string;
   telefoneContato: string;
 }
@@ -57,7 +57,7 @@ export default function Consulta() {
   const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medicoSelecionado, setMedicoSelecionado] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<any[]>([]);
-  const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
+  const [horariosDisponiveis, setHorariosDisponiveis] = useState<any[]>([]);
   const [calendarioVisivel, setCalendarioVisivel] = useState(false);
   const [horarioVisivel, setHorarioVisivel] = useState(false);
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
@@ -65,23 +65,23 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<{ id: string; nome: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] = useState<string | null>(null);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
 
-  const [consulta, setConsulta] = useState({
+  const [consulta, setConsulta] = useState<Consulta>({
     usuarioId: "",
     usuario: "",
     dependenteId: null,
-    dependente: "N/A", 
+    dependente: "N/A",
     unidadeAtendimento: "",
-    unidadeAtendimentoId: "", 
+    unidadeAtendimentoId: "",
     medico: "",
-    medicoId: "", 
+    medicoId: "",
     especialidade: "",
-    especialidadeId: "", 
+    especialidadeId: "",
     data: "",
     horarioId: "",
     horario: "",
@@ -148,28 +148,28 @@ export default function Consulta() {
   const handleDateSelect = (date: string) => {
     console.log("Data Selecionada: ", date);
     const diaSelecionado = diasDisponiveis.find((dia: any) => dia.data.split("T")[0] === date);
-  
+
     if (diaSelecionado) {
       console.log("Dia da Semana Selecionado: ", diaSelecionado.dia);
       console.log("Horários Disponíveis: ", diaSelecionado.horarios.map((horario: any) => horario.horario));
     } else {
       console.log("Nenhum dia de atendimento encontrado para a data selecionada.");
     }
-  
+
     if (diaSelecionado && diaSelecionado.horarios.length > 0) {
       setHorariosDisponiveis(diaSelecionado.horarios);
       setDataConsulta(date);
       setConsulta((prev) => ({
         ...prev,
-          data: date || "",
+        data: date || "",
       }));
       setHorarioVisivel(true);
     } else {
       console.error(`Horários de atendimento não definidos para a data ${date}.`);
       Alert.alert("Horários de atendimento não definidos para a data selecionada.");
     }
-  };  
-  
+  };
+
   const handleTimeSelect = (horario: any) => {
     setHorarioConsulta(horario.horario);
     setConsulta((prev) => ({
@@ -178,20 +178,24 @@ export default function Consulta() {
       horarioId: horario.idHorario || "",
     }));
     setConfirmacaoVisivel(true);
-  };  
+  };
 
   const handleConfirmDependente = () => {
     if (isDependente && dependenteSelecionado) {
       setConsulta((prev) => ({
         ...prev,
-        dependente: dependenteSelecionado || "",
-        usuario: usuario.nome || "",
+        dependente: dependenteSelecionado.nome, // Nome do dependente
+        dependenteId: dependenteSelecionado.id, // ID do dependente
+        usuario: usuario.nome,
+        usuarioId: usuario.idAderente,
       }));
     } else {
       setConsulta((prev) => ({
         ...prev,
-        dependente: "null",
-        usuario: usuario.nome || "",
+        dependente: "N/A",
+        dependenteId: null,
+        usuario: usuario.nome,
+        usuarioId: usuario.idAderente,
       }));
     }
     setSelectDependenteVisivel(false);
@@ -202,9 +206,9 @@ export default function Consulta() {
       Alert.alert("Erro", "Por favor, selecione um médico.");
       return;
     }
-  
+
     const consultaJSON = JSON.stringify({
-      usuarioId: usuario.idAderente, // ou outro campo adequado
+      usuarioId: consulta.usuarioId,
       dependenteId: consulta.dependenteId,
       medicoId: consulta.medicoId,
       horarioId: consulta.horarioId,
@@ -212,7 +216,7 @@ export default function Consulta() {
       hora: consulta.horario,
       telefoneContato: consulta.telefoneContato,
     }, null, 2);
-  
+
     console.log("Consulta confirmada:", consultaJSON);
     Alert.alert("Consulta confirmada!", consultaJSON);
     setConfirmacaoVisivel(false);
@@ -239,6 +243,7 @@ export default function Consulta() {
             setConsulta((prev) => ({
               ...prev,
               unidadeAtendimento: nome || "",
+              unidadeAtendimentoId: id || "",
             }));
           }}
           unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
@@ -260,6 +265,7 @@ export default function Consulta() {
               setConsulta((prev) => ({
                 ...prev,
                 especialidade: nome || "",
+                especialidadeId: id || "",
               }));
             }}
             especialidadeSelecionada={especialidadeSelecionada}
