@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  Modal,
   Text,
-  FlatList,
-  TouchableOpacity,
   Alert,
   SafeAreaView,
+  Modal,
+  TouchableOpacity,
 } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
@@ -18,6 +17,7 @@ import CalendarioConsulta from "../components/Consulta/CalendarioConsulta/Calend
 import HorarioConsulta from "../components/Consulta/HorarioConsulta/HorarioConsulta";
 import SelecaoDependente from "@/components/Consulta/SelecaoDependenteConsulta/SelecaoDependente";
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
+import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import {
   buscarAderente,
   buscarDependentes,
@@ -26,8 +26,6 @@ import {
   buscarDiasAtendimentoMedico,
 } from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
-import { salvarConsulta } from "@/connection/salvarConsulta";
-import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento/DropDownUnidadeAtendimento";
 
@@ -106,6 +104,7 @@ export default function Consulta() {
           setConsulta((prev) => ({
             ...prev,
             usuario: usuarioLogado.nome,
+            usuarioId: usuarioLogado.idAderente,
           }));
 
           if (usuarioLogado && usuarioLogado.idAderente) {
@@ -158,7 +157,7 @@ export default function Consulta() {
 
     if (diaSelecionado && diaSelecionado.horarios.length > 0) {
       setHorariosDisponiveis(diaSelecionado.horarios);
-      setDataConsulta(date);
+      setDataConsulta(date); // Aqui estamos armazenando a data corretamente
       setConsulta((prev) => ({
         ...prev,
         data: date || "",
@@ -184,18 +183,16 @@ export default function Consulta() {
     if (isDependente && dependenteSelecionado) {
       setConsulta((prev) => ({
         ...prev,
-        dependente: dependenteSelecionado.nome, // Nome do dependente
-        dependenteId: dependenteSelecionado.id, // ID do dependente
-        usuario: usuario.nome,
-        usuarioId: usuario.idAderente,
+        dependente: dependenteSelecionado.nome || "", // Nome do dependente
+        dependenteId: dependenteSelecionado.id || "", // ID do dependente
+        usuario: usuario.nome || "",
       }));
     } else {
       setConsulta((prev) => ({
         ...prev,
         dependente: "N/A",
         dependenteId: null,
-        usuario: usuario.nome,
-        usuarioId: usuario.idAderente,
+        usuario: usuario.nome || "",
       }));
     }
     setSelectDependenteVisivel(false);
@@ -320,7 +317,7 @@ export default function Consulta() {
               unidadeAtendimento: consulta.unidadeAtendimento,
               medico: consulta.medico,
               especialidade: consulta.especialidade,
-              data: new Date(consulta.data).toLocaleDateString('pt-BR'),
+              data: new Date(consulta.data).toLocaleDateString('pt-BR', { timeZone: 'UTC' }),
               horario: consulta.horario,
               telefoneContato: consulta.telefoneContato,
             }}
