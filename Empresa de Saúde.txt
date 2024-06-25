@@ -90,6 +90,7 @@ implementar a tela de solicitação de guia de consulta >> OK
 TASK'S PARA O DIA 25/06/24
 
 - Implementar as novas mudanças do layout do App
+- Mudar ícones de acesso rápido da tela Home
 - Implementar o método de médicos corretamente
 - Implementar o método de horários Disponiveis para o médico.
 - Implementar o método de agendar consultas
