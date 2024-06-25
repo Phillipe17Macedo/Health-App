@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
-import { buscarDiasEHorariosDisponiveisMedico } from "@/utils/requestConfig";
+import { buscarDiasAtendimentoMedico } from "@/utils/requestConfig";
 import { styles } from "./styles";
 
 // Configurar as traduções para o português
@@ -51,31 +51,37 @@ export default function CalendarioConsulta({
       }
     >
   >({});
+  const [diasDisponiveis, setDiasDisponiveis] = useState<any[]>([]);
   const [mesAtual, setMesAtual] = useState<number>(new Date().getMonth() + 1);
   const [anoAtual, setAnoAtual] = useState<number>(new Date().getFullYear());
 
   useEffect(() => {
     if (medicoId) {
-      fetchDiasEHorariosDisponiveis(medicoId, mesAtual, anoAtual);
+      fetchDiasAtendimento(medicoId, mesAtual, anoAtual);
     }
   }, [medicoId, mesAtual, anoAtual]);
 
-  const fetchDiasEHorariosDisponiveis = async (medicoId: string, mes: number, ano: number) => {
+  const fetchDiasAtendimento = async (medicoId: string, mes: number, ano: number) => {
     try {
-      const response = await buscarDiasEHorariosDisponiveisMedico(medicoId, mes, ano);
-      const diasDisponiveis = response.data.map((item: any) => item.data);
+      console.log(`Buscando dias de atendimento para o médico ${medicoId} no mês ${mes}/${ano}`);
+      const response = await buscarDiasAtendimentoMedico(medicoId, mes, ano);
+      const diasAtendimento = response.data;
       const novaDataMarcada: Record<string, any> = {};
 
-      diasDisponiveis.forEach((data: string) => {
-        novaDataMarcada[data] = {
+      diasAtendimento.forEach((item: any) => {
+        const dataFormatada = item.data.split("T")[0];
+        novaDataMarcada[dataFormatada] = {
           marked: true,
           textColor: "#03A66A",
         };
       });
 
+      console.log("Dias de Atendimento Carregados: ", diasAtendimento);
+
+      setDiasDisponiveis(diasAtendimento);
       setDataMarcada(novaDataMarcada);
     } catch (error) {
-      console.error("Erro ao buscar dias e horários disponíveis:", error);
+      console.error("Erro ao buscar dias de atendimento:", error);
     }
   };
 
@@ -86,6 +92,7 @@ export default function CalendarioConsulta({
 
   const handleDiaPress = (dia: DateData) => {
     const date = dia.dateString;
+    console.log("Dia Pressionado: ", date);
     if (!dataMarcada[date]?.disabled) {
       setSelectedDate(date);
       setDataMarcada((prev) => {
@@ -131,6 +138,7 @@ export default function CalendarioConsulta({
           <Calendar
             onDayPress={handleDiaPress}
             markedDates={dataMarcada}
+            onMonthChange={handleMonthChange}
             markingType={"custom"}
             theme={{
               selectedDayBackgroundColor: "#03A66A",
@@ -140,7 +148,6 @@ export default function CalendarioConsulta({
               textDisabledColor: "#878787",
               arrowColor: "#03A66A",
             }}
-            onMonthChange={handleMonthChange}
             minDate={new Date().toISOString().split('T')[0]}
             maxDate={new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString().split('T')[0]}
           />

@@ -23,7 +23,7 @@ import {
   buscarDependentes,
   buscarMedicosEspecialidade,
   buscarEspecialidades,
-  buscarDiasEHorariosDisponiveisMedico,
+  buscarDiasAtendimentoMedico,
 } from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
@@ -50,7 +50,7 @@ export default function Consulta() {
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
   const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medicoSelecionado, setMedicoSelecionado] = useState<any | null>(null);
-  const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
+  const [diasDisponiveis, setDiasDisponiveis] = useState<any[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
   const [calendarioVisivel, setCalendarioVisivel] = useState(false);
   const [horarioVisivel, setHorarioVisivel] = useState(false);
@@ -112,30 +112,35 @@ export default function Consulta() {
     fetchUsuarioLogado();
   }, []);
 
-  const handleMedicoSelect = (medico: any) => {
+  const handleMedicoSelect = async (medico: any) => {
     setMedicoSelecionado(medico);
     setCalendarioVisivel(true);
+    try {
+      setLoading(true);
+      const response = await buscarDiasAtendimentoMedico(medico.value, new Date().getMonth() + 1, new Date().getFullYear());
+      console.log("Dias de Atendimento ao selecionar médico: ", response.data);
+      setDiasDisponiveis(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar dias de atendimento ao selecionar médico:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDateSelect = (date: string) => {
-    if (!medicoSelecionado) {
-      console.error("Médico não selecionado.");
-      return;
+    console.log("Data Selecionada: ", date);
+
+    const diaSelecionado = diasDisponiveis.find((dia: any) => dia.data.split("T")[0] === date);
+
+    if (diaSelecionado) {
+      console.log("Dia da Semana Selecionado: ", diaSelecionado.dia);
+      console.log("Horários Disponíveis: ", diaSelecionado.horarios.map((horario: any) => horario.horario));
+    } else {
+      console.log("Nenhum dia de atendimento encontrado para a data selecionada.");
     }
 
-    const dateObject = new Date(date);
-    const dayOfWeek = dateObject.toLocaleDateString('pt-BR', { weekday: 'long' });
-    console.log("Data Selecionada: ", date);
-    console.log("Dia da Semana Selecionado: ", dayOfWeek);
-    console.log("Dados do Médico: ", medicoSelecionado);
-
-    const horariosParaDia = medicoSelecionado.diasAtendimento.find(
-      (dia: any) => dia.dia.toLowerCase() === dayOfWeek.toLowerCase()
-    );
-
-    if (horariosParaDia) {
-      console.log("Horários Disponíveis para ", dayOfWeek, ": ", horariosParaDia.horarios);
-      setHorariosDisponiveis(horariosParaDia.horarios.map((h: any) => h.horario));
+    if (diaSelecionado && diaSelecionado.horarios.length > 0) {
+      setHorariosDisponiveis(diaSelecionado.horarios.map((horario: any) => horario.horario));
       setDataConsulta(date);
       setConsulta((prev) => ({
         ...prev,
@@ -143,11 +148,11 @@ export default function Consulta() {
       }));
       setHorarioVisivel(true);
     } else {
-      console.error(`Horários de atendimento não definidos para o dia ${dayOfWeek}.`);
-      Alert.alert("Horários de atendimento não definidos para o dia selecionado.");
+      console.error(`Horários de atendimento não definidos para a data ${date}.`);
+      Alert.alert("Horários de atendimento não definidos para a data selecionada.");
     }
   };
-
+  
   const handleTimeSelect = (time: string) => {
     setHorarioConsulta(time);
     setConsulta((prev) => ({
@@ -245,7 +250,7 @@ export default function Consulta() {
           onConfirm={handleConfirmDependente}
           isDependente={isDependente}
           setIsDependente={setIsDependente}
-          dependentes={dependentes} // Passa os dependentes para o modal
+          dependentes={dependentes}
           selectedDependente={dependenteSelecionado}
           setSelectedDependente={setDependenteSelecionado}
         />
@@ -255,7 +260,7 @@ export default function Consulta() {
             visivel={calendarioVisivel}
             onClose={() => setCalendarioVisivel(false)}
             onDateSelect={handleDateSelect}
-            medicoId={medicoSelecionado.id}
+            medicoId={medicoSelecionado.key}
           />
         )}
 
