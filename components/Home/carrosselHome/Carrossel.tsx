@@ -35,7 +35,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/exame.png')} style={[styles.imagemOpcoes]} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Exame.png')} style={[styles.imagemOpcoes]} />
                 <Text style={[styles.textoOpcoesIcone]}>Agendar Exame</Text>
               </View>
             </Link>
@@ -52,7 +52,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/guiaConsulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Guia de Consulta.png')} style={[styles.imagemOpcoes]} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/guia-consulta.png')} style={[styles.imagemOpcoes]} />
                 <Text style={[styles.textoOpcoesIcone]}>
                   Guia de Consultas
                 </Text>
@@ -63,7 +63,7 @@ export function Carrossel() {
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Guisa de Exame.png')} style={[styles.imagemOpcoes]} />
+                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/guia-exame.png')} style={[styles.imagemOpcoes]} />
                 <Text style={[styles.textoOpcoesIcone]}>Guia de Exames</Text>
               </View>
             </Link>

@@ -29,6 +29,9 @@ export async function buscarEspecialidades(): Promise<any> {
   try {
     const response = await axiosConfig.get('/Especialidades/GetEspecialidades');
     return response.data;
+
+    console.log("Especialidades do Banco: ", response);
+
   } catch (error) {
     console.error("Erro ao buscar especialidades:", error);
     throw error;
@@ -67,10 +70,30 @@ export async function buscarMedicosEspecialidade(especialidadeId: string, unidad
   }
 }
 
-// Função para buscar Horario Disponivel Pela Data
-export async function buscarHorarioDisponivelPorData(medicoId: string, diaSemana: string, dataConsulta: string): Promise<any> {
+/* 
+// Função para buscar médicos por Especialidade
+export async function buscarMedicosEspecialidade(especialidadeId: string, unidadeAtendimentoId: string): Promise<any> {
   try {
-    const response = await axiosConfig.get(`/Medico/GetHorarioDisponivelPorData/${medicoId}/${diaSemana}/${dataConsulta}`);
+    const response = await axiosConfig.get(`/Medico/GetMedicosEspecialide/${especialidadeId}/${unidadeAtendimentoId}`);
+    const { medicosBanco } = response.data;
+    console.log("Medicos do Banco: ", medicosBanco);
+
+    if (!Array.isArray(medicosBanco)) {
+      console.error("Resposta inesperada da API: medicos não é um array", medicosBanco);
+      throw new Error("Resposta inesperada da API: medicos não é um array");
+    }
+
+  } catch (error) {
+    console.log("Erro ao buscar Médicos no Banco: ", error);
+    throw error;
+  }
+}
+*/
+
+// Função para buscar Horario Disponivel Pela Data
+export async function buscarHorariosDisponiveisMedico(medicoId: number, numeroMes: number, numeroAno: number): Promise<any> {
+  try {
+    const response = await axiosConfig.get(`/Medico/GetHorariosDisponiveisMedico/${medicoId}/${numeroMes}/${numeroAno}`);
     const hoariosDisponiveis = response.data;
 
     console.log("Resposta da API - Horários Disponiveis: ", hoariosDisponiveis);
