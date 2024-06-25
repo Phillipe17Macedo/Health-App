@@ -9,9 +9,9 @@ interface SelecaoDependenteProps {
   onConfirm: () => void;
   isDependente: boolean;
   setIsDependente: (value: boolean) => void;
-  dependentes: any[];
-  selectedDependente: string | null;
-  setSelectedDependente: (value: string | null) => void;
+  dependentes: { id: string; nome: string }[];
+  selectedDependente: { id: string; nome: string } | null;
+  setSelectedDependente: (value: { id: string; nome: string } | null) => void;
 }
 
 export default function SelecaoDependente({
@@ -36,15 +36,18 @@ export default function SelecaoDependente({
           <Text style={styles.modalTitle}>Selecione o Dependente</Text>
           {isDependente && (
             <Picker
-              selectedValue={selectedDependente}
-              onValueChange={(itemValue) => setSelectedDependente(itemValue)}
+              selectedValue={selectedDependente ? selectedDependente.id : ""}
+              onValueChange={(itemValue) => {
+                const dependente = dependentes.find(dep => dep.id === itemValue);
+                setSelectedDependente(dependente || null);
+              }}
               style={styles.picker}
             >
               {dependentes.map((dependente) => (
                 <Picker.Item
-                  key={dependente.nome}
+                  key={dependente.id}
                   label={dependente.nome}
-                  value={dependente.nome}
+                  value={dependente.id}
                 />
               ))}
             </Picker>

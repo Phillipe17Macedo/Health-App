@@ -89,8 +89,11 @@ implementar a tela de solicitação de guia de consulta >> OK
 
 TASK'S PARA O DIA 25/06/24
 
-- Implementar as novas mudanças do layout do App
-- Mudar ícones de acesso rápido da tela Home
-- Implementar o método de médicos corretamente
-- Implementar o método de horários Disponiveis para o médico.
-- Implementar o método de agendar consultas
+- Implementar as novas mudanças do layout do App >> Em andamento
+- Mudar ícones de acesso rápido da tela Home >> OK
+- Implementar o método de médicos corretamente >> OK
+- Implementar o método de horários Disponiveis para o médico >> OK
+- Modificar e corrigir seleção no Calendário >> OK
+- Modificar o JSON de confirmação para estar no formato do POST Agendamento de Consulta >> OK
+- Implementar o método de agendar consultas >> OK
+- Mudar Botões para Horizontal nos Modais e o Tamanho dos Botões também >>

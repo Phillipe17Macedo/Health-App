@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F2F2F2',
     width: 110,
     height: 90,
-    borderRadius: 10,
+    borderRadius: 20,
     elevation: 2,
     alignItems: 'center',
     justifyContent: 'center',
@@ -54,11 +54,11 @@ export const styles = StyleSheet.create({
     height: 50
   },
   textoOpcoesIcone: {
-    fontSize: 14,
+    fontSize: 13,
     textAlign: 'center',
-    color: '#202022',
+    color: '#3E3D3D',
     fontWeight: 'normal',
     fontStyle: 'italic',
-    marginTop: 5,
+    marginTop: -1,
   },
 });
