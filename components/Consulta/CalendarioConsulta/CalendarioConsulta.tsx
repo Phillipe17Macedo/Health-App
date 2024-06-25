@@ -76,6 +76,23 @@ export default function CalendarioConsulta({
         };
       });
 
+      const hoje = new Date();
+      const ultimoDiaMes = new Date(ano, mes, 0);
+      for (let dia = 1; dia <= ultimoDiaMes.getDate(); dia++) {
+        const date = new Date(ano, mes - 1, dia).toISOString().split("T")[0];
+        if (!novaDataMarcada[date]) {
+          novaDataMarcada[date] = {
+            disabled: true,
+            textColor: "#878787",
+            customStyles: {
+              text: {
+                textDecorationLine: 'line-through',
+              },
+            },
+          };
+        }
+      }
+    
       console.log("Dias de Atendimento Carregados: ", diasAtendimento);
 
       setDiasDisponiveis(diasAtendimento);
