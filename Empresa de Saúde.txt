@@ -94,6 +94,6 @@ TASK'S PARA O DIA 25/06/24
 - Implementar o método de médicos corretamente >> OK
 - Implementar o método de horários Disponiveis para o médico >> OK
 - Modificar e corrigir seleção no Calendário >> OK
-- Modificar o JSON de confirmação para estar no formato do POST Agendamento de Consulta >> Em andamento
-- Implementar o método de agendar consultas >> 
+- Modificar o JSON de confirmação para estar no formato do POST Agendamento de Consulta >> OK
+- Implementar o método de agendar consultas >> OK
 - Mudar Botões para Horizontal nos Modais e o Tamanho dos Botões também >>
