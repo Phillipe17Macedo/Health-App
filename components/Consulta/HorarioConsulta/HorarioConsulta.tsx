@@ -5,8 +5,8 @@ import { styles } from "./styles";
 interface HorarioConsultaProps {
   visivel: boolean;
   onClose: () => void;
-  onTimeSelect: (time: string) => void;
-  horariosDisponiveis: string[];
+  onTimeSelect: (horario: any) => void;
+  horariosDisponiveis: any[];
 }
 
 export default function HorarioConsulta({
@@ -15,8 +15,8 @@ export default function HorarioConsulta({
   onTimeSelect,
   horariosDisponiveis,
 }: HorarioConsultaProps) {
-  const handleTimePress = (time: string) => {
-    onTimeSelect(time);
+  const handleTimePress = (horario: any) => {
+    onTimeSelect(horario);
     onClose();
   };
 
@@ -32,13 +32,13 @@ export default function HorarioConsulta({
           <Text style={styles.modalTitle}>Selecione um Horário Disponível</Text>
           <FlatList
             data={horariosDisponiveis}
-            keyExtractor={(item) => item}
+            keyExtractor={(item) => item.idHorario.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={styles.timeItem}
                 onPress={() => handleTimePress(item)}
               >
-                <Text style={styles.timeText}>{item}</Text>
+                <Text style={styles.timeText}>{item.horario}</Text>
               </TouchableOpacity>
             )}
             numColumns={3}

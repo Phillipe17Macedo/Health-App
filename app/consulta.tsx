@@ -32,12 +32,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento/DropDownUnidadeAtendimento";
 
 interface Consulta {
+  usuarioId: string;
   usuario: string;
-  dependente: string;
+  dependenteId: string | null;
+  dependente: string; 
   unidadeAtendimento: string;
+  unidadeAtendimentoId: string; 
   medico: string;
+  medicoId: string;
   especialidade: string;
+  especialidadeId: string; 
   data: string;
+  horarioId: string; 
   horario: string;
   telefoneContato: string;
 }
@@ -66,18 +72,18 @@ export default function Consulta() {
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
 
   const [consulta, setConsulta] = useState({
-    usuarioId: "", // ID do usuário
+    usuarioId: "",
     usuario: "",
-    dependenteId: null, // ID do dependente (null se não selecionado)
-    dependente: "N/A", // Nome do dependente (N/A se não selecionado)
+    dependenteId: null,
+    dependente: "N/A", 
     unidadeAtendimento: "",
-    unidadeAtendimentoId: "", // ID da unidade de atendimento
+    unidadeAtendimentoId: "", 
     medico: "",
-    medicoId: "", // ID do médico
+    medicoId: "", 
     especialidade: "",
-    especialidadeId: "", // ID da especialidade
+    especialidadeId: "", 
     data: "",
-    horarioId: "", // ID do horário
+    horarioId: "",
     horario: "",
     telefoneContato: "(34) 99931-7302",
   });
@@ -142,36 +148,37 @@ export default function Consulta() {
   const handleDateSelect = (date: string) => {
     console.log("Data Selecionada: ", date);
     const diaSelecionado = diasDisponiveis.find((dia: any) => dia.data.split("T")[0] === date);
-
+  
     if (diaSelecionado) {
       console.log("Dia da Semana Selecionado: ", diaSelecionado.dia);
       console.log("Horários Disponíveis: ", diaSelecionado.horarios.map((horario: any) => horario.horario));
     } else {
       console.log("Nenhum dia de atendimento encontrado para a data selecionada.");
     }
-
+  
     if (diaSelecionado && diaSelecionado.horarios.length > 0) {
-      setHorariosDisponiveis(diaSelecionado.horarios.map((horario: any) => horario.horario));
+      setHorariosDisponiveis(diaSelecionado.horarios);
       setDataConsulta(date);
       setConsulta((prev) => ({
         ...prev,
-        data: date || "",
+          data: date || "",
       }));
       setHorarioVisivel(true);
     } else {
       console.error(`Horários de atendimento não definidos para a data ${date}.`);
       Alert.alert("Horários de atendimento não definidos para a data selecionada.");
     }
-  };
+  };  
   
-  const handleTimeSelect = (time: string) => {
-    setHorarioConsulta(time);
+  const handleTimeSelect = (horario: any) => {
+    setHorarioConsulta(horario.horario);
     setConsulta((prev) => ({
       ...prev,
-      horario: time || "",
+      horario: horario.horario || "",
+      horarioId: horario.idHorario || "",
     }));
     setConfirmacaoVisivel(true);
-  };
+  };  
 
   const handleConfirmDependente = () => {
     if (isDependente && dependenteSelecionado) {
