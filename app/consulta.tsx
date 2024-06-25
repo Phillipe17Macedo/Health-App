@@ -23,6 +23,7 @@ import {
   buscarDependentes,
   buscarMedicosEspecialidade,
   buscarEspecialidades,
+  buscarDiasEHorariosDisponiveisMedico,
 } from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import { salvarConsulta } from "@/connection/salvarConsulta";
@@ -124,49 +125,69 @@ export default function Consulta() {
     fetchUsuarioLogado();
   }, []);
 
-  const handleMedicoSelect = (medico: any) => {
-    console.log("Medico Selecionado: ", medico);
-    setConsulta((prev) => ({
-      ...prev,
-      medico: medico.nome || "",
-      especialidade: especialidadeNome || "",
-    }));
-    setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
-    setHorariosDisponiveis(medico.diasAtendimento || []);
-    setCalendarioVisivel(true);
+  const handleMedicoSelect = async (medico: any) => {
+    try {
+      console.log("Medico Selecionado: ", medico);
+      setConsulta((prev) => ({
+        ...prev,
+        medico: medico.nome || "",
+        especialidade: especialidadeNome || "",
+      }));
+
+      // Carregar dias disponíveis ao selecionar um médico
+      const hoje = new Date();
+      const mesAtual = hoje.getMonth() + 1;
+      const anoAtual = hoje.getFullYear();
+      const diasDisponiveisResponse =
+        await buscarDiasEHorariosDisponiveisMedico(
+          medico.id,
+          mesAtual,
+          anoAtual
+        );
+      if (diasDisponiveisResponse) {
+        const diasDisponiveisFormatados = diasDisponiveisResponse.data.map(
+          (dia: any) => dia.data.split("T")[0]
+        );
+        setDiasDisponiveis(diasDisponiveisFormatados);
+      } else {
+        setDiasDisponiveis([]);
+      }
+
+      setCalendarioVisivel(true);
+    } catch (error) {
+      console.error("Erro ao buscar dias de semana disponíveis:", error);
+      Alert.alert(
+        "Erro",
+        "Não foi possível carregar os dias de semana disponíveis."
+      );
+    }
   };
 
   const handleDateSelect = (date: string) => {
     const dateObject = new Date(date);
     const daysOfWeek = [
+      "domingo",
       "segunda",
       "terça",
       "quarta",
       "quinta",
       "sexta",
       "sábado",
-      "domingo",
     ];
     const dayOfWeek = daysOfWeek[dateObject.getDay()];
     console.log("Data Selecionada: ", date);
     console.log("Dia da Semana Selecionado: ", dayOfWeek);
     console.log("Dados do Médico: ", medico);
-    console.log("Horários de Atendimento: ", medico.diasAtendimento);
-    console.log(
-      "Horários Disponíveis: ",
-      medico.diasAtendimento
-        ? medico.diasAtendimento[dayOfWeek]
-        : "Não Disponível"
+
+    const diaSelecionado = medico.diasAtendimento.find(
+      (dia: any) => dia.data.split("T")[0] === date
     );
 
-    if (medico && medico.diasAtendimento && medico.diasAtendimento[dayOfWeek]) {
-      console.log(
-        "Horários Disponíveis para ",
-        dayOfWeek,
-        ": ",
-        medico.diasAtendimento[dayOfWeek]
+    if (diaSelecionado && diaSelecionado.horarios) {
+      const horarios = diaSelecionado.horarios.map(
+        (horario: any) => horario.horario
       );
-      setHorariosDisponiveis(medico.diasAtendimento[dayOfWeek]);
+      setHorariosDisponiveis(horarios);
       setDataConsulta(date);
       setConsulta((prev) => ({
         ...prev,
@@ -241,7 +262,7 @@ export default function Consulta() {
           }}
           unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
         />
-        
+
         <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
@@ -276,9 +297,6 @@ export default function Consulta() {
                 ...prev,
                 medico: medico.label || "",
               }));
-              setDiasDisponiveis(Object.keys(medico.diasAtendimento || {}));
-              setHorariosDisponiveis(medico.diasAtendimento || []);
-              setSelectDependenteVisivel(false);
             }}
           />
         )}

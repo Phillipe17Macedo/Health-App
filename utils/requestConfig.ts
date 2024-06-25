@@ -101,8 +101,8 @@ export async function buscarMedicosEspecialidade(
   }
 }
 
-// Função para buscar horários disponíveis do médico
-export async function buscarHorariosDisponiveisMedico(idMedico: string, mes: number, ano: number): Promise<any> {
+// Função para buscar dias e horários disponíveis do médico
+export async function buscarDiasEHorariosDisponiveisMedico(idMedico: string, mes: number, ano: number): Promise<any> {
   try {
     const response = await axiosConfig.get(`/Medico/GetHorariosDisponiveisMedico/${idMedico}/${mes}/${ano}`);
     const { data } = response.data;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
+import { buscarDiasEHorariosDisponiveisMedico } from "@/utils/requestConfig";
 import { styles } from "./styles";
 
 // Configurar as traduções para o português
@@ -29,18 +30,6 @@ interface CalendarioConsultaProps {
   onDateSelect: (date: string) => void;
   diasDisponiveis: string[];
 }
-
-
-// Minha função que defini os dias da semana, coloquei uteis, mas são os dias corridos
-const diasUteis = [
-  "domingo",
-  "segunda",
-  "terça",
-  "quarta",
-  "quinta",
-  "sexta",
-  "sábado"
-];
 
 export default function CalendarioConsulta({
   visivel,
@@ -87,14 +76,14 @@ export default function CalendarioConsulta({
     for (let i = 0; i <= ultimoDiaMes.getDate(); i++) {
       const date = new Date(ano, mes, i + 1);
       const formattedDate = date.toISOString().split("T")[0];
-      const dayOfWeek = diasUteis[date.getDay()];
+      const dayOfWeek = diasDisponiveis.find(d => d === formattedDate);
 
       novaDataMarcada[formattedDate] = {
-        disabled: !diasDisponiveis.includes(dayOfWeek) || formattedDate < hojeFormatado,
-        textColor: diasDisponiveis.includes(dayOfWeek) && formattedDate >= hojeFormatado ? "#03A66A" : "#878787",
+        disabled: !dayOfWeek || formattedDate < hojeFormatado,
+        textColor: dayOfWeek && formattedDate >= hojeFormatado ? "#03A66A" : "#878787",
         customStyles: {
           text: {
-            textDecorationLine: !diasDisponiveis.includes(dayOfWeek) || formattedDate < hojeFormatado ? 'line-through' : 'none',
+            textDecorationLine: !dayOfWeek || formattedDate < hojeFormatado ? 'line-through' : 'none',
           },
         },
       };
