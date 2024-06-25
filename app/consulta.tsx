@@ -66,12 +66,18 @@ export default function Consulta() {
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
 
   const [consulta, setConsulta] = useState({
+    usuarioId: "", // ID do usuário
     usuario: "",
-    dependente: "",
+    dependenteId: null, // ID do dependente (null se não selecionado)
+    dependente: "N/A", // Nome do dependente (N/A se não selecionado)
     unidadeAtendimento: "",
+    unidadeAtendimentoId: "", // ID da unidade de atendimento
     medico: "",
+    medicoId: "", // ID do médico
     especialidade: "",
+    especialidadeId: "", // ID da especialidade
     data: "",
+    horarioId: "", // ID do horário
     horario: "",
     telefoneContato: "(34) 99931-7302",
   });
@@ -113,7 +119,13 @@ export default function Consulta() {
   }, []);
 
   const handleMedicoSelect = async (medico: any) => {
+    console.log("Médico Selecionado: ", medico);
     setMedicoSelecionado(medico);
+    setConsulta((prev) => ({
+      ...prev,
+      medico: medico.nomeMedico || medico.label || "",
+      medicoId: medico.idMedico || medico.key || "",
+    }));
     setCalendarioVisivel(true);
     try {
       setLoading(true);
@@ -129,7 +141,6 @@ export default function Consulta() {
 
   const handleDateSelect = (date: string) => {
     console.log("Data Selecionada: ", date);
-
     const diaSelecionado = diasDisponiveis.find((dia: any) => dia.data.split("T")[0] === date);
 
     if (diaSelecionado) {
@@ -180,7 +191,21 @@ export default function Consulta() {
   };
 
   const handleConfirm = () => {
-    const consultaJSON = JSON.stringify(consulta, null, 2);
+    if (!consulta.medico || !consulta.medicoId) {
+      Alert.alert("Erro", "Por favor, selecione um médico.");
+      return;
+    }
+  
+    const consultaJSON = JSON.stringify({
+      usuarioId: usuario.idAderente, // ou outro campo adequado
+      dependenteId: consulta.dependenteId,
+      medicoId: consulta.medicoId,
+      horarioId: consulta.horarioId,
+      data: consulta.data,
+      hora: consulta.horario,
+      telefoneContato: consulta.telefoneContato,
+    }, null, 2);
+  
     console.log("Consulta confirmada:", consultaJSON);
     Alert.alert("Consulta confirmada!", consultaJSON);
     setConfirmacaoVisivel(false);
@@ -276,7 +301,16 @@ export default function Consulta() {
             visivel={confirmacaoVisivel}
             onClose={() => setConfirmacaoVisivel(false)}
             onConfirm={handleConfirm}
-            consulta={consulta}
+            consulta={{
+              usuario: consulta.usuario,
+              dependente: consulta.dependente || "N/A",
+              unidadeAtendimento: consulta.unidadeAtendimento,
+              medico: consulta.medico,
+              especialidade: consulta.especialidade,
+              data: new Date(consulta.data).toLocaleDateString('pt-BR'),
+              horario: consulta.horario,
+              telefoneContato: consulta.telefoneContato,
+            }}
           />
         )}
       </View>
