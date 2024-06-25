@@ -28,14 +28,14 @@ interface CalendarioConsultaProps {
   visivel: boolean;
   onClose: () => void;
   onDateSelect: (date: string) => void;
-  diasDisponiveis: string[];
+  medicoId: string;
 }
 
 export default function CalendarioConsulta({
   visivel,
   onClose,
   onDateSelect,
-  diasDisponiveis,
+  medicoId
 }: CalendarioConsultaProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [dataMarcada, setDataMarcada] = useState<
@@ -51,46 +51,38 @@ export default function CalendarioConsulta({
       }
     >
   >({});
+  const [mesAtual, setMesAtual] = useState<number>(new Date().getMonth() + 1);
+  const [anoAtual, setAnoAtual] = useState<number>(new Date().getFullYear());
 
   useEffect(() => {
-    const hoje = new Date();
-    const ano = hoje.getFullYear();
-    const mes = hoje.getMonth();
-    
-    // Obter o último dia do mês atual
-    const ultimoDiaMes = new Date(ano, mes + 1, 0);
-    const hojeFormatado = hoje.toISOString().split("T")[0];
-
-    const novaDataMarcada: Record<
-      string,
-      {
-        selected?: boolean;
-        marked?: boolean;
-        selectedColor?: string;
-        disabled?: boolean;
-        textColor?: string;
-        customStyles?: { text: { textDecorationLine: string } };
-      }
-    > = {};
-
-    for (let i = 0; i <= ultimoDiaMes.getDate(); i++) {
-      const date = new Date(ano, mes, i + 1);
-      const formattedDate = date.toISOString().split("T")[0];
-      const dayOfWeek = diasDisponiveis.find(d => d === formattedDate);
-
-      novaDataMarcada[formattedDate] = {
-        disabled: !dayOfWeek || formattedDate < hojeFormatado,
-        textColor: dayOfWeek && formattedDate >= hojeFormatado ? "#03A66A" : "#878787",
-        customStyles: {
-          text: {
-            textDecorationLine: !dayOfWeek || formattedDate < hojeFormatado ? 'line-through' : 'none',
-          },
-        },
-      };
+    if (medicoId) {
+      fetchDiasEHorariosDisponiveis(medicoId, mesAtual, anoAtual);
     }
+  }, [medicoId, mesAtual, anoAtual]);
 
-    setDataMarcada(novaDataMarcada);
-  }, [diasDisponiveis]);
+  const fetchDiasEHorariosDisponiveis = async (medicoId: string, mes: number, ano: number) => {
+    try {
+      const response = await buscarDiasEHorariosDisponiveisMedico(medicoId, mes, ano);
+      const diasDisponiveis = response.data.map((item: any) => item.data);
+      const novaDataMarcada: Record<string, any> = {};
+
+      diasDisponiveis.forEach((data: string) => {
+        novaDataMarcada[data] = {
+          marked: true,
+          textColor: "#03A66A",
+        };
+      });
+
+      setDataMarcada(novaDataMarcada);
+    } catch (error) {
+      console.error("Erro ao buscar dias e horários disponíveis:", error);
+    }
+  };
+
+  const handleMonthChange = (month: DateData) => {
+    setMesAtual(month.month);
+    setAnoAtual(month.year);
+  };
 
   const handleDiaPress = (dia: DateData) => {
     const date = dia.dateString;
@@ -148,6 +140,7 @@ export default function CalendarioConsulta({
               textDisabledColor: "#878787",
               arrowColor: "#03A66A",
             }}
+            onMonthChange={handleMonthChange}
             minDate={new Date().toISOString().split('T')[0]}
             maxDate={new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString().split('T')[0]}
           />

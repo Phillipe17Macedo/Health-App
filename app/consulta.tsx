@@ -45,17 +45,12 @@ interface Consulta {
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
-  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<
-    string | null
-  >(null);
-  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<
-    string | null
-  >(null);
+  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<string | null>(null);
+  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
+  const [medicoSelecionado, setMedicoSelecionado] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
   const [calendarioVisivel, setCalendarioVisivel] = useState(false);
@@ -65,16 +60,11 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<
-    string | null
-  >(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
-  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] =
-    useState<string | null>(null);
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
-    string | null
-  >(null);
+  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] = useState<string | null>(null);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
 
   const [consulta, setConsulta] = useState({
     usuario: "",
@@ -108,9 +98,7 @@ export default function Consulta() {
           }));
 
           if (usuarioLogado && usuarioLogado.idAderente) {
-            const dependentesResponse = await buscarDependentes(
-              usuarioLogado.idAderente
-            );
+            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
             setDependentes(dependentesResponse.data);
           }
         }
@@ -125,69 +113,23 @@ export default function Consulta() {
     fetchUsuarioLogado();
   }, []);
 
-  const handleMedicoSelect = async (medico: any) => {
-    try {
-      console.log("Medico Selecionado: ", medico);
-      setConsulta((prev) => ({
-        ...prev,
-        medico: medico.nome || "",
-        especialidade: especialidadeNome || "",
-      }));
-
-      // Carregar dias disponíveis ao selecionar um médico
-      const hoje = new Date();
-      const mesAtual = hoje.getMonth() + 1;
-      const anoAtual = hoje.getFullYear();
-      const diasDisponiveisResponse =
-        await buscarDiasEHorariosDisponiveisMedico(
-          medico.id,
-          mesAtual,
-          anoAtual
-        );
-      if (diasDisponiveisResponse) {
-        const diasDisponiveisFormatados = diasDisponiveisResponse.data.map(
-          (dia: any) => dia.data.split("T")[0]
-        );
-        setDiasDisponiveis(diasDisponiveisFormatados);
-      } else {
-        setDiasDisponiveis([]);
-      }
-
-      setCalendarioVisivel(true);
-    } catch (error) {
-      console.error("Erro ao buscar dias de semana disponíveis:", error);
-      Alert.alert(
-        "Erro",
-        "Não foi possível carregar os dias de semana disponíveis."
-      );
-    }
+  const handleMedicoSelect = (medico: any) => {
+    setMedicoSelecionado(medico);
+    setCalendarioVisivel(true);
   };
 
   const handleDateSelect = (date: string) => {
     const dateObject = new Date(date);
-    const daysOfWeek = [
-      "domingo",
-      "segunda",
-      "terça",
-      "quarta",
-      "quinta",
-      "sexta",
-      "sábado",
-    ];
-    const dayOfWeek = daysOfWeek[dateObject.getDay()];
+    const dayOfWeek = dateObject.toLocaleDateString('pt-BR', { weekday: 'long' });
     console.log("Data Selecionada: ", date);
     console.log("Dia da Semana Selecionado: ", dayOfWeek);
     console.log("Dados do Médico: ", medico);
+    console.log("Horários de Atendimento: ", medico.diasAtendimento);
+    console.log("Horários Disponíveis: ", medico.diasAtendimento ? medico.diasAtendimento[dayOfWeek] : "Não Disponível");
 
-    const diaSelecionado = medico.diasAtendimento.find(
-      (dia: any) => dia.data.split("T")[0] === date
-    );
-
-    if (diaSelecionado && diaSelecionado.horarios) {
-      const horarios = diaSelecionado.horarios.map(
-        (horario: any) => horario.horario
-      );
-      setHorariosDisponiveis(horarios);
+    if (medico && medico.diasAtendimento && medico.diasAtendimento[dayOfWeek]) {
+      console.log("Horários Disponíveis para ", dayOfWeek, ": ", medico.diasAtendimento[dayOfWeek]);
+      setHorariosDisponiveis(medico.diasAtendimento[dayOfWeek]);
       setDataConsulta(date);
       setConsulta((prev) => ({
         ...prev,
@@ -195,12 +137,8 @@ export default function Consulta() {
       }));
       setHorarioVisivel(true);
     } else {
-      console.error(
-        `Horários de atendimento não definidos para o dia ${dayOfWeek}.`
-      );
-      Alert.alert(
-        "Horários de atendimento não definidos para o dia selecionado."
-      );
+      console.error(`Horários de atendimento não definidos para o dia ${dayOfWeek}.`);
+      Alert.alert("Horários de atendimento não definidos para o dia selecionado.");
     }
   };
 
@@ -289,15 +227,8 @@ export default function Consulta() {
           <Medico
             especialidadeId={especialidadeId}
             unidadeAtendimentoId={unidadeAtendimentoId}
-            medicoSelecionado={medico ? medico.id : null}
-            onMedicoSelect={(medico) => {
-              handleMedicoSelect(medico);
-              setMedico(medico);
-              setConsulta((prev) => ({
-                ...prev,
-                medico: medico.label || "",
-              }));
-            }}
+            medicoSelecionado={medicoSelecionado ? medicoSelecionado.id : null}
+            onMedicoSelect={handleMedicoSelect}
           />
         )}
         <ModalCarregamento visivel={loading} />
@@ -313,12 +244,14 @@ export default function Consulta() {
           setSelectedDependente={setDependenteSelecionado}
         />
 
-        <CalendarioConsulta
-          visivel={calendarioVisivel}
-          onClose={() => setCalendarioVisivel(false)}
-          onDateSelect={handleDateSelect}
-          diasDisponiveis={diasDisponiveis}
-        />
+        {medicoSelecionado && (
+          <CalendarioConsulta
+            visivel={calendarioVisivel}
+            onClose={() => setCalendarioVisivel(false)}
+            onDateSelect={handleDateSelect}
+            medicoId={medicoSelecionado.id}
+          />
+        )}
 
         <HorarioConsulta
           visivel={horarioVisivel}
