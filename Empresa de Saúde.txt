@@ -93,5 +93,7 @@ TASK'S PARA O DIA 25/06/24
 - Mudar ícones de acesso rápido da tela Home >> OK
 - Implementar o método de médicos corretamente >> OK
 - Implementar o método de horários Disponiveis para o médico >> OK
+- Modificar e corrigir seleção no Calendário >> OK
+- Modificar o JSON de confirmação para estar no formato do POST Agendamento de Consulta >> Em andamento
 - Implementar o método de agendar consultas >> 
 - Mudar Botões para Horizontal nos Modais e o Tamanho dos Botões também >>

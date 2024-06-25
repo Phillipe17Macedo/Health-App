@@ -205,12 +205,13 @@ export default function Consulta() {
     }
 
     const consultaJSON = JSON.stringify({
-      usuarioId: consulta.usuarioId,
-      dependenteId: consulta.dependenteId,
-      medicoId: consulta.medicoId,
-      horarioId: consulta.horarioId,
-      data: consulta.data,
-      hora: consulta.horario,
+      idAderente: consulta.usuarioId,
+      idDep: consulta.dependenteId,
+      idUnidAten: consulta.unidadeAtendimentoId,
+      idMedico: consulta.medicoId,
+      idHorarioConsulta: consulta.horarioId,
+      dataConsulta: consulta.data,
+      horaConsulta: consulta.horario,
       telefoneContato: consulta.telefoneContato,
     }, null, 2);
 
