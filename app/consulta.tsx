@@ -4,8 +4,6 @@ import {
   Text,
   Alert,
   SafeAreaView,
-  Modal,
-  TouchableOpacity,
 } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
@@ -21,9 +19,8 @@ import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import {
   buscarAderente,
   buscarDependentes,
-  buscarMedicosEspecialidade,
-  buscarEspecialidades,
   buscarDiasAtendimentoMedico,
+  agendarAtendimentoConsulta,
 } from "@/utils/requestConfig";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -198,7 +195,7 @@ export default function Consulta() {
     setSelectDependenteVisivel(false);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     if (!consulta.medico || !consulta.medicoId) {
       Alert.alert("Erro", "Por favor, selecione um médico.");
       return;
@@ -216,7 +213,27 @@ export default function Consulta() {
     }, null, 2);
 
     console.log("Consulta confirmada:", consultaJSON);
-    Alert.alert("Consulta confirmada!", consultaJSON);
+
+    try {
+      setLoading(true);
+      const response = await agendarAtendimentoConsulta({
+        idAderente: consulta.usuarioId,
+        idDep: consulta.dependenteId,
+        idUnidAten: consulta.unidadeAtendimentoId,
+        idMedico: consulta.medicoId,
+        idHorarioConsulta: consulta.horarioId,
+        dataConsulta: consulta.data,
+        horaConsulta: consulta.horario,
+        telefoneContato: consulta.telefoneContato,
+      });
+      Alert.alert("Consulta confirmada!", JSON.stringify(response, null, 2));
+    } catch (error) {
+      console.error("Erro ao salvar consulta:", error);
+      Alert.alert("Erro", "Não foi possível salvar a consulta.");
+    } finally {
+      setLoading(false);
+    }
+
     setConfirmacaoVisivel(false);
   };
 

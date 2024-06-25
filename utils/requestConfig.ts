@@ -146,3 +146,14 @@ export async function buscarUnidadeAtendimento(): Promise<any> {
     throw error;
   }
 }
+
+// Função de Salvar Agendamento de Consulta na API
+export async function agendarAtendimentoConsulta(dadosConsulta: any): Promise<any> {
+  try {
+    const response = await axiosConfig.post("/Agendamento/AgendarAtendimentoConsulta", dadosConsulta);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao salvar consulta:", error);
+    throw error;
+  }
+}
