@@ -49,7 +49,6 @@ export default function Consulta() {
   const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
   const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
-  const [medico, setMedico] = useState<any | null>(null);
   const [medicoSelecionado, setMedicoSelecionado] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<string[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<string[]>([]);
@@ -119,17 +118,24 @@ export default function Consulta() {
   };
 
   const handleDateSelect = (date: string) => {
+    if (!medicoSelecionado) {
+      console.error("Médico não selecionado.");
+      return;
+    }
+
     const dateObject = new Date(date);
     const dayOfWeek = dateObject.toLocaleDateString('pt-BR', { weekday: 'long' });
     console.log("Data Selecionada: ", date);
     console.log("Dia da Semana Selecionado: ", dayOfWeek);
-    console.log("Dados do Médico: ", medico);
-    console.log("Horários de Atendimento: ", medico.diasAtendimento);
-    console.log("Horários Disponíveis: ", medico.diasAtendimento ? medico.diasAtendimento[dayOfWeek] : "Não Disponível");
+    console.log("Dados do Médico: ", medicoSelecionado);
 
-    if (medico && medico.diasAtendimento && medico.diasAtendimento[dayOfWeek]) {
-      console.log("Horários Disponíveis para ", dayOfWeek, ": ", medico.diasAtendimento[dayOfWeek]);
-      setHorariosDisponiveis(medico.diasAtendimento[dayOfWeek]);
+    const horariosParaDia = medicoSelecionado.diasAtendimento.find(
+      (dia: any) => dia.dia.toLowerCase() === dayOfWeek.toLowerCase()
+    );
+
+    if (horariosParaDia) {
+      console.log("Horários Disponíveis para ", dayOfWeek, ": ", horariosParaDia.horarios);
+      setHorariosDisponiveis(horariosParaDia.horarios.map((h: any) => h.horario));
       setDataConsulta(date);
       setConsulta((prev) => ({
         ...prev,
