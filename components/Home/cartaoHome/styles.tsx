@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   containerCard: {
     width: width * 0.9,
-    height: width * 0.6,
+    height: width * 0.56,
     marginTop: 25,
     borderRadius: 10,
     borderWidth: 1,
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
   },
   containerNome: {
     position: 'absolute',
-    marginTop: "48%",
+    marginTop: "49%",
     marginLeft: 15
   },
   containerDadosUser: {
