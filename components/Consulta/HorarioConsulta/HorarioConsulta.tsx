@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, View, Text, TouchableOpacity, FlatList } from "react-native";
-import { styles } from "./styles";
+import { styles } from './styles';
+import { FontAwesome6 } from '@expo/vector-icons';
 
 interface HorarioConsultaProps {
   visivel: boolean;
@@ -38,6 +39,7 @@ export default function HorarioConsulta({
                 style={styles.timeItem}
                 onPress={() => handleTimePress(item)}
               >
+                <FontAwesome6 name="clock" size={14} color="#3E3D3D" />
                 <Text style={styles.timeText}>{item.horario}</Text>
               </TouchableOpacity>
             )}
