@@ -43,12 +43,12 @@ export const styles = StyleSheet.create({
     color: "white",
   },
   closeButton: {
-    backgroundColor: '#8CBF1F',
+    backgroundColor: '#F22222',
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     width: 100,
-    height: 50,
+    height: 45,
     marginTop: 15,
     elevation: 3
   },
