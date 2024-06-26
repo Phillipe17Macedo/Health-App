@@ -20,10 +20,24 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     alignSelf: 'center',
   },
-  confirmText: {
+  containerTextoPadrao: {
+    flexDirection: 'row',
+    width: "100%",
+    //backgroundColor: 'red'
+  },
+  textoPadrao: {
     fontSize: 16,
     marginVertical: 3,
     fontWeight: 'bold',
+    color: "#3E3D3D",
+    marginLeft: 8,
+  },
+  textoConfirmacao: {
+    fontSize: 13,
+    marginVertical: 3,
+    fontWeight: 'normal',
+    marginBottom: 5,
+    color: "#03A66A"
   },
   containerButton: {
     //backgroundColor: 'blue',
