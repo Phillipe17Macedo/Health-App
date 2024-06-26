@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   dropdown: {
-    backgroundColor: '#DFF2ED',
+    backgroundColor: '#F8F8F6',
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,

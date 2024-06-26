@@ -45,10 +45,10 @@ export default function TabLayout() {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              return <Ionicons name="home" size={25} color={color} />;
+              return <FontAwesome6 name="house" size={25} color={color} />;
             }
 
-            return <Ionicons name="home-sharp" size={25} color={color} />;
+            return <FontAwesome6 name="house" size={25} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>
@@ -81,9 +81,9 @@ export default function TabLayout() {
           headerShown: true,
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
-              return <FontAwesome6 name="hand-holding-medical" size={25} color={color} />;
+              return <FontAwesome6 name="laptop-medical" size={25} color={color} />;
             }
-            return <FontAwesome6 name="hand-holding-medical" size={25} color={color} />;
+            return <FontAwesome6 name="laptop-medical" size={25} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>
@@ -117,10 +117,10 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => {
             if (focused) {
               return (
-                <FontAwesome6 name="credit-card" size={25} color={color} />
+                <FontAwesome6 name="money-bill-transfer" size={25} color={color} />
               );
             }
-            return <FontAwesome6 name="credit-card" size={25} color={color} />;
+            return <FontAwesome6 name="money-bill-transfer" size={25} color={color} />;
           },
           headerRight: () => (
             <Link href="/perfil" asChild>

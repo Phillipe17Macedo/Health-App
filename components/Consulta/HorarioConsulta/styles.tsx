@@ -22,28 +22,33 @@ export const styles = StyleSheet.create({
   timeItem: {
     flex: 1,
     padding: 5,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#F8F8F6",
     borderRadius: 5,
     alignItems: "center",
     justifyContent: 'center',
     elevation: 3,
     marginHorizontal: 10,
     marginVertical: 5,
+    borderWidth: 0.5,
+    borderColor: "#CACACA",
+    flexDirection: 'row',
   },
   timeText: {
-    fontSize: 16,
-    fontWeight: 'bold'
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: "#3E3D3D",
+    marginLeft: 5,
   },
   selectedTimeText: {
     color: "white",
   },
   closeButton: {
-    backgroundColor: '#8CBF1F',
+    backgroundColor: '#F22222',
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     width: 100,
-    height: 50,
+    height: 45,
     marginTop: 15,
     elevation: 3
   },

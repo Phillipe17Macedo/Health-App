@@ -8,19 +8,20 @@ export const styles = StyleSheet.create({
     marginTop: 25,
     borderRadius: 10,
     alignSelf: 'center',
-    backgroundColor: 'gray',
+    //backgroundColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
   },
   containerCard: {
     width: width * 0.9,
-    height: width * 0.6,
+    height: width * 0.56,
     marginTop: 25,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#65A693",
+    borderColor: "#CACACA",
     alignItems: 'center',
     justifyContent: 'center',
+    elevation: 3
   },
   componenteCard: {
     width: '100%',
@@ -30,7 +31,7 @@ export const styles = StyleSheet.create({
     paddingTop: width * 0.05
   },
   containerImagemUser: {
-    backgroundColor: '#DFF2ED',
+    backgroundColor: '#F8F8F6',
     width: 94,
     height: 124,
     borderRadius: 10,
@@ -39,11 +40,16 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     elevation: 3
   },
+  containerNome: {
+    position: 'absolute',
+    marginTop: "49%",
+    marginLeft: 15
+  },
   containerDadosUser: {
     flexDirection: 'column',
     //backgroundColor: 'red',
     justifyContent: 'space-around',
-    height: '95%'
+    height: '63%'
   },
   textoPadraoUser: {
     color: "#fff",
@@ -69,7 +75,6 @@ export const styles = StyleSheet.create({
   },
   containerStatusPessoa: {
     flexDirection: "row",
-    marginTop: 10,
     alignSelf: "flex-start",
     //backgroundColor: 'red'
   },
@@ -81,7 +86,7 @@ export const styles = StyleSheet.create({
   },
   containerStatus: {
     marginLeft: 5,
-    backgroundColor: "#8CBF1F", //STATUS ATIVO: #8CBF1F, STATUS DESATIVADO: #E55951
+    backgroundColor: "#8CBF1F", //STATUS ATIVO: #8CBF1F, STATUS DESATIVADO: #F22222
     width: "auto",
     height: 25,
     alignItems: "center",
@@ -91,9 +96,11 @@ export const styles = StyleSheet.create({
   },
   statusAtivado: {
     backgroundColor: "#8CBF1F",
+    elevation: 3
   },
   statusDesativado: {
-    backgroundColor: "#E55951",
+    backgroundColor: "#F22222",
+    elevation: 3
   },
   textoStatus: {
     fontWeight: "bold",
@@ -101,9 +108,9 @@ export const styles = StyleSheet.create({
     color: "#fff",
   },
   userTitular: {
-    color: '#9AEBA3'
+    color: '#F2E49B'
   },
   userDependente: {
-    color: '#DAFDBA'
+    color: '#F2E49B'
   }
 });

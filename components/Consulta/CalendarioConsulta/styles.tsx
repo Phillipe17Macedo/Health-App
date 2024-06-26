@@ -19,15 +19,40 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
   },
-  confirmButton: {
+  containerButton: {
+    flexDirection: "row",
+    justifyContent: 'space-between',
+    width: '100%',
+    alignItems: 'center',
     marginTop: 20,
-    padding: 10,
+    marginBottom: 20,
+  },
+  confirmButton: {
+    width: "60%",
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: "#8CBF1F",
-    borderRadius: 5,
+    borderRadius: 50,
+    elevation: 3,
   },
   confirmButtonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
+  },
+  cancelButton: {
+    width: 90,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#F22222",
+    borderRadius: 50,
+    elevation: 3,
+  },
+  cancelButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: 'bold'
   },
 });

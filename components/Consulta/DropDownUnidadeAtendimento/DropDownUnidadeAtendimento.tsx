@@ -6,14 +6,14 @@ import { buscarUnidadeAtendimento } from "@/utils/requestConfig";
 import { styles } from "./styles";
 
 interface UnidadeAtendimentoProps {
-  UnidadeAtendimentoCarregada : (unidadeatendimentoId: string | null, unidadeAtendimentoNome: string | null) => void;
+  UnidadeAtendimentoCarregada : (unidadeatendimentoId: string | null, unidadeAtendimentoNome: string | null, idEmpresa: string | null) => void;
   unidadeAtendimentoSelecionada: string | null;
 };
 
 export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidadeAtendimentoSelecionada}: UnidadeAtendimentoProps) {
   const [abrir, setAbrir] = useState(false);
   const [valor, setValor] = useState<string | null>(unidadeAtendimentoSelecionada);
-  const [itens, setItens] = useState<{ label: string; value: string; key: string }[]>([]);
+  const [itens, setItens] = useState<{ label: string; value: string; key: string, idEmpresa: string }[]>([]);
 
   useEffect (() => {
     async function carregarUnidadesAtendimento() {
@@ -23,8 +23,9 @@ export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidade
 
         const unidadesAtendimentoComChave = unidadesAtendimento.map((unidade: any) => ({
           label: unidade.nome,
-          value: unidade.id.toString(),
-          key: unidade.id.toString(), // Usar id como chave
+          value: `${unidade.id}-${unidade.idEmpresa}`,
+          key: `${unidade.id}-${unidade.idEmpresa}`, 
+          idEmpresa: unidade.idEmpresa.toString(),
         }));
         setItens(unidadesAtendimentoComChave);
       } catch (error) {
@@ -39,9 +40,10 @@ export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidade
   }, [unidadeAtendimentoSelecionada]);
 
   const handleChangeValue = (value: string | null) => {
+    const [selectedId, selectedIdEmpresa] = value ? value.split('-') : [null, null];
     const selectedUnidadeAtendimento = itens.find((item) => item.value === value);
     if (selectedUnidadeAtendimento) {
-      UnidadeAtendimentoCarregada(value, selectedUnidadeAtendimento.label);
+      UnidadeAtendimentoCarregada(selectedId, selectedUnidadeAtendimento.label, selectedIdEmpresa);
     }
     setValor(value);
   };

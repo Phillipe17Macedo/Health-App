@@ -1,64 +1,36 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    //backgroundColor: 'blue',
-    marginTop: 25,
-  },
-  ContainertextoAcessoRapido: {
-    position: 'relative',
-    width: '100%',
-    flexDirection: 'row',
-    //backgroundColor: 'yellow',
-    paddingLeft: 15,
-  },
-  textoAcessoRapido: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#03A66A',
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  containerOpcoes: {
+    marginTop: 20,
     alignSelf: 'center',
-    width: '100%',
-    height: 'auto',
+    marginBottom: 95,
+  },
+  item: {
+    //backgroundColor: "red",
+    borderRadius: 5,
+    height: 150,
+    width: "90%",
+    marginLeft: 20,
+    padding: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
     borderRadius: 10,
-    //backgroundColor: 'blue',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginTop: 15
+    resizeMode: "cover",
   },
-  containerLink: {
-    justifyContent: 'center',
-    width: 110,
-    //backgroundColor: 'gray',
-    alignSelf: 'center',
-    flexDirection: 'row',
+  title: {
+    textAlign: "center",
+    marginTop: 10,
+    fontSize: 16,
   },
-  opcoes: {
-    backgroundColor: '#F2F2F2',
-    width: 110,
-    height: 90,
-    borderRadius: 20,
-    elevation: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 5,
-    alignSelf: 'center',
-  },
-  imagemOpcoes: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    resizeMode: 'contain',
-    height: 50
-  },
-  textoOpcoesIcone: {
-    fontSize: 13,
-    textAlign: 'center',
-    color: '#3E3D3D',
-    fontWeight: 'normal',
-    fontStyle: 'italic',
-    marginTop: -1,
+  header: {
+    textAlign: "center",
+    fontSize: 18,
+    marginBottom: 10,
+    color: '#3E3D3D'
   },
 });

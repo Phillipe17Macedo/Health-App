@@ -20,33 +20,60 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     alignSelf: 'center',
   },
-  confirmText: {
+  containerTextoPadrao: {
+    flexDirection: 'row',
+    width: "100%",
+    //backgroundColor: 'red'
+  },
+  textoPadrao: {
     fontSize: 16,
     marginVertical: 3,
     fontWeight: 'bold',
+    color: "#3E3D3D",
+    marginLeft: 8,
+  },
+  textoConfirmacao: {
+    fontSize: 13,
+    marginVertical: 3,
+    fontWeight: 'normal',
+    marginBottom: 5,
+    color: "#03A66A"
+  },
+  containerButton: {
+    //backgroundColor: 'blue',
+    width: '100%',
+    height: 'auto',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+    marginTop: 15,
   },
   confirmButton: {
     alignSelf: 'center',
-    marginTop: 20,
-    padding: 10,
+    //marginTop: 20,
+    padding: 15,
     backgroundColor: "#8CBF1F",
-    borderRadius: 5,
+    borderRadius: 50,
+    width: "65%",
+    elevation: 3,
   },
   confirmButtonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center'
   },
   cancelButton: {
     alignSelf: 'center',
-    marginTop: 10,
-    padding: 10,
+    //marginTop: 10,
+    padding: 15,
     backgroundColor: "#F22222",
-    borderRadius: 5,
+    borderRadius: 50,
+    elevation: 3,
   },
   cancelButtonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });

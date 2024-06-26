@@ -12,10 +12,11 @@ import { StatusBar } from "expo-status-bar";
 import { styles } from "../../styles/StylesHomePage/styles";
 import { Header } from "../../components/Home/headerHome/Header";
 import { Cartao } from "../../components/Home/cartaoHome/Cartao";
-import { Carrossel } from "../../components/Home/carrosselHome/Carrossel";
+import { OpcoesHome } from "../../components/Home/opcoesHome/OpcoesHome";
 import { buscarAderente } from "@/utils/requestConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
+import Carrossel from "@/components/Home/CarrosselHome/Carrossel";
 
 interface User {
   nome: string;
@@ -64,7 +65,8 @@ export default function Home() {
       >
         <Header nomeUsuario={user?.nome} />
         {user && <Cartao user={user} />}
-        <Carrossel />
+        <OpcoesHome />
+        <Carrossel/>
       </ScrollView>
       <ModalCarregamento visivel={loading}/>
     </SafeAreaView>

@@ -33,6 +33,7 @@ interface Consulta {
   dependente: string;
   unidadeAtendimento: string;
   unidadeAtendimentoId: string;
+  unidadeAtendimentoIdEmpresa: string;
   medico: string;
   medicoId: string;
   especialidade: string;
@@ -47,6 +48,7 @@ export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
   const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<string | null>(null);
+  const [unidadeAtendimentoIdEmpresa, setUnidadeAtendimentoIdEmpresa] = useState<string | null>(null);
   const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
   const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
@@ -73,6 +75,7 @@ export default function Consulta() {
     dependente: "N/A",
     unidadeAtendimento: "",
     unidadeAtendimentoId: "",
+    unidadeAtendimentoIdEmpresa: "",
     medico: "",
     medicoId: "",
     especialidade: "",
@@ -80,7 +83,7 @@ export default function Consulta() {
     data: "",
     horarioId: "",
     horario: "",
-    telefoneContato: "(34) 99931-7302",
+    telefoneContato: "34999317302",
   });
 
   useEffect(() => {
@@ -154,7 +157,7 @@ export default function Consulta() {
 
     if (diaSelecionado && diaSelecionado.horarios.length > 0) {
       setHorariosDisponiveis(diaSelecionado.horarios);
-      setDataConsulta(date); // Aqui estamos armazenando a data corretamente
+      setDataConsulta(date);
       setConsulta((prev) => ({
         ...prev,
         data: date || "",
@@ -180,8 +183,8 @@ export default function Consulta() {
     if (isDependente && dependenteSelecionado) {
       setConsulta((prev) => ({
         ...prev,
-        dependente: dependenteSelecionado.nome || "", // Nome do dependente
-        dependenteId: dependenteSelecionado.id || "", // ID do dependente
+        dependente: dependenteSelecionado.nome || "",
+        dependenteId: dependenteSelecionado.id || "", 
         usuario: usuario.nome || "",
       }));
     } else {
@@ -204,7 +207,7 @@ export default function Consulta() {
     const consultaJSON = JSON.stringify({
       idAderente: consulta.usuarioId,
       idDep: consulta.dependenteId,
-      idUnidAten: consulta.unidadeAtendimentoId,
+      idEmpresa: consulta.unidadeAtendimentoIdEmpresa,
       idMedico: consulta.medicoId,
       idHorarioConsulta: consulta.horarioId,
       dataConsulta: consulta.data,
@@ -219,7 +222,7 @@ export default function Consulta() {
       const response = await agendarAtendimentoConsulta({
         idAderente: consulta.usuarioId,
         idDep: consulta.dependenteId,
-        idUnidAten: consulta.unidadeAtendimentoId,
+        idEmpresa: consulta.unidadeAtendimentoIdEmpresa,
         idMedico: consulta.medicoId,
         idHorarioConsulta: consulta.horarioId,
         dataConsulta: consulta.data,
@@ -252,13 +255,15 @@ export default function Consulta() {
         <DicaAgendamento />
 
         <UnidadeAtendimento
-          UnidadeAtendimentoCarregada={(id, nome) => {
+          UnidadeAtendimentoCarregada={(id, nome, idEmpresa) => {
             setUnidadeAtendimentoId(id);
             setUnidadeAtendimentoNome(nome);
+            setUnidadeAtendimentoIdEmpresa(idEmpresa);
             setConsulta((prev) => ({
               ...prev,
               unidadeAtendimento: nome || "",
               unidadeAtendimentoId: id || "",
+              unidadeAtendimentoIdEmpresa: idEmpresa || "",
             }));
           }}
           unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}

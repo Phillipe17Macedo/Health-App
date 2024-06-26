@@ -10,7 +10,7 @@ export async function buscarAderente(cpf: string, titular: boolean): Promise<any
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar aderente:", error);
-    throw error;
+    throw new Error('Não foi possível conectar ao servidor. Por favor, tente novamente mais tarde.');
   }
 }
 
