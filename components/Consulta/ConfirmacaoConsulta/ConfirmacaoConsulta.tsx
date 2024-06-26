@@ -37,18 +37,21 @@ export default function ConfirmacaoConsulta({ visivel, onClose, onConfirm, consu
           <Text style={styles.confirmText}>Data: {consulta.data}</Text>
           <Text style={styles.confirmText}>Horário: {consulta.horario}</Text>
           <Text style={styles.confirmText}>Telefone de Contato: {consulta.telefoneContato}</Text>
-          <TouchableOpacity
-            style={styles.confirmButton}
-            onPress={onConfirm}
-          >
-            <Text style={styles.confirmButtonText}>Confirmar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.cancelButton}
-            onPress={onClose}
-          >
-            <Text style={styles.cancelButtonText}>Cancelar</Text>
-          </TouchableOpacity>
+          
+          <View style={[styles.containerButton]}>
+            <TouchableOpacity
+              style={styles.confirmButton}
+              onPress={onConfirm}
+            >
+              <Text style={styles.confirmButtonText}>Confirmar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={onClose}
+            >
+              <Text style={styles.cancelButtonText}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>
