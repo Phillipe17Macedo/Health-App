@@ -37,18 +37,18 @@ export function ComponentFinanceiro() {
   };
 
   const chartConfig = {
-    backgroundGradientFrom: "#FFF",
-    backgroundGradientTo: "#FFF",
+    backgroundGradientFrom: "#F8F8F6",
+    backgroundGradientTo: "#F8F8F6",
     decimalPlaces: 2, // optional, defaults to 2dp
-    color: (opacity = 1) => `rgba(140, 191, 31, ${opacity})`,
-    labelColor: (opacity = 1) => `rgba(3, 166, 106, ${opacity})`,
+    color: (opacity = 1) => `rgba(62, 61, 61, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(108, 30, 217, ${opacity})`,
     style: {
       borderRadius: 10,
     },
     propsForDots: {
       r: "6",
       strokeWidth: "2",
-      stroke: "#03A66A",
+      stroke: "#9C71D9",
     },
     propsForLabels: {
       fontSize: 9,
@@ -60,24 +60,7 @@ export function ComponentFinanceiro() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <View
-          style={[
-            {
-              backgroundColor: "#DFF2ED",
-              width: "95%",
-              height: 1000,
-              alignSelf: "center",
-              borderRadius: 5,
-              paddingHorizontal: 15,
-              flexDirection: "column",
-              marginTop: 25,
-              elevation: 3,
-              marginBottom: 100,
-              borderWidth: 0.5,
-              borderColor: "#65A693",
-            },
-          ]}
-        >
+        <View style={[styles.containerOpcoes]}>
           <Text style={[styles.textoTituloContainer]}>
             Contratos em Aberto:
           </Text>
