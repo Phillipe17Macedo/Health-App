@@ -23,8 +23,8 @@ export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidade
 
         const unidadesAtendimentoComChave = unidadesAtendimento.map((unidade: any) => ({
           label: unidade.nome,
-          value: unidade.id.toString(),
-          key: unidade.id.toString(), 
+          value: `${unidade.id}-${unidade.idEmpresa}`,
+          key: `${unidade.id}-${unidade.idEmpresa}`, 
           idEmpresa: unidade.idEmpresa.toString(),
         }));
         setItens(unidadesAtendimentoComChave);
@@ -40,9 +40,10 @@ export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidade
   }, [unidadeAtendimentoSelecionada]);
 
   const handleChangeValue = (value: string | null) => {
+    const [selectedId, selectedIdEmpresa] = value ? value.split('-') : [null, null];
     const selectedUnidadeAtendimento = itens.find((item) => item.value === value);
     if (selectedUnidadeAtendimento) {
-      UnidadeAtendimentoCarregada(value, selectedUnidadeAtendimento.label, selectedUnidadeAtendimento.idEmpresa);
+      UnidadeAtendimentoCarregada(selectedId, selectedUnidadeAtendimento.label, selectedIdEmpresa);
     }
     setValor(value);
   };

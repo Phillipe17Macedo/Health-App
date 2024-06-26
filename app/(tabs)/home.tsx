@@ -65,8 +65,8 @@ export default function Home() {
       >
         <Header nomeUsuario={user?.nome} />
         {user && <Cartao user={user} />}
-        <Carrossel/>
         <OpcoesHome />
+        <Carrossel/>
       </ScrollView>
       <ModalCarregamento visivel={loading}/>
     </SafeAreaView>

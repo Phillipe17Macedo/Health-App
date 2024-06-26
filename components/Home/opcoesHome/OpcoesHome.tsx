@@ -44,7 +44,7 @@ export function OpcoesHome() {
           <FontAwesome6 name="hospital-user" size={18} color="#03A66A" />
           <Text style={[styles.textoAcessoRapido]}>Solicitação de Guias</Text>
         </View>
-        <View style={[styles.containerOpcoes, { marginBottom: 95 }]}>
+        <View style={[styles.containerOpcoes]}>
           <TouchableOpacity>
             <Link href={"/guiaConsulta"} style={[styles.containerLink]}>
               <View style={[styles.opcoes]}>
