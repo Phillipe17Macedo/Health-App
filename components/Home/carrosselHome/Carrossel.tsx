@@ -2,13 +2,9 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { Link } from "expo-router";
 import {
-  AntDesign,
-  FontAwesome5,
-  MaterialCommunityIcons,
   FontAwesome6,
 } from "@expo/vector-icons";
 import { styles } from "./styles";
-import { Fontisto } from "@expo/vector-icons";
 
 export function Carrossel() {
   return (
@@ -16,10 +12,10 @@ export function Carrossel() {
       <View style={[styles.container]}>
         
         <View style={[styles.ContainertextoAcessoRapido]}>
+          <FontAwesome6 name="hospital" size={18} color="#03A66A" />
           <Text style={[styles.textoAcessoRapido]}>
             Agendamentos Clínicas Aserpa
           </Text>
-          <FontAwesome6 name="hospital" size={18} color="#03A66A" />
         </View>
 
         <View style={[styles.containerOpcoes]}>
@@ -45,8 +41,8 @@ export function Carrossel() {
 
       <View style={[styles.container]}>
         <View style={[styles.ContainertextoAcessoRapido]}>
-          <Text style={[styles.textoAcessoRapido]}>Solicitação de Guias</Text>
           <FontAwesome6 name="hospital-user" size={18} color="#03A66A" />
+          <Text style={[styles.textoAcessoRapido]}>Solicitação de Guias</Text>
         </View>
         <View style={[styles.containerOpcoes, { marginBottom: 95 }]}>
           <TouchableOpacity>
