@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#8CBF1F",
     borderRadius: 50,
+    elevation: 3,
   },
   confirmButtonText: {
     color: "#fff",
