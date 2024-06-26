@@ -157,3 +157,19 @@ export async function agendarAtendimentoConsulta(dadosConsulta: any): Promise<an
     throw error;
   }
 }
+
+// Função de buscar consultas agendadas na API
+export async function buscarAgendamentosConsulta(idAderente: string, idEmpresa: string): Promise <any> {
+  try {
+  
+    const response = await axiosConfig.get(`/Agendamento/GetAgendamentosConsulta/${idAderente}/${idEmpresa}`);
+    console.log("Resposta da API:", response.data);
+  
+    return response.data;
+  } catch (error) {
+  
+    console.error("Erro ao buscar aderente:", error);
+    throw new Error('Não foi possível conectar ao servidor. Por favor, tente novamente mais tarde.');
+  
+  }
+}
