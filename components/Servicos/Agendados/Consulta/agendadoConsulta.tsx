@@ -6,11 +6,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface Consulta {
   id: number;
-  usuario: string;
+  dataConsulta: string | null;
   medico: string;
-  especialidade: string;
-  data: string;
-  hora: string;
 }
 
 interface AgendadoConsultaProps {
@@ -26,11 +23,8 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas }) => {
             <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
             <Text style={[styles.textoIcone]}>Consulta</Text>
           </View>
-          <Text style={styles.text}>Usuário: {consulta.usuario}</Text>
           <Text style={styles.text}>Médico: {consulta.medico}</Text>
-          <Text style={styles.text}>Especialidade: {consulta.especialidade}</Text>
-          <Text style={styles.text}>Data: {consulta.data}</Text>
-          <Text style={styles.text}>Hora: {consulta.hora}</Text>
+          <Text style={styles.text}>Data: {consulta.dataConsulta}</Text>
         </View>
       ))}
     </View>
