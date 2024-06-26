@@ -47,7 +47,7 @@ export function Cartao({ user }: CartaoProps) {
     let linha2 = "";
 
     for (let palavra of palavras) {
-      if ((linha1 + palavra).length <= 26) {
+      if ((linha1 + palavra).length <= 40) {
         linha1 += palavra + " ";
       } else {
         linha2 += palavra + " ";
@@ -72,21 +72,17 @@ export function Cartao({ user }: CartaoProps) {
               <View style={[styles.containerImagemUser]}>
                 <Image
                   source={fotoUri ? { uri: fotoUri } : imagemPadrao}
-                  style={[{width: 94, height: 120, borderRadius: 15, resizeMode: 'contain'}]}
+                  style={[{width: "100%", height: "95%", borderRadius: 15, resizeMode: 'contain'}]}
                 />
               </View>
 
               <View style={[styles.containerDadosUser]}>
-                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha1}</Text>
-                {linha2 && <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha2}</Text>}
-                <Text style={[styles.descricaoNome, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Nome do Beneficiário</Text>
-
-                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>
-                  {user.dataNasc}
-                </Text>
-                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>
-                  Data de Nascimento
-                </Text>
+                <View style={[styles.containerStatusPessoa,]}>
+                  <Text style={[styles.descricaoStatusPessoa, { fontSize: width * 0.032, paddingTop: height * 0.005 }]}>STATUS CONTRATO:</Text>
+                  <View style={[styles.containerStatus, alterarEstiloStatus()]}>
+                    <Text style={[styles.textoStatus, { fontSize: width * 0.032 }]}>{statusText}</Text>
+                  </View>
+                </View>
 
                 <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{user.tipoAdesao}</Text>
                 <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Tipo de Adesão</Text>
@@ -94,13 +90,20 @@ export function Cartao({ user }: CartaoProps) {
                 <Text style={[styles.textoPadraoUser, alterarEstiloUsuario(), { fontSize: width * 0.032 }]}>{titularContrato}</Text>
                 <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Tipo de Usuário</Text>
 
-                <View style={[styles.containerStatusPessoa,]}>
-                  <Text style={[styles.descricaoStatusPessoa, { fontSize: width * 0.032, paddingTop: height * 0.005 }]}>STATUS CONTRATO:</Text>
-                  <View style={[styles.containerStatus, alterarEstiloStatus()]}>
-                    <Text style={[styles.textoStatus, { fontSize: width * 0.032 }]}>{statusText}</Text>
-                  </View>
-                </View>
+                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>
+                  {user.dataNasc}
+                </Text>
+                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>
+                  Data de Nascimento
+                </Text>
               </View>
+
+              <View style={[styles.containerNome]}>
+                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha1}</Text>
+                {linha2 && <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha2}</Text>}
+                <Text style={[styles.descricaoNome, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Nome do Beneficiário</Text>
+              </View>
+              
             </View>
           </LinearGradient>
         </Link>

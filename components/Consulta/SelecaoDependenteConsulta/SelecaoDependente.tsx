@@ -33,7 +33,7 @@ export default function SelecaoDependente({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Selecione o Dependente</Text>
+          <Text style={styles.modalTitle}>Selecione um Dependente</Text>
           {isDependente && (
             <Picker
               selectedValue={selectedDependente ? selectedDependente.id : ""}
@@ -52,18 +52,20 @@ export default function SelecaoDependente({
               ))}
             </Picker>
           )}
-          <TouchableOpacity
-            style={styles.confirmButton}
-            onPress={onConfirm}
-          >
-            <Text style={styles.confirmButtonText}>Continuar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.cancelButton}
-            onPress={onClose}
-          >
-            <Text style={styles.cancelButtonText}>Cancelar</Text>
-          </TouchableOpacity>
+          <View style={[styles.containerButtons]}>
+            <TouchableOpacity
+              style={styles.confirmButton}
+              onPress={onConfirm}
+            >
+              <Text style={styles.confirmButtonText}>Confirmar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={onClose}
+            >
+              <Text style={styles.cancelButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>

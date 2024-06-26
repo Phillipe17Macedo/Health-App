@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   modalContent: {
     width: "90%",
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     paddingVertical: 20,
     backgroundColor: "#fff",
     borderRadius: 5,
@@ -20,11 +20,22 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 20,
   },
+  containerButtons: {
+    flexDirection: "row",
+    width: "100%", 
+    //backgroundColor: 'blue',
+    justifyContent: 'space-between',
+    marginTop: 15,
+
+  },
   confirmButton: {
-    marginTop: 20,
-    padding: 10,
+    width: "60%",
+    height: 50,
     backgroundColor: "#8CBF1F",
-    borderRadius: 5,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
   },
   confirmButtonText: {
     color: "#fff",
@@ -32,10 +43,13 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   cancelButton: {
-    marginTop: 10,
-    padding: 10,
+    width: "35%",
+    height: 50,
     backgroundColor: "#F22222",
-    borderRadius: 5,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
   },
   cancelButtonText: {
     color: "#fff",
