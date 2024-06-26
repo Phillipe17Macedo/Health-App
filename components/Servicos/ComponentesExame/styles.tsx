@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: 'bold',
     fontVariant: ['small-caps'],
-    color: '#3E3D3D',
-    marginRight: 15,
+    color: '#52D981',
+    marginLeft: 15,
   },
 });

@@ -1,7 +1,8 @@
 import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 import { Link } from "expo-router";
 import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { styles } from "./styles";
 
 export function ComponentesExame() {
@@ -9,12 +10,8 @@ export function ComponentesExame() {
     <>
       <TouchableOpacity style={[styles.container]}>
         <Link href={'/exame'} style={[styles.containerLink]}>
+          <MaterialCommunityIcons name="flask-round-bottom" size={28} color="#52D981" />
           <Text style={[styles.textoExame]}>EXAMES </Text>
-          <FontAwesome5
-            name="file-medical-alt"
-            size={21}
-            color="#3E3D3D"
-          />
         </Link>
       </TouchableOpacity>
     </>
