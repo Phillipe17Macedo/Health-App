@@ -21,13 +21,13 @@ export const styles = StyleSheet.create({
   },
   confirmButton: {
     marginTop: 20,
-    padding: 10,
+    padding: 15,
     backgroundColor: "#8CBF1F",
-    borderRadius: 5,
+    borderRadius: 50,
   },
   confirmButtonText: {
     color: "#fff",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });
