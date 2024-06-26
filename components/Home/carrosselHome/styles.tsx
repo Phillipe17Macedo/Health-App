@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     //backgroundColor: 'yellow',
-    paddingLeft: 15,
+    paddingLeft: 20,
   },
   textoAcessoRapido: {
     fontSize: 18,
@@ -40,12 +40,14 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F2F2F2',
     width: 110,
     height: 90,
-    borderRadius: 20,
+    borderRadius: 15,
     elevation: 2,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 5,
     alignSelf: 'center',
+    borderWidth: 0.4,
+    borderColor: "#CACACA"
   },
   imagemOpcoes: {
     alignSelf: 'center',
