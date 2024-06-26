@@ -7,10 +7,10 @@ import { styles } from './styles';
 const { width: screenWidth } = Dimensions.get('window');
 
 const entries = [
-  { illustration: 'https://aserpasaude.com.br/wp-content/uploads/2024/06/2149511750.jpg' },
-  { illustration: 'https://aserpasaude.com.br/wp-content/uploads/2024/06/427.jpg' },
-  { illustration: 'https://aserpasaude.com.br/wp-content/uploads/2024/06/2150167817-e1718891594707.jpg' },
-  // Adicione mais imagens conforme necessário
+  { illustration: 'https://www.designi.com.br/images/preview/10266768.jpg' },
+  { illustration: 'https://www.designi.com.br/images/preview/10266768.jpg' },
+  { illustration: 'https://www.designi.com.br/images/preview/10266768.jpg' },
+  
 ];
 
 const Carrossel = () => {
