@@ -63,7 +63,7 @@ const Servicos: React.FC = () => {
         console.log("User ID:", userId);
         console.log("Empresa ID:", empresaId);
 
-        if (userId && empresaId) {
+        if (typeof userId === 'string' && typeof empresaId === 'string') {
           setIdAderente(userId);
           setIdEmpresa(empresaId);
           const response = await buscarAgendamentosConsulta(userId, empresaId);
@@ -71,7 +71,7 @@ const Servicos: React.FC = () => {
           setConsultas(response.data);
         } else {
           const fetchedEmpresaId = await fetchUnidadesAtendimento();
-          if (fetchedEmpresaId) {
+          if (fetchedEmpresaId && typeof userId === 'string') {
             const response = await buscarAgendamentosConsulta(userId, fetchedEmpresaId);
             console.log("Consultas recebidas após buscar unidades:", response.data);
             setConsultas(response.data);
