@@ -15,6 +15,7 @@ interface AgendadoConsultaProps {
 }
 
 const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas }) => {
+  console.log('Consultas recebidas no componente:', consultas);
   return (
     <View style={styles.container}>
       {consultas.map((consulta) => (
@@ -24,7 +25,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas }) => {
             <Text style={[styles.textoIcone]}>Consulta</Text>
           </View>
           <Text style={styles.text}>Médico: {consulta.medico}</Text>
-          <Text style={styles.text}>Data: {consulta.dataConsulta}</Text>
+          <Text style={styles.text}>Data: {consulta.dataConsulta ? new Date(consulta.dataConsulta).toLocaleDateString('pt-BR') : 'N/A'}</Text>
         </View>
       ))}
     </View>

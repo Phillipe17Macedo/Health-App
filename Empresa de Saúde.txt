@@ -102,13 +102,13 @@ TASK'S PARA O DIA 25/06/24 - 26/06/24
 
 TASK'S PARA O DIA 27/06/24
 
-- Passar o bug do método de busca consultas agendadas para o Francis, está retornando id "0" >>
+- Passar o bug do método de busca consultas agendadas para o Francis, está retornando id "0" >> OK
 - Mudar a tela de inicio/gif, para se uma vez apresentada, não apresentar novamente ao tentar voltar, apresentar inicio/gif apenas se abrir o app novamente >>
 - Implementar mudanças na tela de Login, caso não conseguir conexão com o banco >> 
 - Implementar mensagens de retorno mais interativas com o usuário, caso não conseguir conexão >> 
-- Implementar o método buscar consultas agendadas >>
+- Implementar o método buscar consultas agendadas >> OK
 - Implementar na tela de Serviços o Refresh Control >>
-- Implementar no componente de consultas agendadas a função de buscar consultas agendadas >>
+- Implementar no componente de consultas agendadas a função de buscar consultas agendadas >> 
 - Implementar no calendário a identificação, caso não houver mais dias disponíveis para atendimento, desativar o dia >> OK
 - Implementar no calendário a condição para poder selecionar detas disponíveis nos meses a seguir >>
 - Implementar na tela de Login a logo para melhorar a interface do Login, parte inferior da tela >>

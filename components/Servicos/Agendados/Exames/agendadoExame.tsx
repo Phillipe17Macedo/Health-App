@@ -22,7 +22,7 @@ const AgendadoExame: React.FC<AgendadoExameProps> = ({ exames }) => {
         <View key={exame.id} style={styles.item}>
           <View style={[styles.constainerIcone]}>
             <MaterialCommunityIcons name="flask-round-bottom" size={28} color="#52D981" />
-            <Text style={[styles.textoIcone]}>Consulta</Text>
+            <Text style={[styles.textoIcone]}>Exames</Text>
           </View>
           <Text style={styles.text}>Tipo: {exame.tipo}</Text>
           <Text style={styles.text}>Data: {exame.data}</Text>
