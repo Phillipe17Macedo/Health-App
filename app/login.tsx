@@ -1,9 +1,7 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "../styles/StylesLoginPage/styles";
-
 import { LogoLogin } from "../components/Login/LogoLogin/LogoLogin";
 import { InputLogin } from "../components/Login/InputLogin/InputLogin";
 
@@ -13,6 +11,9 @@ export default function Login() {
       <StatusBar style="auto" />
         <LogoLogin/>
         <InputLogin/>
+        <View style={[styles.containerLogoBackground]} >
+          <Image source={require("@/assets/images/logo-aserpa/Icone.png")} style={[styles.logoBackground]} />
+        </View>
     </View>
   );
 }
