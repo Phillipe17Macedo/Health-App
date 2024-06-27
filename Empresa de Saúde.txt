@@ -110,8 +110,9 @@ TASK'S PARA O DIA 27/06/24
 - Implementar na tela de Serviços o Refresh Control >> OK
 - Implementar no componente de consultas agendadas a função de buscar consultas agendadas >> OK
 - Implementar no calendário a identificação, caso não houver mais dias disponíveis para atendimento, desativar o dia >> OK
-- Implementar no calendário a condição para poder selecionar detas disponíveis nos meses a seguir >>
-- Implementar na tela de Login a logo para melhorar a interface do Login, parte inferior da tela >>
+- Implementar no calendário a condição para poder selecionar detas disponíveis nos meses a seguir >> 
+- Implementar na tela de Login a logo para melhorar a interface do Login, parte inferior da tela >> OK
 - Mudar dropdown para fechar ao abri outro >> OK
 - Adicionar um contador para consultas agendadas >>
 - Adicionar um botão de cancelar consulta >> 
+- Mudar icone do app >> OK
