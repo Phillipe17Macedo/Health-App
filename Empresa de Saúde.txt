@@ -103,7 +103,7 @@ TASK'S PARA O DIA 25/06/24 - 26/06/24
 TASK'S PARA O DIA 27/06/24
 
 - Passar o bug do método de busca consultas agendadas para o Francis, está retornando id "0" >> OK
-- Mudar a tela de inicio/gif, para se uma vez apresentada, não apresentar novamente ao tentar voltar, apresentar inicio/gif apenas se abrir o app novamente >>
+- Mudar a tela de inicio/gif, para se uma vez apresentada, não apresentar novamente ao tentar voltar, apresentar inicio/gif apenas se abrir o app novamente >>  OK
 - Implementar mudanças na tela de Login, caso não conseguir conexão com o banco >>
 - Implementar mensagens de retorno mais interativas com o usuário, caso não conseguir conexão >>
 - Implementar o método buscar consultas agendadas >> OK
