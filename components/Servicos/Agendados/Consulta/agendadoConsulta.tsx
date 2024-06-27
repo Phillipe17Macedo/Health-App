@@ -39,7 +39,9 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsul
           </View>
           <Text style={styles.text}>Médico: {consulta.medico}</Text>
           <Text style={styles.text}>Data: {consulta.dataConsulta ? new Date(consulta.dataConsulta).toLocaleDateString('pt-BR') : 'N/A'}</Text>
-          <Button title="Cancelar" onPress={() => handleCancel(consulta.id)} />
+          <View style={[styles.containerButton]}>
+            <Button title="Cancelar Agendamento" onPress={() => handleCancel(consulta.id)} color={"#F22222"} />
+          </View>
         </View>
       ))}
     </View>

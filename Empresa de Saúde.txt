@@ -114,5 +114,6 @@ TASK'S PARA O DIA 27/06/24
 - Implementar na tela de Login a logo para melhorar a interface do Login, parte inferior da tela >> OK
 - Mudar dropdown para fechar ao abri outro >> OK
 - Adicionar um contador para consultas agendadas >>
-- Adicionar um botão de cancelar consulta >> 
+- Implementar método de cancelar agendamento >> OK
+- Adicionar um botão de cancelar consulta >>  OK
 - Mudar icone do app >> OK
