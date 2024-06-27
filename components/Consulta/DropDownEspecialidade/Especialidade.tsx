@@ -7,10 +7,11 @@ import { styles } from "./styles";
 interface EspecialidadeProps {
   EspecialidadeCarregada: (especialidadeId: string | null, especialidadeNome: string | null) => void;
   especialidadeSelecionada: string | null;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
-export default function Especialidade({ EspecialidadeCarregada, especialidadeSelecionada }: EspecialidadeProps) {
-  const [abrir, setAbrir] = useState(false);
+export default function Especialidade({ EspecialidadeCarregada, especialidadeSelecionada, isOpen, setIsOpen }: EspecialidadeProps) {
   const [valor, setValor] = useState<string | null>(especialidadeSelecionada);
   const [itens, setItens] = useState<{ label: string; value: string; key: string }[]>([]);
 
@@ -49,10 +50,10 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
   return (
     <View style={styles.container}>
       <DropDownPicker
-        open={abrir}
+        open={isOpen}
         value={valor}
         items={itens}
-        setOpen={setAbrir}
+        setOpen={setIsOpen}
         setValue={setValor}
         onChangeValue={handleChangeValue}
         setItems={setItens}

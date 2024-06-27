@@ -8,10 +8,11 @@ import { styles } from "./styles";
 interface UnidadeAtendimentoProps {
   UnidadeAtendimentoCarregada : (unidadeatendimentoId: string | null, unidadeAtendimentoNome: string | null, idEmpresa: string | null) => void;
   unidadeAtendimentoSelecionada: string | null;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 };
 
-export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidadeAtendimentoSelecionada}: UnidadeAtendimentoProps) {
-  const [abrir, setAbrir] = useState(false);
+export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidadeAtendimentoSelecionada, isOpen, setIsOpen}: UnidadeAtendimentoProps) {
   const [valor, setValor] = useState<string | null>(unidadeAtendimentoSelecionada);
   const [itens, setItens] = useState<{ label: string; value: string; key: string, idEmpresa: string }[]>([]);
 
@@ -51,10 +52,10 @@ export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidade
   return (
     <View style={styles.container}>
       <DropDownPicker
-        open={abrir}
+        open={isOpen}
         value={valor}
         items={itens}
-        setOpen={setAbrir}
+        setOpen={setIsOpen}
         setValue={setValor}
         onChangeValue={handleChangeValue}
         setItems={setItens}

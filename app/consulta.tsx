@@ -67,6 +67,9 @@ export default function Consulta() {
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] = useState<string | null>(null);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
+  const [isUnidadeAtendimentoOpen, setIsUnidadeAtendimentoOpen] = useState(false);
+  const [isEspecialidadeOpen, setIsEspecialidadeOpen] = useState(false);
+  const [isMedicoOpen, setIsMedicoOpen] = useState(false);
 
   const [consulta, setConsulta] = useState<Consulta>({
     usuarioId: "",
@@ -267,6 +270,14 @@ export default function Consulta() {
             }));
           }}
           unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
+          isOpen={isUnidadeAtendimentoOpen}
+          setIsOpen={(isOpen: boolean) => {
+            setIsUnidadeAtendimentoOpen(isOpen);
+            if (isOpen) {
+              setIsEspecialidadeOpen(false);
+              setIsMedicoOpen(false);
+            }
+          }}
         />
 
         <View style={styles.checkboxContainer}>
@@ -289,6 +300,14 @@ export default function Consulta() {
               }));
             }}
             especialidadeSelecionada={especialidadeSelecionada}
+            isOpen={isEspecialidadeOpen}
+            setIsOpen={(isOpen: boolean) => {
+              setIsEspecialidadeOpen(isOpen);
+              if (isOpen) {
+                setIsUnidadeAtendimentoOpen(false);
+                setIsMedicoOpen(false);
+              }
+            }}
           />
         )}
 
@@ -298,6 +317,14 @@ export default function Consulta() {
             unidadeAtendimentoId={unidadeAtendimentoId}
             medicoSelecionado={medicoSelecionado ? medicoSelecionado.id : null}
             onMedicoSelect={handleMedicoSelect}
+            isOpen={isMedicoOpen}
+            setIsOpen={(isOpen: boolean) => {
+              setIsMedicoOpen(isOpen);
+              if (isOpen) {
+                setIsUnidadeAtendimentoOpen(false);
+                setIsEspecialidadeOpen(false);
+              }
+            }}
           />
         )}
         <ModalCarregamento visivel={loading} />
