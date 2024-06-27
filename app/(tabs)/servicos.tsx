@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, View, Text, ScrollView, Alert } from "react-native";
+import { SafeAreaView, ScrollView, Alert, RefreshControl } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../../styles/StylesServicosPage/styles";
 import { StatusBar } from "expo-status-bar";
@@ -7,97 +7,85 @@ import { ComponentesConsulta } from "@/components/Servicos/ComponentesConsulta/C
 import { ComponentesExame } from "@/components/Servicos/ComponentesExame/ComponenteExame";
 import AgendadoConsulta from "@/components/Servicos/Agendados/Consulta/AgendadoConsulta";
 import AgendadoExame from "@/components/Servicos/Agendados/Exames/AgendadoExame";
-import { ConsultasFicticias, ExamesFicticios } from "@/components/Servicos/Agendados/AgedamentosFiciticios";
-import { buscarAgendamentosConsulta, buscarUnidadeAtendimento } from "@/utils/requestConfig";
+import {
+  ConsultasFicticias,
+  ExamesFicticios,
+} from "@/components/Servicos/Agendados/AgedamentosFiciticios";
+import {
+  buscarAgendamentosConsulta,
+  buscarUnidadeAtendimento,
+} from "@/utils/requestConfig";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 
 const Servicos: React.FC = () => {
   const [consultas, setConsultas] = useState<any[]>([]);
   const [exames, setExames] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [idAderente, setIdAderente] = useState<string | null>(null);
   const [idEmpresa, setIdEmpresa] = useState<string | null>(null);
 
+  const fetchConsultas = async () => {
+    try {
+      setLoading(true);
+      const userId = await AsyncStorage.getItem("userId");
+      const empresaId = await AsyncStorage.getItem("empresaId");
+      if (userId && empresaId) {
+        setIdAderente(userId);
+        setIdEmpresa(empresaId);
+        const response = await buscarAgendamentosConsulta(userId, empresaId);
+        console.log("Consultas agendadas:", response.data);
+        setConsultas(response.data);
+      } else {
+        console.error("Erro", "Usuário ou empresa não encontrados.");
+      }
+    } catch (error) {
+      console.error("Erro ao carregar as consultas:", error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchUnidadesAtendimento = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const userId = await AsyncStorage.getItem('userId');
-        console.log("User ID:", userId);
-
+        const userId = await AsyncStorage.getItem("userId");
         if (userId) {
           setIdAderente(userId);
-          const response = await buscarUnidadeAtendimento();
-          const unidades = response.data;
-          console.log("Unidades de Atendimento recebidas:", unidades);
-
-          if (unidades.length > 0) {
-            const empresaId = unidades[0].idEmpresa.toString();
-            await AsyncStorage.setItem('empresaId', empresaId);
-            setIdEmpresa(empresaId);
-            return empresaId;
-          } else {
-            Alert.alert('Erro', 'Nenhuma unidade de atendimento encontrada.');
-            console.error('Erro: Nenhuma unidade de atendimento encontrada.');
-            return null;
-          }
-        } else {
-          Alert.alert('Erro', 'Usuário não encontrado.');
-          console.error('Erro: Usuário não encontrado.');
-          return null;
+          const unidadesResponse = await buscarUnidadeAtendimento();
+          const idEmpresa = unidadesResponse.data[0].idEmpresa;
+          setIdEmpresa(idEmpresa);
+          await AsyncStorage.setItem("empresaId", idEmpresa.toString());
+          await fetchConsultas();
         }
       } catch (error) {
-        Alert.alert('Erro', 'Não foi possível carregar as unidades de atendimento.');
-        console.error('Erro ao carregar as unidades de atendimento:', error);
-        return null;
+        console.error("Erro ao carregar dados:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    const fetchConsultas = async () => {
-      try {
-        setLoading(true);
-        const userId = await AsyncStorage.getItem('userId');
-        const empresaId = await AsyncStorage.getItem('empresaId');
-        console.log("User ID:", userId);
-        console.log("Empresa ID:", empresaId);
-
-        if (typeof userId === 'string' && typeof empresaId === 'string') {
-          setIdAderente(userId);
-          setIdEmpresa(empresaId);
-          const response = await buscarAgendamentosConsulta(userId, empresaId);
-          console.log("Consultas recebidas:", response.data);
-          setConsultas(response.data);
-        } else {
-          const fetchedEmpresaId = await fetchUnidadesAtendimento();
-          if (fetchedEmpresaId && typeof userId === 'string') {
-            const response = await buscarAgendamentosConsulta(userId, fetchedEmpresaId);
-            console.log("Consultas recebidas após buscar unidades:", response.data);
-            setConsultas(response.data);
-          } else {
-            Alert.alert('Erro', 'Usuário ou empresa não encontrados.');
-            console.error('Erro: Usuário ou empresa não encontrados.');
-          }
-        }
-      } catch (error) {
-        Alert.alert('Erro', 'Não foi possível carregar as consultas.');
-        console.error('Erro ao carregar as consultas:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchConsultas();
+    fetchData();
     setExames(ExamesFicticios);
   }, []);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchConsultas();
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <ScrollView>
-        <ComponentesConsulta/>
-        <ComponentesExame/>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <ComponentesConsulta />
+        <ComponentesExame />
         {loading ? (
           <ModalCarregamento visivel={loading} />
         ) : (
