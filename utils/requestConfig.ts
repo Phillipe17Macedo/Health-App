@@ -170,3 +170,14 @@ export async function buscarAgendamentosConsulta(idAderente: string, idEmpresa: 
     throw new Error('Não foi possível conectar ao servidor. Por favor, tente novamente mais tarde.');
   }
 }
+
+// Função de cancelar agendamento de consulta na API
+export async function cancelarAgendamentoConsulta(idAgendamento: number): Promise<any> {
+  try {
+    const response = await axiosConfig.delete(`/Agendamento/CancelarAgendamento/${idAgendamento}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao cancelar consulta:", error);
+    throw new Error('Não foi possível conectar ao servidor. Por favor, tente novamente mais tarde.');
+  }
+}

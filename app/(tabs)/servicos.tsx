@@ -89,7 +89,7 @@ const Servicos: React.FC = () => {
         {loading ? (
           <ModalCarregamento visivel={loading} />
         ) : (
-          <AgendadoConsulta consultas={consultas} />
+          <AgendadoConsulta consultas={consultas} onConsultaCancelada={fetchConsultas} />
         )}
         <AgendadoExame exames={exames} />
       </ScrollView>
