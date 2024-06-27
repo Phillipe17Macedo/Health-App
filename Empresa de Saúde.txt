@@ -114,5 +114,4 @@ TASK'S PARA O DIA 27/06/24
 - Implementar na tela de Login a logo para melhorar a interface do Login, parte inferior da tela >>
 - Mudar dropdown para fechar ao abri outro >> OK
 - Adicionar um contador para consultas agendadas >>
-- Adicionar um botão de cancelar consulta >>
-- Alterar o marginTop do header das telas Consulta e Exame >>
+- Adicionar um botão de cancelar consulta >> 

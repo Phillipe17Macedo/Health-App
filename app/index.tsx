@@ -1,17 +1,29 @@
 import React, { useEffect } from "react";
 import { View, Image } from "react-native";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesIndexPage/styles";
 
-export default function Index() {
+const Index = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const temporizador = setTimeout(() => {
-      router.push("/login");
-    }, 3000);
+    const verificarExibicaoInicial = async () => {
+      const exibido = await AsyncStorage.getItem("indexExibido");
 
-    return () => clearTimeout(temporizador);
+      if (exibido) {
+        router.replace("/login");
+      } else {
+        await AsyncStorage.setItem("indexExibido", "true");
+        const temporizador = setTimeout(() => {
+          router.replace("/login");
+        }, 3000);
+
+        return () => clearTimeout(temporizador);
+      }
+    };
+
+    verificarExibicaoInicial();
   }, [router]);
 
   return (
@@ -24,4 +36,6 @@ export default function Index() {
       </View>
     </View>
   );
-}
+};
+
+export default Index;
