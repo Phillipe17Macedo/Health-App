@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { buscarUnidadeAtendimento } from "@/utils/requestConfig";
@@ -9,7 +9,7 @@ interface UnidadeAtendimentoProps {
   UnidadeAtendimentoCarregada : (unidadeatendimentoId: string | null, unidadeAtendimentoNome: string | null, idEmpresa: string | null) => void;
   unidadeAtendimentoSelecionada: string | null;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidadeAtendimentoSelecionada, isOpen, setIsOpen}: UnidadeAtendimentoProps) {

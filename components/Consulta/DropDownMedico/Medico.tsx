@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { buscarMedicosEspecialidade } from "@/utils/requestConfig";
@@ -10,7 +10,7 @@ interface MedicoProps {
   medicoSelecionado: string | null;
   onMedicoSelect: (medico: any) => void;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Medico({

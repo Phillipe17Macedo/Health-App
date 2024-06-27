@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { buscarEspecialidades } from "@/utils/requestConfig";
@@ -8,7 +8,7 @@ interface EspecialidadeProps {
   EspecialidadeCarregada: (especialidadeId: string | null, especialidadeNome: string | null) => void;
   especialidadeSelecionada: string | null;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Especialidade({ EspecialidadeCarregada, especialidadeSelecionada, isOpen, setIsOpen }: EspecialidadeProps) {
