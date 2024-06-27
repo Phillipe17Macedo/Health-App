@@ -89,40 +89,40 @@ export default function Consulta() {
     telefoneContato: "34999317302",
   });
 
-  useEffect(() => {
-    const fetchUsuarioLogado = async () => {
-      try {
-        setLoading(true);
-        const cpfDoBanco = await AsyncStorage.getItem("userCpf");
-        if (cpfDoBanco) {
-          setCpfUsuario(cpfDoBanco);
+  const fetchUsuarioLogado = async () => {
+    try {
+      setLoading(true);
+      const cpfDoBanco = await AsyncStorage.getItem("userCpf");
+      if (cpfDoBanco) {
+        setCpfUsuario(cpfDoBanco);
 
-          console.log("Buscando usuário com CPF:", cpfDoBanco);
+        console.log("Buscando usuário com CPF:", cpfDoBanco);
 
-          const response = await buscarAderente(cpfDoBanco, true);
-          const usuarioLogado = response.data;
+        const response = await buscarAderente(cpfDoBanco, true);
+        const usuarioLogado = response.data;
 
-          console.log("Dados do usuário:", usuarioLogado);
-          setUsuario(usuarioLogado);
-          setConsulta((prev) => ({
-            ...prev,
-            usuario: usuarioLogado.nome,
-            usuarioId: usuarioLogado.idAderente,
-          }));
+        console.log("Dados do usuário:", usuarioLogado);
+        setUsuario(usuarioLogado);
+        setConsulta((prev) => ({
+          ...prev,
+          usuario: usuarioLogado.nome,
+          usuarioId: usuarioLogado.idAderente,
+        }));
 
-          if (usuarioLogado && usuarioLogado.idAderente) {
-            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
-            setDependentes(dependentesResponse.data);
-          }
+        if (usuarioLogado && usuarioLogado.idAderente) {
+          const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
+          setDependentes(dependentesResponse.data);
         }
-      } catch (error) {
-        console.error("Erro ao buscar usuário logado:", error);
-        Alert.alert("Erro", "Usuário não encontrado");
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("Erro ao buscar usuário logado:", error);
+      Alert.alert("Erro", "Usuário não encontrado");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchUsuarioLogado();
   }, []);
 
@@ -253,8 +253,8 @@ export default function Consulta() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
+      <HeaderConsulta onRefresh={fetchUsuarioLogado} />
       <View>
-        <HeaderConsulta />
         <DicaAgendamento />
 
         <UnidadeAtendimento

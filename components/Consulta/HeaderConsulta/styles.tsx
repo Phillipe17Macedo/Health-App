@@ -6,16 +6,18 @@ export const styles = StyleSheet.create({
     height: 'auto',
     backgroundColor: '#03A66A',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
   },
   containerLink: {
-    width: '100%',
+    width: '75%',
     height: 100,
     flexDirection: 'row',
     alignItems: 'center',
     textAlign: 'left',
     paddingLeft: 25,
-    paddingTop: 35,
+    paddingTop: 45,
+    //backgroundColor: 'blue'
   },
   containerIcone: {
     alignItems: 'center',
@@ -23,14 +25,26 @@ export const styles = StyleSheet.create({
   },
   containerTexto: {
     height: 42,
-    alignItems: 'center',
     justifyContent: 'center',
     paddingLeft: 10,
+    flexDirection: 'row',
   },
   textoHeader: {
     fontSize: 25,
     fontWeight: 'bold',
     color: '#F2F2F2',
     fontVariant: ['small-caps'],
+  },
+  refreshButton: {
+    padding: 10,
+    marginTop: 30,
+    //backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textoIcone: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#FFF'
   },
 });
