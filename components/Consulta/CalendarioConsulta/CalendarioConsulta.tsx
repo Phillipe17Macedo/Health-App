@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, View, Text, TouchableOpacity } from "react-native";
+import { Modal, View, Text, TouchableOpacity, Alert } from "react-native";
 import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
 import { buscarDiasAtendimentoMedico } from "@/utils/requestConfig";
 import { styles } from "./styles";
@@ -98,37 +98,47 @@ export default function CalendarioConsulta({
       );
       const response = await buscarDiasAtendimentoMedico(medicoId, mes, ano);
       const diasAtendimento = response.data;
-      const novaDataMarcada: Record<string, any> = {};
+      //const novaDataMarcada: Record<string, any> = {};
 
-      diasAtendimento.forEach((item: any) => {
-        const dataFormatada = item.data.split("T")[0];
-        novaDataMarcada[dataFormatada] = {
-          marked: true,
-          textColor: "#03A66A",
-        };
-      });
-
-      const hoje = new Date();
-      const ultimoDiaMes = new Date(ano, mes, 0);
-      for (let dia = 1; dia <= ultimoDiaMes.getDate(); dia++) {
-        const date = new Date(ano, mes - 1, dia).toISOString().split("T")[0];
-        if (!novaDataMarcada[date]) {
-          novaDataMarcada[date] = {
-            disabled: true,
-            textColor: "#878787",
-            customStyles: {
-              text: {
-                textDecorationLine: "line-through",
-              },
-            },
-          };
+      if (diasAtendimento.lenght === 0) {
+        if(mes === 12) {
+          await fetchDiasAtendimento(medicoId, 1, ano + 1);
+        } else {
+          await fetchDiasAtendimento(medicoId, mes + 1, ano);
         }
+      } else {
+        const novaDataMarcada: Record<string, any> = {};
+
+        diasAtendimento.forEach((item: any) => {
+          const dataFormatada = item.data.split("T")[0];
+          novaDataMarcada[dataFormatada] = {
+            marked: true,
+            textColor: "#03A66A",
+          };
+        });
+
+        //const hoje = new Date();
+        const ultimoDiaMes = new Date(ano, mes, 0);
+        for (let dia = 1; dia <= ultimoDiaMes.getDate(); dia++) {
+          const date = new Date(ano, mes - 1, dia).toISOString().split("T")[0];
+          if (!novaDataMarcada[date]) {
+            novaDataMarcada[date] = {
+              disabled: true,
+              textColor: "#878787",
+              customStyles: {
+                text: {
+                  textDecorationLine: "line-through",
+                },
+              },
+            };
+          }
+        }
+      
+        console.log("Dias de Atendimento Carregados: ", diasAtendimento);
+
+        setDiasDisponiveis(diasAtendimento);
+        setDataMarcada(novaDataMarcada);
       }
-
-      console.log("Dias de Atendimento Carregados: ", diasAtendimento);
-
-      setDiasDisponiveis(diasAtendimento);
-      setDataMarcada(novaDataMarcada);
     } catch (error) {
       console.error("Erro ao buscar dias de atendimento:", error);
     }
@@ -169,8 +179,16 @@ export default function CalendarioConsulta({
 
   const handleConfirm = () => {
     if (selectedDate) {
-      onDateSelect(selectedDate);
-      onClose();
+      const diaSelecionado = diasDisponiveis.find(
+        (dia: any) => dia.data.split("T")[0] === selectedDate
+      );
+
+      if (diaSelecionado && diaSelecionado.horarios.length > 0) {
+        onDateSelect(selectedDate);
+        onClose();
+      } else {
+        Alert.alert("Erro", "Não há horários disponíveis para esta data.");
+      }
     }
   };
 
@@ -198,11 +216,6 @@ export default function CalendarioConsulta({
               arrowColor: "#03A66A",
             }}
             minDate={new Date().toISOString().split("T")[0]}
-            maxDate={
-              new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
-                .toISOString()
-                .split("T")[0]
-            }
           />
           <View style={[styles.containerButton]}>
             <TouchableOpacity

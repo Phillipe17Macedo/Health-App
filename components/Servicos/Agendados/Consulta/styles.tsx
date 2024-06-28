@@ -29,5 +29,9 @@ export const styles = StyleSheet.create({
     color: "#9C71D9",
     fontWeight: 'bold',
     marginLeft: 10,
-  }
+  },
+  containerButton: {
+    marginTop: 10,
+    marginBottom: 5,
+  },
 });

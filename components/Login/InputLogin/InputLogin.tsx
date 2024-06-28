@@ -63,7 +63,7 @@ export function InputLogin() {
       if (error instanceof AxiosError && error.response && error.response.status === 400) {
         Alert.alert("Erro", "Falha ao verificar o CPF. Por favor, verifique se as informações estão corretas.");
       } else {
-        Alert.alert("Erro", "Falha ao verificar o CPF");
+        Alert.alert("Servidor fora do ar!", "Tente mais tarde!");
       }
       console.log("Erro ao verificar o CPF:", error);
     } finally {

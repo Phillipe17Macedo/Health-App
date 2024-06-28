@@ -31,7 +31,7 @@ const Carrossel = () => {
         height={150}
         autoPlay={true}
         data={entries}
-        scrollAnimationDuration={1000}
+        scrollAnimationDuration={5500}
         renderItem={renderItem}
       />
     </View>

@@ -1,17 +1,35 @@
 import React, { useEffect } from "react";
 import { View, Image } from "react-native";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesIndexPage/styles";
 
 export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    const temporizador = setTimeout(() => {
-      router.push("/login");
-    }, 3000);
+    const limparAsyncStorage = async () => {
+      await AsyncStorage.clear();
+    };
 
-    return () => clearTimeout(temporizador);
+    limparAsyncStorage();
+
+    const verificarExibicaoInicial = async () => {
+      const exibido = await AsyncStorage.getItem("indexExibido");
+
+      if (exibido) {
+        router.replace("/login"); // Redireciona imediatamente para login se já foi exibido
+      } else {
+        await AsyncStorage.setItem("indexExibido", "true");
+        const temporizador = setTimeout(() => {
+          router.replace("/login"); // Redireciona para login após o temporizador
+        }, 3000);
+
+        return () => clearTimeout(temporizador);
+      }
+    };
+
+    verificarExibicaoInicial();
   }, [router]);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { buscarMedicosEspecialidade } from "@/utils/requestConfig";
@@ -9,6 +9,8 @@ interface MedicoProps {
   unidadeAtendimentoId: string | null;
   medicoSelecionado: string | null;
   onMedicoSelect: (medico: any) => void;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function Medico({
@@ -16,8 +18,9 @@ export default function Medico({
   unidadeAtendimentoId,
   medicoSelecionado,
   onMedicoSelect,
+  isOpen,
+  setIsOpen,
 }: MedicoProps) {
-  const [abrir, setAbrir] = useState(false);
   const [valor, setValor] = useState(medicoSelecionado);
   const [itens, setItens] = useState<
     { label: string; value: string; key: string; diasAtendimento: string[] }[]
@@ -63,10 +66,10 @@ export default function Medico({
   return (
     <View style={styles.container}>
       <DropDownPicker
-        open={abrir}
+        open={isOpen}
         value={valor}
         items={itens}
-        setOpen={setAbrir}
+        setOpen={setIsOpen}
         setValue={setValor}
         onChangeValue={handleChangeValue}
         setItems={setItens}

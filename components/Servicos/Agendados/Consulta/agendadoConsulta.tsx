@@ -1,8 +1,9 @@
 // AgendadoConsulta.tsx
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert, Button } from 'react-native';
 import { styles } from './styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { cancelarAgendamentoConsulta } from '@/utils/requestConfig';
 
 interface Consulta {
   id: number;
@@ -12,9 +13,22 @@ interface Consulta {
 
 interface AgendadoConsultaProps {
   consultas: Consulta[];
+  onConsultaCancelada: () => void;
 }
 
-const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas }) => {
+const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsultaCancelada }) => {
+  console.log('Consultas recebidas no componente:', consultas);
+
+  const handleCancel = async (idAgendamento: number) => {
+    try {
+      await cancelarAgendamentoConsulta(idAgendamento);
+      Alert.alert("Sucesso", "Consulta cancelada com sucesso.");
+      onConsultaCancelada();
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível cancelar a consulta. Tente novamente mais tarde.");
+    }
+  };
+
   return (
     <View style={styles.container}>
       {consultas.map((consulta) => (
@@ -24,7 +38,10 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas }) => {
             <Text style={[styles.textoIcone]}>Consulta</Text>
           </View>
           <Text style={styles.text}>Médico: {consulta.medico}</Text>
-          <Text style={styles.text}>Data: {consulta.dataConsulta}</Text>
+          <Text style={styles.text}>Data: {consulta.dataConsulta ? new Date(consulta.dataConsulta).toLocaleDateString('pt-BR') : 'N/A'}</Text>
+          <View style={[styles.containerButton]}>
+            <Button title="Cancelar Agendamento" onPress={() => handleCancel(consulta.id)} color={"#F22222"} />
+          </View>
         </View>
       ))}
     </View>

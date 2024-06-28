@@ -67,6 +67,9 @@ export default function Consulta() {
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] = useState<string | null>(null);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
+  const [isUnidadeAtendimentoOpen, setIsUnidadeAtendimentoOpen] = useState(false);
+  const [isEspecialidadeOpen, setIsEspecialidadeOpen] = useState(false);
+  const [isMedicoOpen, setIsMedicoOpen] = useState(false);
 
   const [consulta, setConsulta] = useState<Consulta>({
     usuarioId: "",
@@ -86,40 +89,40 @@ export default function Consulta() {
     telefoneContato: "34999317302",
   });
 
-  useEffect(() => {
-    const fetchUsuarioLogado = async () => {
-      try {
-        setLoading(true);
-        const cpfDoBanco = await AsyncStorage.getItem("userCpf");
-        if (cpfDoBanco) {
-          setCpfUsuario(cpfDoBanco);
+  const fetchUsuarioLogado = async () => {
+    try {
+      setLoading(true);
+      const cpfDoBanco = await AsyncStorage.getItem("userCpf");
+      if (cpfDoBanco) {
+        setCpfUsuario(cpfDoBanco);
 
-          console.log("Buscando usuário com CPF:", cpfDoBanco);
+        console.log("Buscando usuário com CPF:", cpfDoBanco);
 
-          const response = await buscarAderente(cpfDoBanco, true);
-          const usuarioLogado = response.data;
+        const response = await buscarAderente(cpfDoBanco, true);
+        const usuarioLogado = response.data;
 
-          console.log("Dados do usuário:", usuarioLogado);
-          setUsuario(usuarioLogado);
-          setConsulta((prev) => ({
-            ...prev,
-            usuario: usuarioLogado.nome,
-            usuarioId: usuarioLogado.idAderente,
-          }));
+        console.log("Dados do usuário:", usuarioLogado);
+        setUsuario(usuarioLogado);
+        setConsulta((prev) => ({
+          ...prev,
+          usuario: usuarioLogado.nome,
+          usuarioId: usuarioLogado.idAderente,
+        }));
 
-          if (usuarioLogado && usuarioLogado.idAderente) {
-            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
-            setDependentes(dependentesResponse.data);
-          }
+        if (usuarioLogado && usuarioLogado.idAderente) {
+          const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
+          setDependentes(dependentesResponse.data);
         }
-      } catch (error) {
-        console.error("Erro ao buscar usuário logado:", error);
-        Alert.alert("Erro", "Usuário não encontrado");
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("Erro ao buscar usuário logado:", error);
+      Alert.alert("Erro", "Usuário não encontrado");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchUsuarioLogado();
   }, []);
 
@@ -250,8 +253,8 @@ export default function Consulta() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
+      <HeaderConsulta onRefresh={fetchUsuarioLogado} />
       <View>
-        <HeaderConsulta />
         <DicaAgendamento />
 
         <UnidadeAtendimento
@@ -267,6 +270,14 @@ export default function Consulta() {
             }));
           }}
           unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
+          isOpen={isUnidadeAtendimentoOpen}
+          setIsOpen={(isOpen: boolean) => {
+            setIsUnidadeAtendimentoOpen(isOpen);
+            if (isOpen) {
+              setIsEspecialidadeOpen(false);
+              setIsMedicoOpen(false);
+            }
+          }}
         />
 
         <View style={styles.checkboxContainer}>
@@ -289,6 +300,14 @@ export default function Consulta() {
               }));
             }}
             especialidadeSelecionada={especialidadeSelecionada}
+            isOpen={isEspecialidadeOpen}
+            setIsOpen={(isOpen: boolean) => {
+              setIsEspecialidadeOpen(isOpen);
+              if (isOpen) {
+                setIsUnidadeAtendimentoOpen(false);
+                setIsMedicoOpen(false);
+              }
+            }}
           />
         )}
 
@@ -298,6 +317,14 @@ export default function Consulta() {
             unidadeAtendimentoId={unidadeAtendimentoId}
             medicoSelecionado={medicoSelecionado ? medicoSelecionado.id : null}
             onMedicoSelect={handleMedicoSelect}
+            isOpen={isMedicoOpen}
+            setIsOpen={(isOpen: boolean) => {
+              setIsMedicoOpen(isOpen);
+              if (isOpen) {
+                setIsUnidadeAtendimentoOpen(false);
+                setIsEspecialidadeOpen(false);
+              }
+            }}
           />
         )}
         <ModalCarregamento visivel={loading} />
