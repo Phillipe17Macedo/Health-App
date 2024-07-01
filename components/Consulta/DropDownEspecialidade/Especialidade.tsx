@@ -8,7 +8,7 @@ interface EspecialidadeProps {
   EspecialidadeCarregada: (especialidadeId: string | null, especialidadeNome: string | null) => void;
   especialidadeSelecionada: string | null;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function Especialidade({ EspecialidadeCarregada, especialidadeSelecionada, isOpen, setIsOpen }: EspecialidadeProps) {

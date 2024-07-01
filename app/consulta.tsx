@@ -139,7 +139,7 @@ export default function Consulta() {
       setLoading(true);
       const response = await buscarDiasAtendimentoMedico(medico.value, new Date().getMonth() + 1, new Date().getFullYear());
       console.log("Dias de Atendimento ao selecionar médico: ", response.data);
-      setDiasDisponiveis(response.data);
+      setDiasDisponiveis(response.data || []);
     } catch (error) {
       console.error("Erro ao buscar dias de atendimento ao selecionar médico:", error);
     } finally {
@@ -327,6 +327,7 @@ export default function Consulta() {
             }}
           />
         )}
+
         <ModalCarregamento visivel={loading} />
 
         <SelecaoDependente

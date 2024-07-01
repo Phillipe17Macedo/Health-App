@@ -9,7 +9,7 @@ interface UnidadeAtendimentoProps {
   UnidadeAtendimentoCarregada : (unidadeatendimentoId: string | null, unidadeAtendimentoNome: string | null, idEmpresa: string | null) => void;
   unidadeAtendimentoSelecionada: string | null;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function UnidadeAtendimento({UnidadeAtendimentoCarregada, unidadeAtendimentoSelecionada, isOpen, setIsOpen}: UnidadeAtendimentoProps) {

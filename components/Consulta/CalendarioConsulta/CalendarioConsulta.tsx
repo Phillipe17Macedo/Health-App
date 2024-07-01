@@ -97,7 +97,7 @@ export default function CalendarioConsulta({
         `Buscando dias de atendimento para o médico ${medicoId} no mês ${mes}/${ano}`
       );
       const response = await buscarDiasAtendimentoMedico(medicoId, mes, ano);
-      const diasAtendimento = response.data;
+      const diasAtendimento = response.data || [];
       //const novaDataMarcada: Record<string, any> = {};
 
       if (diasAtendimento.lenght === 0) {
