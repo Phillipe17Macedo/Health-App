@@ -113,7 +113,7 @@ TASK'S PARA O DIA 27/06/24
 - Implementar no calendário a condição para poder selecionar datas disponíveis nos meses a seguir >> 
 - Implementar na tela de Login a logo para melhorar a interface do Login, parte inferior da tela >> OK
 - Mudar dropdown para fechar ao abri outro >> OK
-- Adicionar um contador para consultas agendadas >>
+- Adicionar um contador para consultas agendadas >> 
 - Implementar método de cancelar agendamento >> OK
 - Adicionar um botão de cancelar consulta >>  OK
 - Mudar icone do app >> OK
