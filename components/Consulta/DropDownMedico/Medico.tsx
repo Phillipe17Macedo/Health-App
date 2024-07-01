@@ -10,7 +10,7 @@ interface MedicoProps {
   medicoSelecionado: string | null;
   onMedicoSelect: (medico: any) => void;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function Medico({
