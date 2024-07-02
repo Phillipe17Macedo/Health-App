@@ -34,4 +34,13 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
   },
+  emptyContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  emptyText: {
+    fontSize: 18,
+    color: '#888',
+  },
 });

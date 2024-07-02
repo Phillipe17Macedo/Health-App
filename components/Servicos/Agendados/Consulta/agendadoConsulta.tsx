@@ -29,6 +29,14 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsul
     }
   };
 
+  if (consultas.length === 0) {
+    return (
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>Não há consultas agendadas.</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {consultas.map((consulta) => (

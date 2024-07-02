@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
   },
   textoExame: {
-    fontSize: 21,
+    fontSize: 18,
     fontWeight: 'bold',
     fontVariant: ['small-caps'],
     color: '#52D981',

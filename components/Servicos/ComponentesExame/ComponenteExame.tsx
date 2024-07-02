@@ -11,7 +11,7 @@ export function ComponentesExame() {
       <TouchableOpacity style={[styles.container]}>
         <Link href={'/exame'} style={[styles.containerLink]}>
           <MaterialCommunityIcons name="flask-round-bottom" size={28} color="#52D981" />
-          <Text style={[styles.textoExame]}>EXAMES </Text>
+          <Text style={[styles.textoExame]}> AGENDAMENTO DE EXAMES</Text>
         </Link>
       </TouchableOpacity>
     </>

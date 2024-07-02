@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     paddingTop: 10,
   },
   textoConsultas: {
-    fontSize: 21,
+    fontSize: 18,
     fontWeight: 'bold',
     fontVariant: ['small-caps'],
     color: '#9C71D9',
