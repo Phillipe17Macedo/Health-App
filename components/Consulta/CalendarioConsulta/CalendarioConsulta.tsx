@@ -100,6 +100,7 @@ export default function CalendarioConsulta({
       const diasAtendimento = response.data || [];
       //const novaDataMarcada: Record<string, any> = {};
 
+      /*
       if (diasAtendimento.length === 0) {
         console.log(`Nenhum dia de atendimento encontrado para ${mes}/${ano}. Buscando no próximo mês.`);
         if(mes === 12) {
@@ -116,34 +117,37 @@ export default function CalendarioConsulta({
             marked: true,
             textColor: "#03A66A",
           };
-        });
+        });*/
 
-        //const hoje = new Date();
-        const ultimoDiaMes = new Date(ano, mes, 0);
-        for (let dia = 1; dia <= ultimoDiaMes.getDate(); dia++) {
-          const date = new Date(ano, mes - 1, dia).toISOString().split("T")[0];
-          if (!novaDataMarcada[date]) {
-            novaDataMarcada[date] = {
-              disabled: true,
-              textColor: "#878787",
-              customStyles: {
-                text: {
-                  textDecorationLine: "line-through",
-                },
+      const novaDataMarcada: Record<string, any> = {};
+      diasAtendimento.forEach((item: any) => {
+        const dataFormatada = item.data.split("T")[0];
+        novaDataMarcada[dataFormatada] = {
+          marked: true,
+          textColor: "#03A66A",
+        };
+      });
+
+      const ultimoDiaMes = new Date(ano, mes, 0);
+      for (let dia = 1; dia <= ultimoDiaMes.getDate(); dia++) {
+        const date = new Date(ano, mes - 1, dia).toISOString().split("T")[0];
+        if (!novaDataMarcada[date]) {
+          novaDataMarcada[date] = {
+            disabled: true,
+            textColor: "#878787",
+            customStyles: {
+              text: {
+                textDecorationLine: "line-through",
               },
-            };
-          }
+            },
+          };
         }
-      
-        console.log("Dias de Atendimento Carregados: ", diasAtendimento);
-
-        setDiasDisponiveis((prev) => {
-          const novosDias = [...prev, ...diasAtendimento];
-          console.log("Lista completa de dias disponíveis: ", novosDias);
-          return novosDias;
-        });
-        setDataMarcada((prev) => ({ ...prev, ...novaDataMarcada }));
       }
+
+      console.log("Dias de Atendimento Carregados: ", diasAtendimento);
+
+      setDiasDisponiveis(diasAtendimento);
+      setDataMarcada(novaDataMarcada);
     } catch (error) {
       console.error("Erro ao buscar dias de atendimento:", error);
     }
