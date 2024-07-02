@@ -1,33 +1,28 @@
-// StylesServicosPage/styles.ts
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
-  },
-  secaoContainer: {
-    marginVertical: 10,
-  },
-  naoAgendamentosText: {
-    textAlign: 'center',
-    margin: 10,
-    fontSize: 16,
-    color: '#555',
-  },
-  containerScroll: {
     backgroundColor: '#fff',
-    alignSelf: 'center',
-    //marginBottom: 90,
-    width: '100%',
-    elevation: 3,
+  },
+  toggleButton: {
+    padding: 10,
+    backgroundColor: '#03A66A',
+    alignItems: 'center',
+    margin: 10,
     borderRadius: 5,
   },
-  textoSecao: {
+  toggleButtonText: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: 'bold',
-    fontSize: 22,
-    alignSelf: 'flex-start',
-    color: '#3E3D3D',
-    marginLeft: 25,
-  }
+  },
+  emptyContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 18,
+    color: '#888',
+  },
 });
