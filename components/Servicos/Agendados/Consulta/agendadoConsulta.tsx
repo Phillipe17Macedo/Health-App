@@ -7,7 +7,8 @@ import { cancelarAgendamentoConsulta } from '@/utils/requestConfig';
 
 interface Consulta {
   id: number;
-  dataConsulta: string | null;
+  dataAgenda: string | null;
+  horaAgenda: string | null;
   medico: string;
 }
 
@@ -46,7 +47,8 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsul
             <Text style={[styles.textoIcone]}>Consulta</Text>
           </View>
           <Text style={styles.text}>Médico: {consulta.medico}</Text>
-          <Text style={styles.text}>Data: {consulta.dataConsulta ? new Date(consulta.dataConsulta).toLocaleDateString('pt-BR') : 'N/A'}</Text>
+          <Text style={styles.text}>Data: {consulta.dataAgenda ? new Date(consulta.dataAgenda).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : 'N/A'}</Text>
+          <Text style={styles.text}>Horário: {consulta.horaAgenda}</Text>
           <View style={[styles.containerButton]}>
             <Button title="Cancelar Agendamento" onPress={() => handleCancel(consulta.id)} color={"#F22222"} />
           </View>
