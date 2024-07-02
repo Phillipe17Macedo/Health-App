@@ -149,7 +149,13 @@ export default function Consulta() {
 
   const handleDateSelect = (date: string) => {
     console.log("Data Selecionada: ", date);
-    const diaSelecionado = diasDisponiveis.find((dia: any) => dia.data.split("T")[0] === date);
+
+    const todosDiasDisponiveis = [...diasDisponiveis];
+
+  const diaSelecionado = todosDiasDisponiveis.find((dia: any) => {
+    console.log(`Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
+    return dia.data.split("T")[0] === date;
+  });
 
     if (diaSelecionado) {
       console.log("Dia da Semana Selecionado: ", diaSelecionado.dia);

@@ -100,7 +100,8 @@ export default function CalendarioConsulta({
       const diasAtendimento = response.data || [];
       //const novaDataMarcada: Record<string, any> = {};
 
-      if (diasAtendimento.lenght === 0) {
+      if (diasAtendimento.length === 0) {
+        console.log(`Nenhum dia de atendimento encontrado para ${mes}/${ano}. Buscando no próximo mês.`);
         if(mes === 12) {
           await fetchDiasAtendimento(medicoId, 1, ano + 1);
         } else {
@@ -136,8 +137,12 @@ export default function CalendarioConsulta({
       
         console.log("Dias de Atendimento Carregados: ", diasAtendimento);
 
-        setDiasDisponiveis(diasAtendimento);
-        setDataMarcada(novaDataMarcada);
+        setDiasDisponiveis((prev) => {
+          const novosDias = [...prev, ...diasAtendimento];
+          console.log("Lista completa de dias disponíveis: ", novosDias);
+          return novosDias;
+        });
+        setDataMarcada((prev) => ({ ...prev, ...novaDataMarcada }));
       }
     } catch (error) {
       console.error("Erro ao buscar dias de atendimento:", error);
@@ -145,6 +150,7 @@ export default function CalendarioConsulta({
   };
 
   const handleMonthChange = (month: DateData) => {
+    console.log(`Mudança de mês: ${month.month}/${month.year}`);
     setMesAtual(month.month);
     setAnoAtual(month.year);
   };

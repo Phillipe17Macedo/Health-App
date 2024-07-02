@@ -117,3 +117,14 @@ TASK'S PARA O DIA 27/06/24
 - Implementar método de cancelar agendamento >> OK
 - Adicionar um botão de cancelar consulta >>  OK
 - Mudar icone do app >> OK
+
+************************************************************************//*****************************************************************************************
+
+TASK'S PARA O DIA 02/07/24
+
+- Corrigir problema do Calendário para selecionar dias do mês seguinte >>
+- Adicionar um contador para consultas agendadas >>
+- Limpar dropdowns, assim que é confirmado a consulta, ou os modais feecharem >>
+- Mudar componentes na Tela de Serviço >>
+- Mudar concultas para agendamento consulta >>
+- Mudar botão de cancelar consulta >>
