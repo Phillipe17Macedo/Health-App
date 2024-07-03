@@ -77,12 +77,6 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: '#888',
   },
-  containerTempo: {
-    backgroundColor: 'lightgray',
-    padding: 10,
-    marginTop: 10,
-    borderRadius: 5,
-  },
   textoContainerTempo: {
     fontSize: 14,
     color: "#3E3D3D",
@@ -93,5 +87,15 @@ export const styles = StyleSheet.create({
     color: "#3E3D3D",
     fontWeight: 'bold',
     backgroundColor: 'lightgray',
+  },
+  containerTempo: {
+    flexDirection: 'row',
+    backgroundColor: 'lightgray',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 10,
+    height: 60,
+    padding: 10,
+    borderRadius: 5,
   }
 });
