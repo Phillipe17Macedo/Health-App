@@ -9,6 +9,7 @@ interface Consulta {
   dataAgenda: string | null;
   horaAgenda: string | null;
   medico: string;
+  status: string;
 }
 
 interface AgendadoConsultaProps {
@@ -64,6 +65,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsul
         <Text style={styles.text}>Médico: {consulta.medico}</Text>
         <Text style={styles.text}>Data: {consulta.dataAgenda ? new Date(consulta.dataAgenda).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : 'N/A'}</Text>
         <Text style={styles.text}>Horário: {consulta.horaAgenda}</Text>
+        <Text style={styles.text}>Agendamento: {consulta.status}</Text>
         <View style={styles.containerTempo}>
           <Text style={styles.textoContainerTempo}>Tempo Restante para cancelar - <Text style={styles.textoTempo}>{tempoFormatado(tempoRestante)}</Text></Text>
         </View>
