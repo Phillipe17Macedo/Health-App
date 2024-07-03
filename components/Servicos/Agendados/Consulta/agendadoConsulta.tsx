@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { cancelarAgendamentoConsulta } from '@/utils/requestConfig';
 
 interface Consulta {
-  id: number;
+  idAgenda: number;
   dataAgenda: string | null;
   horaAgenda: string | null;
   medico: string;
@@ -41,7 +41,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsul
   return (
     <View style={styles.container}>
       {consultas.map((consulta) => (
-        <View key={consulta.id} style={styles.item}>
+        <View key={consulta.idAgenda} style={styles.item}>
           <View style={[styles.constainerIcone]}>
             <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
             <Text style={[styles.textoIcone]}>Consulta Agendada</Text>
@@ -58,7 +58,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsul
               <Text style={styles.textoButtonConfirmar}>Confirmar Agendamento</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.containerButtonCancelar]}>
-              <Text onPress={() => handleCancel(consulta.id)} style={styles.textoButtonCancelar} >Cancelar Agendamento</Text>
+              <Text onPress={() => handleCancel(consulta.idAgenda)} style={styles.textoButtonCancelar} >Cancelar Agendamento</Text>
             </TouchableOpacity>
           </View>
         </View>

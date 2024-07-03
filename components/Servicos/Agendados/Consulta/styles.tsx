@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     marginBottom: 5,
   },
   containerButtonConfirmar: {
-    height: 50,
+    height: 40,
     width: 140,
     alignItems: 'center',
     justifyContent: 'center',
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F22',
     borderRadius: 10,
     padding: 5,
-    height: 50,
+    height: 40,
     width: 140,
     elevation: 3,
   },
@@ -78,9 +78,10 @@ export const styles = StyleSheet.create({
     color: '#888',
   },
   containerTempo: {
-    //backgroundColor: 'lightgray',
-    //padding: 10,
+    backgroundColor: 'lightgray',
+    padding: 10,
     marginTop: 10,
+    borderRadius: 5,
   },
   textoContainerTempo: {
     fontSize: 14,

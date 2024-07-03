@@ -6,11 +6,13 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   toggleButton: {
+    width: '85%',
+    alignSelf: 'center',
     padding: 10,
     backgroundColor: '#03A66A',
     alignItems: 'center',
     margin: 10,
-    borderRadius: 5,
+    borderRadius: 8,
   },
   toggleButtonText: {
     color: '#fff',

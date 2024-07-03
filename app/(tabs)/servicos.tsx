@@ -44,7 +44,7 @@ const Servicos: React.FC = () => {
         setIdEmpresa(empresaId);
         const response = await buscarAgendamentosConsulta(userId, empresaId);
         console.log("Consultas agendadas:", response.data);
-        setConsultas(response.data);
+        setConsultas(response.data ?? []);
       } else {
         console.error("Erro", "Usuário ou empresa não encontrados.");
       }
