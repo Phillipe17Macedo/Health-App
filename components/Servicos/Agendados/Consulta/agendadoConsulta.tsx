@@ -88,8 +88,8 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
     const textoTempo =
       tempoRestante !== null
         ? tempoRestante <= vinteEQuatroHorasEmMilissegundos
-          ? `Resta ${tempoFormatado(tempoRestante)} para sua consulta`
-          : `Resta ${tempoFormatado(tempoRestante)} para cancelar`
+          ? `Resta `
+          : `Resta `
         : "Informações de data e horário inválidas";
 
     return (
@@ -111,9 +111,19 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
         <Text style={styles.text}>Agendamento: {consulta.status}</Text>
 
         <View style={styles.containerTempo}>
-          <Text style={styles.textoContainerTempo}>
-            {textoTempo}
-          </Text>
+          {tempoRestante !== null ? (
+            <Text style={styles.textoContainerTempo}>
+              {textoTempo}
+              <Text style={styles.textoTempo}>
+                {tempoFormatado(tempoRestante)}
+              </Text>{" "}
+              {tempoRestante <= vinteEQuatroHorasEmMilissegundos ? "para sua consulta" : "para cancelar"}:
+            </Text>
+          ) : (
+            <Text style={styles.textoContainerTempo}>
+              Informações de data e horário inválidas
+            </Text>
+          )}
           {mostrarBotaoCancelar && (
             <TouchableOpacity style={[styles.containerButtonCancelar]}>
               <Text
