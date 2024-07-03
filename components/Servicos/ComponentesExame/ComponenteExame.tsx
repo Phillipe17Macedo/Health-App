@@ -11,7 +11,7 @@ export function ComponentesExame() {
         <Link href={"/exame"} style={{ width: 150 }}>
           <View style={[styles.containerLink]}>
             <MaterialCommunityIcons
-              name="heart-plus"
+              name="flask-round-bottom"
               size={64}
               color="#52D981"
             />

@@ -12,7 +12,7 @@ export function ComponentesConsulta() {
         <Link href={"/consulta"} style={{ width: 150 }}>
           <View style={[styles.containerLink]}>
             <MaterialCommunityIcons
-              name="flask-plus"
+              name="pill"
               size={64}
               color="#9C71D9"
             />
