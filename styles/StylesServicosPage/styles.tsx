@@ -33,5 +33,6 @@ export const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     color: '#888',
+    fontWeight: 'bold'
   },
 });
