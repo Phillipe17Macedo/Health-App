@@ -88,7 +88,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
             <Text style={styles.textoTempo}>
               {tempoFormatado(tempoRestante)}
             </Text>{" "}
-            para cancelar.
+            para cancelar:
           </Text>
           <TouchableOpacity style={[styles.containerButtonCancelar]}>
             <Text
