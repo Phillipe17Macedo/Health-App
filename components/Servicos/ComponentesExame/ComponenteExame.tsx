@@ -1,17 +1,22 @@
 import React from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 import { Link } from "expo-router";
-import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
 
 export function ComponentesExame() {
   return (
     <>
-      <TouchableOpacity style={[styles.container]}>
-        <Link href={'/exame'} style={[styles.containerLink]}>
-          <MaterialCommunityIcons name="flask-round-bottom" size={28} color="#52D981" />
-          <Text style={[styles.textoExame]}> AGENDAMENTO DE EXAMES</Text>
+      <TouchableOpacity style={styles.container}>
+        <Link href={"/exame"} style={{ width: 150 }}>
+          <View style={[styles.containerLink]}>
+            <MaterialCommunityIcons
+              name="heart-plus"
+              size={64}
+              color="#52D981"
+            />
+            <Text style={[styles.textoConsultas]}>Agendar Exame</Text>
+          </View>
         </Link>
       </TouchableOpacity>
     </>

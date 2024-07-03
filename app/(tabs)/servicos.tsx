@@ -93,8 +93,11 @@ const Servicos: React.FC = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <ComponentesConsulta />
-        <ComponentesExame />
+        <View style={styles.containerOpcoesServicos} >
+          <ComponentesConsulta />
+          <ComponentesExame />
+        </View>
+
 
         <TouchableOpacity
           style={styles.toggleButton}

@@ -5,6 +5,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  containerOpcoesServicos: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    //backgroundColor: 'gray',
+    marginTop: 25,
+    marginBottom: 25,
+  },
   toggleButton: {
     width: '85%',
     alignSelf: 'center',
