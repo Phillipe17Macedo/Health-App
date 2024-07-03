@@ -18,10 +18,10 @@ export function DicaAgendamento() {
           Para agendar uma consulta, siga os passos abaixo:
         </Text>
         <Text style={styles.orientacao}>
-          1- Selecione a Unidade de Atendimento.
+          1- Marque se é para um Dependente ou Não.
         </Text>
         <Text style={styles.orientacao}>
-          2- Marque se é para um Dependente ou Não.
+          2- Selecione a Unidade de Atendimento.
         </Text>
         <Text style={styles.orientacao}>
           3- Selecione a Especialidade da consulta.

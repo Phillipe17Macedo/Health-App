@@ -30,8 +30,68 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 10,
   },
-  containerButton: {
-    marginTop: 10,
+  conatinersButtons: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'space-evenly',
+    width: '100%',
+    //backgroundColor: 'gray',
+    marginTop: 12,
     marginBottom: 5,
   },
+  containerButtonConfirmar: {
+    height: 40,
+    width: 140,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#8CBF1F',
+    elevation: 3,
+  },
+  textoButtonConfirmar: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#FFF',
+  },
+  containerButtonCancelar: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F22',
+    borderRadius: 10,
+    padding: 5,
+    height: 40,
+    width: 140,
+    elevation: 3,
+  },
+  textoButtonCancelar: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  emptyContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  emptyText: {
+    fontSize: 18,
+    color: '#888',
+  },
+  containerTempo: {
+    backgroundColor: 'lightgray',
+    padding: 10,
+    marginTop: 10,
+    borderRadius: 5,
+  },
+  textoContainerTempo: {
+    fontSize: 14,
+    color: "#3E3D3D",
+    fontWeight: 'normal',
+  },
+  textoTempo: { 
+    fontSize: 14,
+    color: "#3E3D3D",
+    fontWeight: 'bold',
+    backgroundColor: 'lightgray',
+  }
 });

@@ -149,7 +149,13 @@ export default function Consulta() {
 
   const handleDateSelect = (date: string) => {
     console.log("Data Selecionada: ", date);
-    const diaSelecionado = diasDisponiveis.find((dia: any) => dia.data.split("T")[0] === date);
+
+    const todosDiasDisponiveis = [...diasDisponiveis];
+
+  const diaSelecionado = todosDiasDisponiveis.find((dia: any) => {
+    console.log(`Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
+    return dia.data.split("T")[0] === date;
+  });
 
     if (diaSelecionado) {
       console.log("Dia da Semana Selecionado: ", diaSelecionado.dia);
@@ -201,6 +207,15 @@ export default function Consulta() {
     setSelectDependenteVisivel(false);
   };
 
+  const limparCampos = () => {
+    setUnidadeAtendimentoId(null);
+    setUnidadeAtendimentoNome(null);
+    setUnidadeAtendimentoIdEmpresa(null);
+    setEspecialidadeId(null);
+    setEspecialidadeNome(null);
+    setMedicoSelecionado(null);
+  };
+
   const handleConfirm = async () => {
     if (!consulta.medico || !consulta.medicoId) {
       Alert.alert("Erro", "Por favor, selecione um médico.");
@@ -238,9 +253,9 @@ export default function Consulta() {
       Alert.alert("Erro", "Não foi possível salvar a consulta.");
     } finally {
       setLoading(false);
+      setConfirmacaoVisivel(false);
+      limparCampos();
     }
-
-    setConfirmacaoVisivel(false);
   };
 
   const handleCheckboxChange = (checked: boolean) => {
@@ -256,6 +271,14 @@ export default function Consulta() {
       <HeaderConsulta onRefresh={fetchUsuarioLogado} />
       <View>
         <DicaAgendamento />
+
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            status={isDependente ? "checked" : "unchecked"}
+            onPress={() => handleCheckboxChange(!isDependente)}
+          />
+          <Text style={styles.label}>Para um dependente?</Text>
+        </View>
 
         <UnidadeAtendimento
           UnidadeAtendimentoCarregada={(id, nome, idEmpresa) => {
@@ -279,14 +302,6 @@ export default function Consulta() {
             }
           }}
         />
-
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            status={isDependente ? "checked" : "unchecked"}
-            onPress={() => handleCheckboxChange(!isDependente)}
-          />
-          <Text style={styles.label}>Para um dependente?</Text>
-        </View>
 
         {unidadeAtendimentoId && (
           <Especialidade
@@ -360,7 +375,10 @@ export default function Consulta() {
         {confirmacaoVisivel && consulta && (
           <ConfirmacaoConsulta
             visivel={confirmacaoVisivel}
-            onClose={() => setConfirmacaoVisivel(false)}
+            onClose={() => {
+              setConfirmacaoVisivel(false);
+              limparCampos();
+            }}
             onConfirm={handleConfirm}
             consulta={{
               usuario: consulta.usuario,

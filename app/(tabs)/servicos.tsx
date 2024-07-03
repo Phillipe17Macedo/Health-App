@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, Alert, RefreshControl } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  Alert,
+  RefreshControl,
+  View,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../../styles/StylesServicosPage/styles";
 import { StatusBar } from "expo-status-bar";
@@ -24,6 +32,7 @@ const Servicos: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [idAderente, setIdAderente] = useState<string | null>(null);
   const [idEmpresa, setIdEmpresa] = useState<string | null>(null);
+  const [mostrarConsultas, setMostrarConsultas] = useState(false);
 
   const fetchConsultas = async () => {
     try {
@@ -35,7 +44,7 @@ const Servicos: React.FC = () => {
         setIdEmpresa(empresaId);
         const response = await buscarAgendamentosConsulta(userId, empresaId);
         console.log("Consultas agendadas:", response.data);
-        setConsultas(response.data);
+        setConsultas(response.data ?? []);
       } else {
         console.error("Erro", "Usuário ou empresa não encontrados.");
       }
@@ -84,13 +93,37 @@ const Servicos: React.FC = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <ComponentesConsulta />
-        <ComponentesExame />
+        <View style={styles.containerOpcoesServicos} >
+          <ComponentesConsulta />
+          <ComponentesExame />
+        </View>
+
+
+        <TouchableOpacity
+          style={styles.toggleButton}
+          onPress={() => setMostrarConsultas(!mostrarConsultas)}
+        >
+          <Text style={styles.toggleButtonText}>
+            {mostrarConsultas
+              ? "Esconder Consultas Agendadas"
+              : "Mostrar Consultas Agendadas"}
+          </Text>
+        </TouchableOpacity>
+
         {loading ? (
           <ModalCarregamento visivel={loading} />
-        ) : (
-          <AgendadoConsulta consultas={consultas} onConsultaCancelada={fetchConsultas} />
-        )}
+        ) : mostrarConsultas ? (
+          consultas.length > 0 ? (
+            <AgendadoConsulta
+              consultas={consultas}
+              onConsultaCancelada={fetchConsultas}
+            />
+          ) : (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>Não há consultas agendadas.</Text>
+            </View>
+          )
+        ) : null}
         <AgendadoExame exames={exames} />
       </ScrollView>
     </SafeAreaView>
