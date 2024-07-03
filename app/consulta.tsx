@@ -207,6 +207,15 @@ export default function Consulta() {
     setSelectDependenteVisivel(false);
   };
 
+  const limparCampos = () => {
+    setUnidadeAtendimentoId(null);
+    setUnidadeAtendimentoNome(null);
+    setUnidadeAtendimentoIdEmpresa(null);
+    setEspecialidadeId(null);
+    setEspecialidadeNome(null);
+    setMedicoSelecionado(null);
+  };
+
   const handleConfirm = async () => {
     if (!consulta.medico || !consulta.medicoId) {
       Alert.alert("Erro", "Por favor, selecione um médico.");
@@ -244,9 +253,9 @@ export default function Consulta() {
       Alert.alert("Erro", "Não foi possível salvar a consulta.");
     } finally {
       setLoading(false);
+      setConfirmacaoVisivel(false);
+      limparCampos();
     }
-
-    setConfirmacaoVisivel(false);
   };
 
   const handleCheckboxChange = (checked: boolean) => {
@@ -366,7 +375,10 @@ export default function Consulta() {
         {confirmacaoVisivel && consulta && (
           <ConfirmacaoConsulta
             visivel={confirmacaoVisivel}
-            onClose={() => setConfirmacaoVisivel(false)}
+            onClose={() => {
+              setConfirmacaoVisivel(false);
+              limparCampos();
+            }}
             onConfirm={handleConfirm}
             consulta={{
               usuario: consulta.usuario,
