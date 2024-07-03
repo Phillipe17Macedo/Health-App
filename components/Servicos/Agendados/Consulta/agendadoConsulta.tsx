@@ -38,32 +38,51 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
 
   const tempoFormatado = (milisegundos: number) => {
     const segundosTotais = Math.floor(milisegundos / 1000);
-    const horas = Math.floor(segundosTotais / 3600);
+    const dias = Math.floor(segundosTotais / 86400);
+    const horas = Math.floor((segundosTotais % 86400) / 3600);
     const minutos = Math.floor((segundosTotais % 3600) / 60);
     const segundos = segundosTotais % 60;
-    return `${horas.toString().padStart(2, "0")}:${minutos
+    return `${dias > 0 ? `${dias}d ` : ""}${horas.toString().padStart(2, "0")}:${minutos
       .toString()
       .padStart(2, "0")}:${segundos.toString().padStart(2, "0")}`;
   };
 
   const ConsultaItem: React.FC<{ consulta: Consulta }> = ({ consulta }) => {
-    const [tempoRestante, setTempoRestante] = useState(3600000);
-    const [mostrarBotaoCancelar, setMostrarBotaoCancelar] = useState(false);
+    const [tempoRestante, setTempoRestante] = useState<number | null>(null);
+    const [mostrarBotaoCancelar, setMostrarBotaoCancelar] = useState(true);
 
     useEffect(() => {
-      const interval = setInterval(() => {
-        setTempoRestante((prevTime) => {
-          const newTime = prevTime - 1000;
-          if (newTime <= 0) {
-            clearInterval(interval);
-            return 0;
+      const calcularTempoRestante = () => {
+        if (consulta.dataAgenda && consulta.horaAgenda) {
+          const dataHoraAgendada = new Date(
+            `${consulta.dataAgenda.split("T")[0]}T${consulta.horaAgenda}`
+          );
+          const dataAtual = new Date();
+          const diferencaMilissegundos =
+            dataHoraAgendada.getTime() - dataAtual.getTime();
+
+          setTempoRestante(diferencaMilissegundos);
+
+          const vinteEQuatroHorasEmMilissegundos = 24 * 60 * 60 * 1000;
+
+          if (diferencaMilissegundos <= vinteEQuatroHorasEmMilissegundos) {
+            setMostrarBotaoCancelar(false);
+          } else {
+            setMostrarBotaoCancelar(true);
           }
-          return newTime;
-        });
+        } else {
+          setTempoRestante(null);
+        }
+      };
+
+      calcularTempoRestante();
+
+      const interval = setInterval(() => {
+        calcularTempoRestante();
       }, 1000);
 
       return () => clearInterval(interval);
-    }, []);
+    }, [consulta.dataAgenda, consulta.horaAgenda]);
 
     return (
       <View key={consulta.idAgenda} style={styles.item}>
@@ -75,7 +94,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
         <Text style={styles.text}>
           Data:{" "}
           {consulta.dataAgenda
-            ? new Date(consulta.dataAgenda).toLocaleDateString("pt-BR", {
+            ? new Date(consulta.dataAgenda.split("T")[0]).toLocaleDateString("pt-BR", {
                 timeZone: "UTC",
               })
             : "N/A"}
@@ -84,21 +103,29 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
         <Text style={styles.text}>Agendamento: {consulta.status}</Text>
 
         <View style={styles.containerTempo}>
-          <Text style={styles.textoContainerTempo}>
-            Resta{" "}
-            <Text style={styles.textoTempo}>
-              {tempoFormatado(tempoRestante)}
-            </Text>{" "}
-            para cancelar:
-          </Text>
-          <TouchableOpacity style={[styles.containerButtonCancelar]}>
-            <Text
-              onPress={() => handleCancel(consulta.idAgenda)}
-              style={styles.textoButtonCancelar}
-            >
-              Cancelar Agendamento
+          {tempoRestante !== null ? (
+            <Text style={styles.textoContainerTempo}>
+              Resta{" "}
+              <Text style={styles.textoTempo}>
+                {tempoFormatado(tempoRestante)}
+              </Text>{" "}
+              para cancelar:
             </Text>
-          </TouchableOpacity>
+          ) : (
+            <Text style={styles.textoContainerTempo}>
+              Informações de data e horário inválidas
+            </Text>
+          )}
+          {mostrarBotaoCancelar && (
+            <TouchableOpacity style={[styles.containerButtonCancelar]}>
+              <Text
+                onPress={() => handleCancel(consulta.idAgenda)}
+                style={styles.textoButtonCancelar}
+              >
+                Cancelar Agendamento
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.conatinersButtons}>

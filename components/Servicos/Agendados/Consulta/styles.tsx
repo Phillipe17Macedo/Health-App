@@ -60,13 +60,14 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     height: 40,
-    width: 120,
+    width: 90,
     elevation: 3,
   },
   textoButtonCancelar: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#fff',
+    textAlign: 'center',
   },
   emptyContainer: {
     alignItems: 'center',

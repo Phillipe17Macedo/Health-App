@@ -44,6 +44,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    borderWidth: 0.5,
+    borderColor: '#B2B2B2'
   },
   tituloAgendamento: {
     fontSize: 21,
