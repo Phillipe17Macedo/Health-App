@@ -48,6 +48,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
 
   const ConsultaItem: React.FC<{ consulta: Consulta }> = ({ consulta }) => {
     const [tempoRestante, setTempoRestante] = useState(3600000);
+    const [mostrarBotaoCancelar, setMostrarBotaoCancelar] = useState(false);
 
     useEffect(() => {
       const interval = setInterval(() => {

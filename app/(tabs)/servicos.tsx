@@ -23,6 +23,7 @@ import {
   buscarUnidadeAtendimento,
 } from "@/utils/requestConfig";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Servicos: React.FC = () => {
   const [consultas, setConsultas] = useState<any[]>([]);
@@ -94,6 +95,11 @@ const Servicos: React.FC = () => {
         <View style={styles.containerOpcoesServicos} >
           <ComponentesConsulta />
           <ComponentesExame />
+        </View>
+
+        <View style={styles.constainerTituloAgendamento}>
+          <MaterialCommunityIcons name="calendar-clock" size={28} color="#025940" />
+          <Text style={styles.tituloAgendamento}>Meus Agendamentos</Text>
         </View>
 
         {loading ? (
