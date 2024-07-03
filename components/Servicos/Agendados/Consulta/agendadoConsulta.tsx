@@ -86,11 +86,14 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
 
     const vinteEQuatroHorasEmMilissegundos = 24 * 60 * 60 * 1000;
     const textoTempo =
-      tempoRestante !== null
-        ? tempoRestante <= vinteEQuatroHorasEmMilissegundos
-          ? `Resta `
-          : `Resta `
-        : "Informações de data e horário inválidas";
+      tempoRestante !== null && tempoRestante <= vinteEQuatroHorasEmMilissegundos
+        ? `Faltam `
+        : `Faltam `;
+
+    const textoAcao =
+      tempoRestante !== null && tempoRestante <= vinteEQuatroHorasEmMilissegundos
+        ? "para sua consulta"
+        : "para cancelar";
 
     return (
       <View key={consulta.idAgenda} style={styles.item}>
@@ -114,10 +117,10 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
           {tempoRestante !== null ? (
             <Text style={styles.textoContainerTempo}>
               {textoTempo}
-              <Text style={styles.textoTempo}>
+              <Text style={[styles.textoTempo, { fontWeight: "bold" }]}>
                 {tempoFormatado(tempoRestante)}
               </Text>{" "}
-              {tempoRestante <= vinteEQuatroHorasEmMilissegundos ? "para sua consulta" : "para cancelar"}:
+              {textoAcao}
             </Text>
           ) : (
             <Text style={styles.textoContainerTempo}>
