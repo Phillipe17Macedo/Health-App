@@ -272,6 +272,14 @@ export default function Consulta() {
       <View>
         <DicaAgendamento />
 
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            status={isDependente ? "checked" : "unchecked"}
+            onPress={() => handleCheckboxChange(!isDependente)}
+          />
+          <Text style={styles.label}>Para um dependente?</Text>
+        </View>
+
         <UnidadeAtendimento
           UnidadeAtendimentoCarregada={(id, nome, idEmpresa) => {
             setUnidadeAtendimentoId(id);
@@ -294,14 +302,6 @@ export default function Consulta() {
             }
           }}
         />
-
-        <View style={styles.checkboxContainer}>
-          <Checkbox
-            status={isDependente ? "checked" : "unchecked"}
-            onPress={() => handleCheckboxChange(!isDependente)}
-          />
-          <Text style={styles.label}>Para um dependente?</Text>
-        </View>
 
         {unidadeAtendimentoId && (
           <Especialidade
