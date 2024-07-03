@@ -1,6 +1,5 @@
-// AgendadoConsulta.tsx
-import React from 'react';
-import { View, Text, Alert, Button, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Alert, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { cancelarAgendamentoConsulta } from '@/utils/requestConfig';
@@ -30,6 +29,57 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsul
     }
   };
 
+  const tempoFormatado = (milisegundos: number) => {
+    const segundosTotais = Math.floor(milisegundos / 1000);
+    const horas = Math.floor(segundosTotais / 3600);
+    const minutos = Math.floor((segundosTotais % 3600) / 60);
+    const segundos = segundosTotais % 60;
+    return `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+  };
+
+  const ConsultaItem: React.FC<{ consulta: Consulta }> = ({ consulta }) => {
+    const [tempoRestante, setTempoRestante] = useState(3600000); 
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setTempoRestante(prevTime => {
+          const newTime = prevTime - 1000;
+          if (newTime <= 0) {
+            clearInterval(interval);
+            return 0;
+          }
+          return newTime;
+        });
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }, []);
+
+    return (
+      <View key={consulta.idAgenda} style={styles.item}>
+        <View style={[styles.constainerIcone]}>
+          <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
+          <Text style={[styles.textoIcone]}>Consulta Agendada</Text>
+        </View>
+        <Text style={styles.text}>Médico: {consulta.medico}</Text>
+        <Text style={styles.text}>Data: {consulta.dataAgenda ? new Date(consulta.dataAgenda).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : 'N/A'}</Text>
+        <Text style={styles.text}>Horário: {consulta.horaAgenda}</Text>
+        <View style={styles.containerTempo}>
+          <Text style={styles.textoContainerTempo}>Tempo Restante para cancelar - <Text style={styles.textoTempo}>{tempoFormatado(tempoRestante)}</Text></Text>
+        </View>
+
+        <View style={styles.conatinersButtons}>
+          <TouchableOpacity style={styles.containerButtonConfirmar}>
+            <Text style={styles.textoButtonConfirmar}>Confirmar Agendamento</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.containerButtonCancelar]}>
+            <Text onPress={() => handleCancel(consulta.idAgenda)} style={styles.textoButtonCancelar} >Cancelar Agendamento</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
   if (consultas.length === 0) {
     return (
       <View style={styles.emptyContainer}>
@@ -41,27 +91,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({ consultas, onConsul
   return (
     <View style={styles.container}>
       {consultas.map((consulta) => (
-        <View key={consulta.idAgenda} style={styles.item}>
-          <View style={[styles.constainerIcone]}>
-            <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
-            <Text style={[styles.textoIcone]}>Consulta Agendada</Text>
-          </View>
-          <Text style={styles.text}>Médico: {consulta.medico}</Text>
-          <Text style={styles.text}>Data: {consulta.dataAgenda ? new Date(consulta.dataAgenda).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : 'N/A'}</Text>
-          <Text style={styles.text}>Horário: {consulta.horaAgenda}</Text>
-          <View style={styles.containerTempo}>
-            <Text style={styles.textoContainerTempo}>Tempo Restante para cancelar - <Text style={styles.textoTempo}>23:56:37</Text></Text>
-          </View>
-
-          <View style={styles.conatinersButtons}>
-            <TouchableOpacity style={styles.containerButtonConfirmar}>
-              <Text style={styles.textoButtonConfirmar}>Confirmar Agendamento</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.containerButtonCancelar]}>
-              <Text onPress={() => handleCancel(consulta.idAgenda)} style={styles.textoButtonCancelar} >Cancelar Agendamento</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <ConsultaItem key={consulta.idAgenda} consulta={consulta} />
       ))}
     </View>
   );
