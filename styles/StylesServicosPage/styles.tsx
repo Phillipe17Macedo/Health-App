@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
   containerOpcoesServicos: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     //backgroundColor: 'gray',
     marginTop: 25,
     marginBottom: 25,
@@ -33,5 +33,24 @@ export const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     color: '#888',
+    fontWeight: 'bold'
+  },
+  constainerTituloAgendamento: {
+    width: '90%',
+    height: 40, 
+    backgroundColor: '#F8F8F6',
+    elevation: 3,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    borderWidth: 0.5,
+    borderColor: '#B2B2B2'
+  },
+  tituloAgendamento: {
+    fontSize: 21,
+    fontWeight: 'bold',
+    color: '#025940',
+    marginLeft: 10,
   },
 });

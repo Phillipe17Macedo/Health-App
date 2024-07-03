@@ -6,7 +6,6 @@ import {
   RefreshControl,
   View,
   Text,
-  TouchableOpacity,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../../styles/StylesServicosPage/styles";
@@ -24,6 +23,7 @@ import {
   buscarUnidadeAtendimento,
 } from "@/utils/requestConfig";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Servicos: React.FC = () => {
   const [consultas, setConsultas] = useState<any[]>([]);
@@ -32,7 +32,6 @@ const Servicos: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [idAderente, setIdAderente] = useState<string | null>(null);
   const [idEmpresa, setIdEmpresa] = useState<string | null>(null);
-  const [mostrarConsultas, setMostrarConsultas] = useState(false);
 
   const fetchConsultas = async () => {
     try {
@@ -98,21 +97,14 @@ const Servicos: React.FC = () => {
           <ComponentesExame />
         </View>
 
-
-        <TouchableOpacity
-          style={styles.toggleButton}
-          onPress={() => setMostrarConsultas(!mostrarConsultas)}
-        >
-          <Text style={styles.toggleButtonText}>
-            {mostrarConsultas
-              ? "Esconder Consultas Agendadas"
-              : "Mostrar Consultas Agendadas"}
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.constainerTituloAgendamento}>
+          <MaterialCommunityIcons name="calendar-clock" size={28} color="#025940" />
+          <Text style={styles.tituloAgendamento}>Meus Agendamentos</Text>
+        </View>
 
         {loading ? (
           <ModalCarregamento visivel={loading} />
-        ) : mostrarConsultas ? (
+        ) : (
           consultas.length > 0 ? (
             <AgendadoConsulta
               consultas={consultas}
@@ -123,7 +115,7 @@ const Servicos: React.FC = () => {
               <Text style={styles.emptyText}>Não há consultas agendadas.</Text>
             </View>
           )
-        ) : null}
+        )}
         <AgendadoExame exames={exames} />
       </ScrollView>
     </SafeAreaView>

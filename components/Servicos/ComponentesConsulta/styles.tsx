@@ -22,9 +22,8 @@ export const styles = StyleSheet.create({
     //backgroundColor:'yellow',
   },
   textoConsultas: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
-    fontVariant: ['small-caps'],
     color: '#9C71D9',
     textAlign: 'center',
     marginTop: 15,
