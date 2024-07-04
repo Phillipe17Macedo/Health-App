@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, View, Text, TouchableOpacity, FlatList } from "react-native";
 import { styles } from './styles';
 import { FontAwesome6 } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ interface HorarioConsultaProps {
   onClose: () => void;
   onTimeSelect: (horario: any) => void;
   horariosDisponiveis: any[];
+  dataSelecionada: string | null;
 }
 
 export default function HorarioConsulta({
@@ -15,7 +16,42 @@ export default function HorarioConsulta({
   onClose,
   onTimeSelect,
   horariosDisponiveis,
+  dataSelecionada,
 }: HorarioConsultaProps) {
+  const [filteredHorarios, setFilteredHorarios] = useState<any[]>([]);
+
+  useEffect(() => {
+    const now = new Date();
+    const currentDateString = now.toISOString().split('T')[0];
+
+    console.log("Data atual:", currentDateString);
+    console.log("Data selecionada:", dataSelecionada);
+
+    if (horariosDisponiveis && horariosDisponiveis.length > 0) {
+      let filtered = horariosDisponiveis;
+
+      if (dataSelecionada === currentDateString) {
+        const currentTime = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+        console.log("Horário atual em segundos:", currentTime);
+
+        filtered = horariosDisponiveis.filter((horario) => {
+          const [horas, minutos, segundos] = horario.horario.split(':').map(Number);
+          const horarioSegundos = horas * 3600 + minutos * 60 + segundos;
+          console.log(`Horário: ${horario.horario}, em segundos: ${horarioSegundos}, comparando com o atual: ${currentTime}`);
+          return horarioSegundos > currentTime;
+        });
+
+        console.log("Horários filtrados para o dia de hoje:", filtered);
+      } else {
+        console.log("Data selecionada não é hoje, exibindo todos os horários.");
+      }
+
+      setFilteredHorarios(filtered);
+    } else {
+      console.log("Nenhum horário disponível encontrado.");
+    }
+  }, [horariosDisponiveis, dataSelecionada]);
+
   const handleTimePress = (horario: any) => {
     onTimeSelect(horario);
     onClose();
@@ -32,7 +68,7 @@ export default function HorarioConsulta({
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Selecione um Horário Disponível</Text>
           <FlatList
-            data={horariosDisponiveis}
+            data={filteredHorarios}
             keyExtractor={(item) => item.idHorario.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity

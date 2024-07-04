@@ -152,10 +152,10 @@ export default function Consulta() {
 
     const todosDiasDisponiveis = [...diasDisponiveis];
 
-  const diaSelecionado = todosDiasDisponiveis.find((dia: any) => {
-    console.log(`Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
-    return dia.data.split("T")[0] === date;
-  });
+    const diaSelecionado = todosDiasDisponiveis.find((dia: any) => {
+      console.log(`Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
+      return dia.data.split("T")[0] === date;
+    });
 
     if (diaSelecionado) {
       console.log("Dia da Semana Selecionado: ", diaSelecionado.dia);
@@ -370,6 +370,7 @@ export default function Consulta() {
           onClose={() => setHorarioVisivel(false)}
           onTimeSelect={handleTimeSelect}
           horariosDisponiveis={horariosDisponiveis}
+          dataSelecionada={dataConsulta} // Passe a data selecionada
         />
 
         {confirmacaoVisivel && consulta && (
