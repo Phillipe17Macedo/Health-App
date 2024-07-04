@@ -98,33 +98,29 @@ export default function CalendarioConsulta({
       );
       const response = await buscarDiasAtendimentoMedico(medicoId, mes, ano);
       const diasAtendimento = response.data || [];
-      //const novaDataMarcada: Record<string, any> = {};
-
-      /*
-      if (diasAtendimento.length === 0) {
-        console.log(`Nenhum dia de atendimento encontrado para ${mes}/${ano}. Buscando no próximo mês.`);
-        if(mes === 12) {
-          await fetchDiasAtendimento(medicoId, 1, ano + 1);
-        } else {
-          await fetchDiasAtendimento(medicoId, mes + 1, ano);
-        }
-      } else {
-        const novaDataMarcada: Record<string, any> = {};
-
-        diasAtendimento.forEach((item: any) => {
-          const dataFormatada = item.data.split("T")[0];
-          novaDataMarcada[dataFormatada] = {
-            marked: true,
-            textColor: "#03A66A",
-          };
-        });*/
-
       const novaDataMarcada: Record<string, any> = {};
+
+      const dataAtual = new Date();
       diasAtendimento.forEach((item: any) => {
         const dataFormatada = item.data.split("T")[0];
+        const horariosDisponiveis = item.horarios.map((horario: any) =>
+          new Date(`${dataFormatada}T${horario.horario}`).getTime()
+        );
+
+        // Verificar se há horários disponíveis depois do horário atual
+        const haHorariosDisponiveis = horariosDisponiveis.some(
+          (horario) => horario > dataAtual.getTime()
+        );
+
         novaDataMarcada[dataFormatada] = {
           marked: true,
           textColor: "#03A66A",
+          disabled: !haHorariosDisponiveis,
+          customStyles: {
+            text: {
+              textDecorationLine: haHorariosDisponiveis ? "none" : "line-through",
+            },
+          },
         };
       });
 
