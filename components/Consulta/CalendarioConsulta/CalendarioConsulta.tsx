@@ -50,6 +50,17 @@ LocaleConfig.locales["pt"] = {
 // Definir a configuração global de localidade para 'pt'
 LocaleConfig.defaultLocale = "pt";
 
+interface Horario {
+  idHorario: string;
+  horario: string;
+}
+
+interface DiaAtendimento {
+  data: string;
+  dia: string;
+  horarios: Horario[];
+}
+
 interface CalendarioConsultaProps {
   visivel: boolean;
   onClose: () => void;
@@ -77,7 +88,7 @@ export default function CalendarioConsulta({
       }
     >
   >({});
-  const [diasDisponiveis, setDiasDisponiveis] = useState<any[]>([]);
+  const [diasDisponiveis, setDiasDisponiveis] = useState<DiaAtendimento[]>([]);
   const [mesAtual, setMesAtual] = useState<number>(new Date().getMonth() + 1);
   const [anoAtual, setAnoAtual] = useState<number>(new Date().getFullYear());
 
@@ -97,13 +108,13 @@ export default function CalendarioConsulta({
         `Buscando dias de atendimento para o médico ${medicoId} no mês ${mes}/${ano}`
       );
       const response = await buscarDiasAtendimentoMedico(medicoId, mes, ano);
-      const diasAtendimento = response.data || [];
+      const diasAtendimento: DiaAtendimento[] = response.data || [];
       const novaDataMarcada: Record<string, any> = {};
 
       const dataAtual = new Date();
-      diasAtendimento.forEach((item: any) => {
+      diasAtendimento.forEach((item) => {
         const dataFormatada = item.data.split("T")[0];
-        const horariosDisponiveis = item.horarios.map((horario: any) =>
+        const horariosDisponiveis = item.horarios.map((horario) =>
           new Date(`${dataFormatada}T${horario.horario}`).getTime()
         );
 
@@ -186,7 +197,7 @@ export default function CalendarioConsulta({
   const handleConfirm = () => {
     if (selectedDate) {
       const diaSelecionado = diasDisponiveis.find(
-        (dia: any) => dia.data.split("T")[0] === selectedDate
+        (dia) => dia.data.split("T")[0] === selectedDate
       );
 
       if (diaSelecionado && diaSelecionado.horarios.length > 0) {
