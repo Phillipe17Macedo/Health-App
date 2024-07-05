@@ -50,6 +50,17 @@ LocaleConfig.locales["pt"] = {
 // Definir a configuração global de localidade para 'pt'
 LocaleConfig.defaultLocale = "pt";
 
+interface Horario {
+  idHorario: string;
+  horario: string;
+}
+
+interface DiaAtendimento {
+  data: string;
+  dia: string;
+  horarios: Horario[];
+}
+
 interface CalendarioConsultaProps {
   visivel: boolean;
   onClose: () => void;
@@ -77,7 +88,7 @@ export default function CalendarioConsulta({
       }
     >
   >({});
-  const [diasDisponiveis, setDiasDisponiveis] = useState<any[]>([]);
+  const [diasDisponiveis, setDiasDisponiveis] = useState<DiaAtendimento[]>([]);
   const [mesAtual, setMesAtual] = useState<number>(new Date().getMonth() + 1);
   const [anoAtual, setAnoAtual] = useState<number>(new Date().getFullYear());
 
@@ -97,34 +108,30 @@ export default function CalendarioConsulta({
         `Buscando dias de atendimento para o médico ${medicoId} no mês ${mes}/${ano}`
       );
       const response = await buscarDiasAtendimentoMedico(medicoId, mes, ano);
-      const diasAtendimento = response.data || [];
-      //const novaDataMarcada: Record<string, any> = {};
-
-      /*
-      if (diasAtendimento.length === 0) {
-        console.log(`Nenhum dia de atendimento encontrado para ${mes}/${ano}. Buscando no próximo mês.`);
-        if(mes === 12) {
-          await fetchDiasAtendimento(medicoId, 1, ano + 1);
-        } else {
-          await fetchDiasAtendimento(medicoId, mes + 1, ano);
-        }
-      } else {
-        const novaDataMarcada: Record<string, any> = {};
-
-        diasAtendimento.forEach((item: any) => {
-          const dataFormatada = item.data.split("T")[0];
-          novaDataMarcada[dataFormatada] = {
-            marked: true,
-            textColor: "#03A66A",
-          };
-        });*/
-
+      const diasAtendimento: DiaAtendimento[] = response.data || [];
       const novaDataMarcada: Record<string, any> = {};
-      diasAtendimento.forEach((item: any) => {
+
+      const dataAtual = new Date();
+      diasAtendimento.forEach((item) => {
         const dataFormatada = item.data.split("T")[0];
+        const horariosDisponiveis = item.horarios.map((horario) =>
+          new Date(`${dataFormatada}T${horario.horario}`).getTime()
+        );
+
+        // Verificar se há horários disponíveis depois do horário atual
+        const haHorariosDisponiveis = horariosDisponiveis.some(
+          (horario) => horario > dataAtual.getTime()
+        );
+
         novaDataMarcada[dataFormatada] = {
           marked: true,
           textColor: "#03A66A",
+          disabled: !haHorariosDisponiveis,
+          customStyles: {
+            text: {
+              textDecorationLine: haHorariosDisponiveis ? "none" : "line-through",
+            },
+          },
         };
       });
 
@@ -190,7 +197,7 @@ export default function CalendarioConsulta({
   const handleConfirm = () => {
     if (selectedDate) {
       const diaSelecionado = diasDisponiveis.find(
-        (dia: any) => dia.data.split("T")[0] === selectedDate
+        (dia) => dia.data.split("T")[0] === selectedDate
       );
 
       if (diaSelecionado && diaSelecionado.horarios.length > 0) {

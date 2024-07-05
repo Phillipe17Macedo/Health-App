@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import {
   View,
   Text,
@@ -67,9 +67,9 @@ export default function Consulta() {
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] = useState<string | null>(null);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
-  const [isUnidadeAtendimentoOpen, setIsUnidadeAtendimentoOpen] = useState(false);
-  const [isEspecialidadeOpen, setIsEspecialidadeOpen] = useState(false);
-  const [isMedicoOpen, setIsMedicoOpen] = useState(false);
+  const [isUnidadeAtendimentoOpen, setIsUnidadeAtendimentoOpen] = useState<boolean>(false);
+  const [isEspecialidadeOpen, setIsEspecialidadeOpen] = useState<boolean>(false);
+  const [isMedicoOpen, setIsMedicoOpen] = useState<boolean>(false);
 
   const [consulta, setConsulta] = useState<Consulta>({
     usuarioId: "",
@@ -152,10 +152,10 @@ export default function Consulta() {
 
     const todosDiasDisponiveis = [...diasDisponiveis];
 
-  const diaSelecionado = todosDiasDisponiveis.find((dia: any) => {
-    console.log(`Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
-    return dia.data.split("T")[0] === date;
-  });
+    const diaSelecionado = todosDiasDisponiveis.find((dia: any) => {
+      console.log(`Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
+      return dia.data.split("T")[0] === date;
+    });
 
     if (diaSelecionado) {
       console.log("Dia da Semana Selecionado: ", diaSelecionado.dia);
@@ -294,7 +294,7 @@ export default function Consulta() {
           }}
           unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
           isOpen={isUnidadeAtendimentoOpen}
-          setIsOpen={(isOpen: boolean) => {
+          setIsOpen={(isOpen) => {
             setIsUnidadeAtendimentoOpen(isOpen);
             if (isOpen) {
               setIsEspecialidadeOpen(false);
@@ -316,7 +316,7 @@ export default function Consulta() {
             }}
             especialidadeSelecionada={especialidadeSelecionada}
             isOpen={isEspecialidadeOpen}
-            setIsOpen={(isOpen: boolean) => {
+            setIsOpen={(isOpen) => {
               setIsEspecialidadeOpen(isOpen);
               if (isOpen) {
                 setIsUnidadeAtendimentoOpen(false);
@@ -333,7 +333,7 @@ export default function Consulta() {
             medicoSelecionado={medicoSelecionado ? medicoSelecionado.id : null}
             onMedicoSelect={handleMedicoSelect}
             isOpen={isMedicoOpen}
-            setIsOpen={(isOpen: boolean) => {
+            setIsOpen={(isOpen) => {
               setIsMedicoOpen(isOpen);
               if (isOpen) {
                 setIsUnidadeAtendimentoOpen(false);
@@ -370,6 +370,7 @@ export default function Consulta() {
           onClose={() => setHorarioVisivel(false)}
           onTimeSelect={handleTimeSelect}
           horariosDisponiveis={horariosDisponiveis}
+          dataSelecionada={dataConsulta}
         />
 
         {confirmacaoVisivel && consulta && (
