@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/icon-aserpa.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.phillipe17macedo.healthapp"
+      "package": "com.phillipe17macedo.healthapp",
+      "googleServicesFile": "./android/app/google-services.json"
     },
     "web": {
       "bundler": "metro",

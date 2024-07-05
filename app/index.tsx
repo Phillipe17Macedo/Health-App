@@ -3,6 +3,7 @@ import { View, Image } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesIndexPage/styles";
+import { registerForPushNotificationsAsync } from "../utils/constants/notifications";
 
 export default function Index() {
   const router = useRouter();
@@ -30,6 +31,12 @@ export default function Index() {
     };
 
     verificarExibicaoInicial();
+
+    const registerForNotifications = async () => {
+      await registerForPushNotificationsAsync();
+    };
+
+    registerForNotifications();
   }, [router]);
 
   return (
