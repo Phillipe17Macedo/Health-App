@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { View, Image } from "react-native";
+import { View, Image, Alert, Platform } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesIndexPage/styles";
-import { registerForPushNotificationsAsync } from "../utils/constants/notifications";
+import messaging from '@react-native-firebase/messaging';
 
 export default function Index() {
   const router = useRouter();
@@ -31,13 +31,38 @@ export default function Index() {
     };
 
     verificarExibicaoInicial();
-
-    const registerForNotifications = async () => {
-      await registerForPushNotificationsAsync();
-    };
-
-    registerForNotifications();
   }, [router]);
+
+  messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    console.log("Message handled in the background!", remoteMessage);
+  });
+
+  async function requestUserPermission() {
+    if (Platform.OS === "android") {
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+      );
+    } else {
+      const authStatus = await messaging().requestPermission();
+      const enabled =
+        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+      if (enabled) {
+        console.log("Authorization status:", authStatus);
+      }
+    }
+  }
+
+  useEffect(() => {
+    requestUserPermission();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      Alert.alert("A new FCM message arrived!", JSON.stringify(remoteMessage));
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <View style={styles.container}>
