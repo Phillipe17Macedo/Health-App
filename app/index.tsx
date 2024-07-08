@@ -18,11 +18,11 @@ export default function Index() {
       const exibido = await AsyncStorage.getItem("indexExibido");
 
       if (exibido) {
-        router.replace("/login"); // Redireciona imediatamente para login se já foi exibido
+        router.replace("/login");
       } else {
         await AsyncStorage.setItem("indexExibido", "true");
         const temporizador = setTimeout(() => {
-          router.replace("/login"); // Redireciona para login após o temporizador
+          router.replace("/login");
         }, 3000);
 
         return () => clearTimeout(temporizador);

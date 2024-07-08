@@ -29,13 +29,7 @@
       "favicon": "./assets/images/icon-aserpa.png"
     },
     "plugins": [
-      "expo-router",
-      [
-        "onesignal-expo-plugin",
-        {
-          "mode": "development"
-        }
-      ]
+      "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
@@ -46,8 +40,7 @@
       },
       "eas": {
         "projectId": "ffd01dd6-8e1a-45a7-9104-c92bcbc71b3e"
-      },
-      "oneSignalAppId": "45d50449-03b9-463e-a6a7-e6c1258cfd7d"
+      }
     },
     "owner": "phillipe17macedo"
   }
