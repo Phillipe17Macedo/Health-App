@@ -3,7 +3,6 @@ import { View, Image } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesIndexPage/styles";
-import { OneSignal, LogLevel } from "react-native-onesignal";
 
 export default function Index() {
   const router = useRouter();
@@ -31,21 +30,6 @@ export default function Index() {
     };
 
     verificarExibicaoInicial();
-
-    OneSignal.Debug.setLogLevel(LogLevel.Verbose);
-
-    let externalId = "123456789"
-
-    OneSignal.initialize("1da038ce-7a5a-42f2-88c1-a119b0d94c29");
-
-    OneSignal.Notifications.requestPermission(true);
-
-    OneSignal.Notifications.addEventListener('click', (event) => {
-      console.log('OneSignal: notification clicked:', event);
-    });
-
-    OneSignal.login(externalId);
-    
   }, [router]);
 
   return (

@@ -13,15 +13,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.phillipe17macedo.healthapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon-aserpa.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.phillipe17macedo.healthapp",
-      "googleServicesFile": "./android/app/google-services.json"
+      "package": "com.phillipe17macedo.healthapp"
     },
     "web": {
       "bundler": "metro",
@@ -29,7 +29,13 @@
       "favicon": "./assets/images/icon-aserpa.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -41,7 +47,7 @@
       "eas": {
         "projectId": "ffd01dd6-8e1a-45a7-9104-c92bcbc71b3e"
       },
-      "oneSignalAppId": "1da038ce-7a5a-42f2-88c1-a119b0d94c29"
+      "oneSignalAppId": "45d50449-03b9-463e-a6a7-e6c1258cfd7d"
     },
     "owner": "phillipe17macedo"
   }
