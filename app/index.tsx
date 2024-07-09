@@ -5,20 +5,29 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesIndexPage/styles";
 import * as Notifications from 'expo-notifications';
 
+/*
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});*/
+
 export default function Index() {
   const router = useRouter();
-
+/*
   useEffect(() => {
     async function configuracaoPushNotification() {
       const { status } = await Notifications.getPermissionsAsync();
-      let resultadoStstus = status;
+      let resultadoStatus = status;
 
-      if (resultadoStstus !== 'granted') {
+      if (resultadoStatus !== 'granted') {
         const { status } = await Notifications.requestPermissionsAsync();
-        resultadoStstus = status;
+        resultadoStatus = status;
       }
 
-      if (resultadoStstus !== 'granted') {
+      if (resultadoStatus !== 'granted') {
         Alert.alert('Permissão Necessária.', 'Push Notification precisa da permissão.');
         return;
       }
@@ -29,14 +38,26 @@ export default function Index() {
       if (Platform.OS === 'android') {
         Notifications.setNotificationChannelAsync('default', {
           name: 'default',
-          importance: Notifications.AndroidImportance.DEFAULT
+          importance: Notifications.AndroidImportance.DEFAULT,
         });
       }
     }
 
     configuracaoPushNotification();
 
-  }, []);
+    const notificationListener = Notifications.addNotificationReceivedListener(notification => {
+      console.log("Notificação recebida:", notification);
+    });
+
+    const responseListener = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log("Usuário respondeu à notificação:", response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener);
+      Notifications.removeNotificationSubscription(responseListener);
+    };
+  }, []);*/
 
   useEffect(() => {
     const limparAsyncStorage = async () => {

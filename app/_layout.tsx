@@ -1,12 +1,22 @@
-import { Stack } from "expo-router";
-import React from "react";
+import React, { useEffect } from 'react';
+import { LogLevel, OneSignal } from 'react-native-onesignal';
+import { Stack } from 'expo-router';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "/perfil",
+  initialRouteName: "/index",
 };
 
 export default function RootLayout() {
+  useEffect(() => {
+    // Inicialize o OneSignal com seu App ID
+    OneSignal.initialize("1da038ce-7a5a-42f2-88c1-a119b0d94c29");
+
+    OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+
+    OneSignal.Notifications.requestPermission(true);
+  }, []);
+
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
