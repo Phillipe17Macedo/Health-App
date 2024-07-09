@@ -10,7 +10,7 @@ export const unstable_settings = {
 export default function RootLayout() {
   useEffect(() => {
     // Inicialize o OneSignal com seu App ID
-    OneSignal.initialize("1da038ce-7a5a-42f2-88c1-a119b0d94c29");
+    OneSignal.initialize("590d625b-5bc5-4ef3-a132-d87326c47469");
 
     OneSignal.Debug.setLogLevel(LogLevel.Verbose);
 
