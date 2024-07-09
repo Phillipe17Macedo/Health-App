@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Image } from "react-native";
+import { View, Image, Alert, Platform } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesIndexPage/styles";
@@ -9,9 +9,33 @@ export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    Notifications.getExpoPushTokenAsync().then((pushTokenData) => {
+    async function configuracaoPushNotification() {
+      const { status } = await Notifications.getPermissionsAsync();
+      let resultadoStstus = status;
+
+      if (resultadoStstus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        resultadoStstus = status;
+      }
+
+      if (resultadoStstus !== 'granted') {
+        Alert.alert('Permissão Necessária.', 'Push Notification precisa da permissão.');
+        return;
+      }
+
+      const pushTokenData = await Notifications.getExpoPushTokenAsync();
       console.log(pushTokenData);
-    });
+
+      if (Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+          name: 'default',
+          importance: Notifications.AndroidImportance.DEFAULT
+        });
+      }
+    }
+
+    configuracaoPushNotification();
+
   }, []);
 
   useEffect(() => {
