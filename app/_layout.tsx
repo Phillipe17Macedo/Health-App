@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
-import React, {useEffect} from "react";
-import { requestUserPermission, getFCMToken, notificationListener } from "@/utils/constants/notifications";
+import React from "react";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -8,13 +7,6 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
-
-  useEffect(() => {
-    requestUserPermission();
-    getFCMToken();
-    notificationListener();
-  }, []);
-
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />

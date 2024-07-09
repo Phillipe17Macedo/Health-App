@@ -3,9 +3,16 @@ import { View, Image } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesIndexPage/styles";
+import * as Notifications from 'expo-notifications';
 
 export default function Index() {
   const router = useRouter();
+
+  useEffect(() => {
+    Notifications.getExpoPushTokenAsync().then((pushTokenData) => {
+      console.log(pushTokenData);
+    });
+  }, []);
 
   useEffect(() => {
     const limparAsyncStorage = async () => {
