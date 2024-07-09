@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     height: 40,
-    width: 90,
+    width: 85,
     elevation: 3,
   },
   textoButtonCancelar: {
@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
     color: '#888',
   },
   textoContainerTempo: {
-    fontSize: 14,
+    fontSize: 13,
     color: "#3E3D3D",
     fontWeight: 'normal',
   },

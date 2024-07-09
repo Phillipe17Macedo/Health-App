@@ -9,6 +9,7 @@ interface HorarioConsultaProps {
   onTimeSelect: (horario: any) => void;
   horariosDisponiveis: any[];
   dataSelecionada: string | null;
+  onBackToCalendar: () => void;
 }
 
 export default function HorarioConsulta({
@@ -17,6 +18,7 @@ export default function HorarioConsulta({
   onTimeSelect,
   horariosDisponiveis,
   dataSelecionada,
+  onBackToCalendar,
 }: HorarioConsultaProps) {
   const [filteredHorarios, setFilteredHorarios] = useState<any[]>([]);
 
@@ -82,12 +84,20 @@ export default function HorarioConsulta({
             numColumns={3}
             columnWrapperStyle={styles.columnWrapper}
           />
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={onClose}
-          >
-            <Text style={styles.closeButtonText}>Fechar</Text>
-          </TouchableOpacity>
+          <View style={styles.conatinerButtons}>
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={onBackToCalendar}
+            >
+              <Text style={styles.backButtonText}>Voltar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={onClose}
+            >
+              <Text style={styles.closeButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </Modal>

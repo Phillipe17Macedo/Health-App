@@ -2,7 +2,7 @@
   "expo": {
     "name": "Aserpa Saúde",
     "slug": "health-app",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/images/icon-aserpa.png",
     "scheme": "aserpa-saude",
@@ -21,7 +21,8 @@
         "foregroundImage": "./assets/images/icon-aserpa.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.phillipe17macedo.healthapp"
+      "package": "com.phillipe17macedo.healthapp",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
@@ -30,6 +31,7 @@
     },
     "plugins": [
       "expo-router",
+      "@react-native-firebase/app",
       [
         "onesignal-expo-plugin",
         {
@@ -47,7 +49,7 @@
       "eas": {
         "projectId": "ffd01dd6-8e1a-45a7-9104-c92bcbc71b3e"
       },
-      "oneSignalAppId": "45d50449-03b9-463e-a6a7-e6c1258cfd7d"
+      "oneSignalAppId": "590d625b-5bc5-4ef3-a132-d87326c47469"
     },
     "owner": "phillipe17macedo"
   }

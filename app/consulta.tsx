@@ -371,6 +371,10 @@ export default function Consulta() {
           onTimeSelect={handleTimeSelect}
           horariosDisponiveis={horariosDisponiveis}
           dataSelecionada={dataConsulta}
+          onBackToCalendar={() => {
+            setHorarioVisivel(false);
+            setCalendarioVisivel(true);
+          }}
         />
 
         {confirmacaoVisivel && consulta && (

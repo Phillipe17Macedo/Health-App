@@ -42,6 +42,13 @@ export const styles = StyleSheet.create({
   selectedTimeText: {
     color: "white",
   },
+  conatinerButtons: {
+    width: '100%',
+    flexDirection: "row",
+    justifyContent: 'space-evenly',
+    marginTop: 15,
+    //backgroundColor: 'blue'
+  },
   closeButton: {
     backgroundColor: '#F22222',
     borderRadius: 30,
@@ -49,8 +56,21 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     width: 100,
     height: 45,
-    marginTop: 15,
     elevation: 3
+  },
+  backButton: {
+    backgroundColor: '#8CBF1F',
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 180,
+    height: 45,
+    elevation: 3
+  },
+  backButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
   closeButtonText: {
     color: '#fff',
