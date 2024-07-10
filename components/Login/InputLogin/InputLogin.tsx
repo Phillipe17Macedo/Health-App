@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextInput, View, TouchableOpacity, Text, Alert, Dimensions, ActivityIndicator } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesome6 } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import { styles } from "./styles";
 import { buscarAderente } from "@/utils/requestConfig";
 import { useRouter } from "expo-router";
 import { AxiosError } from "axios";
+import * as LocalAuthentication from 'expo-local-authentication';
 
 export function InputLogin() {
   const [cpf, setCpf] = useState("");
@@ -69,9 +70,50 @@ export function InputLogin() {
     } finally {
       setLoading(false); // Para o carregamento
     }
+
+    
   };
 
   const { width } = Dimensions.get('window');
+
+
+  // Parte que verifica a parte de autenticação nativa do apareelho
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  async function verificaDisponibilidadeAutenticacao() {
+    const compatibilidade = await LocalAuthentication.hasHardwareAsync();
+    console.log(compatibilidade);
+
+    const tipoAutenticacao = await LocalAuthentication.supportedAuthenticationTypesAsync();
+    console.log(tipoAutenticacao.map(type => LocalAuthentication.AuthenticationType[2]));
+  }
+
+  async function handleAuthentication() {
+    const isBiometriaCadastrada = await LocalAuthentication.isEnrolledAsync();
+    const isFacialCadastrada = await LocalAuthentication.isEnrolledAsync();
+
+    console.log("Biometria Cadastrada: ", isBiometriaCadastrada);
+    console.log("Reconhecimento Facial: ", isFacialCadastrada);
+
+    if(!isBiometriaCadastrada){
+      return Alert.alert('Login', 'Nenhuma biometria cadastrada. Por favor, cadastre no dispositivo!');
+    }
+    if(!isFacialCadastrada){
+      return Alert.alert('Login', 'Nenhuma face cadastrado. Por favor, cadastre no dispositivo!');
+    }
+
+    const auth = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Login com Reconhecimento Facial',
+      fallbackLabel: 'Rosto não reconhecido'
+    });
+
+    console.log(auth);
+
+  }
+
+  useEffect(() => {
+    verificaDisponibilidadeAutenticacao();
+  }, []);
 
   return (
     <View style={[styles.container, { padding: width * 0.05 }]}>
@@ -95,7 +137,7 @@ export function InputLogin() {
       <TouchableOpacity
         style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
         disabled={cpfExiste || loading} // Desabilita o botão durante o carregamento
-        onPress={handleLogin}
+        onPress={handleAuthentication || handleLogin}
       >
         {loading ? (
           <ActivityIndicator size="small" color="#fff" style={[{marginBottom: -10, marginTop: 4}]} />
