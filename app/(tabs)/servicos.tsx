@@ -25,8 +25,16 @@ import {
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+interface Consulta {
+  idAgenda: number;
+  dataAgenda: string | null;
+  horaAgenda: string | null;
+  medico: string;
+  status: string;
+}
+
 const Servicos: React.FC = () => {
-  const [consultas, setConsultas] = useState<any[]>([]);
+  const [consultas, setConsultas] = useState<Consulta[]>([]);
   const [exames, setExames] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -43,7 +51,14 @@ const Servicos: React.FC = () => {
         setIdEmpresa(empresaId);
         const response = await buscarAgendamentosConsulta(userId, empresaId);
         console.log("Consultas agendadas:", response.data);
-        setConsultas(response.data ?? []);
+
+        const consultaOrdenada = (response.data ?? []).sort((a: Consulta, b: Consulta) => {
+          const dateA = new Date(`${a.dataAgenda?.split("T")[0]}T${a.horaAgenda}`);
+          const dateB = new Date(`${b.dataAgenda?.split("T")[0]}T${b.horaAgenda}`);
+          return dateA.getTime() - dateB.getTime();
+        });
+
+        setConsultas(consultaOrdenada);
       } else {
         console.error("Erro", "Usuário ou empresa não encontrados.");
       }
