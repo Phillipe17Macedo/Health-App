@@ -60,11 +60,11 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     height: 40,
-    width: 85,
+    width: 75,
     elevation: 3,
   },
   textoButtonCancelar: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',

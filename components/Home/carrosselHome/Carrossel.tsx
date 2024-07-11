@@ -7,9 +7,9 @@ import { styles } from './styles';
 const { width: screenWidth } = Dimensions.get('window');
 
 const entries = [
-  { illustration: 'https://www.designi.com.br/images/preview/10266768.jpg' },
-  { illustration: 'https://www.designi.com.br/images/preview/10266768.jpg' },
-  { illustration: 'https://www.designi.com.br/images/preview/10266768.jpg' },
+  { illustration: 'https://lh3.googleusercontent.com/p/AF1QipOecfU1S4yNfPlzedSVdYojxS8kWPQ_XSSUQtJj=s1360-w1360-h1020' },
+  { illustration: 'https://lh3.googleusercontent.com/p/AF1QipPCICXa3XR-HxpplKZrPDaZvam4BDWI-rhf6P33=s1360-w1360-h1020' },
+  { illustration: 'https://lh3.googleusercontent.com/p/AF1QipPJOKecUKXCm4zhyBwLEk0gCErreLhOvR3wP_RW=s1360-w1360-h1020' },
   
 ];
 

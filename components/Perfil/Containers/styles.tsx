@@ -9,15 +9,15 @@ export const styles = StyleSheet.create({
     elevation: 3,
     marginBottom: 20,
     textAlign: 'left',
-    padding: 20,
     justifyContent: 'center',
     borderWidth: 0.5,
-    borderColor: '#B2B2B2'
+    borderColor: '#B2B2B2',
+    paddingLeft: 20,
   },
   textoContainer: {
     fontSize: 21,
     color: '#03A66A',
-    fontWeight: 'normal',
+    fontWeight: 'bold',
     fontVariant: ['small-caps'],
   },
 });
