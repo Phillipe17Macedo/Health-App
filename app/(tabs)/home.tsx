@@ -74,9 +74,9 @@ export default function Home() {
         <Header nomeUsuario={user?.nome} />
         {user && <Cartao user={user} />}
         <OpcoesHome />
-        <Carrossel/>
+        <Carrossel />
       </ScrollView>
-      <ModalCarregamento visivel={loading}/>
+      <ModalCarregamento visivel={loading} />
     </SafeAreaView>
   );
 }

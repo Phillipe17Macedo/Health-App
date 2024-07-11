@@ -37,16 +37,16 @@ export default function Login() {
   return (
     <View style={[styles.container]}>
       <StatusBar style="auto" />
-        <LogoLogin/>
-        <InputLogin/>
-        <View style={[styles.containerLogoBackground]} >
-          <Image source={require("@/assets/images/logo-aserpa/Icone.png")} style={[styles.logoBackground]} />
-        </View>
-        <TermosDeUsoModal
-          visible={termosVisivel}
-          onAccept={handleAccept}
-          onDecline={handleDecline}
-        />
+      <LogoLogin />
+      <InputLogin />
+      <View style={[styles.containerLogoBackground]}>
+        <Image source={require("@/assets/images/logo-aserpa/Icone.png")} style={[styles.logoBackground]} />
+      </View>
+      <TermosDeUsoModal
+        visible={termosVisivel}
+        onAccept={handleAccept}
+        onDecline={handleDecline}
+      />
     </View>
   );
 }
