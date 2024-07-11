@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   timeText: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 'bold',
     color: "#3E3D3D",
     marginLeft: 5,

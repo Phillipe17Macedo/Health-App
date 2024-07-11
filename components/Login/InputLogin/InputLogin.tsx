@@ -134,8 +134,6 @@ export function InputLogin() {
 
   }*/
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   async function verificaDisponibilidadeAutenticacao() {
     const compatibilidade = await LocalAuthentication.hasHardwareAsync();
     console.log("Compatibilidade de hardware para autenticação:", compatibilidade);
