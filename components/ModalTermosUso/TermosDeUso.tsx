@@ -42,3 +42,5 @@ const TermosDeUsoModal: React.FC<TermosDeUsoModalProps> = ({
     </Modal>
   );
 };
+
+export default TermosDeUsoModal;
