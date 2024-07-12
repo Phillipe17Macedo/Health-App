@@ -27,6 +27,7 @@ export default function RootLayout() {
       <Stack.Screen name="exame" options={{ headerShown: false }} />
       <Stack.Screen name="perfilEditar" options={{ headerShown: false }} />
       <Stack.Screen name="guiaConsulta" options={{ headerShown: false }} />
+      <Stack.Screen name="ajuda" options={{ headerShown: false }} />
     </Stack>
   );
 }
