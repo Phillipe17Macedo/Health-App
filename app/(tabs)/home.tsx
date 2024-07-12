@@ -3,7 +3,7 @@ import {
   ScrollView,
   RefreshControl,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { styles } from "../../styles/StylesHomePage/styles";
 import { Header } from "../../components/Home/headerHome/Header";
@@ -28,7 +28,7 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  async function loadUser() {
+  const loadUser = async () => {
     setLoading(true);
     const userCpf = await AsyncStorage.getItem("userCpf");
     const isTitular = await AsyncStorage.getItem("isTitular");
@@ -39,7 +39,11 @@ export default function Home() {
       setUser(userData);
     }
     setLoading(false);
-  }
+  };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -60,7 +64,7 @@ export default function Home() {
         <OpcoesHome />
         <Carrossel />
       </ScrollView>
-      <ModalCarregamento visivel={loading} />
+      <ModalCarregamento visivel={loading}/>
     </SafeAreaView>
   );
 }

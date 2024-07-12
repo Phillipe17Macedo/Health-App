@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Text, TouchableOpacity, Alert } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
 import { styles } from './styles';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import TermosDeUsoModal from '@/components/ModalTermosUso/TermosDeUso';
 
 export function ContainersPerfil() {
