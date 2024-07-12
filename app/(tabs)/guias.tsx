@@ -12,7 +12,7 @@ import { styles } from "../../styles/StylesServicosPage/styles";
 import { StatusBar } from "expo-status-bar";
 import { ComponenteGuiaConsulta } from "@/components/Guias/ComponentesGuiaConsulta/ComponenteGuiaConsulta";
 import { ComponenteGuiaExame } from "@/components/Guias/ComponentesGuiaExame/ComponenteGuiaExame";
-import AgendadoConsulta from "@/components/Servicos/Agendados/Consulta/AgendadoConsulta";
+import GuiaConsultaEmitida from '@/components/Guias/GuiasEmitidas/GuiaConsulta/GuiaConsultaEmitida';
 import AgendadoExame from "@/components/Servicos/Agendados/Exames/AgendadoExame";
 import {
   ConsultasFicticias,
@@ -121,7 +121,7 @@ const Guias: React.FC = () => {
           <ModalCarregamento visivel={loading} />
         ) : (
           consultas.length > 0 ? (
-            <AgendadoConsulta
+            <GuiaConsultaEmitida
               consultas={consultas}
               onConsultaCancelada={fetchConsultas}
             />

@@ -99,7 +99,7 @@ const GuiaConsultaEmitida: React.FC<GuiaConsultaEmitidaProps> = ({
       <View key={consulta.idAgenda} style={styles.item}>
         <View style={[styles.constainerIcone]}>
           <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
-          <Text style={[styles.textoIcone]}>Consulta Agendada</Text>
+          <Text style={[styles.textoIcone]}>Guia de Consulta</Text>
         </View>
         <Text style={styles.text}>Médico: {consulta.medico}</Text>
         <Text style={styles.text}>
@@ -110,7 +110,6 @@ const GuiaConsultaEmitida: React.FC<GuiaConsultaEmitidaProps> = ({
               })
             : "N/A"}
         </Text>
-        <Text style={styles.text}>Horário: {consulta.horaAgenda}</Text>
         <Text style={styles.text}>Agendamento: {consulta.status}</Text>
 
         <View style={styles.containerTempo}>
@@ -133,18 +132,10 @@ const GuiaConsultaEmitida: React.FC<GuiaConsultaEmitidaProps> = ({
                 onPress={() => handleCancel(consulta.idAgenda)}
                 style={styles.textoButtonCancelar}
               >
-                Cancelar Agendamento
+                Cancelar Guia
               </Text>
             </TouchableOpacity>
           )}
-        </View>
-
-        <View style={styles.conatinersButtons}>
-          <TouchableOpacity style={styles.containerButtonConfirmar}>
-            <Text style={styles.textoButtonConfirmar}>
-              Confirmar Agendamento
-            </Text>
-          </TouchableOpacity>
         </View>
       </View>
     );
@@ -153,7 +144,7 @@ const GuiaConsultaEmitida: React.FC<GuiaConsultaEmitidaProps> = ({
   if (consultas.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>Não há consultas agendadas.</Text>
+        <Text style={styles.emptyText}>Não há guias emitidas.</Text>
       </View>
     );
   }
