@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, Alert } from 'react-native';
 import { Link } from 'expo-router';
 import { styles } from './styles';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import TermosDeUsoModal from '@/components/ModalTermosUso/TermosDeUso';
 
 export function ContainersPerfil() {
   const [termosVisivel, setTermosVisivel] = useState(false);
 
-  const handleClose = () => {
+  const handleAccept = async () => {
+    await AsyncStorage.setItem("aceitouTermos", "true");
     setTermosVisivel(false);
+    Alert.alert('Obrigado por aceitar os termos de uso.');
+  };
+
+  const handleDecline = () => {
+    Alert.alert(
+      'Termos de Uso',
+      'Você precisa aceitar os termos de uso para continuar.',
+      [{ text: 'OK' }]
+    );
   };
 
   return (
@@ -26,7 +37,7 @@ export function ContainersPerfil() {
       </TouchableOpacity>
       <TermosDeUsoModal
         visible={termosVisivel}
-        onClose={handleClose}
+        onClose={() => setTermosVisivel(false)}
       />
     </>
   );

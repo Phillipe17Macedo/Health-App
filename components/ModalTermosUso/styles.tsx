@@ -31,17 +31,28 @@ export const styles = StyleSheet.create({
     //textAlign: 'justify',
   },
   buttonContainer: {
+    flexDirection: "column",
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: "center",
-    width: "100%",
+    width: "90%",
+    //backgroundColor: 'gray'
   },
-  buttonFechar: {
+  buttonAceitar: {
     padding: 10,
     backgroundColor: "#007BFF",
     borderRadius: 5,
-    margin: 5,
-    width: "45%",
+    //margin: 5,
+    width: "100%",
     alignItems: "center",
+    marginTop:  5,
+  },
+  buttonNegar: {
+    padding: 10,
+    backgroundColor: "#F22",
+    borderRadius: 5,
+    width: "100%",
+    alignItems: "center",
+    marginTop:  5,
   },
   buttonText: {
     color: "white",
