@@ -113,8 +113,8 @@ const Guias: React.FC = () => {
         </View>
 
         <View style={styles.constainerTituloAgendamento}>
-          <MaterialCommunityIcons name="calendar-clock" size={28} color="#025940" />
-          <Text style={styles.tituloAgendamento}>Meus Agendamentos</Text>
+          <MaterialCommunityIcons name="calendar-clock" size={21} color="#025940" />
+          <Text style={styles.tituloAgendamento}>Minhas Guias de Consulta e Exame</Text>
         </View>
 
         {loading ? (
@@ -127,11 +127,10 @@ const Guias: React.FC = () => {
             />
           ) : (
             <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>Não há consultas agendadas.</Text>
+              <Text style={styles.emptyText}>Não há guias emitidas.</Text>
             </View>
           )
         )}
-        <AgendadoExame exames={exames} />
       </ScrollView>
     </SafeAreaView>
   );
