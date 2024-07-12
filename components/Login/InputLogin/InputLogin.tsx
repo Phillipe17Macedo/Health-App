@@ -22,7 +22,10 @@ export function InputLogin() {
   const [cpfExiste, setCpfExiste] = useState(true);
   const [isDependente, setIsDependente] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [supportsAuth, setSupportsAuth] = useState(false);
   const router = useRouter();
+
+  const { width } = Dimensions.get("window");
 
   const formatoCPF = (input: string) => {
     const cleaned = input.replace(/\D/g, "").slice(0, 11);
@@ -51,32 +54,17 @@ export function InputLogin() {
 
       console.log("Dados do usuário:", userData);
 
-      if (!isDependente && userData.titularDoContrato) {
-        // Caso titular e checkbox não marcado
-        await AsyncStorage.setItem("userCpf", cleanedCpf);
-        await AsyncStorage.setItem("userId", userData.idAderente.toString());
-        await AsyncStorage.setItem(
-          "isTitular",
-          userData.titularDoContrato.toString()
-        );
-        router.push("/(tabs)/home");
-      } else if (isDependente && !userData.titularDoContrato) {
-        // Caso dependente e checkbox marcado
-        await AsyncStorage.setItem("userCpf", cleanedCpf);
-        await AsyncStorage.setItem("userId", userData.idAderente.toString());
-        await AsyncStorage.setItem(
-          "isTitular",
-          userData.titularDoContrato.toString()
-        );
-        router.push("/(tabs)/home");
+      await AsyncStorage.setItem("userCpf", cleanedCpf);
+      await AsyncStorage.setItem("userId", userData.idAderente.toString());
+      await AsyncStorage.setItem(
+        "isTitular",
+        userData.titularDoContrato.toString()
+      );
+
+      if (supportsAuth) {
+        handleAuthentication();
       } else {
-        Alert.alert(
-          "Erro",
-          "Não é possível acessar a aplicação com essas credenciais."
-        );
-        console.log(
-          "Erro, não é possível acessar a aplicação com essas credenciais."
-        );
+        router.push("/(tabs)/home");
       }
     } catch (error) {
       if (
@@ -93,63 +81,32 @@ export function InputLogin() {
       }
       console.log("Erro ao verificar o CPF:", error);
     } finally {
-      setLoading(false); // Para o carregamento
+      setLoading(false);
     }
   };
-
-  const { width } = Dimensions.get("window");
-
-  /*
-  // Parte que verifica a parte de autenticação nativa do apareelho
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  async function verificaDisponibilidadeAutenticacao() {
-    const compatibilidade = await LocalAuthentication.hasHardwareAsync();
-    console.log(compatibilidade);
-
-    const tipoAutenticacao = await LocalAuthentication.supportedAuthenticationTypesAsync();
-    console.log(tipoAutenticacao.map(type => LocalAuthentication.AuthenticationType[2]));
-  }
-
-  async function handleAuthentication() {
-    const isBiometriaCadastrada = await LocalAuthentication.isEnrolledAsync();
-    const isFacialCadastrada = await LocalAuthentication.isEnrolledAsync();
-
-    console.log("Biometria Cadastrada: ", isBiometriaCadastrada);
-    console.log("Reconhecimento Facial: ", isFacialCadastrada);
-
-    if(!isBiometriaCadastrada){
-      return Alert.alert('Login', 'Nenhuma biometria cadastrada. Por favor, cadastre no dispositivo!');
-    }
-    if(!isFacialCadastrada){
-      return Alert.alert('Login', 'Nenhuma face cadastrado. Por favor, cadastre no dispositivo!');
-    }
-
-    const auth = await LocalAuthentication.authenticateAsync({
-      promptMessage: 'Login com Reconhecimento Facial',
-      fallbackLabel: 'Rosto não reconhecido'
-    });
-
-    console.log(auth);
-
-  }*/
 
   async function verificaDisponibilidadeAutenticacao() {
     const compatibilidade = await LocalAuthentication.hasHardwareAsync();
     console.log("Compatibilidade de hardware para autenticação:", compatibilidade);
 
-    const tipoAutenticacao = await LocalAuthentication.supportedAuthenticationTypesAsync();
-    console.log("Tipos de autenticação suportados:", tipoAutenticacao.map(type => LocalAuthentication.AuthenticationType[type]));
+    if (compatibilidade) {
+      const tipoAutenticacao = await LocalAuthentication.supportedAuthenticationTypesAsync();
+      console.log("Tipos de autenticação suportados:", tipoAutenticacao.map(type => LocalAuthentication.AuthenticationType[type]));
+
+      const isAutenticacaoCadastrada = await LocalAuthentication.isEnrolledAsync();
+      console.log("Autenticação cadastrada:", isAutenticacaoCadastrada);
+
+      if (isAutenticacaoCadastrada) {
+        setSupportsAuth(true);
+      } else {
+        setSupportsAuth(false);
+      }
+    } else {
+      setSupportsAuth(false);
+    }
   }
 
   async function handleAuthentication() {
-    const isAutenticacaoCadastrada = await LocalAuthentication.isEnrolledAsync();
-    console.log("Autenticação cadastrada:", isAutenticacaoCadastrada);
-
-    if (!isAutenticacaoCadastrada) {
-      return Alert.alert('Login', 'Nenhuma biometria ou face cadastrada. Por favor, cadastre no dispositivo!');
-    }
-
     const supportedAuthTypes = await LocalAuthentication.supportedAuthenticationTypesAsync();
     const isFaceRecognitionAvailable = supportedAuthTypes.includes(LocalAuthentication.AuthenticationType.FACIAL_RECOGNITION);
     const isFingerprintAvailable = supportedAuthTypes.includes(LocalAuthentication.AuthenticationType.FINGERPRINT);
@@ -157,26 +114,16 @@ export function InputLogin() {
     console.log("Reconhecimento facial disponível:", isFaceRecognitionAvailable);
     console.log("Biometria disponível:", isFingerprintAvailable);
 
-    if (isFaceRecognitionAvailable) {
-      const auth = await LocalAuthentication.authenticateAsync({
-        promptMessage: "Login com Autenticação",
-        fallbackLabel: "Rosto não reconhecido",
-      });
-      console.log("Resultado da autenticação facial:", auth);
-      if (auth.success) {
-        handleLogin();
-      }
-    } else if (isFingerprintAvailable) {
-      const auth = await LocalAuthentication.authenticateAsync({
-        promptMessage: "Login com Autenticação",
-        fallbackLabel: "Biometria não reconhecida",
-      });
-      console.log("Resultado da autenticação biométrica:", auth);
-      if (auth.success) {
-        handleLogin();
-      }
+    const auth = await LocalAuthentication.authenticateAsync({
+      promptMessage: "Login com Autenticação",
+      fallbackLabel: "Autenticação não reconhecida",
+    });
+    console.log("Resultado da autenticação:", auth);
+
+    if (auth.success) {
+      router.push("/(tabs)/home");
     } else {
-      Alert.alert('Login', 'Nenhuma biometria ou face cadastrada. Por favor, cadastre no dispositivo!');
+      Alert.alert('Erro', 'Autenticação falhou. Por favor, tente novamente.');
     }
   }
 
@@ -213,7 +160,7 @@ export function InputLogin() {
       <TouchableOpacity
         style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
         disabled={cpfExiste || loading} // Desabilita o botão durante o carregamento
-        onPress={handleAuthentication}
+        onPress={handleLogin}
       >
         {loading ? (
           <ActivityIndicator
