@@ -12,7 +12,7 @@ export function ContainersPerfil() {
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.container]}>
-            <Text style={[styles.textoContainer]}>Contatos</Text>
+            <Text style={[styles.textoContainer]}>Termos de Uso</Text>
         </TouchableOpacity>
     </>
   );
