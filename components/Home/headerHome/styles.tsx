@@ -8,16 +8,20 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     //backgroundColor: 'red',
     paddingTop: 35,
+    justifyContent: 'space-between',
   },
   headerRight: {
     marginLeft: 15, 
+    //backgroundColor: 'blue',
+    marginRight: -55,
   },
   containerTextoHeader: {
-    width: '100%',
+    //width: '68%',
     height: 60,
     paddingLeft: 15,
     justifyContent: 'center',
-    marginRight: 40,
+    //marginRight: 5,
+    //backgroundColor: 'red'
   },
   nomeUsuario: {
     fontSize: 21,
@@ -28,5 +32,11 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: '#878787',
     fontWeight: 'normal',
+  },
+  containerIconHelp: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    //backgroundColor: 'yellow',
+    marginRight: 25,
   },
 });

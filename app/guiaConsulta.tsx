@@ -17,7 +17,7 @@ import {
 } from "@/utils/requestConfig";
 import UnidadeAtendimento from "@/components/GuiaConsulta/UnidadeAtendimento/DropDownUnidadeAtendimento";
 
-export default function GuiaConsulta() {
+export default function TelaGuiaConsulta() {
   const [loading, setLoading] = useState(false);
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);

@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     borderColor: '#B2B2B2'
   },
   tituloAgendamento: {
-    fontSize: 21,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#025940',
     marginLeft: 10,

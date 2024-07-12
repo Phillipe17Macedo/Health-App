@@ -3,14 +3,14 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     //backgroundColor: 'blue',
-    marginTop: 25,
+    marginTop: 20,
   },
   ContainertextoAcessoRapido: {
     position: 'relative',
     width: '100%',
     flexDirection: 'row',
     //backgroundColor: 'yellow',
-    paddingLeft: 20,
+    paddingLeft: 25,
   },
   textoAcessoRapido: {
     fontSize: 18,
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     //backgroundColor: 'blue',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginTop: 15
+    marginTop: 15,
   },
   containerLink: {
     justifyContent: 'center',
