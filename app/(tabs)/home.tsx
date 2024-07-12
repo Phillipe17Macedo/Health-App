@@ -44,19 +44,6 @@ export default function Home() {
     setLoading(false);
   }
 
-  useEffect(() => {
-    const verificarTermos = async () => {
-      const aceitouTermos = await AsyncStorage.getItem("aceitouTermos");
-      if (!aceitouTermos) {
-        Alert.alert("Termos de Uso", "Você precisa aceitar os termos de uso.");
-        navigation.navigate('Login'); // Redireciona para a tela de login se os termos não foram aceitos
-      } else {
-        loadUser();
-      }
-    };
-    verificarTermos();
-  }, []);
-
   const onRefresh = async () => {
     setRefreshing(true);
     await loadUser();
