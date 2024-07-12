@@ -8,7 +8,7 @@ export function ComponenteGuiaConsulta() {
   return (
     <>
       <TouchableOpacity style={[styles.container]}>
-        <Link href={"/consulta"} style={{ width: 150 }}>
+        <Link href={"/guiaConsulta"} style={{ width: 150 }}>
           <View style={[styles.containerLink]}>
             <MaterialCommunityIcons
               name="pill"

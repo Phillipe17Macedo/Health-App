@@ -10,8 +10,8 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../../styles/StylesServicosPage/styles";
 import { StatusBar } from "expo-status-bar";
-import { ComponentesConsulta } from "@/components/Servicos/ComponentesConsulta/ComponenteConsulta";
-import { ComponentesExame } from "@/components/Servicos/ComponentesExame/ComponenteExame";
+import { ComponenteGuiaConsulta } from "@/components/Guias/ComponentesGuiaConsulta/ComponenteGuiaConsulta";
+import { ComponenteGuiaExame } from "@/components/Guias/ComponentesGuiaExame/ComponenteGuiaExame";
 import AgendadoConsulta from "@/components/Servicos/Agendados/Consulta/AgendadoConsulta";
 import AgendadoExame from "@/components/Servicos/Agendados/Exames/AgendadoExame";
 import {
@@ -108,8 +108,8 @@ const Guias: React.FC = () => {
         }
       >
         <View style={styles.containerOpcoesServicos} >
-          <ComponentesConsulta />
-          <ComponentesExame />
+          <ComponenteGuiaConsulta />
+          <ComponenteGuiaExame />
         </View>
 
         <View style={styles.constainerTituloAgendamento}>

@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#9C71D9',
     textAlign: 'center',
-    marginTop: 15,
+    marginTop: 5,
   },
   containerIcone: {
     alignSelf: 'center',

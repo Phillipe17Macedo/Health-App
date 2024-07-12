@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     elevation: 3,
     borderWidth: 0.5,
-    borderColor: '#B2B2B2'
+    borderColor: '#B2B2B2',
   },
   containerLink: {
     width: 150,
@@ -22,11 +22,11 @@ export const styles = StyleSheet.create({
     //backgroundColor:'yellow',
   },
   textoConsultas: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'bold',
     color: '#52D981',
     textAlign: 'center',
-    marginTop: 15,
+    marginTop: 5,
   },
   containerIcone: {
     alignSelf: 'center',
