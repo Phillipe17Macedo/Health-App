@@ -8,18 +8,8 @@ import TermosDeUsoModal from '@/components/ModalTermosUso/TermosDeUso';
 export function ContainersPerfil() {
   const [termosVisivel, setTermosVisivel] = useState(false);
 
-  const handleAccept = async () => {
-    await AsyncStorage.setItem("aceitouTermos", "true");
+  const handleClose = () => {
     setTermosVisivel(false);
-    Alert.alert('Obrigado por aceitar os termos de uso.');
-  };
-
-  const handleDecline = () => {
-    Alert.alert(
-      'Termos de Uso',
-      'Você precisa aceitar os termos de uso para continuar.',
-      [{ text: 'OK' }]
-    );
   };
 
   return (
@@ -37,8 +27,7 @@ export function ContainersPerfil() {
       </TouchableOpacity>
       <TermosDeUsoModal
         visible={termosVisivel}
-        onAccept={handleAccept}
-        onDecline={handleDecline}
+        onClose={handleClose}
       />
     </>
   );

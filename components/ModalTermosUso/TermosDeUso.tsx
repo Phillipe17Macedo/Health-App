@@ -4,21 +4,19 @@ import { styles } from "./styles";
 
 interface TermosDeUsoModalProps {
   visible: boolean;
-  onAccept: () => void;
-  onDecline: () => void;
+  onClose: () => void;
 }
 
 const TermosDeUsoModal: React.FC<TermosDeUsoModalProps> = ({
   visible,
-  onAccept,
-  onDecline,
+  onClose,
 }) => {
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={visible}
-      onRequestClose={onDecline}
+      onRequestClose={onClose}
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
@@ -81,11 +79,8 @@ const TermosDeUsoModal: React.FC<TermosDeUsoModalProps> = ({
             </Text>
           </ScrollView>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.buttonAceitar} onPress={onAccept}>
-              <Text style={styles.buttonText}>Aceitar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonNegar} onPress={onDecline}>
-              <Text style={styles.buttonText}>Recusar</Text>
+            <TouchableOpacity style={styles.buttonFechar} onPress={onClose}>
+              <Text style={styles.buttonText}>Fechar</Text>
             </TouchableOpacity>
           </View>
         </View>

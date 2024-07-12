@@ -10,42 +10,34 @@ export const styles = StyleSheet.create({
   modalContent: {
     width: "95%",
     height: "85%",
-    backgroundColor: "#3E3D3D",
+    backgroundColor: "#FFF",
     borderRadius: 4,
     padding: 20,
     alignItems: "center",
   },
   title: {
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: 'center',
-    color: '#FFF'
+    color: '#3E3D3D'
   },
   content: {
     fontSize: 16,
     marginBottom: 20,
-    color: '#FFF',
+    color: '#3E3D3D',
     paddingHorizontal: 15,
     fontWeight: 'normal'
     //textAlign: 'justify',
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    justifyContent: "center",
     width: "100%",
   },
-  buttonAceitar: {
+  buttonFechar: {
     padding: 10,
     backgroundColor: "#007BFF",
-    borderRadius: 5,
-    margin: 5,
-    width: "45%",
-    alignItems: "center",
-  },
-  buttonNegar: {
-    padding: 10,
-    backgroundColor: "#F22",
     borderRadius: 5,
     margin: 5,
     width: "45%",
