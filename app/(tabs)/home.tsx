@@ -2,7 +2,6 @@ import {
   SafeAreaView,
   ScrollView,
   RefreshControl,
-  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
@@ -14,7 +13,6 @@ import { buscarAderente } from "@/utils/requestConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import Carrossel from "@/components/Home/CarrosselHome/Carrossel";
-import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 interface User {
   nome: string;
@@ -29,9 +27,8 @@ export default function Home() {
   const [user, setUser] = useState<User | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigation = useNavigation<NavigationProp<any>>();
 
-  async function loadUser() {
+  const loadUser = async () => {
     setLoading(true);
     const userCpf = await AsyncStorage.getItem("userCpf");
     const isTitular = await AsyncStorage.getItem("isTitular");
@@ -42,19 +39,10 @@ export default function Home() {
       setUser(userData);
     }
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
-    const verificarTermos = async () => {
-      const aceitouTermos = await AsyncStorage.getItem("aceitouTermos");
-      if (!aceitouTermos) {
-        Alert.alert("Termos de Uso", "Você precisa aceitar os termos de uso.");
-        navigation.navigate('Login'); // Redireciona para a tela de login se os termos não foram aceitos
-      } else {
-        loadUser();
-      }
-    };
-    verificarTermos();
+    loadUser();
   }, []);
 
   const onRefresh = async () => {
@@ -76,7 +64,7 @@ export default function Home() {
         <OpcoesHome />
         <Carrossel />
       </ScrollView>
-      <ModalCarregamento visivel={loading} />
+      <ModalCarregamento visivel={loading}/>
     </SafeAreaView>
   );
 }

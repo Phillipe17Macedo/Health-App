@@ -1,24 +1,42 @@
-import React from "react";
-import { Modal, View, Text, TouchableOpacity, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Modal, View, Text, TouchableOpacity, ScrollView, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "./styles";
 
 interface TermosDeUsoModalProps {
   visible: boolean;
-  onAccept: () => void;
-  onDecline: () => void;
+  onClose: () => void;
 }
 
 const TermosDeUsoModal: React.FC<TermosDeUsoModalProps> = ({
   visible,
-  onAccept,
-  onDecline,
+  onClose,
 }) => {
+  const [hasAccepted, setHasAccepted] = useState(false);
+
+  useEffect(() => {
+    const checkAcceptedTerms = async () => {
+      const accepted = await AsyncStorage.getItem("aceitouTermos");
+      if (accepted === "true") {
+        setHasAccepted(true);
+      }
+    };
+    checkAcceptedTerms();
+  }, []);
+
+  const handleAccept = async () => {
+    await AsyncStorage.setItem("aceitouTermos", "true");
+    setHasAccepted(true);
+    Alert.alert('Obrigado por aceitar os termos de uso.');
+    onClose();
+  };
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={visible}
-      onRequestClose={onDecline}
+      onRequestClose={onClose}
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
@@ -80,12 +98,16 @@ const TermosDeUsoModal: React.FC<TermosDeUsoModalProps> = ({
               {"\n"}Data da última atualização: 11/07/2024
             </Text>
           </ScrollView>
+          {!hasAccepted && (
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.buttonAceitar} onPress={handleAccept}>
+                <Text style={styles.buttonText}>Aceitar</Text>
+              </TouchableOpacity>
+            </View>
+          )}
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.buttonAceitar} onPress={onAccept}>
-              <Text style={styles.buttonText}>Aceitar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonNegar} onPress={onDecline}>
-              <Text style={styles.buttonText}>Recusar</Text>
+            <TouchableOpacity style={styles.buttonNegar} onPress={onClose}>
+              <Text style={styles.buttonText}>Fechar</Text>
             </TouchableOpacity>
           </View>
         </View>
