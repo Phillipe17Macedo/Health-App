@@ -3,11 +3,15 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     padding: 10,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 80,
   },
   item: {
     marginBottom: 10,
-    padding: 10,
+    paddingRight: 15,
+    paddingLeft: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
     backgroundColor: '#F8F8F6',
     borderRadius: 5,
     elevation: 3,
@@ -15,9 +19,23 @@ export const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#B2B2B2'
   },
-  text: {
+  containerTextoPadrao: {
+    flexDirection: 'row',
+    width: "100%",
+  },
+  textoPadrao: {
     fontSize: 16,
-    color: '#3E3D3D',
+    marginVertical: 3,
+    fontWeight: 'bold',
+    color: "#3E3D3D",
+    marginLeft: 8,
+  },
+  textoConfirmacao: {
+    fontSize: 15,
+    marginVertical: 3,
+    fontWeight: 'normal',
+    marginBottom: 8,
+    color: "#03A66A"
   },
   constainerIcone :{
     flexDirection: 'row',
@@ -39,32 +57,18 @@ export const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 5,
   },
-  containerButtonConfirmar: {
-    height: 40,
-    width: "100%",
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    backgroundColor: '#8CBF1F',
-    elevation: 3,
-  },
-  textoButtonConfirmar: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FFF',
-  },
   containerButtonCancelar: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F22',
-    borderRadius: 5,
+    backgroundColor: '#F26938',
+    borderRadius: 60,
     padding: 5,
     height: 40,
-    width: 75,
+    width: '100%',
     elevation: 3,
   },
   textoButtonCancelar: {
-    fontSize: 11,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
@@ -96,6 +100,6 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     height: 60,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 25,
   }
 });

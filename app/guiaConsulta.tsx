@@ -130,6 +130,13 @@ export default function TelaGuiaConsulta() {
       <HeaderGuiaConsulta />
       <ModalCarregamento visivel={loading} />
       <DicaGuiaConsulta />
+      <View style={styles.checkboxContainer}>
+        <Checkbox
+          status={isDependente ? "checked" : "unchecked"}
+          onPress={() => handleCheckboxChange(!isDependente)}
+        />
+        <Text style={styles.label}>Para um dependente?</Text>
+      </View>
       <UnidadeAtendimento
         UnidadeAtendimentoCarregada={(id, nome) => {
           setUnidadeAtendimentoId(id);
@@ -141,13 +148,6 @@ export default function TelaGuiaConsulta() {
         }}
         unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
       />
-      <View style={styles.checkboxContainer}>
-        <Checkbox
-          status={isDependente ? "checked" : "unchecked"}
-          onPress={() => handleCheckboxChange(!isDependente)}
-        />
-        <Text style={styles.label}>Para um dependente?</Text>
-      </View>
       {unidadeAtendimentoId && (
         <Especialidade
           EspecialidadeCarregada={(id, nome) => {

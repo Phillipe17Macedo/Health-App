@@ -36,7 +36,15 @@ export const styles = StyleSheet.create({
   containerIconHelp: {
     alignItems: 'center',
     justifyContent: 'center',
+    //flexDirection: 'row',
     //backgroundColor: 'yellow',
     marginRight: 25,
+    width: 38,
   },
+  textoAjuda: {
+    fontSize: 13,
+    textAlign: 'center',
+    color: '#9B9B9B',
+    //backgroundColor: 'red'
+  }
 });

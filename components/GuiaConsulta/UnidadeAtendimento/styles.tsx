@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   dropdown: {
-    backgroundColor: '#DFF2ED',
+    backgroundColor: '#F8F8F6',
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   dropDownContainerStyle: {
-    backgroundColor: '#DFF2ED',
+    backgroundColor: '#F8F8F6',
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,

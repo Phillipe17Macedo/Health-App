@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#03A66A',
     alignItems: 'center',
     justifyContent: 'center',
+    //marginBottom: 20,
+    paddingBottom: 10,
   },
   containerLink: {
     width: '100%',
@@ -15,7 +17,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'left',
     paddingLeft: 25,
-    paddingTop: 35,
+    paddingTop: 45,
+    //backgroundColor: 'yellow'
   },
   containerIcone: {
     alignItems: 'center',
@@ -32,5 +35,5 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#F2F2F2',
     fontVariant: ['small-caps'],
-  },
+  }, 
 });
