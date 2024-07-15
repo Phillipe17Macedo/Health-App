@@ -18,11 +18,11 @@ export default function LayoutOpcoes() {
   }, []);
   return (
     <Stack>
-      <Stack.Screen name="opcaoAcesso" options={{ headerShown: true }} />
-      <Stack.Screen name="opcaoConsulta" options={{ headerShown: true }} />
-      <Stack.Screen name="opcaoExame" options={{ headerShown: true }}/>
-      <Stack.Screen name="opcaoGuia" options={{ headerShown: true }}/>
-      <Stack.Screen name="opcaoSuporte" options={{ headerShown: true }}/>
+      <Stack.Screen name="opcaoAcesso" options={{ headerShown: false }} />
+      <Stack.Screen name="opcaoConsulta" options={{ headerShown: false }} />
+      <Stack.Screen name="opcaoExame" options={{ headerShown: false }}/>
+      <Stack.Screen name="opcaoGuia" options={{ headerShown: false }}/>
+      <Stack.Screen name="opcaoSuporte" options={{ headerShown: false }}/>
     </Stack>
   );
 }
