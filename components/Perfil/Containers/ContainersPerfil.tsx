@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, Alert } from 'react-native';
 import { Link } from 'expo-router';
 import { styles } from './styles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TermosDeUsoModal from '@/components/ModalTermosUso/TermosDeUso';
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 export function ContainersPerfil() {
   const [termosVisivel, setTermosVisivel] = useState(false);
@@ -22,18 +24,46 @@ export function ContainersPerfil() {
     );
   };
 
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
   return (
     <>
       <TouchableOpacity style={[styles.container]}>
         <Link href={'/perfilEditar'}>
-          <Text style={[styles.textoContainer]}>Informações do Perfil</Text>
+          <Text style={[styles.textoContainer, {fontFamily: 'MPlusRounded1c-Bold'}]}>Informações do Perfil</Text>
         </Link>
       </TouchableOpacity>
       <TouchableOpacity 
         style={[styles.container]} 
         onPress={() => setTermosVisivel(true)}
       >
-        <Text style={[styles.textoContainer]}>Termos de Uso</Text>
+        <Text style={[styles.textoContainer, {fontFamily: 'MPlusRounded1c-Bold'}]}>Termos de Uso</Text>
       </TouchableOpacity>
       <TermosDeUsoModal
         visible={termosVisivel}

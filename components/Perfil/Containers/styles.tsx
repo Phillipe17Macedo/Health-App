@@ -17,7 +17,5 @@ export const styles = StyleSheet.create({
   textoContainer: {
     fontSize: 21,
     color: '#03A66A',
-    fontWeight: 'bold',
-    fontVariant: ['small-caps'],
   },
 });
