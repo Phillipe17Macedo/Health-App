@@ -8,7 +8,10 @@ export const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 10,
-    padding: 10,
+    paddingRight: 15,
+    paddingLeft: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
     backgroundColor: '#F8F8F6',
     borderRadius: 5,
     elevation: 3,
