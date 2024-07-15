@@ -36,9 +36,4 @@ export const styles = StyleSheet.create({
     color: '#F2F2F2',
     fontVariant: ['small-caps'],
   }, 
-  textoTitulo: {
-    fontSize: 21,
-    fontWeight: 'normal',
-    color: '#F2F2F2',
-  },
 });

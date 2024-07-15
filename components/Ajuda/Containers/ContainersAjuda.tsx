@@ -33,6 +33,13 @@ export function ContainersAjuda() {
         </Link>
         <Text style={[styles.textoDescricao]}>Emitir guias de consultas e exames, guias pelo app</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.container]}>
+        <Link href={'/home'} style={[styles.containerLink]}>
+          <Text style={[styles.textoContainer]}>Suporte</Text>
+        </Link>
+        <Text style={[styles.textoDescricao]}>Problema ao agendar, pagamentos, acesso ao APP</Text>
+      </TouchableOpacity>
     </>
   );
 }
