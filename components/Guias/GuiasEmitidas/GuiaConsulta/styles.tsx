@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     marginLeft: 8,
   },
   textoConfirmacao: {
-    fontSize: 13,
+    fontSize: 15,
     marginVertical: 3,
     fontWeight: 'normal',
     marginBottom: 8,
