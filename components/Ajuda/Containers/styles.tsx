@@ -26,12 +26,9 @@ export const styles = StyleSheet.create({
   textoContainer: {
     fontSize: 18,
     color: '#3E3D3D',
-    fontWeight: 'normal',
-    fontStyle: 'italic'
   },
   textoDescricao: {
     fontSize: 14,
     color: '#B2B2B2',
-    fontWeight: 'normal',
   }
 });

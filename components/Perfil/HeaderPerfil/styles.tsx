@@ -19,7 +19,5 @@ export const styles = StyleSheet.create({
   textoHeader: {
     color: '#fff',
     fontSize: 24,
-    fontWeight: 'bold',
-    fontVariant: ['small-caps'],
   },
 });
