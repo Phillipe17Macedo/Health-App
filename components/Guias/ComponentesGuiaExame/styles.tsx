@@ -19,10 +19,12 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: 5,
+    paddingRight: 5,
     //backgroundColor:'yellow',
   },
   textoConsultas: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#52D981',
     textAlign: 'center',

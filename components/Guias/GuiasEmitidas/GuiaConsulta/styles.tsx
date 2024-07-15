@@ -3,7 +3,8 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     padding: 10,
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 80,
   },
   item: {
     marginBottom: 10,
@@ -15,9 +16,23 @@ export const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#B2B2B2'
   },
-  text: {
+  containerTextoPadrao: {
+    flexDirection: 'row',
+    width: "100%",
+  },
+  textoPadrao: {
     fontSize: 16,
-    color: '#3E3D3D',
+    marginVertical: 3,
+    fontWeight: 'bold',
+    color: "#3E3D3D",
+    marginLeft: 8,
+  },
+  textoConfirmacao: {
+    fontSize: 13,
+    marginVertical: 3,
+    fontWeight: 'normal',
+    marginBottom: 8,
+    color: "#03A66A"
   },
   constainerIcone :{
     flexDirection: 'row',
