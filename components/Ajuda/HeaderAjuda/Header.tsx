@@ -16,6 +16,7 @@ export function HeaderAjuda() {
             <Text style={[styles.textoHeader]}>Voltar</Text>
           </View>
         </Link>
+        <Text style={[styles.textoTitulo]}>Ajuda ao Usuário</Text>
       </View>
     </>
   );
