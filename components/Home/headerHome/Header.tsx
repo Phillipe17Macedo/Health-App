@@ -32,17 +32,18 @@ export function Header({ nomeUsuario }: HeaderProps) {
           <Text style={[styles.textoPerfilConfi]}>Perfil e configurações </Text>
         </Pressable>
       </Link>
-      <Link href="/ajuda" asChild style={[styles.containerIconHelp]}>
+      <Link href="/ajuda" style={[styles.containerIconHelp]}>
         <Pressable>
           {({ pressed }) => (
             <Ionicons
               name="help-circle"
-              size={38}
-              color="#CACACA"
+              size={34}
+              color="#9B9B9B"
               style={[{ opacity: pressed ? 0.5 : 1 }]}
             />
           )}
         </Pressable>
+        <Text style={[styles.textoAjuda]}>Ajuda</Text>
       </Link>
     </TouchableOpacity>
   );
