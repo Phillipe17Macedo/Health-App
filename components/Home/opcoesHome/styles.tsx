@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
   },
   textoAcessoRapido: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#03A66A',
     marginLeft: 5,
     marginRight: 5,
@@ -59,8 +58,6 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
     color: '#3E3D3D',
-    fontWeight: 'normal',
-    fontStyle: 'italic',
     marginTop: -1,
   },
 });
