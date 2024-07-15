@@ -88,9 +88,4 @@ export const styles = StyleSheet.create({
     color: '#025940',
     fontSize: 16,
   },
-  picker: {
-    height: 50,
-    width: "100%",
-    color: '#fff',
-  },
 });
