@@ -22,6 +22,7 @@ export default function RootLayout() {
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="login" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(opcoes-ajuda)" options={{ headerShown: false }} />
       <Stack.Screen name="perfil" options={{ headerShown: false }} />
       <Stack.Screen name="consulta" options={{ headerShown: false }} />
       <Stack.Screen name="exame" options={{ headerShown: false }} />
