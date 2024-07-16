@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { styles } from "./styles";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 interface SelecaoDependenteProps {
   visivel: boolean;
@@ -24,6 +26,35 @@ export default function SelecaoDependente({
   selectedDependente,
   setSelectedDependente,
 }: SelecaoDependenteProps) {
+
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
   return (
     <Modal
       animationType="slide"
@@ -33,7 +64,7 @@ export default function SelecaoDependente({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Selecione um Dependente</Text>
+          <Text style={[styles.modalTitle, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Selecione um Dependente</Text>
           {isDependente && (
             <Picker
               selectedValue={selectedDependente ? selectedDependente.id : ""}
@@ -41,7 +72,7 @@ export default function SelecaoDependente({
                 const dependente = dependentes.find(dep => dep.id === itemValue);
                 setSelectedDependente(dependente || null);
               }}
-              style={styles.picker}
+              style={[styles.picker]}
             >
               {dependentes.map((dependente) => (
                 <Picker.Item
@@ -57,13 +88,13 @@ export default function SelecaoDependente({
               style={styles.confirmButton}
               onPress={onConfirm}
             >
-              <Text style={styles.confirmButtonText}>Confirmar</Text>
+              <Text style={[styles.confirmButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Confirmar</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.cancelButton}
               onPress={onClose}
             >
-              <Text style={styles.cancelButtonText}>Fechar</Text>
+              <Text style={[styles.cancelButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Fechar</Text>
             </TouchableOpacity>
           </View>
         </View>
