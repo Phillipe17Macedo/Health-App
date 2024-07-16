@@ -16,6 +16,8 @@ import {
   buscarEspecialidades,
 } from "@/utils/requestConfig";
 import UnidadeAtendimento from "@/components/GuiaConsulta/UnidadeAtendimento/DropDownUnidadeAtendimento";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 export default function TelaGuiaConsulta() {
   const [loading, setLoading] = useState(false);
@@ -125,6 +127,35 @@ export default function TelaGuiaConsulta() {
     }));
   };
 
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <HeaderGuiaConsulta />
@@ -135,7 +166,7 @@ export default function TelaGuiaConsulta() {
           status={isDependente ? "checked" : "unchecked"}
           onPress={() => handleCheckboxChange(!isDependente)}
         />
-        <Text style={styles.label}>Para um dependente?</Text>
+        <Text style={[styles.label, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Para um dependente?</Text>
       </View>
       <UnidadeAtendimento
         UnidadeAtendimentoCarregada={(id, nome) => {
