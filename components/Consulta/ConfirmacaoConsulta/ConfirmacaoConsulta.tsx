@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, View, Text, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { FontAwesome6, FontAwesome5 } from '@expo/vector-icons';
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 interface ConfirmacaoConsultaProps {
   visivel: boolean;
@@ -20,6 +22,36 @@ interface ConfirmacaoConsultaProps {
 }
 
 export default function ConfirmacaoConsulta({ visivel, onClose, onConfirm, consulta }: ConfirmacaoConsultaProps) {
+
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
+
   return (
     <Modal
       animationType="slide"
@@ -29,68 +61,68 @@ export default function ConfirmacaoConsulta({ visivel, onClose, onConfirm, consu
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Confirmação da Consulta</Text>
+          <Text style={[styles.modalTitle, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Confirmação da Consulta</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="person" size={21} color="#3E3D3D" />
-            <Text style={styles.textoPadrao}>Aderente:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Aderente:</Text>
           </View>
-          <Text style={styles.textoConfirmacao}>{consulta.usuario}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.usuario}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="people-arrows" size={19} color="#3E3D3D" />
-            <Text style={styles.textoPadrao}>Dependente:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Dependente:</Text>
           </View>
-          <Text style={styles.textoConfirmacao}>{consulta.dependente ? consulta.dependente : "N/A"}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.dependente ? consulta.dependente : "N/A"}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome5 name="hospital-alt" size={19} color="#3E3D3D" />
-            <Text style={styles.textoPadrao}>Unidade de Atendimento:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Unidade de Atendimento:</Text>
           </View>
-          <Text style={styles.textoConfirmacao}>{consulta.unidadeAtendimento}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.unidadeAtendimento}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="user-doctor" size={19} color="#3E3D3D" />
-            <Text style={styles.textoPadrao}>Médico:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Médico:</Text>
           </View>
-          <Text style={styles.textoConfirmacao}>{consulta.medico}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.medico}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="briefcase-medical" size={19} color="#3E3D3D" />
-            <Text style={styles.textoPadrao}>Especialidade:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Especialidade:</Text>
           </View>
-          <Text style={styles.textoConfirmacao}>{consulta.especialidade}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.especialidade}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome5 name="calendar-alt" size={19} color="#3E3D3D" />
-            <Text style={styles.textoPadrao}>Data:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Data:</Text>
           </View>
-          <Text style={styles.textoConfirmacao}>{consulta.data}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.data}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome5 name="clock" size={19} color="#3E3D3D" />
-            <Text style={styles.textoPadrao}>Horário:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Horário:</Text>
           </View>
-          <Text style={styles.textoConfirmacao}>{consulta.horario}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.horario}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="phone-volume" size={19} color="#3E3D3D" />
-            <Text style={styles.textoPadrao}>Telefone de Contato:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Telefone de Contato:</Text>
           </View>
-          <Text style={styles.textoConfirmacao}>{consulta.telefoneContato}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.telefoneContato}</Text>
           
           <View style={[styles.containerButton]}>
             <TouchableOpacity
               style={styles.confirmButton}
               onPress={onConfirm}
             >
-              <Text style={styles.confirmButtonText}>Confirmar</Text>
+              <Text style={[styles.confirmButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Confirmar</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.cancelButton}
               onPress={onClose}
             >
-              <Text style={styles.cancelButtonText}>Cancelar</Text>
+              <Text style={[styles.cancelButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Cancelar</Text>
             </TouchableOpacity>
           </View>
         </View>
