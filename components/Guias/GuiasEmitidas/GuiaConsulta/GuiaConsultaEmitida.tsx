@@ -4,6 +4,8 @@ import { styles } from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { cancelarAgendamentoConsulta } from "@/utils/requestConfig";
 import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 interface Consulta {
   idAgenda: number;
@@ -38,44 +40,72 @@ const GuiaConsultaEmitida: React.FC<GuiaConsultaEmitidaProps> = ({
   };
 
   const ConsultaItem: React.FC<{ consulta: Consulta }> = ({ consulta }) => {
+    const [fontLoaded, setFontLoaded] = useState(false);
+
+    useEffect(() => {
+      async function loadResourcesAndDataAsync() {
+        try {
+          SplashScreen.preventAutoHideAsync();
+
+          await Font.loadAsync({
+            "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+            "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+            "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+            "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+          });
+
+          setFontLoaded(true);
+        } catch (e) {
+          console.warn(e);
+        } finally {
+          SplashScreen.hideAsync();
+        }
+      }
+
+      loadResourcesAndDataAsync();
+    }, []);
+
+    if (!fontLoaded) {
+      return null;
+    }
     return (
       <View key={consulta.idAgenda} style={styles.item}>
         <View style={[styles.constainerIcone]}>
           <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
-          <Text style={[styles.textoIcone]}>Guia de Consulta</Text>
+          <Text style={[styles.textoIcone, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Guia de Consulta</Text>
         </View>
 
         <View style={[styles.containerTextoPadrao]}>
           <FontAwesome6 name="person" size={21} color="#3E3D3D" />
-          <Text style={styles.textoPadrao}>Aderente:</Text>
+          <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Aderente:</Text>
         </View>
-        <Text style={styles.textoConfirmacao}>
+        <Text style={[styles.textoConfirmacao, , {fontFamily: 'MPlusRounded1c-Medium'}]}>
           ADAILTON FERREIRA ANDRE NUNES DA SILVA JUNIOR
         </Text>
 
         <View style={[styles.containerTextoPadrao]}>
           <FontAwesome6 name="people-arrows" size={19} color="#3E3D3D" />
-          <Text style={styles.textoPadrao}>Dependente:</Text>
+          <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Dependente:</Text>
         </View>
-        <Text style={styles.textoConfirmacao}>HELENA NUNES GUIMARAES</Text>
+        <Text style={[styles.textoConfirmacao, , {fontFamily: 'MPlusRounded1c-Medium'}]}>HELENA NUNES GUIMARAES</Text>
 
         <View style={[styles.containerTextoPadrao]}>
           <FontAwesome6 name="user-doctor" size={19} color="#3E3D3D" />
-          <Text style={styles.textoPadrao}>Médico:</Text>
+          <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Médico:</Text>
         </View>
-        <Text style={styles.textoConfirmacao}>{consulta.medico}</Text>
+        <Text style={[styles.textoConfirmacao, , {fontFamily: 'MPlusRounded1c-Medium'}]}>{consulta.medico}</Text>
 
         <View style={[styles.containerTextoPadrao]}>
           <FontAwesome5 name="notes-medical" size={19} color="#3E3D3D" />
-          <Text style={styles.textoPadrao}>Especialidade:</Text>
+          <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Especialidade:</Text>
         </View>
-        <Text style={styles.textoConfirmacao}>PSICOLOGO</Text>
+        <Text style={[styles.textoConfirmacao, , {fontFamily: 'MPlusRounded1c-Medium'}]}>PSICOLOGO</Text>
 
         <View style={[styles.containerTextoPadrao]}>
           <FontAwesome5 name="calendar-alt" size={19} color="#3E3D3D" />
-          <Text style={styles.textoPadrao}>Data:</Text>
+          <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Data:</Text>
         </View>
-        <Text style={styles.textoConfirmacao}>
+        <Text style={[styles.textoConfirmacao, , {fontFamily: 'MPlusRounded1c-Medium'}]}>
           {consulta.dataAgenda
             ? new Date(consulta.dataAgenda.split("T")[0]).toLocaleDateString(
                 "pt-BR",
@@ -86,26 +116,26 @@ const GuiaConsultaEmitida: React.FC<GuiaConsultaEmitidaProps> = ({
             : "N/A"}
         </Text>
 
-        <Text style={[styles.textoPadrao, { color: "#F22", marginBottom: 5 }]}>
+        <Text style={[styles.textoPadrao, { color: "#F22", marginBottom: 5, fontFamily: 'MPlusRounded1c-ExtraBold' }]}>
           **ATENÇÃO PAGO NO LOCAL**
         </Text>
         <View style={[styles.containerTextoPadrao]}>
           <FontAwesome5 name="money-bill-alt" size={19} color="#3E3D3D" />
-          <Text style={styles.textoPadrao}>Valor:</Text>
+          <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Valor:</Text>
         </View>
-        <Text style={styles.textoConfirmacao}>R$ 79,00</Text>
+        <Text style={[styles.textoConfirmacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>R$ 79,00</Text>
 
         <View style={[styles.containerTextoPadrao]}>
           <FontAwesome5 name="print" size={19} color="#3E3D3D" />
-          <Text style={styles.textoPadrao}>Guia Emitida:</Text>
+          <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Guia Emitida:</Text>
         </View>
-        <Text style={styles.textoConfirmacao}>{consulta.status}</Text>
+        <Text style={[styles.textoConfirmacao, , {fontFamily: 'MPlusRounded1c-Medium'}]}>{consulta.status}</Text>
 
         <View style={styles.containerTempo}>
           <TouchableOpacity style={[styles.containerButtonCancelar]}>
             <Text
               onPress={() => handleCancel(consulta.idAgenda)}
-              style={styles.textoButtonCancelar}
+              style={[styles.textoButtonCancelar, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
             >
               Cancelar Guia👆
             </Text>
@@ -118,7 +148,7 @@ const GuiaConsultaEmitida: React.FC<GuiaConsultaEmitidaProps> = ({
   if (consultas.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>Não há guias emitidas.</Text>
+        <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há guias emitidas.</Text>
       </View>
     );
   }
