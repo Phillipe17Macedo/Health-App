@@ -31,9 +31,7 @@ export const styles = StyleSheet.create({
   },
   textoHeader: {
     fontSize: 25,
-    fontWeight: 'bold',
     color: '#F2F2F2',
-    fontVariant: ['small-caps'],
   },
   refreshButton: {
     padding: 10,
@@ -44,7 +42,6 @@ export const styles = StyleSheet.create({
   },
   textoIcone: {
     fontSize: 12,
-    fontWeight: 'bold',
     color: '#FFF'
   },
 });
