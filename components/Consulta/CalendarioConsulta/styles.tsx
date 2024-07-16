@@ -15,8 +15,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
     marginBottom: 20,
   },
   containerButton: {
@@ -39,7 +38,6 @@ export const styles = StyleSheet.create({
   confirmButtonText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold',
   },
   cancelButton: {
     width: 90,
@@ -53,6 +51,5 @@ export const styles = StyleSheet.create({
   cancelButtonText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold'
   },
 });
