@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     color: '#888',
-    fontWeight: 'bold'
   },
   constainerTituloAgendamento: {
     width: '90%',
@@ -49,7 +48,6 @@ export const styles = StyleSheet.create({
   },
   tituloAgendamento: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#025940',
     marginLeft: 10,
   },
