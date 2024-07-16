@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Modal, View, Text, TouchableOpacity, FlatList } from "react-native";
 import { styles } from './styles';
 import { FontAwesome6 } from '@expo/vector-icons';
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 interface HorarioConsultaProps {
   visivel: boolean;
@@ -59,6 +61,35 @@ export default function HorarioConsulta({
     onClose();
   };
 
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
+
   return (
     <Modal
       animationType="slide"
@@ -68,7 +99,7 @@ export default function HorarioConsulta({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Selecione um Horário Disponível</Text>
+          <Text style={[styles.modalTitle, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Selecione um Horário Disponível</Text>
           <FlatList
             data={filteredHorarios}
             keyExtractor={(item) => item.idHorario.toString()}
@@ -78,7 +109,7 @@ export default function HorarioConsulta({
                 onPress={() => handleTimePress(item)}
               >
                 <FontAwesome6 name="clock" size={14} color="#3E3D3D" />
-                <Text style={styles.timeText}>{item.horario}</Text>
+                <Text style={[styles.timeText, {fontFamily: 'MPlusRounded1c-Bold'}]}>{item.horario}</Text>
               </TouchableOpacity>
             )}
             numColumns={3}
@@ -89,13 +120,13 @@ export default function HorarioConsulta({
               style={styles.backButton}
               onPress={onBackToCalendar}
             >
-              <Text style={styles.backButtonText}>Voltar</Text>
+              <Text style={[styles.backButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Voltar</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.closeButton}
               onPress={onClose}
             >
-              <Text style={styles.closeButtonText}>Fechar</Text>
+              <Text style={[styles.closeButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Fechar</Text>
             </TouchableOpacity>
           </View>
         </View>
