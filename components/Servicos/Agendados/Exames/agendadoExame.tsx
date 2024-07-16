@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { styles } from "./styles";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 interface Exame {
   id: number;
@@ -16,18 +18,47 @@ interface AgendadoExameProps {
 }
 
 const AgendadoExame: React.FC<AgendadoExameProps> = ({ exames }) => {
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
+  
   return (
     <View style={styles.container}>
       {exames.map((exame) => (
         <View key={exame.id} style={styles.item}>
           <View style={[styles.constainerIcone]}>
             <MaterialCommunityIcons name="flask-round-bottom" size={28} color="#52D981" />
-            <Text style={[styles.textoIcone]}>Exames</Text>
+            <Text style={[styles.textoIcone, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Exames Agendados</Text>
           </View>
-          <Text style={styles.text}>Tipo: {exame.tipo}</Text>
-          <Text style={styles.text}>Data: {exame.data}</Text>
-          <Text style={styles.text}>Hora: {exame.hora}</Text>
-          <Text style={styles.text}>Local: {exame.local}</Text>
+          <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Tipo: {exame.tipo}</Text>
+          <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Data: {exame.data}</Text>
+          <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Hora: {exame.hora}</Text>
+          <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Local: {exame.local}</Text>
         </View>
       ))}
     </View>

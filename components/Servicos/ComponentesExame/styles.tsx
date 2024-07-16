@@ -23,7 +23,6 @@ export const styles = StyleSheet.create({
   },
   textoConsultas: {
     fontSize: 16,
-    fontWeight: 'bold',
     color: '#52D981',
     textAlign: 'center',
     marginTop: 15,

@@ -3,6 +3,8 @@ import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { buscarMedicosEspecialidade } from "@/utils/requestConfig";
 import { styles } from "./styles";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 interface MedicoProps {
   especialidadeId: string | null;
@@ -60,6 +62,35 @@ export default function Medico({
     setValor(value);
   };
 
+const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <DropDownPicker
@@ -72,10 +103,10 @@ export default function Medico({
         setItems={setItens}
         placeholder="Selecione um Médico"
         style={styles.dropdown}
-        placeholderStyle={styles.textoDropdown}
+        placeholderStyle={[styles.textoDropdown, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
         dropDownContainerStyle={styles.dropDownContainerStyle}
-        listItemLabelStyle={styles.itensLista}
-        selectedItemLabelStyle={styles.itemSelecionado}
+        listItemLabelStyle={[styles.itensLista, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
+        selectedItemLabelStyle={[styles.itemSelecionado, , {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
         disabled={!especialidadeId || !unidadeAtendimentoId}
         zIndex={1000}
         zIndexInverse={2000}

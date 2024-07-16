@@ -3,6 +3,8 @@ import { Modal, View, Text, TouchableOpacity, Alert } from "react-native";
 import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
 import { buscarDiasAtendimentoMedico } from "@/utils/requestConfig";
 import { styles } from "./styles";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 // Configurar as traduções para o português
 LocaleConfig.locales["pt"] = {
@@ -209,6 +211,35 @@ export default function CalendarioConsulta({
     }
   };
 
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
+
   return (
     <Modal
       animationType="slide"
@@ -218,7 +249,7 @@ export default function CalendarioConsulta({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={styles.modalTitle}>Selecione uma Data Disponível</Text>
+          <Text style={[styles.modalTitle, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Selecione uma Data Disponível</Text>
           <Calendar
             onDayPress={handleDiaPress}
             markedDates={dataMarcada}
@@ -239,11 +270,11 @@ export default function CalendarioConsulta({
               style={styles.confirmButton}
               onPress={handleConfirm}
             >
-              <Text style={styles.confirmButtonText}>Confirmar</Text>
+              <Text style={[styles.confirmButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Confirmar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.cancelButton} onPress={onClose}>
-              <Text style={styles.cancelButtonText}>Fechar</Text>
+              <Text style={[styles.cancelButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Fechar</Text>
             </TouchableOpacity>
           </View>
         </View>

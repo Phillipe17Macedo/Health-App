@@ -16,13 +16,11 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#fff',
     marginBottom: 15,
   },
   orientacao: {
     textAlign: 'justify',
-    fontWeight: 'bold',
     color: '#fff',
     fontSize: 14,
   },

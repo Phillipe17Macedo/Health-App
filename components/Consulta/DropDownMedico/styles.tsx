@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   },
   textoDropdown: {
     color: '#025940',
-    fontSize: 16,
+    fontSize: 15,
   },
   dropDownContainerStyle: {
     backgroundColor: '#F8F8F6',
@@ -33,11 +33,9 @@ export const styles = StyleSheet.create({
   },
   itensLista: {
     color: '#025940',
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 15,
   },
   itemSelecionado: {
-    fontWeight: 'bold',
     color: '#8CBF1F',
   },
 });

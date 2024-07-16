@@ -15,8 +15,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 17,
     marginBottom: 20,
   },
   timeItem: {
@@ -34,8 +33,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   timeText: {
-    fontSize: 13,
-    fontWeight: 'bold',
+    fontSize: 11,
     color: "#3E3D3D",
     marginLeft: 5,
   },
@@ -69,12 +67,10 @@ export const styles = StyleSheet.create({
   },
   backButtonText: {
     color: '#fff',
-    fontWeight: 'bold',
     fontSize: 18,
   },
   closeButtonText: {
     color: '#fff',
-    fontWeight: 'bold',
     fontSize: 18,
   },
   columnWrapper: {

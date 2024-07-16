@@ -32,8 +32,6 @@ export const styles = StyleSheet.create({
   },
   textoHeader: {
     fontSize: 25,
-    fontWeight: 'bold',
     color: '#F2F2F2',
-    fontVariant: ['small-caps'],
   }, 
 });

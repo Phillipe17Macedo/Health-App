@@ -16,9 +16,9 @@ export const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 21,
-    fontWeight: "bold",
     marginBottom: 20,
     alignSelf: 'center',
+    color: '#3E3D3D'
   },
   containerTextoPadrao: {
     flexDirection: 'row',
@@ -26,9 +26,8 @@ export const styles = StyleSheet.create({
     //backgroundColor: 'red'
   },
   textoPadrao: {
-    fontSize: 16,
+    fontSize: 15,
     marginVertical: 3,
-    fontWeight: 'bold',
     color: "#3E3D3D",
     marginLeft: 8,
   },
@@ -60,7 +59,6 @@ export const styles = StyleSheet.create({
   confirmButtonText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold',
     textAlign: 'center'
   },
   cancelButton: {
@@ -73,7 +71,6 @@ export const styles = StyleSheet.create({
   },
   cancelButtonText: {
     color: "#fff",
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

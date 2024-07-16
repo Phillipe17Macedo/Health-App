@@ -26,14 +26,12 @@ export const styles = StyleSheet.create({
   textoPadrao: {
     fontSize: 16,
     marginVertical: 3,
-    fontWeight: 'bold',
     color: "#3E3D3D",
     marginLeft: 8,
   },
   textoConfirmacao: {
     fontSize: 15,
     marginVertical: 3,
-    fontWeight: 'normal',
     marginBottom: 8,
     color: "#03A66A"
   },
@@ -45,7 +43,6 @@ export const styles = StyleSheet.create({
   textoIcone: {
     fontSize: 18,
     color: "#9C71D9",
-    fontWeight: 'bold',
     marginLeft: 10,
   },
   conatinersButtons: {
@@ -69,7 +66,6 @@ export const styles = StyleSheet.create({
   },
   textoButtonCancelar: {
     fontSize: 16,
-    fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
   },

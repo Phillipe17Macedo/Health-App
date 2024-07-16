@@ -83,7 +83,6 @@ export const styles = StyleSheet.create({
   },
   label: {
     marginLeft: 5,
-    fontWeight: 'bold',
     textAlign: 'justify',
     color: '#025940',
     fontSize: 16,

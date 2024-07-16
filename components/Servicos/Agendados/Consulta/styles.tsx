@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
   textoIcone: {
     fontSize: 18,
     color: "#9C71D9",
-    fontWeight: 'bold',
     marginLeft: 10,
   },
   conatinersButtons: {
@@ -50,7 +49,6 @@ export const styles = StyleSheet.create({
   },
   textoButtonConfirmar: {
     fontSize: 16,
-    fontWeight: 'bold',
     color: '#FFF',
   },
   containerButtonCancelar: {
@@ -59,13 +57,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F22',
     borderRadius: 5,
     padding: 5,
-    height: 40,
-    width: 75,
+    height: 45,
+    width: 80,
     elevation: 3,
   },
   textoButtonCancelar: {
     fontSize: 11,
-    fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
   },
@@ -86,13 +83,12 @@ export const styles = StyleSheet.create({
   textoTempo: { 
     fontSize: 14,
     color: "#3E3D3D",
-    fontWeight: 'bold',
   },
   containerTempo: {
     flexDirection: 'row',
     backgroundColor: 'lightgray',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     marginTop: 10,
     height: 60,
     padding: 10,

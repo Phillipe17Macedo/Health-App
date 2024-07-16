@@ -3,6 +3,8 @@ import { View, Text, Alert, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { cancelarAgendamentoConsulta } from "@/utils/requestConfig";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 interface Consulta {
   idAgenda: number;
@@ -42,9 +44,11 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
     const horas = Math.floor((segundosTotais % 86400) / 3600);
     const minutos = Math.floor((segundosTotais % 3600) / 60);
     const segundos = segundosTotais % 60;
-    return `${dias > 0 ? `${dias}d ` : ""}${horas.toString().padStart(2, "0")}:${minutos
+    return `${dias > 0 ? `${dias}d ` : ""}${horas
       .toString()
-      .padStart(2, "0")}:${segundos.toString().padStart(2, "0")}`;
+      .padStart(2, "0")}:${minutos.toString().padStart(2, "0")}:${segundos
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   const ConsultaItem: React.FC<{ consulta: Consulta }> = ({ consulta }) => {
@@ -86,38 +90,71 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
 
     const vinteEQuatroHorasEmMilissegundos = 24 * 60 * 60 * 1000;
     const textoTempo =
-      tempoRestante !== null && tempoRestante <= vinteEQuatroHorasEmMilissegundos
+      tempoRestante !== null &&
+      tempoRestante <= vinteEQuatroHorasEmMilissegundos
         ? `Faltam `
         : `Faltam `;
 
     const textoAcao =
-      tempoRestante !== null && tempoRestante <= vinteEQuatroHorasEmMilissegundos
+      tempoRestante !== null &&
+      tempoRestante <= vinteEQuatroHorasEmMilissegundos
         ? "para sua consulta"
         : "para cancelar";
 
+    const [fontLoaded, setFontLoaded] = useState(false);
+
+    useEffect(() => {
+      async function loadResourcesAndDataAsync() {
+        try {
+          SplashScreen.preventAutoHideAsync();
+
+          await Font.loadAsync({
+            "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+            "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+            "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+            "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+          });
+
+          setFontLoaded(true);
+        } catch (e) {
+          console.warn(e);
+        } finally {
+          SplashScreen.hideAsync();
+        }
+      }
+
+      loadResourcesAndDataAsync();
+    }, []);
+
+    if (!fontLoaded) {
+      return null;
+    }
     return (
       <View key={consulta.idAgenda} style={styles.item}>
         <View style={[styles.constainerIcone]}>
           <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
-          <Text style={[styles.textoIcone]}>Consulta Agendada</Text>
+          <Text style={[styles.textoIcone, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Consulta Agendada</Text>
         </View>
-        <Text style={styles.text}>Médico: {consulta.medico}</Text>
-        <Text style={styles.text}>
+        <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Médico: {consulta.medico}</Text>
+        <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>
           Data:{" "}
           {consulta.dataAgenda
-            ? new Date(consulta.dataAgenda.split("T")[0]).toLocaleDateString("pt-BR", {
-                timeZone: "UTC",
-              })
+            ? new Date(consulta.dataAgenda.split("T")[0]).toLocaleDateString(
+                "pt-BR",
+                {
+                  timeZone: "UTC",
+                }
+              )
             : "N/A"}
         </Text>
-        <Text style={styles.text}>Horário: {consulta.horaAgenda}</Text>
-        <Text style={styles.text}>Agendamento: {consulta.status}</Text>
+        <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Horário: {consulta.horaAgenda}</Text>
+        <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Agendamento: {consulta.status}</Text>
 
         <View style={styles.containerTempo}>
           {tempoRestante !== null ? (
             <Text style={styles.textoContainerTempo}>
               {textoTempo}
-              <Text style={[styles.textoTempo, { fontWeight: "bold" }]}>
+              <Text style={[styles.textoTempo, {fontFamily: 'MPlusRounded1c-Bold'}]}>
                 {tempoFormatado(tempoRestante)}
               </Text>{" "}
               {textoAcao}
@@ -131,7 +168,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
             <TouchableOpacity style={[styles.containerButtonCancelar]}>
               <Text
                 onPress={() => handleCancel(consulta.idAgenda)}
-                style={styles.textoButtonCancelar}
+                style={[styles.textoButtonCancelar, {fontFamily: 'MPlusRounded1c-Bold'}]}
               >
                 Cancelar Agendamento
               </Text>
@@ -141,7 +178,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
 
         <View style={styles.conatinersButtons}>
           <TouchableOpacity style={styles.containerButtonConfirmar}>
-            <Text style={styles.textoButtonConfirmar}>
+            <Text style={[styles.textoButtonConfirmar, {fontFamily: 'MPlusRounded1c-Bold'}]}>
               Confirmar Agendamento
             </Text>
           </TouchableOpacity>
@@ -153,7 +190,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
   if (consultas.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>Não há consultas agendadas.</Text>
+        <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Não há consultas agendadas.</Text>
       </View>
     );
   }

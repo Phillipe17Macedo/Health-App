@@ -17,7 +17,6 @@ export const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 21,
-    fontWeight: "bold",
     marginBottom: 20,
   },
   containerButtons: {
@@ -40,7 +39,6 @@ export const styles = StyleSheet.create({
   confirmButtonText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: "bold",
   },
   cancelButton: {
     width: "35%",
@@ -54,7 +52,6 @@ export const styles = StyleSheet.create({
   cancelButtonText: {
     color: "#fff",
     fontSize: 18,
-    fontWeight: "bold",
   },
   picker: {
     height: 50,
