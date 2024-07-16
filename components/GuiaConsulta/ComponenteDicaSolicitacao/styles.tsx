@@ -15,14 +15,12 @@ export const styles = StyleSheet.create({
   tituloOrientacao: {
     alignSelf: 'center',
     textAlign: 'center',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 17,
     color: '#fff',
     marginBottom: 15,
   },
   orientacao: {
     textAlign: 'justify',
-    fontWeight: 'bold',
     color: '#fff',
     fontSize: 14,
   },
