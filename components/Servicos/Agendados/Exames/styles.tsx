@@ -28,7 +28,6 @@ export const styles = StyleSheet.create({
   textoIcone: {
     fontSize: 18,
     color: "#52D981",
-    fontWeight: 'bold',
     marginLeft: 10,
   }
 });
