@@ -33,11 +33,9 @@ export const styles = StyleSheet.create({
   },
   itensLista: {
     color: '#025940',
-    fontWeight: 'bold',
     fontSize: 16,
   },
   itemSelecionado: {
-    fontWeight: 'bold',
     color: '#8CBF1F',
   },
 });
