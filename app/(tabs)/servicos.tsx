@@ -158,7 +158,7 @@ const Servicos: React.FC = () => {
             />
           ) : (
             <View style={styles.emptyContainer}>
-              <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há consultas agendadas.</Text>
+              <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há agendamentos.</Text>
             </View>
           )
         )}

@@ -24,6 +24,8 @@ import {
 } from "@/utils/requestConfig";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
 interface Consulta {
   idAgenda: number;
@@ -99,6 +101,35 @@ const Guias: React.FC = () => {
     await fetchConsultas();
   };
 
+  const [fontLoaded, setFontLoaded] = useState(false);
+
+  useEffect(() => {
+    async function loadResourcesAndDataAsync() {
+      try {
+        SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({
+          "MPlusRounded1c-Medium": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Medium.ttf"),
+          "MPlusRounded1c-Regular": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf"),
+          "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
+          "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
+        });
+
+        setFontLoaded(true);
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        SplashScreen.hideAsync();
+      }
+    }
+
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!fontLoaded) {
+    return null;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -114,7 +145,7 @@ const Guias: React.FC = () => {
 
         <View style={styles.constainerTituloAgendamento}>
           <MaterialCommunityIcons name="calendar-clock" size={21} color="#025940" />
-          <Text style={styles.tituloAgendamento}>Minhas Guias de Consulta e Exame</Text>
+          <Text style={[styles.tituloAgendamento, {fontFamily: 'MPlusRounded1c-Bold'}]}>Minhas Guias de Consulta e Exame</Text>
         </View>
 
         {loading ? (
@@ -127,7 +158,7 @@ const Guias: React.FC = () => {
             />
           ) : (
             <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>Não há guias emitidas.</Text>
+              <Text style={[styles.emptyText, , {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há guias emitidas.</Text>
             </View>
           )
         )}
