@@ -23,5 +23,21 @@ export const styles = StyleSheet.create({
   textoInstrucao: {
     fontSize: 16,
     color: '#9B9B9B',
+    textAlign: 'left',
+  },
+  containerButtonSuporte: {
+    width: '75%',
+    height: 65,
+    backgroundColor: '#52D981',
+    borderRadius: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
+    position: 'absolute',
+    bottom: 30,
+  },
+  textoButtonSuporte: {
+    fontSize: 24,
+    color: '#fff',
   },
 });
