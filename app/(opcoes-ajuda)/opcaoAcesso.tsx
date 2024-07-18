@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Linking } from "react-native";
 import { styles } from "@/styles/StylesAjudaPage/StylesOpcoesAjuda/StylesOpcaoAcesso/styles";
 import { HeaderOpcoes } from "@/components/Ajuda/Opcoes/Header";
 import * as Font from "expo-font";
@@ -34,6 +34,11 @@ export default function OpcaoAcesso() {
     return null;
   }
 
+  const handleSupportPress = () => {
+    const phoneNumber = "tel:34 99931-7302";
+    Linking.openURL(phoneNumber);
+  };
+
   return (
     <View style={styles.container}>
       <HeaderOpcoes />
@@ -46,7 +51,7 @@ export default function OpcaoAcesso() {
         <Text style={[styles.textoInstrucao, {fontFamily: 'MPlusRounded1c-Regular'}]}>2) Você marca se é dependente, ou titular.</Text>
         <Text style={[styles.textoInstrucao, {fontFamily: 'MPlusRounded1c-Regular'}]}>3) Você deve ter cadastrado no seu aparelho uma face ou biometria para que seja necessário autenticar a entrada no APP.</Text>
       </View>
-      <TouchableOpacity style={[styles.containerButtonSuporte]}>
+      <TouchableOpacity style={[styles.containerButtonSuporte]} onPress={handleSupportPress}>
         <Text style={[styles.textoButtonSuporte, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Suporte</Text>
       </TouchableOpacity>
     </View>
