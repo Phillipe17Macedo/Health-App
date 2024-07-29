@@ -61,6 +61,19 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   containerAreaDadosMedico: {
-    
+    //backgroundColor: 'red',
+    width: '75%',
+    height: 50,
+    marginLeft: 10,
+    padding: 5,
+    justifyContent: 'space-between'
+  },
+  textoNomeMedico: {
+    color: "#3E3D3D",
+    fontSize: 15,
+  },
+  textoDescricaoMedico: {
+    color: "#3E3D3D",
+    fontSize: 13,
   },
 });

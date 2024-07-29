@@ -87,12 +87,20 @@ export default function AgendamentosHome() {
         <View style={[styles.containerAreaFotoMedico]}>
           <Image
             source={require("@/assets/images/medicos/medico.png")}
-            style={[{ width: "100%", height: "100%", borderRadius: 5, /*resizeMode: "contain"*/ }]}
+            style={[
+              {
+                width: "100%",
+                height: "100%",
+                borderRadius: 10 /*resizeMode: "contain"*/,
+              },
+            ]}
           />
         </View>
-        <View style={[]}>
-          <Text>Dr. Clésio Camilo de Souza</Text>
-          <Text>Psicólogo</Text>
+        <View style={[styles.containerAreaDadosMedico]}>
+          <Text style={[styles.textoNomeMedico, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
+            Dr. Clésio Camilo de Souza
+          </Text>
+          <Text style={[styles.textoDescricaoMedico, { fontFamily: "MPlusRounded1c-Medium" }]}>Psicólogo</Text>
         </View>
       </View>
     </View>
