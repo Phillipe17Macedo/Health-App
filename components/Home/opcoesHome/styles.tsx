@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   opcoes: {
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#F8F8F6',
     width: 80,
     height: 75,
     borderRadius: 15,
@@ -45,8 +45,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 5,
     alignSelf: 'center',
-    borderWidth: 0.4,
-    borderColor: "#CACACA"
+    //borderWidth: 0.4,
+    //borderColor: "#CACACA",
   },
   imagemOpcoes: {
     alignSelf: 'center',
