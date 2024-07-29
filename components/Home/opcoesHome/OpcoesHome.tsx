@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { Link } from "expo-router";
-import {
-  FontAwesome6,
-} from "@expo/vector-icons";
+import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
 import { styles } from "./styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -39,10 +37,14 @@ export function OpcoesHome() {
   return (
     <>
       <View style={[styles.container]}>
-        
         <View style={[styles.ContainertextoAcessoRapido]}>
-          <FontAwesome6 name="hospital" size={18} color="#03A66A" />
-          <Text style={[styles.textoAcessoRapido, {fontFamily: 'MPlusRounded1c-Bold'}]}>
+          <FontAwesome5 name="hospital-alt" size={24} color="#03A66A" />
+          <Text
+            style={[
+              styles.textoAcessoRapido,
+              { fontFamily: "MPlusRounded1c-Bold" },
+            ]}
+          >
             Agendamentos Clínicas Aserpa
           </Text>
         </View>
@@ -50,18 +52,42 @@ export function OpcoesHome() {
         <View style={[styles.containerOpcoes]}>
           <TouchableOpacity>
             <Link href={"/consulta"} style={[styles.containerLink]}>
-              <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Consulta.png')} style={[styles.imagemOpcoes]} />
-                <Text style={[styles.textoOpcoesIcone, {fontFamily: 'MPlusRounded1c-Medium'}]}>Agendar Consulta</Text>
+              <View>
+                <View style={[styles.opcoes]}>
+                  <Image
+                    source={require("@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Consulta.png")}
+                    style={[styles.imagemOpcoes]}
+                  />
+                </View>
+                <Text
+                  style={[
+                    styles.textoOpcoesIcone,
+                    { fontFamily: "MPlusRounded1c-Medium" },
+                  ]}
+                >
+                  Agendar Consulta
+                </Text>
               </View>
             </Link>
           </TouchableOpacity>
 
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
-              <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Exame.png')} style={[styles.imagemOpcoes]} />
-                <Text style={[styles.textoOpcoesIcone, {fontFamily: 'MPlusRounded1c-Medium'}]}>Agendar Exame</Text>
+              <View>
+                <View style={[styles.opcoes]}>
+                  <Image
+                    source={require("@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Exame.png")}
+                    style={[styles.imagemOpcoes]}
+                  />
+                </View>
+                <Text
+                  style={[
+                    styles.textoOpcoesIcone,
+                    { fontFamily: "MPlusRounded1c-Medium" },
+                  ]}
+                >
+                  Agendar Exame
+                </Text>
               </View>
             </Link>
           </TouchableOpacity>
@@ -70,15 +96,32 @@ export function OpcoesHome() {
 
       <View style={[styles.container]}>
         <View style={[styles.ContainertextoAcessoRapido]}>
-          <FontAwesome6 name="hospital-user" size={18} color="#03A66A" />
-          <Text style={[styles.textoAcessoRapido, {fontFamily: 'MPlusRounded1c-Bold'}]}>Solicitação de Guias</Text>
+          <FontAwesome5 name="hospital-user" size={24} color="#03A66A" />
+          <Text
+            style={[
+              styles.textoAcessoRapido,
+              { fontFamily: "MPlusRounded1c-Bold" },
+            ]}
+          >
+            Solicitação de Guias
+          </Text>
         </View>
         <View style={[styles.containerOpcoes]}>
           <TouchableOpacity>
             <Link href={"/guiaConsulta"} style={[styles.containerLink]}>
-              <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/guia-consulta.png')} style={[styles.imagemOpcoes]} />
-                <Text style={[styles.textoOpcoesIcone, {fontFamily: 'MPlusRounded1c-Medium'}]}>
+              <View>
+                <View style={[styles.opcoes]}>
+                  <Image
+                    source={require("@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/guia-consulta.png")}
+                    style={[styles.imagemOpcoes]}
+                  />
+                </View>
+                <Text
+                  style={[
+                    styles.textoOpcoesIcone,
+                    { fontFamily: "MPlusRounded1c-Medium" },
+                  ]}
+                >
                   Guia de Consultas
                 </Text>
               </View>
@@ -87,9 +130,21 @@ export function OpcoesHome() {
 
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
-              <View style={[styles.opcoes]}>
-                <Image source={require('@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/guia-exame.png')} style={[styles.imagemOpcoes]} />
-                <Text style={[styles.textoOpcoesIcone, {fontFamily: 'MPlusRounded1c-Medium'}]}>Guia de Exames</Text>
+              <View>
+                <View style={[styles.opcoes]}>
+                  <Image
+                    source={require("@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/guia-exame.png")}
+                    style={[styles.imagemOpcoes]}
+                  />
+                </View>
+                <Text
+                  style={[
+                    styles.textoOpcoesIcone,
+                    { fontFamily: "MPlusRounded1c-Medium" },
+                  ]}
+                >
+                  Guia de Exames
+                </Text>
               </View>
             </Link>
           </TouchableOpacity>

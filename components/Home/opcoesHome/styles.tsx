@@ -30,15 +30,15 @@ export const styles = StyleSheet.create({
   },
   containerLink: {
     justifyContent: 'center',
-    width: 110,
+    alignItems: 'center',
+    width: 90,
     //backgroundColor: 'gray',
     alignSelf: 'center',
-    flexDirection: 'row',
   },
   opcoes: {
     backgroundColor: '#F2F2F2',
-    width: 110,
-    height: 90,
+    width: 80,
+    height: 75,
     borderRadius: 15,
     elevation: 2,
     alignItems: 'center',
@@ -58,6 +58,6 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
     color: '#3E3D3D',
-    marginTop: -1,
+    marginTop: 5,
   },
 });
