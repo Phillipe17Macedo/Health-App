@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
   RefreshControl,
 } from "react-native";
-import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { styles } from "../../styles/StylesHomePage/styles";
 import { Header } from "../../components/Home/headerHome/Header";
@@ -60,7 +60,6 @@ export default function Home() {
         }
       >
         <Header nomeUsuario={user?.nome} />
-        {user && <Cartao user={user} />}
         <OpcoesHome />
         <Carrossel />
       </ScrollView>
