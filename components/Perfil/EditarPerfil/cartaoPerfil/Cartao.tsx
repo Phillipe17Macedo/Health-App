@@ -33,7 +33,7 @@ export function Cartao({ user }: CartaoProps) {
   // Aqui eu convert a string base64 para um URI utilizável pelo componente <Image />
   const fotoUri = user.fotoBase64 ? `data:image/jpeg;base64,${user.fotoBase64}` : null;
   // Se caso o usuário não tiver uma imegem no banco, irá aparecer esse icone padrão
-  const imagemPadrao = require("../../../assets/images/icons8-personUnisex-94.png");
+  const imagemPadrao = require("../../../../assets/images/icons8-personUnisex-94.png");
 
   const { width, height } = Dimensions.get('screen');
 
