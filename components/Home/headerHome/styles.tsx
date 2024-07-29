@@ -4,11 +4,14 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    height: 95,
+    height: 250,
     flexDirection: 'row',
-    //backgroundColor: 'red',
+    backgroundColor: '#03A66A',
     paddingTop: 35,
     justifyContent: 'space-between',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    elevation: 2,
   },
   headerRight: {
     marginLeft: 15, 
@@ -26,11 +29,11 @@ export const styles = StyleSheet.create({
   nomeUsuario: {
     fontSize: 21,
     fontWeight: 'bold',
-    color: '#3E3D3D',
+    color: '#FFF',
   },
   textoPerfilConfi: {
     fontSize: 12,
-    color: '#878787',
+    color: '#FFF',
     fontWeight: 'normal',
   },
   containerIconHelp: {
@@ -44,7 +47,18 @@ export const styles = StyleSheet.create({
   textoAjuda: {
     fontSize: 13,
     textAlign: 'center',
-    color: '#9B9B9B',
+    color: '#FFF',
     //backgroundColor: 'red'
+  },
+  containerBoasVindas: {
+    position: 'absolute',
+    //backgroundColor: 'blue',
+    width: '100%',
+    top: 120,
+    padding: 25,
+  },
+  textoBoasVindas: {
+    color: "#FFF",
+    fontSize: 21,
   }
 });
