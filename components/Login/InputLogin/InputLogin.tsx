@@ -72,7 +72,7 @@ export function InputLogin() {
       if (supportsAuth) {
         handleAuthentication();
       } else {
-        router.push("/(tabs)/home");
+        router.push("../(tabs)/home");
       }
     } catch (error) {
       if (
@@ -129,7 +129,7 @@ export function InputLogin() {
     console.log("Resultado da autenticação:", auth);
 
     if (auth.success) {
-      router.push("/(tabs)/home");
+      router.push("../(tabs)/home");
     } else {
       Alert.alert('Erro', 'Autenticação falhou. Por favor, tente novamente.');
     }
