@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: '#1ED960',
+    borderColor: '#107357',
     borderRadius: 10,
   },
   tituloAgendamento: {

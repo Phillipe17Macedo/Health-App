@@ -11,13 +11,15 @@ export const styles = StyleSheet.create({
     height: 250,
     marginBottom: 45,
     padding: 15,
-    backgroundColor: '#52D981',
+    backgroundColor: '#FFF',
     borderRadius: 15,
     elevation: 2,
+    borderWidth: 1,
+    borderColor: '#52D981'
   },
   text: {
     fontSize: 16,
-    color: '#FFF',
+    color: '#3E3D3D',
   },
   constainerIcone :{
     flexDirection: 'row',
@@ -26,7 +28,7 @@ export const styles = StyleSheet.create({
   }, 
   textoIcone: {
     fontSize: 18,
-    color: "#FFF",
+    color: "#52D981",
     marginLeft: 10,
   },
   conatinersButtons: {
@@ -44,7 +46,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 25,
-    backgroundColor: '#9C71D9',
+    backgroundColor: '#52D981',
     elevation: 3,
   },
   textoButtonConfirmar: {
@@ -65,6 +67,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 10,
     padding: 10,
+    borderWidth: 1,
+    borderColor: '#52D981'
   },
   containerButtonCancelar: {
     alignItems: 'center',

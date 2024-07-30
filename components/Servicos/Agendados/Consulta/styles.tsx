@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 25,
-    backgroundColor: '#52D981',
+    backgroundColor: '#9C71D9',
     elevation: 3,
   },
   textoButtonConfirmar: {

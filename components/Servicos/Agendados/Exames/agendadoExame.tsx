@@ -52,7 +52,7 @@ const AgendadoExame: React.FC<AgendadoExameProps> = ({ exames }) => {
       {exames.map((exame) => (
         <View key={exame.id} style={styles.item}>
           <View style={[styles.constainerIcone]}>
-            <MaterialCommunityIcons name="flask-round-bottom" size={28} color="#FFF" />
+            <MaterialCommunityIcons name="flask-round-bottom" size={28} color="#52D981" />
             <Text style={[styles.textoIcone, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Exames Agendados</Text>
           </View>
           <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Tipo: {exame.tipo}</Text>

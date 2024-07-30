@@ -25,11 +25,4 @@ export const ExamesFicticios = [
     hora: '08:00',
     local: 'Clínica Aserpa Saúde',
   },
-  {
-    id: 2,
-    tipo: 'Raio-X',
-    data: '22-06-2024',
-    hora: '09:30',
-    local: 'Clínica Aserpa Saúde',
-  },
 ];
