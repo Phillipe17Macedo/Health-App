@@ -50,11 +50,10 @@ export function Header({ nomeUsuario }: HeaderProps) {
   }
 
   const fotoUri = fotoUsuario ? `data:image/jpeg;base64,${fotoUsuario}` : null;
-  const imagemPadrao = require("../../../assets/images/icons8-personUnisex-94.png");
 
   return (
     <>
-      <TouchableOpacity style={styles.container}>
+      <View style={styles.container}>
         <Link href="/perfil" asChild>
           <Pressable>
             {({ pressed }) => (
@@ -100,7 +99,7 @@ export function Header({ nomeUsuario }: HeaderProps) {
           </Pressable>
           <Text style={[styles.textoAjuda]}>Ajuda</Text>
         </Link>
-      </TouchableOpacity>
+      </View>
       <View style={[styles.containerBoasVindas]}>
         <Text
           style={[

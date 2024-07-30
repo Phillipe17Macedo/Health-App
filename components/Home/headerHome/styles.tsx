@@ -52,6 +52,7 @@ export const styles = StyleSheet.create({
     //backgroundColor: 'yellow',
     marginRight: 25,
     width: 38,
+    height: 55,
   },
   textoAjuda: {
     fontSize: 13,
