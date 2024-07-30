@@ -9,10 +9,12 @@ export default function Login() {
   return (
     <View style={[styles.container]}>
       <StatusBar style="auto" />
-      <LogoLogin />
-      <InputLogin />
-      <View style={[styles.containerLogoBackground]}>
-        <Image source={require("@/assets/images/logo-aserpa/Icone.png")} style={[styles.logoBackground]} />
+      <View style={[styles.conteudo]}>
+        <LogoLogin />
+        <InputLogin />
+        <View style={[styles.containerLogoBackground]}>
+          <Image source={require("@/assets/images/logo-aserpa/Icone.png")} style={[styles.logoBackground]} />
+        </View>
       </View>
     </View>
   );
