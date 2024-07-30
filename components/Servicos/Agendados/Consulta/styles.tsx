@@ -10,13 +10,15 @@ export const styles = StyleSheet.create({
     height: 250,
     marginBottom: 45,
     padding: 15,
-    backgroundColor: '#9C71D9',
+    backgroundColor: '#FFF',
     borderRadius: 15,
     elevation: 2,
+    borderWidth: 1,
+    borderColor: '#9C71D9'
   },
   text: {
     fontSize: 16,
-    color: '#FFF',
+    color: '#3E3D3D',
   },
   constainerIcone :{
     flexDirection: 'row',
@@ -25,7 +27,7 @@ export const styles = StyleSheet.create({
   }, 
   textoIcone: {
     fontSize: 18,
-    color: "#FFF",
+    color: "#9C71D9",
     marginLeft: 10,
   },
   conatinersButtons: {
@@ -97,5 +99,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 10,
     padding: 10,
+    borderWidth: 1,
+    borderColor: '#9C71D9'
   }
 });

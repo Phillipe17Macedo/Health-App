@@ -132,7 +132,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
     return (
       <View key={consulta.idAgenda} style={[styles.item]}>
         <View style={[styles.constainerIcone]}>
-          <MaterialCommunityIcons name="pill" size={26} color="#FFF" />
+          <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
           <Text style={[styles.textoIcone, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Consulta Agendada</Text>
         </View>
         <Text style={[styles.text, {fontFamily: 'MPlusRounded1c-Bold'}]}>Médico: {consulta.medico}</Text>
