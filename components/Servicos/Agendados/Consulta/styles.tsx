@@ -6,14 +6,15 @@ export const styles = StyleSheet.create({
     alignItems: 'center'
   },
   item: {
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: '#F8F8F6',
-    borderRadius: 5,
-    elevation: 3,
     width: '95%',
-    borderWidth: 0.5,
-    borderColor: '#B2B2B2'
+    height: 250,
+    marginBottom: 45,
+    padding: 15,
+    backgroundColor: '#FFF',
+    borderRadius: 15,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#9C71D9'
   },
   text: {
     fontSize: 16,
@@ -43,8 +44,8 @@ export const styles = StyleSheet.create({
     width: "100%",
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 5,
-    backgroundColor: '#8CBF1F',
+    borderRadius: 25,
+    backgroundColor: '#9C71D9',
     elevation: 3,
   },
   textoButtonConfirmar: {
@@ -55,10 +56,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#F22',
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 5,
-    height: 45,
-    width: 80,
+    height: 35,
+    width: "100%",
     elevation: 3,
   },
   textoButtonCancelar: {
@@ -85,13 +86,20 @@ export const styles = StyleSheet.create({
     color: "#3E3D3D",
   },
   containerTempo: {
-    flexDirection: 'row',
-    backgroundColor: 'lightgray',
+    height: 75,
+    width: "95%",
+    alignSelf: 'center',
+    position: 'absolute',
+    bottom: -30,
+    elevation: 2,
+    borderRadius: 10,
+    flexDirection: 'column',
+    backgroundColor: '#FFF',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginTop: 10,
-    height: 60,
     padding: 10,
-    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#9C71D9'
   }
 });

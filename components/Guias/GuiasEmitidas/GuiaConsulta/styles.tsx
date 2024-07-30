@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 15,
     backgroundColor: '#F8F8F6',
-    borderRadius: 5,
+    borderRadius: 15,
     elevation: 3,
     width: '95%',
     borderWidth: 0.5,

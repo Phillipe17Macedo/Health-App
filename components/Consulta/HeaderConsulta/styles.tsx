@@ -4,10 +4,11 @@ export const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 'auto',
-    backgroundColor: '#03A66A',
+    //backgroundColor: '#03A66A',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+    position: 'absolute',
   },
   containerLink: {
     width: '75%',

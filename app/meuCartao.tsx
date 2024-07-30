@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "../styles/StylesEditarPerfil/styles";
 import { HeaderEditarPerfil } from "@/components/Perfil/EditarPerfil/Header";
@@ -29,8 +29,11 @@ export default function MeuCartao() {
   return (
     <>
       <View style={styles.container}>
-        <HeaderEditarPerfil />
-        <DadosUser cpf={cpf} />
+        <ScrollView style={[styles.conteudo]}>
+          <HeaderEditarPerfil />
+          <DadosUser cpf={cpf} />
+          <View style={[{height: 25,}]}></View>
+        </ScrollView>
         <ModalCarregamento visivel={loading} />
       </View>
     </>

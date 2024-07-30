@@ -67,7 +67,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
 
           setTempoRestante(diferencaMilissegundos);
 
-          const vinteEQuatroHorasEmMilissegundos = 24 * 60 * 60 * 1000;
+          const vinteEQuatroHorasEmMilissegundos = 12 * 60 * 60 * 1000;
 
           if (diferencaMilissegundos <= vinteEQuatroHorasEmMilissegundos) {
             setMostrarBotaoCancelar(false);
@@ -88,7 +88,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
       return () => clearInterval(interval);
     }, [consulta.dataAgenda, consulta.horaAgenda]);
 
-    const vinteEQuatroHorasEmMilissegundos = 24 * 60 * 60 * 1000;
+    const vinteEQuatroHorasEmMilissegundos = 12 * 60 * 60 * 1000;
     const textoTempo =
       tempoRestante !== null &&
       tempoRestante <= vinteEQuatroHorasEmMilissegundos
@@ -130,7 +130,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
       return null;
     }
     return (
-      <View key={consulta.idAgenda} style={styles.item}>
+      <View key={consulta.idAgenda} style={[styles.item]}>
         <View style={[styles.constainerIcone]}>
           <MaterialCommunityIcons name="pill" size={26} color="#9C71D9" />
           <Text style={[styles.textoIcone, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Consulta Agendada</Text>
