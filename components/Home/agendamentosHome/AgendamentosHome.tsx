@@ -48,7 +48,7 @@ export default function AgendamentosHome() {
               { fontFamily: "MPlusRounded1c-Medium" },
             ]}
           >
-            Agendamentos
+            Meu Agendamento
           </Text>
           <View>
             <Entypo name="chevron-right" size={18} color="#FFF" />

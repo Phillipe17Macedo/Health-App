@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { Text, Pressable, TouchableOpacity, View } from "react-native";
+import { Text, Pressable, TouchableOpacity, View, Image } from "react-native";
 import { Link } from "expo-router";
 import { styles } from "./styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface HeaderProps {
   nomeUsuario?: string;
@@ -12,8 +13,8 @@ interface HeaderProps {
 
 export function Header({ nomeUsuario }: HeaderProps) {
   const primeiroNome = nomeUsuario ? nomeUsuario.split(" ")[0] : "Usuário";
-
   const [fontLoaded, setFontLoaded] = useState(false);
+  const [fotoUsuario, setFotoUsuario] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
@@ -26,6 +27,12 @@ export function Header({ nomeUsuario }: HeaderProps) {
           "MPlusRounded1c-Bold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-Bold.ttf"),
           "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
         });
+
+        const fotoBase64 = await AsyncStorage.getItem("fotoUsuario");
+        console.log("Imagem base64 do AsyncStorage:", fotoBase64);
+        if (fotoBase64) {
+          setFotoUsuario(fotoBase64);
+        }
 
         setFontLoaded(true);
       } catch (e) {
@@ -42,18 +49,33 @@ export function Header({ nomeUsuario }: HeaderProps) {
     return null;
   }
 
+  const fotoUri = fotoUsuario ? `data:image/jpeg;base64,${fotoUsuario}` : null;
+  const imagemPadrao = require("../../../assets/images/icons8-personUnisex-94.png");
+
   return (
     <>
       <TouchableOpacity style={styles.container}>
         <Link href="/perfil" asChild>
           <Pressable>
             {({ pressed }) => (
-              <Ionicons
-                name="person-circle"
-                size={58}
-                color="#FFF"
-                style={[styles.headerRight, { opacity: pressed ? 0.5 : 1 }]}
-              />
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                {fotoUri ? (
+                  <Image
+                    source={{ uri: fotoUri }}
+                    style={[
+                      styles.headerImage,
+                      { opacity: pressed ? 0.5 : 1 },
+                    ]}
+                  />
+                ) : (
+                  <Ionicons
+                    name="person-circle"
+                    size={58}
+                    color="#FFF"
+                    style={[{ opacity: pressed ? 0.5 : 1 }]}
+                  />
+                )}
+              </View>
             )}
           </Pressable>
         </Link>
@@ -79,11 +101,21 @@ export function Header({ nomeUsuario }: HeaderProps) {
           <Text style={[styles.textoAjuda]}>Ajuda</Text>
         </Link>
       </TouchableOpacity>
-      <View style={[styles.containerBoasVindas]} >
-        <Text style={[styles.textoBoasVindas, {fontFamily: 'MPlusRounded1c-Bold', marginBottom: -3}]}>
-          Seja bem-vindo ao 
+      <View style={[styles.containerBoasVindas]}>
+        <Text
+          style={[
+            styles.textoBoasVindas,
+            { fontFamily: "MPlusRounded1c-Bold", marginBottom: -3 },
+          ]}
+        >
+          Seja bem-vindo ao
         </Text>
-        <Text style={[styles.textoBoasVindas, {fontFamily: 'MPlusRounded1c-ExtraBold', fontSize: 36}]}>
+        <Text
+          style={[
+            styles.textoBoasVindas,
+            { fontFamily: "MPlusRounded1c-ExtraBold", fontSize: 36 },
+          ]}
+        >
           Aserpa App!
         </Text>
       </View>
