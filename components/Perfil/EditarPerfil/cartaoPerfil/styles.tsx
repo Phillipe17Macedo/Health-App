@@ -5,7 +5,7 @@ const { width, height } = Dimensions.get('screen');
 export const styles = StyleSheet.create({
   containerLink: {
     height: "auto",
-    marginTop: 25,
+    marginTop: 10,
     borderRadius: 10,
     alignSelf: 'center',
     //backgroundColor: 'gray',
@@ -13,8 +13,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   containerCard: {
-    width: width * 0.9,
-    height: width * 0.56,
+    width: width * 1.1,  // Aqui você usa a altura como largura
+    height: height * 0.31, // Aqui você usa a largura como altura
     marginTop: 25,
     borderRadius: 10,
     borderWidth: 1,
@@ -27,13 +27,13 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     padding: width * 0.03,
-    flexDirection: 'row', 
+    flexDirection: 'row',
     paddingTop: width * 0.05
   },
   containerImagemUser: {
     backgroundColor: '#F8F8F6',
-    width: 94,
-    height: 124,
+    width: 72,   // Ajustar conforme necessário
+    height: 94,   // Ajustar conforme necessário
     borderRadius: 10,
     marginRight: 10,
     alignItems: 'center',

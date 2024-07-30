@@ -5,6 +5,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFF'
   },
+  conteudo: {
+    backgroundColor: '#52D981',
+    width: '100%',
+    height: '45%',
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+  },
   containerLogoBackground: {
     width: "170%",
     position: 'absolute',

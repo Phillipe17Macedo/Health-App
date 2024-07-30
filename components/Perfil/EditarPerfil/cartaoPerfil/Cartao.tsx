@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, TouchableOpacity, Text, Image, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import { styles } from "./styles";
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 interface User {
   nome: string;
@@ -18,6 +19,18 @@ interface CartaoProps {
 }
 
 export function Cartao({ user }: CartaoProps) {
+  useEffect(() => {
+    const lockOrientation = async () => {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    };
+
+    lockOrientation();
+
+    return () => {
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
+
   const alterarEstiloStatus = () => {
     return user.statusContrato ? styles.statusAtivado : styles.statusDesativado;
   };
@@ -27,18 +40,14 @@ export function Cartao({ user }: CartaoProps) {
   };
 
   const statusText = user.statusContrato ? "Ativado" : "Desativado";
-
   const titularContrato = user.titularDoContrato ? "Titular" : "Dependente";
-
-  // Aqui eu convert a string base64 para um URI utilizável pelo componente <Image />
   const fotoUri = user.fotoBase64 ? `data:image/jpeg;base64,${user.fotoBase64}` : null;
-  // Se caso o usuário não tiver uma imegem no banco, irá aparecer esse icone padrão
   const imagemPadrao = require("../../../../assets/images/icons8-personUnisex-94.png");
 
   const { width, height } = Dimensions.get('screen');
 
   const formatarNomeLinhas = (nome: string) => {
-    if (nome.length <= 25){
+    if (nome.length <= 25) {
       return [nome];
     }
 
@@ -72,7 +81,7 @@ export function Cartao({ user }: CartaoProps) {
               <View style={[styles.containerImagemUser]}>
                 <Image
                   source={fotoUri ? { uri: fotoUri } : imagemPadrao}
-                  style={[{width: "100%", height: "95%", borderRadius: 15, resizeMode: 'contain'}]}
+                  style={[{ width: "100%", height: "95%", borderRadius: 15, resizeMode: 'contain' }]}
                 />
               </View>
 
@@ -103,7 +112,7 @@ export function Cartao({ user }: CartaoProps) {
                 {linha2 && <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha2}</Text>}
                 <Text style={[styles.descricaoNome, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Nome do Beneficiário</Text>
               </View>
-              
+
             </View>
           </LinearGradient>
         </Link>

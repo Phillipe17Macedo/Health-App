@@ -13,6 +13,15 @@ export const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     elevation: 2,
   },
+  headerImage: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    marginLeft: 15,
+    marginRight: -55,
+    borderWidth: 1,
+    borderColor: '#FFF',
+  },
   headerRight: {
     marginLeft: 15, 
     //backgroundColor: 'blue',
@@ -43,6 +52,7 @@ export const styles = StyleSheet.create({
     //backgroundColor: 'yellow',
     marginRight: 25,
     width: 38,
+    height: 55,
   },
   textoAjuda: {
     fontSize: 13,

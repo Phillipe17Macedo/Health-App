@@ -54,6 +54,14 @@ export function InputLogin() {
 
       console.log("Dados do usuário:", userData);
 
+      // Armazenar a imagem base64 no AsyncStorage
+      if (userData.fotoBase64) {
+        await AsyncStorage.setItem("fotoUsuario", userData.fotoBase64);
+        console.log("Imagem base64 armazenada no AsyncStorage.");
+      } else {
+        console.log("Usuário não possui imagem.");
+      }
+
       await AsyncStorage.setItem("userCpf", cleanedCpf);
       await AsyncStorage.setItem("userId", userData.idAderente.toString());
       await AsyncStorage.setItem(
@@ -64,7 +72,7 @@ export function InputLogin() {
       if (supportsAuth) {
         handleAuthentication();
       } else {
-        router.push("/(tabs)/home");
+        router.push("../(tabs)/home");
       }
     } catch (error) {
       if (
@@ -121,7 +129,7 @@ export function InputLogin() {
     console.log("Resultado da autenticação:", auth);
 
     if (auth.success) {
-      router.push("/(tabs)/home");
+      router.push("../(tabs)/home");
     } else {
       Alert.alert('Erro', 'Autenticação falhou. Por favor, tente novamente.');
     }

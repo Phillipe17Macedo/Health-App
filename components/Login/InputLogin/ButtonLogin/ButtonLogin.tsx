@@ -17,7 +17,7 @@ export function ButtonLogin() {
 
   return (
       <TouchableOpacity  style={[styles.containerButtonEntrar]}>
-        <Link href={"/(tabs)/home"} style={styles.buttonEntrar}>
+        <Link href={"../(tabs)/home"} style={styles.buttonEntrar}>
           <Text style={[styles.textoButton]} disabled={isCpfEmpty}>Entrar</Text>
         </Link>
       </TouchableOpacity>

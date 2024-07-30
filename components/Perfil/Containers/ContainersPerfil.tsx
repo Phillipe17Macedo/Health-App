@@ -55,8 +55,13 @@ export function ContainersPerfil() {
   return (
     <>
       <TouchableOpacity style={[styles.container]}>
-        <Link href={'/perfilEditar'}>
+        <Link href={'/meuCartao'}>
           <Text style={[styles.textoContainer, {fontFamily: 'MPlusRounded1c-Bold'}]}>Meu cartão Aserpa Saúde</Text>
+        </Link>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.container]}>
+        <Link href={'/meuCadastro'}>
+          <Text style={[styles.textoContainer, {fontFamily: 'MPlusRounded1c-Bold'}]}>Meu Cadastro</Text>
         </Link>
       </TouchableOpacity>
       <TouchableOpacity 

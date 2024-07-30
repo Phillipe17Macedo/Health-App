@@ -47,11 +47,7 @@ export default function DadosUser() {
     <>
       <SafeAreaView style={[styles.container]}>
         <StatusBar style="auto" />
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        >
+        <ScrollView>
           {user && <Cartao user={user} />}
         </ScrollView>
       </SafeAreaView>
