@@ -57,7 +57,7 @@ export default function DadosUsuario() {
         </View>
         <View style={[styles.containerButton]} >
           <TouchableOpacity style={[styles.button]}>
-            <Text style={[styles.textoButton, {fontFamily: 'MPlusRounded1c-Bold'}]}>Editar Dados</Text>
+            <Text style={[styles.textoButton, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Editar Dados</Text>
           </TouchableOpacity>
         </View>
       </View>

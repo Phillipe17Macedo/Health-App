@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    backgroundColor: '#94F2B5',
+    backgroundColor: '#1ED960',
     height: '100%',
     width: '60%',
     borderRadius: 50,
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textoButton: {
-    color: '#025940',
+    color: '#FFF',
     fontSize: 21,
   },
 });
