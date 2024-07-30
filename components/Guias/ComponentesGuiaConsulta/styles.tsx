@@ -5,13 +5,13 @@ export const styles = StyleSheet.create({
     width: 150,
     height: 130,
     backgroundColor: '#F8F8F6',
-    borderRadius: 5,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     elevation: 3,
-    borderWidth: 0.5,
-    borderColor: '#B2B2B2'
+    borderWidth: 1,
+    borderColor: '#9C71D9'
   },
   containerLink: {
     width: 150,
