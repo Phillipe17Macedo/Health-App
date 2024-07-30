@@ -24,9 +24,10 @@ export default function RootLayout() {
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="(opcoes-ajuda)" options={{ headerShown: false }} />
       <Stack.Screen name="perfil" options={{ headerShown: false }} />
+      <Stack.Screen name="meuCartao" options={{ headerShown: false }} />
+      <Stack.Screen name="meuCadastro" options={{ headerShown: false }} />
       <Stack.Screen name="consulta" options={{ headerShown: false }} />
       <Stack.Screen name="exame" options={{ headerShown: false }} />
-      <Stack.Screen name="perfilEditar" options={{ headerShown: false }} />
       <Stack.Screen name="guiaConsulta" options={{ headerShown: false }} />
       <Stack.Screen name="ajuda" options={{ headerShown: false }} />
     </Stack>

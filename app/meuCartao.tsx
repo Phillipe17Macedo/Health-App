@@ -6,7 +6,7 @@ import { HeaderEditarPerfil } from "@/components/Perfil/EditarPerfil/Header";
 import DadosUser from "@/components/Perfil/EditarPerfil/Areadados/DadosUser";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 
-export default function PerfilEditar() {
+export default function MeuCartao() {
   const [cpf, setCpf] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
