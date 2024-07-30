@@ -5,7 +5,7 @@ const { height } = Dimensions.get('window');
 export const styles = StyleSheet.create({
   container: {
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,
-    borderRadius: 5,
+    borderRadius: 20,
   },
   textoDropdown: {
     color: '#025940',
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,
-    borderRadius: 5,
+    borderRadius: 20,
     zIndex: height * 3000,
     height: height * 0.27
   },

@@ -6,6 +6,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F2F2F2",
   },
+  conteudo: {
+    height: '100%',
+  },
   medicosContainer: {
     maxHeight: 300, // Ajuste conforme necessário
     marginVertical: 10,
@@ -72,11 +75,12 @@ export const styles = StyleSheet.create({
     width: '90%',
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 5,
+    marginTop: 160,
+    marginBottom: 20,
     alignSelf: 'center',
     backgroundColor: '#F8F8F6',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 20,
     borderColor: '#65A693',
     borderWidth: 0.5,
     elevation: 2,
