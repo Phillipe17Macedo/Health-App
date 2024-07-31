@@ -2,13 +2,25 @@ import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-
 import { styles } from "./styles";
-import { Entypo } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { Entypo, FontAwesome5 } from "@expo/vector-icons";
 
-export default function AgendamentosHome() {
+interface Consulta {
+  idAgenda: number;
+  dataAgenda: string;
+  horaAgenda: string;
+  medico: string;
+  especialidade: string;
+  status: string;
+}
+
+interface AgendamentosHomeProps {
+  consultas: Consulta[];
+}
+
+const AgendamentosHome: React.FC<AgendamentosHomeProps> = ({ consultas }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
+  const [consultaMaisProxima, setConsultaMaisProxima] = useState<Consulta | null>(null);
 
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
@@ -22,6 +34,8 @@ export default function AgendamentosHome() {
           "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
         });
 
+        findProximaConsulta();
+
         setFontLoaded(true);
       } catch (e) {
         console.warn(e);
@@ -31,13 +45,40 @@ export default function AgendamentosHome() {
     }
 
     loadResourcesAndDataAsync();
-  }, []);
+  }, [consultas]);
+
+  const findProximaConsulta = () => {
+    const now = new Date();
+    const proximaConsulta = consultas
+      .filter((consulta) => {
+        if (consulta.dataAgenda && consulta.horaAgenda) {
+          const dataConsulta = new Date(`${consulta.dataAgenda.split("T")[0]}T${consulta.horaAgenda}`);
+          return dataConsulta >= now;
+        }
+        return false;
+      })
+      .sort((a, b) => {
+        const dateA = new Date(`${a.dataAgenda?.split("T")[0]}T${a.horaAgenda}`);
+        const dateB = new Date(`${b.dataAgenda?.split("T")[0]}T${b.horaAgenda}`);
+        return dateA.getTime() - dateB.getTime();
+      })[0];
+    setConsultaMaisProxima(proximaConsulta || null);
+  };
 
   if (!fontLoaded) {
     return null;
   }
 
-  //, {fontFamily: 'MPlusRounded1c-ExtraBold'}
+  if (!consultaMaisProxima) {
+    return (
+      <View style={styles.container}>
+        <Text style={[styles.textoTituloAgendamento, { fontFamily: "MPlusRounded1c-Medium" }]}>
+          Nenhuma consulta agendada
+        </Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={[styles.containerAgendamento]}>
@@ -64,8 +105,12 @@ export default function AgendamentosHome() {
               { fontFamily: "MPlusRounded1c-Bold" },
             ]}
           >
-            {" "}
-            22 Agosto, 2024
+            {"  "}
+            {new Date(consultaMaisProxima.dataAgenda).toLocaleDateString("pt-BR", {
+              day: "2-digit",
+              month: "long",
+              year: "numeric",
+            })}
           </Text>
         </View>
         <View style={[styles.containerAreaHorarioAgendamento]}>
@@ -78,8 +123,8 @@ export default function AgendamentosHome() {
               { fontFamily: "MPlusRounded1c-Bold" },
             ]}
           >
-            {" "}
-            08:00 AM - 09:30 AM
+            {"  "}
+            {consultaMaisProxima.horaAgenda}
           </Text>
         </View>
       </View>
@@ -91,18 +136,23 @@ export default function AgendamentosHome() {
               {
                 width: "100%",
                 height: "100%",
-                borderRadius: 10 /*resizeMode: "contain"*/,
+                borderRadius: 10,
+                resizeMode: "contain",
               },
             ]}
           />
         </View>
         <View style={[styles.containerAreaDadosMedico]}>
           <Text style={[styles.textoNomeMedico, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
-            Dr. Clésio Camilo de Souza
+            {consultaMaisProxima.medico}
           </Text>
-          <Text style={[styles.textoDescricaoMedico, { fontFamily: "MPlusRounded1c-Medium" }]}>Psicólogo</Text>
+          <Text style={[styles.textoDescricaoMedico, { fontFamily: "MPlusRounded1c-Medium" }]}>
+            {consultaMaisProxima.especialidade}
+          </Text>
         </View>
       </View>
     </View>
   );
-}
+};
+
+export default AgendamentosHome;
