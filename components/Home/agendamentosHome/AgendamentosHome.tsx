@@ -86,7 +86,7 @@ export default function AgendamentosHome() {
       <View style={[styles.containerMedicoAgendamento]}>
         <View style={[styles.containerAreaFotoMedico]}>
           <Image
-            source={require("@/assets/images/medicos/medico.png")}
+            source={require("@/assets/images/medicos/medico-consulta.png")}
             style={[
               {
                 width: "100%",
