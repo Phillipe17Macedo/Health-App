@@ -6,50 +6,14 @@ import { styles } from "./styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-// Configurar as traduções para o português
 LocaleConfig.locales["pt"] = {
-  monthNames: [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-  ],
-  monthNamesShort: [
-    "Jan",
-    "Fev",
-    "Mar",
-    "Abr",
-    "Mai",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Set",
-    "Out",
-    "Nov",
-    "Dez",
-  ],
-  dayNames: [
-    "Domingo",
-    "Segunda-feira",
-    "Terça-feira",
-    "Quarta-feira",
-    "Quinta-feira",
-    "Sexta-feira",
-    "Sábado",
-  ],
+  monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+  monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+  dayNames: ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"],
   dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
   today: "Hoje",
 };
 
-// Definir a configuração global de localidade para 'pt'
 LocaleConfig.defaultLocale = "pt";
 
 interface Horario {
@@ -68,6 +32,8 @@ interface CalendarioConsultaProps {
   onClose: () => void;
   onDateSelect: (date: string) => void;
   medicoId: string;
+  diasDisponiveis: DiaAtendimento[]; // Adicione esta linha
+  setDiasDisponiveis: React.Dispatch<React.SetStateAction<DiaAtendimento[]>>; // Adicione esta linha
 }
 
 export default function CalendarioConsulta({
@@ -75,22 +41,11 @@ export default function CalendarioConsulta({
   onClose,
   onDateSelect,
   medicoId,
+  diasDisponiveis,
+  setDiasDisponiveis
 }: CalendarioConsultaProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [dataMarcada, setDataMarcada] = useState<
-    Record<
-      string,
-      {
-        selected?: boolean;
-        marked?: boolean;
-        selectedColor?: string;
-        disabled?: boolean;
-        textColor?: string;
-        customStyles?: { text: { textDecorationLine: string } };
-      }
-    >
-  >({});
-  const [diasDisponiveis, setDiasDisponiveis] = useState<DiaAtendimento[]>([]);
+  const [dataMarcada, setDataMarcada] = useState<Record<string, any>>({});
   const [mesAtual, setMesAtual] = useState<number>(new Date().getMonth() + 1);
   const [anoAtual, setAnoAtual] = useState<number>(new Date().getFullYear());
 
@@ -100,11 +55,7 @@ export default function CalendarioConsulta({
     }
   }, [medicoId, mesAtual, anoAtual]);
 
-  const fetchDiasAtendimento = async (
-    medicoId: string,
-    mes: number,
-    ano: number
-  ) => {
+  const fetchDiasAtendimento = async (medicoId: string, mes: number, ano: number) => {
     try {
       console.log(`Calendario: Buscando dias de atendimento para o médico ${medicoId} no mês ${mes}/${ano}`);
       const response = await buscarDiasAtendimentoMedico(medicoId, mes, ano);
@@ -115,14 +66,9 @@ export default function CalendarioConsulta({
       const dataAtual = new Date();
       diasAtendimento.forEach((item) => {
         const dataFormatada = item.data.split("T")[0];
-        const horariosDisponiveis = item.horarios.map((horario) =>
-          new Date(`${dataFormatada}T${horario.horario}`).getTime()
-        );
+        const horariosDisponiveis = item.horarios.map((horario) => new Date(`${dataFormatada}T${horario.horario}`).getTime());
 
-        // Verificar se há horários disponíveis depois do horário atual
-        const haHorariosDisponiveis = horariosDisponiveis.some(
-          (horario) => horario > dataAtual.getTime()
-        );
+        const haHorariosDisponiveis = horariosDisponiveis.some((horario) => horario > dataAtual.getTime());
 
         novaDataMarcada[dataFormatada] = {
           marked: true,
@@ -170,12 +116,11 @@ export default function CalendarioConsulta({
   const handleDiaPress = (dia: DateData) => {
     const date = dia.dateString;
     console.log("Calendario: Dia Pressionado: ", date);
-    if (!dataMarcada[date]?.disabled) {
+    if (dataMarcada[date] && !dataMarcada[date].disabled) {
       setSelectedDate(date);
       setDataMarcada((prev) => {
         const newMarkedDates = { ...prev };
 
-        // Remover a marcação do dia anteriormente selecionado
         if (selectedDate && newMarkedDates[selectedDate]) {
           newMarkedDates[selectedDate] = {
             ...newMarkedDates[selectedDate],
@@ -183,7 +128,7 @@ export default function CalendarioConsulta({
             selectedColor: undefined,
           };
         }
-        // Adicionar a marcação ao novo dia selecionado
+
         newMarkedDates[date] = {
           ...newMarkedDates[date],
           selected: true,
@@ -197,9 +142,7 @@ export default function CalendarioConsulta({
 
   const handleConfirm = () => {
     if (selectedDate) {
-      const diaSelecionado = diasDisponiveis.find(
-        (dia) => dia.data.split("T")[0] === selectedDate
-      );
+      const diaSelecionado = diasDisponiveis.find((dia) => dia.data.split("T")[0] === selectedDate);
 
       if (diaSelecionado && diaSelecionado.horarios.length > 0) {
         onDateSelect(selectedDate);
@@ -240,17 +183,10 @@ export default function CalendarioConsulta({
   }
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={visivel}
-      onRequestClose={onClose}
-    >
+    <Modal animationType="slide" transparent={true} visible={visivel} onRequestClose={onClose}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={[styles.modalTitle, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
-            Selecione uma Data Disponível
-          </Text>
+          <Text style={[styles.modalTitle, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>Selecione uma Data Disponível</Text>
           <Calendar
             onDayPress={handleDiaPress}
             markedDates={dataMarcada}
@@ -267,19 +203,12 @@ export default function CalendarioConsulta({
             minDate={new Date().toISOString().split("T")[0]}
           />
           <View style={[styles.containerButton]}>
-            <TouchableOpacity
-              style={styles.confirmButton}
-              onPress={handleConfirm}
-            >
-              <Text style={[styles.confirmButtonText, { fontFamily: "MPlusRounded1c-Bold" }]}>
-                Confirmar
-              </Text>
+            <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
+              <Text style={[styles.confirmButtonText, { fontFamily: "MPlusRounded1c-Bold" }]}>Confirmar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.cancelButton} onPress={onClose}>
-              <Text style={[styles.cancelButtonText, { fontFamily: "MPlusRounded1c-Bold" }]}>
-                Fechar
-              </Text>
+              <Text style={[styles.cancelButtonText, { fontFamily: "MPlusRounded1c-Bold" }]}>Fechar</Text>
             </TouchableOpacity>
           </View>
         </View>

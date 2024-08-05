@@ -153,7 +153,7 @@ export default function Consulta() {
 
   const handleDateSelect = (date: string) => {
     console.log("Tela Consulta: Data Selecionada: ", date);
-  
+
     const diaSelecionado = diasDisponiveis.find((dia: any) => {
       console.log(`Tela Consulta: Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
       return dia.data.split("T")[0] === date;
@@ -405,6 +405,8 @@ export default function Consulta() {
               onClose={() => setCalendarioVisivel(false)}
               onDateSelect={handleDateSelect}
               medicoId={medicoSelecionado.key}
+              diasDisponiveis={diasDisponiveis} // Adicione esta linha
+              setDiasDisponiveis={setDiasDisponiveis} // Adicione esta linha
             />
           )}
 
