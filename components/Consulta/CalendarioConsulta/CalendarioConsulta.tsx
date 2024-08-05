@@ -106,10 +106,9 @@ export default function CalendarioConsulta({
     ano: number
   ) => {
     try {
-      console.log(
-        `Buscando dias de atendimento para o médico ${medicoId} no mês ${mes}/${ano}`
-      );
+      console.log(`Calendario: Buscando dias de atendimento para o médico ${medicoId} no mês ${mes}/${ano}`);
       const response = await buscarDiasAtendimentoMedico(medicoId, mes, ano);
+      console.log("Calendario: Resposta da API - Dias de Atendimento: ", response);
       const diasAtendimento: DiaAtendimento[] = response.data || [];
       const novaDataMarcada: Record<string, any> = {};
 
@@ -153,24 +152,24 @@ export default function CalendarioConsulta({
         }
       }
 
-      console.log("Dias de Atendimento Carregados: ", diasAtendimento);
+      console.log("Calendario: Dias de Atendimento Carregados: ", diasAtendimento);
 
       setDiasDisponiveis(diasAtendimento);
       setDataMarcada(novaDataMarcada);
     } catch (error) {
-      console.error("Erro ao buscar dias de atendimento:", error);
+      console.error("Calendario: Erro ao buscar dias de atendimento:", error);
     }
   };
 
   const handleMonthChange = (month: DateData) => {
-    console.log(`Mudança de mês: ${month.month}/${month.year}`);
+    console.log(`Calendario: Mudança de mês: ${month.month}/${month.year}`);
     setMesAtual(month.month);
     setAnoAtual(month.year);
   };
 
   const handleDiaPress = (dia: DateData) => {
     const date = dia.dateString;
-    console.log("Dia Pressionado: ", date);
+    console.log("Calendario: Dia Pressionado: ", date);
     if (!dataMarcada[date]?.disabled) {
       setSelectedDate(date);
       setDataMarcada((prev) => {
@@ -249,7 +248,9 @@ export default function CalendarioConsulta({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={[styles.modalTitle, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Selecione uma Data Disponível</Text>
+          <Text style={[styles.modalTitle, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
+            Selecione uma Data Disponível
+          </Text>
           <Calendar
             onDayPress={handleDiaPress}
             markedDates={dataMarcada}
@@ -270,11 +271,15 @@ export default function CalendarioConsulta({
               style={styles.confirmButton}
               onPress={handleConfirm}
             >
-              <Text style={[styles.confirmButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Confirmar</Text>
+              <Text style={[styles.confirmButtonText, { fontFamily: "MPlusRounded1c-Bold" }]}>
+                Confirmar
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.cancelButton} onPress={onClose}>
-              <Text style={[styles.cancelButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Fechar</Text>
+              <Text style={[styles.cancelButtonText, { fontFamily: "MPlusRounded1c-Bold" }]}>
+                Fechar
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
