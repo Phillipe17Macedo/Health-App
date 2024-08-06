@@ -138,7 +138,7 @@ const Guias: React.FC = () => {
 
         <View style={styles.constainerTituloAgendamento}>
           <MaterialCommunityIcons name="calendar-clock" size={21} color="#025940" />
-          <Text style={[styles.tituloAgendamento, {fontFamily: 'MPlusRounded1c-Bold'}]}>Minhas Guias de Consulta e Exame</Text>
+          <Text style={[styles.tituloAgendamento, {fontFamily: 'MPlusRounded1c-Bold'}]}>Minhas Guias</Text>
         </View>
 
         {loading ? (
