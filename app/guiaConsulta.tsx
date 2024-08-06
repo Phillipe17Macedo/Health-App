@@ -9,6 +9,7 @@ import Especialidade from "@/components/GuiaConsulta/DropDownEspecialidade/Espec
 import Medico from "@/components/GuiaConsulta/DropDownMedicos/Medico";
 import SelecaoDependente from "@/components/GuiaConsulta/ModalSelecaoDependentes/SelecaoDependente";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
+import ConfirmacaoGuiaConsulta from "@/components/GuiaConsulta/ConfirmacaoGuiaConsulta/ConfirmacaoGuiaConsulta";
 import {
   buscarAderente,
   buscarDependentes,
@@ -23,23 +24,18 @@ export default function TelaGuiaConsulta() {
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<
-    string | null
-  >(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
-    string | null
-  >(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
+  const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
   const [consulta, setConsulta] = useState({
     usuario: "",
     dependente: "",
     medico: "",
     especialidade: "",
-    data: "",
+    data: new Date().toISOString(),
     horario: "",
     telefoneContato: "(34) 99931-7302",
   });
@@ -65,9 +61,7 @@ export default function TelaGuiaConsulta() {
           }));
 
           if (usuarioLogado && usuarioLogado.idAderente) {
-            const dependentesResponse = await buscarDependentes(
-              usuarioLogado.idAderente
-            );
+            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
             setDependentes(dependentesResponse.data);
           }
         }
@@ -113,6 +107,8 @@ export default function TelaGuiaConsulta() {
       medico: medico.nome || "",
       especialidade: especialidadeNome || "",
     }));
+    setMedico(medico);
+    setConfirmacaoVisivel(true);
   };
 
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -190,6 +186,24 @@ export default function TelaGuiaConsulta() {
         dependentes={dependentes} // Passa os dependentes para o modal
         selectedDependente={dependenteSelecionado}
         setSelectedDependente={setDependenteSelecionado}
+      />
+      <ConfirmacaoGuiaConsulta
+        visivel={confirmacaoVisivel}
+        onClose={() => setConfirmacaoVisivel(false)}
+        onConfirm={() => {
+          setConfirmacaoVisivel(false);
+          // Call the EmitirGuiaDeConsulta function here to confirm the guia
+        }}
+        consulta={{
+          usuario: consulta.usuario,
+          dependente: consulta.dependente,
+          unidadeAtendimento: "",
+          especialidade: consulta.especialidade,
+          medico: consulta.medico,
+          data: consulta.data,
+          horario: consulta.horario,
+          telefoneContato: consulta.telefoneContato,
+        }}
       />
     </View>
   );
