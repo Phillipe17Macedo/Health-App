@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { buscarEspecialidades } from "@/utils/requestConfig";
+import { buscarEspecialidadesGuiaDeConsulta } from "@/utils/requestConfig";
 import { styles } from "./styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -19,7 +19,7 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
   useEffect(() => {
     async function carregarEspecialidades() {
       try {
-        const response = await buscarEspecialidades();
+        const response = await buscarEspecialidadesGuiaDeConsulta();
         const especialidades = response.data;
 
         const especialidadesComChave = especialidades.map((especialidade: any) => ({
@@ -89,10 +89,10 @@ export default function Especialidade({ EspecialidadeCarregada, especialidadeSel
         setItems={setItens}
         placeholder="Selecione uma especialidade"
         style={styles.dropdown}
-        placeholderStyle={[styles.textoDropdown, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
+        placeholderStyle={[styles.textoDropdown, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}
         dropDownContainerStyle={styles.dropDownContainerStyle}
-        listItemLabelStyle={[styles.itensLista, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
-        selectedItemLabelStyle={[styles.itemSelecionado, , {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
+        listItemLabelStyle={[styles.itensLista, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}
+        selectedItemLabelStyle={[styles.itemSelecionado, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}
         zIndex={3000}
         zIndexInverse={1000}
       />
