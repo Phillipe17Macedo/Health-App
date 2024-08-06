@@ -34,7 +34,7 @@ export default function TelaGuiaConsulta() {
     idAderente: 0,
     idEspecialidade: 0,
     idMedico: 0,
-    idDep: null as number | null, // Aqui definimos o tipo como `number | null`
+    idDep: null as number | null,
     dataEmissao: new Date().toISOString(),
     vlrConsulta: 0,
     usuario: "",
@@ -46,6 +46,8 @@ export default function TelaGuiaConsulta() {
     telefoneContato: "(34) 99931-7302",
   });
   const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
+  const [especialidadeAberta, setEspecialidadeAberta] = useState(false);
+  const [medicoAberto, setMedicoAberto] = useState(false);
 
   useEffect(() => {
     const fetchUsuarioLogado = async () => {
@@ -151,7 +153,6 @@ export default function TelaGuiaConsulta() {
   const handleConfirmacao = async (json: any) => {
     try {
       setLoading(true);
-      // Removendo o campo idEmpresa do JSON antes de enviar
       const { idEmpresa, ...jsonWithoutIdEmpresa } = json;
       const response = await EmitirGuiaDeConsulta(jsonWithoutIdEmpresa);
       console.log("Guia de consulta emitida:", response);
@@ -192,6 +193,12 @@ export default function TelaGuiaConsulta() {
           }));
         }}
         especialidadeSelecionada={especialidadeSelecionada}
+        onOpen={() => {
+          setMedicoAberto(false);
+          setEspecialidadeAberta(true);
+        }}
+        onClose={() => setEspecialidadeAberta(false)}
+        aberto={especialidadeAberta}
       />
       {especialidadeId && (
         <Medico
@@ -206,6 +213,12 @@ export default function TelaGuiaConsulta() {
               medico: medico.label || "",
             }));
           }}
+          onOpen={() => {
+            setEspecialidadeAberta(false);
+            setMedicoAberto(true);
+          }}
+          onClose={() => setMedicoAberto(false)}
+          aberto={medicoAberto}
         />
       )}
       <SelecaoDependente
@@ -214,7 +227,7 @@ export default function TelaGuiaConsulta() {
         onConfirm={handleConfirmDependente}
         isDependente={isDependente}
         setIsDependente={setIsDependente}
-        dependentes={dependentes} // Passa os dependentes para o modal
+        dependentes={dependentes}
         selectedDependente={dependenteSelecionado}
         setSelectedDependente={setDependenteSelecionado}
       />
