@@ -225,3 +225,14 @@ export async function buscarMedicosPorEspecialidadeGuiaDeConsulta(idEspecialidad
     throw error;
   }
 }
+
+// Função para cancelar guias emitidas
+export async function cancelarGuiaEmitida(idGuia: number): Promise<any> {
+  try {
+    const response = await axiosConfig.put(`/GuiaConsulta/CancelaGuiaConsultaEmitida/${idGuia}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao cancelar guia emitida:", error);
+    throw error;
+  }
+}
