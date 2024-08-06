@@ -16,18 +16,21 @@ interface User {
   fotoBase64: string;
 }
 
-export default function DadosUser() {
+interface DadosUserProps {
+  cpf: string;
+}
+
+const DadosUser: React.FC<DadosUserProps> = ({ cpf }) => {
   const [user, setUser] = useState<User | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const loadUser = async () => {
     setLoading(true);
-    const userCpf = await AsyncStorage.getItem("userCpf");
     const isTitular = await AsyncStorage.getItem("isTitular");
 
-    if (userCpf) {
-      const response = await buscarAderente(userCpf, isTitular === "true");
+    if (cpf) {
+      const response = await buscarAderente(cpf, isTitular === "true");
       const userData: User | null = response.data;
       setUser(userData);
     }
@@ -36,21 +39,28 @@ export default function DadosUser() {
 
   useEffect(() => {
     loadUser();
-  }, []);
+  }, [cpf]);
 
   const onRefresh = async () => {
     setRefreshing(true);
     await loadUser();
     setRefreshing(false);
   };
+
   return (
     <>
       <SafeAreaView style={[styles.container]}>
         <StatusBar style="auto" />
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
           {user && <Cartao user={user} />}
         </ScrollView>
       </SafeAreaView>
     </>
   );
-}
+};
+
+export default DadosUser;

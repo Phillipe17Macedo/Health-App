@@ -68,55 +68,53 @@ export function Cartao({ user }: CartaoProps) {
   const [linha1, linha2] = formatarNomeLinhas(user.nome);
 
   return (
-    <>
-      <TouchableOpacity>
-        <Link href={"/perfil"} style={[styles.containerLink]}>
-          <LinearGradient
-            colors={["#025940", "#8CBF1F"]}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1.3, y: 0.5 }}
-            style={[styles.containerCard]}
-          >
-            <View style={[styles.componenteCard]}>
-              <View style={[styles.containerImagemUser]}>
-                <Image
-                  source={fotoUri ? { uri: fotoUri } : imagemPadrao}
-                  style={[{ width: "100%", height: "95%", borderRadius: 15, resizeMode: 'contain' }]}
-                />
-              </View>
-
-              <View style={[styles.containerDadosUser]}>
-                <View style={[styles.containerStatusPessoa,]}>
-                  <Text style={[styles.descricaoStatusPessoa, { fontSize: width * 0.032, paddingTop: height * 0.005 }]}>STATUS CONTRATO:</Text>
-                  <View style={[styles.containerStatus, alterarEstiloStatus()]}>
-                    <Text style={[styles.textoStatus, { fontSize: width * 0.032 }]}>{statusText}</Text>
-                  </View>
-                </View>
-
-                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{user.tipoAdesao}</Text>
-                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Tipo de Adesão</Text>
-
-                <Text style={[styles.textoPadraoUser, alterarEstiloUsuario(), { fontSize: width * 0.032 }]}>{titularContrato}</Text>
-                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Tipo de Usuário</Text>
-
-                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>
-                  {user.dataNasc}
-                </Text>
-                <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>
-                  Data de Nascimento
-                </Text>
-              </View>
-
-              <View style={[styles.containerNome]}>
-                <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha1}</Text>
-                {linha2 && <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha2}</Text>}
-                <Text style={[styles.descricaoNome, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Nome do Beneficiário</Text>
-              </View>
-
+    <TouchableOpacity>
+      <Link href={"/perfil"} style={[styles.containerLink]}>
+        <LinearGradient
+          colors={["#025940", "#8CBF1F"]}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 1.3, y: 0.5 }}
+          style={[styles.containerCard]}
+        >
+          <View style={[styles.componenteCard]}>
+            <View style={[styles.containerImagemUser]}>
+              <Image
+                source={fotoUri ? { uri: fotoUri } : imagemPadrao}
+                style={[{ width: "100%", height: "95%", borderRadius: 15, resizeMode: 'contain' }]}
+              />
             </View>
-          </LinearGradient>
-        </Link>
-      </TouchableOpacity>
-    </>
+
+            <View style={[styles.containerDadosUser]}>
+              <View style={[styles.containerStatusPessoa]}>
+                <Text style={[styles.descricaoStatusPessoa, { fontSize: width * 0.032, paddingTop: height * 0.005 }]}>STATUS CONTRATO:</Text>
+                <View style={[styles.containerStatus, alterarEstiloStatus()]}>
+                  <Text style={[styles.textoStatus, { fontSize: width * 0.032 }]}>{statusText}</Text>
+                </View>
+              </View>
+
+              <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{user.tipoAdesao}</Text>
+              <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Tipo de Adesão</Text>
+
+              <Text style={[styles.textoPadraoUser, alterarEstiloUsuario(), { fontSize: width * 0.032 }]}>{titularContrato}</Text>
+              <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Tipo de Usuário</Text>
+
+              <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>
+                {user.dataNasc}
+              </Text>
+              <Text style={[styles.descricaoDataNascimento, { fontSize: width * 0.027, fontWeight: 'normal' }]}>
+                Data de Nascimento
+              </Text>
+            </View>
+
+            <View style={[styles.containerNome]}>
+              <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha1}</Text>
+              {linha2 && <Text style={[styles.textoPadraoUser, { fontSize: width * 0.032 }]}>{linha2}</Text>}
+              <Text style={[styles.descricaoNome, { fontSize: width * 0.027, fontWeight: 'normal' }]}>Nome do Beneficiário</Text>
+            </View>
+
+          </View>
+        </LinearGradient>
+      </Link>
+    </TouchableOpacity>
   );
 }
