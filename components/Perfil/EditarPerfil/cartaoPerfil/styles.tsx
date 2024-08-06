@@ -32,13 +32,15 @@ export const styles = StyleSheet.create({
   },
   containerImagemUser: {
     backgroundColor: '#F8F8F6',
-    width: 72,   // Ajustar conforme necessário
-    height: 94,   // Ajustar conforme necessário
+    width: 112,   // Ajustar conforme necessário
+    height: 140,   // Ajustar conforme necessário
     borderRadius: 10,
     marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 3
+    elevation: 3,
+    marginTop: 7,
+    marginLeft: 5,
   },
   containerNome: {
     position: 'absolute',

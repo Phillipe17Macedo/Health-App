@@ -8,14 +8,6 @@ export const unstable_settings = {
 };
 
 export default function LayoutOpcoes() {
-  useEffect(() => {
-    // Inicialize o OneSignal com seu App ID
-    OneSignal.initialize("590d625b-5bc5-4ef3-a132-d87326c47469");
-
-    OneSignal.Debug.setLogLevel(LogLevel.Verbose);
-
-    OneSignal.Notifications.requestPermission(true);
-  }, []);
   return (
     <Stack>
       <Stack.Screen name="opcaoAcesso" options={{ headerShown: false }} />

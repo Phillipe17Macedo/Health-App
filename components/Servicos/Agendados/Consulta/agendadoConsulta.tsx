@@ -67,7 +67,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
 
           setTempoRestante(diferencaMilissegundos);
 
-          const vinteEQuatroHorasEmMilissegundos = 12 * 60 * 60 * 1000;
+          const vinteEQuatroHorasEmMilissegundos = 24 * 60 * 60 * 1000;
 
           if (diferencaMilissegundos <= vinteEQuatroHorasEmMilissegundos) {
             setMostrarBotaoCancelar(false);
@@ -88,7 +88,7 @@ const AgendadoConsulta: React.FC<AgendadoConsultaProps> = ({
       return () => clearInterval(interval);
     }, [consulta.dataAgenda, consulta.horaAgenda]);
 
-    const vinteEQuatroHorasEmMilissegundos = 12 * 60 * 60 * 1000;
+    const vinteEQuatroHorasEmMilissegundos = 24 * 60 * 60 * 1000;
     const textoTempo =
       tempoRestante !== null &&
       tempoRestante <= vinteEQuatroHorasEmMilissegundos

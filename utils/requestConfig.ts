@@ -96,20 +96,20 @@ export async function buscarMedicosEspecialidade(especialidadeId: string, unidad
 // Função para buscar dias e horários disponíveis do médico
 export async function buscarDiasAtendimentoMedico(idMedico: string, mes: number, ano: number): Promise<any> {
   try {
-    console.log(`Buscando dias de atendimento para o médico ${idMedico} no mês ${mes}/${ano}`);
+    console.log(`RequestConfig: Buscando dias de atendimento para o médico ${idMedico} no mês ${mes}/${ano}`);
     const response = await axiosConfig.get(`/Medico/GetHorariosDisponiveisMedico/${idMedico}/${mes}/${ano}`);
     const { data } = response.data;
 
-    console.log("Resposta da API - Dias de Atendimento: ", data);
+    console.log("RequestConfig: Resposta da API - Dias de Atendimento: ", data);
 
     if (data && data.diasAtendimento && Array.isArray(data.diasAtendimento)) {
       return { success: true, data: data.diasAtendimento };
     } else {
-      console.error("Resposta inesperada da API: diasAtendimento não é um array", data);
-      throw new Error("Resposta inesperada da API: diasAtendimento não é um array");
+      console.error("RequestConfig: Resposta inesperada da API: diasAtendimento não é um array", data);
+      return { success: false, data: [] };
     }
   } catch (error) {
-    console.error("Erro ao buscar dias de atendimento do médico:", error);
+    console.error("RequestConfig: Erro ao buscar dias de atendimento do médico:", error);
     throw error;
   }
 }

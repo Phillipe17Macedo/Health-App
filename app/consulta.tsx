@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Alert,
-  SafeAreaView,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, Text, Alert, SafeAreaView, Image, ScrollView } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import { HeaderConsulta } from "@/components/Consulta/HeaderConsulta/Header";
@@ -51,18 +44,11 @@ interface Consulta {
 export default function Consulta() {
   const [usuario, setUsuario] = useState<any | null>(null);
   const [cpfUsuario, setCpfUsuario] = useState<string | null>(null);
-  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<
-    string | null
-  >(null);
-  const [unidadeAtendimentoIdEmpresa, setUnidadeAtendimentoIdEmpresa] =
-    useState<string | null>(null);
-  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<
-    string | null
-  >(null);
+  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<string | null>(null);
+  const [unidadeAtendimentoIdEmpresa, setUnidadeAtendimentoIdEmpresa] = useState<string | null>(null);
+  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [medicoSelecionado, setMedicoSelecionado] = useState<any | null>(null);
   const [diasDisponiveis, setDiasDisponiveis] = useState<any[]>([]);
   const [horariosDisponiveis, setHorariosDisponiveis] = useState<any[]>([]);
@@ -73,21 +59,13 @@ export default function Consulta() {
   const [dataConsulta, setDataConsulta] = useState<string | null>(null);
   const [horarioConsulta, setHorarioConsulta] = useState<string | null>(null);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<{
-    id: string;
-    nome: string;
-  } | null>(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<{ id: string; nome: string } | null>(null);
   const [loading, setLoading] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
-  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] =
-    useState<string | null>(null);
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
-    string | null
-  >(null);
-  const [isUnidadeAtendimentoOpen, setIsUnidadeAtendimentoOpen] =
-    useState<boolean>(false);
-  const [isEspecialidadeOpen, setIsEspecialidadeOpen] =
-    useState<boolean>(false);
+  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] = useState<string | null>(null);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
+  const [isUnidadeAtendimentoOpen, setIsUnidadeAtendimentoOpen] = useState<boolean>(false);
+  const [isEspecialidadeOpen, setIsEspecialidadeOpen] = useState<boolean>(false);
   const [isMedicoOpen, setIsMedicoOpen] = useState<boolean>(false);
 
   const [consulta, setConsulta] = useState<Consulta>({
@@ -129,9 +107,7 @@ export default function Consulta() {
         }));
 
         if (usuarioLogado && usuarioLogado.idAderente) {
-          const dependentesResponse = await buscarDependentes(
-            usuarioLogado.idAderente
-          );
+          const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
           setDependentes(dependentesResponse.data);
         }
       }
@@ -148,7 +124,7 @@ export default function Consulta() {
   }, []);
 
   const handleMedicoSelect = async (medico: any) => {
-    console.log("Médico Selecionado: ", medico);
+    console.log("Tela Consulta: Médico Selecionado: ", medico);
     setMedicoSelecionado(medico);
     setConsulta((prev) => ({
       ...prev,
@@ -158,49 +134,38 @@ export default function Consulta() {
     setCalendarioVisivel(true);
     try {
       setLoading(true);
-      const response = await buscarDiasAtendimentoMedico(
-        medico.value,
-        new Date().getMonth() + 1,
-        new Date().getFullYear()
-      );
-      console.log("Dias de Atendimento ao selecionar médico: ", response.data);
-      setDiasDisponiveis(response.data || []);
+      const response = await buscarDiasAtendimentoMedico(medico.value, new Date().getMonth() + 1, new Date().getFullYear());
+      console.log("Tela Consulta: Resposta da API - Dias de Atendimento: ", response);
+      if (response.success) {
+        setDiasDisponiveis(response.data);
+        console.log("Dias Disponíveis Carregados:", response.data);
+      } else {
+        console.error("Erro: Dias de atendimento não estão em formato de array.");
+        setDiasDisponiveis([]);
+      }
     } catch (error) {
-      console.error(
-        "Erro ao buscar dias de atendimento ao selecionar médico:",
-        error
-      );
+      console.error("Tela Consulta: Erro ao buscar dias de atendimento ao selecionar médico:", error);
+      setDiasDisponiveis([]);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDateSelect = (date: string) => {
-    console.log("Data Selecionada: ", date);
+    console.log("Tela Consulta: Data Selecionada: ", date);
 
-    const todosDiasDisponiveis = [...diasDisponiveis];
-
-    const diaSelecionado = todosDiasDisponiveis.find((dia: any) => {
-      console.log(
-        `Verificando dia ${
-          dia.data.split("T")[0]
-        } contra a data selecionada ${date}`
-      );
+    const diaSelecionado = diasDisponiveis.find((dia: any) => {
+      console.log(`Tela Consulta: Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
       return dia.data.split("T")[0] === date;
     });
-
+  
     if (diaSelecionado) {
-      console.log("Dia da Semana Selecionado: ", diaSelecionado.dia);
-      console.log(
-        "Horários Disponíveis: ",
-        diaSelecionado.horarios.map((horario: any) => horario.horario)
-      );
+      console.log("Tela Consulta: Dia da Semana Selecionado: ", diaSelecionado.dia);
+      console.log("Tela Consulta: Horários Disponíveis: ", diaSelecionado.horarios.map((horario: any) => horario.horario));
     } else {
-      console.log(
-        "Nenhum dia de atendimento encontrado para a data selecionada."
-      );
+      console.log("Tela Consulta: Nenhum dia de atendimento encontrado para a data selecionada.");
     }
-
+  
     if (diaSelecionado && diaSelecionado.horarios.length > 0) {
       setHorariosDisponiveis(diaSelecionado.horarios);
       setDataConsulta(date);
@@ -210,12 +175,8 @@ export default function Consulta() {
       }));
       setHorarioVisivel(true);
     } else {
-      console.error(
-        `Horários de atendimento não definidos para a data ${date}.`
-      );
-      Alert.alert(
-        "Horários de atendimento não definidos para a data selecionada."
-      );
+      console.error(`Tela Consulta: Horários de atendimento não definidos para a data ${date}.`);
+      Alert.alert("Tela Consulta: Horários de atendimento não definidos para a data selecionada.");
     }
   };
 
@@ -344,7 +305,7 @@ export default function Consulta() {
       <StatusBar style="auto" />
       <ScrollView style={[styles.conteudo]}>
         <Image
-          source={require("@/assets/images/medicos/medico-2.png")}
+          source={require("@/assets/images/medicos/medico-consulta.png")}
           style={[{ width: "100%", height: 600, position: "relative" }]}
         />
         <HeaderConsulta onRefresh={fetchUsuarioLogado} />
@@ -412,9 +373,7 @@ export default function Consulta() {
             <Medico
               especialidadeId={especialidadeId}
               unidadeAtendimentoId={unidadeAtendimentoId}
-              medicoSelecionado={
-                medicoSelecionado ? medicoSelecionado.id : null
-              }
+              medicoSelecionado={medicoSelecionado ? medicoSelecionado.id : null}
               onMedicoSelect={handleMedicoSelect}
               isOpen={isMedicoOpen}
               setIsOpen={(isOpen) => {
@@ -446,6 +405,8 @@ export default function Consulta() {
               onClose={() => setCalendarioVisivel(false)}
               onDateSelect={handleDateSelect}
               medicoId={medicoSelecionado.key}
+              diasDisponiveis={diasDisponiveis}
+              setDiasDisponiveis={setDiasDisponiveis}
             />
           )}
 
