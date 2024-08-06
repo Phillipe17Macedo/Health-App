@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
   },
   item: {
     width: '95%',
-    height: 250,
+    height: 260,
     marginBottom: 45,
     padding: 15,
     backgroundColor: '#FFF',
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     width: '100%',
     //backgroundColor: 'gray',
-    marginTop: 12,
+    marginTop: 15,
     marginBottom: 5,
   },
   containerButtonConfirmar: {
