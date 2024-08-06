@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   ScrollView,
-  Alert,
   RefreshControl,
   View,
   Text,
@@ -41,64 +40,58 @@ const Guias: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [idAderente, setIdAderente] = useState<string | null>(null);
-  const [idEmpresa, setIdEmpresa] = useState<string | null>(null);
+  const [idEmpresas, setIdEmpresas] = useState<string[]>([]);
 
-  const fetchConsultas = async () => {
+  const fetchConsultas = async (): Promise<void> => {
+    let allConsultas: Consulta[] = [];
     try {
-      setLoading(true);
-      const userId = await AsyncStorage.getItem("userId");
-      const empresaId = await AsyncStorage.getItem("empresaId");
-      if (userId && empresaId) {
-        setIdAderente(userId);
-        setIdEmpresa(empresaId);
-        const response = await buscarAgendamentosConsulta(userId, empresaId);
-        console.log("Consultas agendadas:", response.data);
+      if (idAderente) {
+        for (const empresaId of idEmpresas) {
+          const response = await buscarAgendamentosConsulta(idAderente, empresaId);
+          allConsultas = allConsultas.concat(response.data ?? []);
+        }
 
-        const consultaOrdenada = (response.data ?? []).sort((a: Consulta, b: Consulta) => {
+        const consultaOrdenada = allConsultas.sort((a: Consulta, b: Consulta) => {
           const dateA = new Date(`${a.dataAgenda?.split("T")[0]}T${a.horaAgenda}`);
           const dateB = new Date(`${b.dataAgenda?.split("T")[0]}T${b.horaAgenda}`);
           return dateA.getTime() - dateB.getTime();
         });
 
         setConsultas(consultaOrdenada);
-      } else {
-        console.error("Erro", "Usuário ou empresa não encontrados.");
       }
     } catch (error) {
-      console.error("Erro ao carregar as consultas:", error);
+      console.error("Erro ao buscar consultas:", error);
+    }
+  };
+
+  const loadUser = async (): Promise<void> => {
+    setLoading(true);
+    try {
+      const userId = await AsyncStorage.getItem("userId");
+      if (userId) {
+        setIdAderente(userId);
+        const unidadesResponse = await buscarUnidadeAtendimento();
+        const empresasIds = unidadesResponse.data.map((unidade: any) => unidade.idEmpresa);
+        setIdEmpresas(empresasIds);
+
+        await fetchConsultas();
+      }
+    } catch (error) {
+      console.error("Erro ao carregar dados do usuário:", error);
     } finally {
       setLoading(false);
-      setRefreshing(false);
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const userId = await AsyncStorage.getItem("userId");
-        if (userId) {
-          setIdAderente(userId);
-          const unidadesResponse = await buscarUnidadeAtendimento();
-          const idEmpresa = unidadesResponse.data[0].idEmpresa;
-          setIdEmpresa(idEmpresa);
-          await AsyncStorage.setItem("empresaId", idEmpresa.toString());
-          await fetchConsultas();
-        }
-      } catch (error) {
-        console.error("Erro ao carregar dados:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    loadUser();
     setExames(ExamesFicticios);
   }, []);
 
-  const onRefresh = async () => {
+  const onRefresh = async (): Promise<void> => {
     setRefreshing(true);
-    await fetchConsultas();
+    await loadUser();
+    setRefreshing(false);
   };
 
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -158,7 +151,7 @@ const Guias: React.FC = () => {
             />
           ) : (
             <View style={styles.emptyContainer}>
-              <Text style={[styles.emptyText, , {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há guias emitidas.</Text>
+              <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há guias emitidas.</Text>
             </View>
           )
         )}
