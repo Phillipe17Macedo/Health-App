@@ -72,7 +72,7 @@ const AgendamentosHome: React.FC<AgendamentosHomeProps> = ({ consultas }) => {
 
   if (!consultaMaisProxima) {
     return (
-      <Link href={"/servicos"} style={[{alignContent: 'center', marginTop: 20, alignSelf: 'center', justifyContent: 'center', width: "100%" }]}>
+      <Link href={"/servicos"} style={[{alignContent: 'center', marginTop: 20, alignSelf: 'center', justifyContent: 'center', width: 385 }]}>
         <View style={styles.container}>
           <View style={[styles.containerAgendamento]}>
             <View style={[styles.containerAreaTitulo]}>
