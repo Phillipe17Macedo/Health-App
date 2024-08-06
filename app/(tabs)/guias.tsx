@@ -12,13 +12,8 @@ import { StatusBar } from "expo-status-bar";
 import { ComponenteGuiaConsulta } from "@/components/Guias/ComponentesGuiaConsulta/ComponenteGuiaConsulta";
 import { ComponenteGuiaExame } from "@/components/Guias/ComponentesGuiaExame/ComponenteGuiaExame";
 import GuiaConsultaEmitida from '@/components/Guias/GuiasEmitidas/GuiaConsulta/GuiaConsultaEmitida';
-import AgendadoExame from "@/components/Servicos/Agendados/Exames/AgendadoExame";
 import {
-  ConsultasFicticias,
-  ExamesFicticios,
-} from "@/components/Servicos/Agendados/AgedamentosFiciticios";
-import {
-  buscarAgendamentosConsulta,
+  buscarGuiasConsultasEmitidas,
   buscarUnidadeAtendimento,
 } from "@/utils/requestConfig";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
@@ -26,41 +21,38 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-interface Consulta {
-  idAgenda: number;
-  dataAgenda: string | null;
-  horaAgenda: string | null;
+interface Guia {
+  idGuia: number;
+  dataGuia: string;
+  aderente: string;
+  dependente: string | null;
+  especialidade: string;
+  idMedico: number;
   medico: string;
   status: string;
+  vlrGuia: number;
 }
 
 const Guias: React.FC = () => {
-  const [consultas, setConsultas] = useState<Consulta[]>([]);
-  const [exames, setExames] = useState<any[]>([]);
+  const [guias, setGuias] = useState<Guia[]>([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [idAderente, setIdAderente] = useState<string | null>(null);
   const [idEmpresas, setIdEmpresas] = useState<string[]>([]);
 
-  const fetchConsultas = async (): Promise<void> => {
-    let allConsultas: Consulta[] = [];
+  const fetchGuias = async (): Promise<void> => {
     try {
       if (idAderente) {
-        for (const empresaId of idEmpresas) {
-          const response = await buscarAgendamentosConsulta(idAderente, empresaId);
-          allConsultas = allConsultas.concat(response.data ?? []);
-        }
-
-        const consultaOrdenada = allConsultas.sort((a: Consulta, b: Consulta) => {
-          const dateA = new Date(`${a.dataAgenda?.split("T")[0]}T${a.horaAgenda}`);
-          const dateB = new Date(`${b.dataAgenda?.split("T")[0]}T${b.horaAgenda}`);
-          return dateA.getTime() - dateB.getTime();
+        const response = await buscarGuiasConsultasEmitidas(Number(idAderente));
+        const guiasOrdenadas = response.data.sort((a: Guia, b: Guia) => {
+          const dataA = new Date(a.dataGuia).getTime();
+          const dataB = new Date(b.dataGuia).getTime();
+          return dataB - dataA;
         });
-
-        setConsultas(consultaOrdenada);
+        setGuias(guiasOrdenadas);
       }
     } catch (error) {
-      console.error("Erro ao buscar consultas:", error);
+      console.error("Erro ao buscar guias de consulta:", error);
     }
   };
 
@@ -74,7 +66,7 @@ const Guias: React.FC = () => {
         const empresasIds = unidadesResponse.data.map((unidade: any) => unidade.idEmpresa);
         setIdEmpresas(empresasIds);
 
-        await fetchConsultas();
+        await fetchGuias();
       }
     } catch (error) {
       console.error("Erro ao carregar dados do usuário:", error);
@@ -85,7 +77,6 @@ const Guias: React.FC = () => {
 
   useEffect(() => {
     loadUser();
-    setExames(ExamesFicticios);
   }, []);
 
   const onRefresh = async (): Promise<void> => {
@@ -138,16 +129,16 @@ const Guias: React.FC = () => {
 
         <View style={styles.constainerTituloAgendamento}>
           <MaterialCommunityIcons name="calendar-clock" size={21} color="#025940" />
-          <Text style={[styles.tituloAgendamento, {fontFamily: 'MPlusRounded1c-Bold'}]}>Minhas Guias de Consulta e Exame</Text>
+          <Text style={[styles.tituloAgendamento, {fontFamily: 'MPlusRounded1c-Bold'}]}>Minhas Guias</Text>
         </View>
 
         {loading ? (
           <ModalCarregamento visivel={loading} />
         ) : (
-          consultas.length > 0 ? (
+          guias.length > 0 ? (
             <GuiaConsultaEmitida
-              consultas={consultas}
-              onConsultaCancelada={fetchConsultas}
+              guias={guias}
+              onGuiaCancelada={fetchGuias}
             />
           ) : (
             <View style={styles.emptyContainer}>

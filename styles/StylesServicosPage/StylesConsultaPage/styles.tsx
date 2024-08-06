@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     width: '90%',
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 160,
+    marginTop: 50,
     marginBottom: 20,
     alignSelf: 'center',
     backgroundColor: '#F8F8F6',

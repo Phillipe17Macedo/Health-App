@@ -181,3 +181,58 @@ export async function cancelarAgendamentoConsulta(idAgendamento: number): Promis
     throw new Error('Não foi possível conectar ao servidor. Por favor, tente novamente mais tarde.');
   }
 }
+
+// Função para buscar especialidades para guia de consulta
+export async function buscarEspecialidadesGuiaDeConsulta(): Promise<any> {
+  try {
+    const response = await axiosConfig.get("/Especialidades/GetEspecialidadesGuiaConsulta");
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar especialidades para guia de consulta:", error);
+    throw error;
+  }
+}
+
+// Função para emitir guia de consulta
+export async function EmitirGuiaDeConsulta(dadosGuia: any): Promise<any> {
+  try {
+    const response = await axiosConfig.post("/GuiaConsulta/EmitirGuiaConsulta", dadosGuia);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao emitir guia de consulta:", error);
+    throw error;
+  }
+}
+
+// Função para buscar guias de consulta emitidas
+export async function buscarGuiasConsultasEmitidas(idAderente: number): Promise<any> {
+  try {
+    const response = await axiosConfig.get(`/GuiaConsulta/GetGuiaConsultaEmitidas/${idAderente}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar guias de consulta emitidas:", error);
+    throw error;
+  }
+}
+
+// Função para buscar médicos por especialidade para guia de consulta
+export async function buscarMedicosPorEspecialidadeGuiaDeConsulta(idEspecialidade: number): Promise<any> {
+  try {
+    const response = await axiosConfig.get(`/Medico/GetMedicosEspecialidadeGuiaConsulta/${idEspecialidade}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar médicos por especialidade para guia de consulta:", error);
+    throw error;
+  }
+}
+
+// Função para cancelar guias emitidas
+export async function cancelarGuiaEmitida(idGuia: number): Promise<any> {
+  try {
+    const response = await axiosConfig.put(`/GuiaConsulta/CancelaGuiaConsultaEmitida/${idGuia}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao cancelar guia emitida:", error);
+    throw error;
+  }
+}

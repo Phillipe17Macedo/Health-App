@@ -9,13 +9,12 @@ import Especialidade from "@/components/GuiaConsulta/DropDownEspecialidade/Espec
 import Medico from "@/components/GuiaConsulta/DropDownMedicos/Medico";
 import SelecaoDependente from "@/components/GuiaConsulta/ModalSelecaoDependentes/SelecaoDependente";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
+import ConfirmacaoGuiaConsulta from "@/components/GuiaConsulta/ConfirmacaoGuiaConsulta/ConfirmacaoGuiaConsulta";
 import {
   buscarAderente,
   buscarDependentes,
-  buscarMedicosEspecialidade,
-  buscarEspecialidades,
+  EmitirGuiaDeConsulta
 } from "@/utils/requestConfig";
-import UnidadeAtendimento from "@/components/GuiaConsulta/UnidadeAtendimento/DropDownUnidadeAtendimento";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -26,35 +25,27 @@ export default function TelaGuiaConsulta() {
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<
-    string | null
-  >(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
-    string | null
-  >(null);
-  const [unidadeAtendimentoId, setUnidadeAtendimentoId] = useState<
-    string | null
-  >(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
-  const [unidadeAtendimentoSelecionado, setUnidadeAtendimentoSelecionado] =
-    useState<string | null>(null);
-  const [unidadeAtendimentoNome, setUnidadeAtendimentoNome] = useState<
-    string | null
-  >(null);
   const [consulta, setConsulta] = useState({
+    idAderente: 0,
+    idEspecialidade: 0,
+    idMedico: 0,
+    idDep: null as number | null, // Aqui definimos o tipo como `number | null`
+    dataEmissao: new Date().toISOString(),
+    vlrConsulta: 0,
     usuario: "",
     dependente: "",
-    unidadeAtendimento: "",
     medico: "",
     especialidade: "",
     data: "",
     horario: "",
     telefoneContato: "(34) 99931-7302",
   });
+  const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
 
   useEffect(() => {
     const fetchUsuarioLogado = async () => {
@@ -73,13 +64,12 @@ export default function TelaGuiaConsulta() {
           setUsuario(usuarioLogado);
           setConsulta((prev) => ({
             ...prev,
+            idAderente: usuarioLogado.idAderente,
             usuario: usuarioLogado.nome,
           }));
 
           if (usuarioLogado && usuarioLogado.idAderente) {
-            const dependentesResponse = await buscarDependentes(
-              usuarioLogado.idAderente
-            );
+            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
             setDependentes(dependentesResponse.data);
           }
         }
@@ -98,12 +88,14 @@ export default function TelaGuiaConsulta() {
     if (isDependente && dependenteSelecionado) {
       setConsulta((prev) => ({
         ...prev,
+        idDep: Number(dependenteSelecionado),
         dependente: dependenteSelecionado || "",
         usuario: usuario.nome || "",
       }));
     } else {
       setConsulta((prev) => ({
         ...prev,
+        idDep: null,
         dependente: "null",
         usuario: usuario.nome || "",
       }));
@@ -120,11 +112,15 @@ export default function TelaGuiaConsulta() {
 
   const handleMedicoSelect = (medico: any) => {
     console.log("Medico Selecionado: ", medico);
+    const now = new Date().toISOString();
     setConsulta((prev) => ({
       ...prev,
-      medico: medico.nome || "",
+      idMedico: medico.value,
+      medico: medico.label || "",
       especialidade: especialidadeNome || "",
+      dataEmissao: now,
     }));
+    setConfirmacaoVisivel(true);
   };
 
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -152,6 +148,23 @@ export default function TelaGuiaConsulta() {
     loadResourcesAndDataAsync();
   }, []);
 
+  const handleConfirmacao = async (json: any) => {
+    try {
+      setLoading(true);
+      // Removendo o campo idEmpresa do JSON antes de enviar
+      const { idEmpresa, ...jsonWithoutIdEmpresa } = json;
+      const response = await EmitirGuiaDeConsulta(jsonWithoutIdEmpresa);
+      console.log("Guia de consulta emitida:", response);
+      Alert.alert("Sucesso", "Guia de consulta emitida com sucesso!");
+    } catch (error) {
+      console.error("Erro ao emitir guia de consulta:", error);
+      Alert.alert("Erro", "Erro ao emitir guia de consulta.");
+    } finally {
+      setLoading(false);
+      setConfirmacaoVisivel(false);
+    }
+  };
+
   if (!fontLoaded) {
     return null;
   }
@@ -166,42 +179,30 @@ export default function TelaGuiaConsulta() {
           status={isDependente ? "checked" : "unchecked"}
           onPress={() => handleCheckboxChange(!isDependente)}
         />
-        <Text style={[styles.label, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Para um dependente?</Text>
+        <Text style={[styles.label, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}>Para um dependente?</Text>
       </View>
-      <UnidadeAtendimento
-        UnidadeAtendimentoCarregada={(id, nome) => {
-          setUnidadeAtendimentoId(id);
-          setUnidadeAtendimentoNome(nome);
+      <Especialidade
+        EspecialidadeCarregada={(id, nome) => {
+          setEspecialidadeId(id);
+          setEspecialidadeNome(nome);
           setConsulta((prev) => ({
             ...prev,
-            unidadeAtendimento: nome || "",
+            idEspecialidade: Number(id),
+            especialidade: nome || "",
           }));
         }}
-        unidadeAtendimentoSelecionada={unidadeAtendimentoSelecionado}
+        especialidadeSelecionada={especialidadeSelecionada}
       />
-      {unidadeAtendimentoId && (
-        <Especialidade
-          EspecialidadeCarregada={(id, nome) => {
-            setEspecialidadeId(id);
-            setEspecialidadeNome(nome);
-            setConsulta((prev) => ({
-              ...prev,
-              especialidade: nome || "",
-            }));
-          }}
-          especialidadeSelecionada={especialidadeSelecionada}
-        />
-      )}
       {especialidadeId && (
         <Medico
           especialidadeId={especialidadeId}
-          unidadeAtendimentoId={unidadeAtendimentoId}
           medicoSelecionado={medico ? medico.id : null}
           onMedicoSelect={(medico) => {
             handleMedicoSelect(medico);
             setMedico(medico);
             setConsulta((prev) => ({
               ...prev,
+              idMedico: Number(medico.value),
               medico: medico.label || "",
             }));
           }}
@@ -216,6 +217,12 @@ export default function TelaGuiaConsulta() {
         dependentes={dependentes} // Passa os dependentes para o modal
         selectedDependente={dependenteSelecionado}
         setSelectedDependente={setDependenteSelecionado}
+      />
+      <ConfirmacaoGuiaConsulta
+        visivel={confirmacaoVisivel}
+        onClose={() => setConfirmacaoVisivel(false)}
+        onConfirm={handleConfirmacao}
+        consulta={consulta}
       />
     </View>
   );

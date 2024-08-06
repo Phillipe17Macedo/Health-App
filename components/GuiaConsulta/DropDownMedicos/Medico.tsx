@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { buscarMedicosEspecialidade } from "@/utils/requestConfig";
+import { buscarMedicosPorEspecialidadeGuiaDeConsulta } from "@/utils/requestConfig";
 import { styles } from "./styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 interface MedicoProps {
   especialidadeId: string | null;
-  unidadeAtendimentoId: string | null;
   medicoSelecionado: string | null;
   onMedicoSelect: (medico: any) => void;
 }
 
 export default function Medico({
   especialidadeId,
-  unidadeAtendimentoId,
   medicoSelecionado,
   onMedicoSelect,
 }: MedicoProps) {
@@ -27,9 +25,9 @@ export default function Medico({
 
   useEffect(() => {
     async function carregarMedicos() {
-      if (especialidadeId && unidadeAtendimentoId) {
+      if (especialidadeId) {
         try {
-          const response = await buscarMedicosEspecialidade(especialidadeId, unidadeAtendimentoId);
+          const response = await buscarMedicosPorEspecialidadeGuiaDeConsulta(Number(especialidadeId));
           const medicos = response.data;
           setItens(
             medicos.map((medico: any) => ({
@@ -48,7 +46,7 @@ export default function Medico({
     }
 
     carregarMedicos();
-  }, [especialidadeId, unidadeAtendimentoId]);
+  }, [especialidadeId]);
 
   useEffect(() => {
     setValor(medicoSelecionado);
@@ -62,7 +60,7 @@ export default function Medico({
     setValor(value);
   };
 
-const [fontLoaded, setFontLoaded] = useState(false);
+  const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
@@ -103,11 +101,11 @@ const [fontLoaded, setFontLoaded] = useState(false);
         setItems={setItens}
         placeholder="Selecione um Médico"
         style={styles.dropdown}
-        placeholderStyle={[styles.textoDropdown, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
+        placeholderStyle={[styles.textoDropdown, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}
         dropDownContainerStyle={styles.dropDownContainerStyle}
-        listItemLabelStyle={[styles.itensLista, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
-        selectedItemLabelStyle={[styles.itemSelecionado, , {fontFamily: 'MPlusRounded1c-ExtraBold'}]}
-        disabled={!especialidadeId || !unidadeAtendimentoId}
+        listItemLabelStyle={[styles.itensLista, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}
+        selectedItemLabelStyle={[styles.itemSelecionado, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}
+        disabled={!especialidadeId}
         zIndex={1000}
         zIndexInverse={2000}
       />

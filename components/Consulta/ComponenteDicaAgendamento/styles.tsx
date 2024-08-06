@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   containerOrientacao: {
     alignSelf: 'center',
-    marginTop: 450,
+    marginTop: 350,
     backgroundColor: '#03A66A',
     paddingTop: 10,
     paddingLeft: 15,
