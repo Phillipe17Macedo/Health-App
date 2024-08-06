@@ -405,8 +405,8 @@ export default function Consulta() {
               onClose={() => setCalendarioVisivel(false)}
               onDateSelect={handleDateSelect}
               medicoId={medicoSelecionado.key}
-              diasDisponiveis={diasDisponiveis} // Adicione esta linha
-              setDiasDisponiveis={setDiasDisponiveis} // Adicione esta linha
+              diasDisponiveis={diasDisponiveis}
+              setDiasDisponiveis={setDiasDisponiveis}
             />
           )}
 
