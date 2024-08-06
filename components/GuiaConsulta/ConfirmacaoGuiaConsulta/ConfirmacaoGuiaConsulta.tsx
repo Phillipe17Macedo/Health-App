@@ -13,8 +13,7 @@ interface ConfirmacaoGuiaConsultaProps {
     idAderente: number;
     idEspecialidade: number;
     idMedico: number;
-    idEmpresa: number;
-    idDep: number;
+    idDep: number | null;
     dataEmissao: string;
     vlrConsulta: number;
     usuario: string;
@@ -78,7 +77,6 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
       idAderente: consulta.idAderente,
       idEspecialidade: consulta.idEspecialidade,
       idMedico: consulta.idMedico,
-      idEmpresa: consulta.idEmpresa,
       idDep: consulta.idDep,
       dataEmissao: now.toISOString(),
       vlrConsulta: consulta.vlrConsulta,
@@ -142,7 +140,7 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="phone-volume" size={19} color="#3E3D3D" />
-            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Telefone de Contato Aserpa:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Telefone de Contato:</Text>
           </View>
           <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.telefoneContato}</Text>
           

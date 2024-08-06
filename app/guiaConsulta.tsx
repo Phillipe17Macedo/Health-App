@@ -13,6 +13,7 @@ import ConfirmacaoGuiaConsulta from "@/components/GuiaConsulta/ConfirmacaoGuiaCo
 import {
   buscarAderente,
   buscarDependentes,
+  EmitirGuiaDeConsulta
 } from "@/utils/requestConfig";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -33,8 +34,7 @@ export default function TelaGuiaConsulta() {
     idAderente: 0,
     idEspecialidade: 0,
     idMedico: 0,
-    idEmpresa: 1,
-    idDep: 0,
+    idDep: null as number | null, // Aqui definimos o tipo como `number | null`
     dataEmissao: new Date().toISOString(),
     vlrConsulta: 0,
     usuario: "",
@@ -95,7 +95,7 @@ export default function TelaGuiaConsulta() {
     } else {
       setConsulta((prev) => ({
         ...prev,
-        idDep: 0,
+        idDep: null,
         dependente: "null",
         usuario: usuario.nome || "",
       }));
@@ -148,9 +148,21 @@ export default function TelaGuiaConsulta() {
     loadResourcesAndDataAsync();
   }, []);
 
-  const handleConfirmacao = (json: any) => {
-    console.log("Dados da consulta confirmada:", json);
-    setConfirmacaoVisivel(false);
+  const handleConfirmacao = async (json: any) => {
+    try {
+      setLoading(true);
+      // Removendo o campo idEmpresa do JSON antes de enviar
+      const { idEmpresa, ...jsonWithoutIdEmpresa } = json;
+      const response = await EmitirGuiaDeConsulta(jsonWithoutIdEmpresa);
+      console.log("Guia de consulta emitida:", response);
+      Alert.alert("Sucesso", "Guia de consulta emitida com sucesso!");
+    } catch (error) {
+      console.error("Erro ao emitir guia de consulta:", error);
+      Alert.alert("Erro", "Erro ao emitir guia de consulta.");
+    } finally {
+      setLoading(false);
+      setConfirmacaoVisivel(false);
+    }
   };
 
   if (!fontLoaded) {
@@ -167,7 +179,7 @@ export default function TelaGuiaConsulta() {
           status={isDependente ? "checked" : "unchecked"}
           onPress={() => handleCheckboxChange(!isDependente)}
         />
-        <Text style={[styles.label, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Para um dependente?</Text>
+        <Text style={[styles.label, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}>Para um dependente?</Text>
       </View>
       <Especialidade
         EspecialidadeCarregada={(id, nome) => {
