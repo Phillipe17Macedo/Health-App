@@ -41,20 +41,23 @@ const Servicos: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [idAderente, setIdAderente] = useState<string | null>(null);
-  const [idEmpresa, setIdEmpresa] = useState<string | null>(null);
+  const [idEmpresas, setIdEmpresas] = useState<string[]>([]);
 
   const fetchConsultas = async () => {
     try {
       setLoading(true);
       const userId = await AsyncStorage.getItem("userId");
-      const empresaId = await AsyncStorage.getItem("empresaId");
-      if (userId && empresaId) {
+      if (userId && idEmpresas.length > 0) {
         setIdAderente(userId);
-        setIdEmpresa(empresaId);
-        const response = await buscarAgendamentosConsulta(userId, empresaId);
-        console.log("Consultas agendadas:", response.data);
 
-        const consultaOrdenada = (response.data ?? []).sort((a: Consulta, b: Consulta) => {
+        let allConsultas: Consulta[] = [];
+
+        for (const empresaId of idEmpresas) {
+          const response = await buscarAgendamentosConsulta(userId, empresaId);
+          allConsultas = allConsultas.concat(response.data ?? []);
+        }
+
+        const consultaOrdenada = allConsultas.sort((a: Consulta, b: Consulta) => {
           const dateA = new Date(`${a.dataAgenda?.split("T")[0]}T${a.horaAgenda}`);
           const dateB = new Date(`${b.dataAgenda?.split("T")[0]}T${b.horaAgenda}`);
           return dateA.getTime() - dateB.getTime();
@@ -62,7 +65,7 @@ const Servicos: React.FC = () => {
 
         setConsultas(consultaOrdenada);
       } else {
-        console.error("Erro", "Usuário ou empresa não encontrados.");
+        console.error("Erro", "Usuário ou unidades de atendimento não encontrados.");
       }
     } catch (error) {
       console.error("Erro ao carregar as consultas:", error);
@@ -80,9 +83,9 @@ const Servicos: React.FC = () => {
         if (userId) {
           setIdAderente(userId);
           const unidadesResponse = await buscarUnidadeAtendimento();
-          const idEmpresa = unidadesResponse.data[0].idEmpresa;
-          setIdEmpresa(idEmpresa);
-          await AsyncStorage.setItem("empresaId", idEmpresa.toString());
+          const empresasIds = unidadesResponse.data.map((unidade: any) => unidade.idEmpresa);
+          setIdEmpresas(empresasIds);
+          await AsyncStorage.setItem("empresaIds", JSON.stringify(empresasIds));
           await fetchConsultas();
         }
       } catch (error) {
