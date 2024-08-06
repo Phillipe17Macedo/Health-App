@@ -72,9 +72,72 @@ const AgendamentosHome: React.FC<AgendamentosHomeProps> = ({ consultas }) => {
   if (!consultaMaisProxima) {
     return (
       <View style={styles.container}>
-        <Text style={[styles.textoTituloAgendamento, { fontFamily: "MPlusRounded1c-Medium" }]}>
-          Nenhuma consulta agendada
-        </Text>
+        <View style={[styles.containerAgendamento]}>
+          <View style={[styles.containerAreaTitulo]}>
+            <Text
+              style={[
+                styles.textoTituloAgendamento,
+                { fontFamily: "MPlusRounded1c-Medium" },
+              ]}
+            >
+              Agende uma Consulta ou Exame agora!
+            </Text>
+            <View>
+              <Entypo name="chevron-right" size={18} color="#FFF" />
+            </View>
+          </View>
+          <View style={[styles.containerAreaDataAgendamento]}>
+            <View>
+              <FontAwesome5 name="calendar-alt" size={18} color="#FFF" />
+            </View>
+            <Text
+              style={[
+                styles.textoDataAgendamento,
+                { fontFamily: "MPlusRounded1c-Bold" },
+              ]}
+            >
+              {"  "}
+              Nenhum agendamento
+            </Text>
+          </View>
+          <View style={[styles.containerAreaHorarioAgendamento]}>
+            <View>
+              <FontAwesome5 name="clock" size={18} color="#FFF" />
+            </View>
+            <Text
+              style={[
+                styles.textoDataAgendamento,
+                { fontFamily: "MPlusRounded1c-Bold" },
+              ]}
+            >
+              {"  "}
+              Nenhum agendamento
+            </Text>
+          </View>
+        </View>
+        <View style={[styles.containerMedicoAgendamento]}>
+          <View style={[styles.containerAreaFotoMedico]}>
+            <Image
+              source={require("@/assets/images/medicos/medico-consulta.png")}
+              style={[
+                {
+                  width: "100%",
+                  height: "100%",
+                  borderRadius: 10,
+                  resizeMode: "contain",
+                },
+              ]}
+            />
+          </View>
+          <View style={[styles.containerAreaDadosMedico]}>
+            <Text style={[styles.textoNomeMedico, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
+              Nenhum agendamento
+            </Text>
+            <Text style={[styles.textoDescricaoMedico, { fontFamily: "MPlusRounded1c-Medium" }]}>
+              Nenhum agendamento
+            </Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -89,7 +152,7 @@ const AgendamentosHome: React.FC<AgendamentosHomeProps> = ({ consultas }) => {
               { fontFamily: "MPlusRounded1c-Medium" },
             ]}
           >
-            Meu Agendamento
+            Meu Próximo Agendamento
           </Text>
           <View>
             <Entypo name="chevron-right" size={18} color="#FFF" />
