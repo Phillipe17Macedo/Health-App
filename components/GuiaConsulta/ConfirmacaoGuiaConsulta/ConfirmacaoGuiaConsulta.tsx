@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, View, Text, TouchableOpacity } from "react-native";
+import { Modal, View, Text, TouchableOpacity, Alert } from "react-native";
 import { styles } from "./styles";
 import { FontAwesome6, FontAwesome5 } from '@expo/vector-icons';
 import * as Font from "expo-font";
@@ -8,11 +8,17 @@ import * as SplashScreen from "expo-splash-screen";
 interface ConfirmacaoGuiaConsultaProps {
   visivel: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  onConfirm: (json: any) => void;
   consulta: {
+    idAderente: number;
+    idEspecialidade: number;
+    idMedico: number;
+    idEmpresa: number;
+    idDep: number;
+    dataEmissao: string;
+    vlrConsulta: number;
     usuario: string;
     dependente: string;
-    unidadeAtendimento: string;
     especialidade: string;
     medico: string;
     data: string;
@@ -66,6 +72,23 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
     return `${dia}/${mes}/${ano}`;
   };
 
+  const handleConfirm = () => {
+    const now = new Date();
+    const json = {
+      idAderente: consulta.idAderente,
+      idEspecialidade: consulta.idEspecialidade,
+      idMedico: consulta.idMedico,
+      idEmpresa: consulta.idEmpresa,
+      idDep: consulta.idDep,
+      dataEmissao: now.toISOString(),
+      vlrConsulta: consulta.vlrConsulta,
+    };
+
+    console.log(JSON.stringify(json, null, 2));
+    Alert.alert("JSON", JSON.stringify(json, null, 2));
+    onConfirm(json);
+  };
+
   if (!fontLoaded) {
     return null;
   }
@@ -109,24 +132,24 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
             <FontAwesome5 name="calendar-alt" size={19} color="#3E3D3D" />
             <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Data da Emissão:</Text>
           </View>
-          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{formatarData(consulta.data)}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{formatarData(new Date().toISOString())}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome5 name="clock" size={19} color="#3E3D3D" />
-            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Horário Atual:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Horário da Emissão:</Text>
           </View>
           <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{horarioAtual}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="phone-volume" size={19} color="#3E3D3D" />
-            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Telefone de Contato:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Telefone de Contato Aserpa:</Text>
           </View>
           <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.telefoneContato}</Text>
           
           <View style={[styles.containerButton]}>
             <TouchableOpacity
               style={styles.confirmButton}
-              onPress={onConfirm}
+              onPress={handleConfirm}
             >
               <Text style={[styles.confirmButtonText, {fontFamily: 'MPlusRounded1c-Bold'}]}>Confirmar</Text>
             </TouchableOpacity>

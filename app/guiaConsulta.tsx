@@ -29,16 +29,23 @@ export default function TelaGuiaConsulta() {
   const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
   const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
-  const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
   const [consulta, setConsulta] = useState({
+    idAderente: 0,
+    idEspecialidade: 0,
+    idMedico: 0,
+    idEmpresa: 1,
+    idDep: 0,
+    dataEmissao: new Date().toISOString(),
+    vlrConsulta: 0,
     usuario: "",
     dependente: "",
     medico: "",
     especialidade: "",
-    data: new Date().toISOString(),
+    data: "",
     horario: "",
     telefoneContato: "(34) 99931-7302",
   });
+  const [confirmacaoVisivel, setConfirmacaoVisivel] = useState(false);
 
   useEffect(() => {
     const fetchUsuarioLogado = async () => {
@@ -57,6 +64,7 @@ export default function TelaGuiaConsulta() {
           setUsuario(usuarioLogado);
           setConsulta((prev) => ({
             ...prev,
+            idAderente: usuarioLogado.idAderente,
             usuario: usuarioLogado.nome,
           }));
 
@@ -80,12 +88,14 @@ export default function TelaGuiaConsulta() {
     if (isDependente && dependenteSelecionado) {
       setConsulta((prev) => ({
         ...prev,
+        idDep: Number(dependenteSelecionado),
         dependente: dependenteSelecionado || "",
         usuario: usuario.nome || "",
       }));
     } else {
       setConsulta((prev) => ({
         ...prev,
+        idDep: 0,
         dependente: "null",
         usuario: usuario.nome || "",
       }));
@@ -102,12 +112,14 @@ export default function TelaGuiaConsulta() {
 
   const handleMedicoSelect = (medico: any) => {
     console.log("Medico Selecionado: ", medico);
+    const now = new Date().toISOString();
     setConsulta((prev) => ({
       ...prev,
-      medico: medico.nome || "",
+      idMedico: medico.value,
+      medico: medico.label || "",
       especialidade: especialidadeNome || "",
+      dataEmissao: now,
     }));
-    setMedico(medico);
     setConfirmacaoVisivel(true);
   };
 
@@ -136,6 +148,11 @@ export default function TelaGuiaConsulta() {
     loadResourcesAndDataAsync();
   }, []);
 
+  const handleConfirmacao = (json: any) => {
+    console.log("Dados da consulta confirmada:", json);
+    setConfirmacaoVisivel(false);
+  };
+
   if (!fontLoaded) {
     return null;
   }
@@ -158,6 +175,7 @@ export default function TelaGuiaConsulta() {
           setEspecialidadeNome(nome);
           setConsulta((prev) => ({
             ...prev,
+            idEspecialidade: Number(id),
             especialidade: nome || "",
           }));
         }}
@@ -172,6 +190,7 @@ export default function TelaGuiaConsulta() {
             setMedico(medico);
             setConsulta((prev) => ({
               ...prev,
+              idMedico: Number(medico.value),
               medico: medico.label || "",
             }));
           }}
@@ -190,20 +209,8 @@ export default function TelaGuiaConsulta() {
       <ConfirmacaoGuiaConsulta
         visivel={confirmacaoVisivel}
         onClose={() => setConfirmacaoVisivel(false)}
-        onConfirm={() => {
-          setConfirmacaoVisivel(false);
-          // Call the EmitirGuiaDeConsulta function here to confirm the guia
-        }}
-        consulta={{
-          usuario: consulta.usuario,
-          dependente: consulta.dependente,
-          unidadeAtendimento: "",
-          especialidade: consulta.especialidade,
-          medico: consulta.medico,
-          data: consulta.data,
-          horario: consulta.horario,
-          telefoneContato: consulta.telefoneContato,
-        }}
+        onConfirm={handleConfirmacao}
+        consulta={consulta}
       />
     </View>
   );
