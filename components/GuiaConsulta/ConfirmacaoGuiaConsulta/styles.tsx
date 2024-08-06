@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
     fontSize: 21,
     marginBottom: 20,
     alignSelf: 'center',
-    color: '#3E3D3D'
+    color: '#3E3D3D',
+    textAlign: 'center',
   },
   containerTextoPadrao: {
     flexDirection: 'row',
