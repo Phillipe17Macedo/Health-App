@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { styles } from "./styles";
 import { Entypo, FontAwesome5 } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 interface Consulta {
   idAgenda: number;
@@ -71,74 +72,76 @@ const AgendamentosHome: React.FC<AgendamentosHomeProps> = ({ consultas }) => {
 
   if (!consultaMaisProxima) {
     return (
-      <View style={styles.container}>
-        <View style={[styles.containerAgendamento]}>
-          <View style={[styles.containerAreaTitulo]}>
-            <Text
-              style={[
-                styles.textoTituloAgendamento,
-                { fontFamily: "MPlusRounded1c-Medium" },
-              ]}
-            >
-              Agende uma Consulta ou Exame agora!
-            </Text>
-            <View>
-              <Entypo name="chevron-right" size={18} color="#FFF" />
+      <Link href={"/servicos"} style={[{alignContent: 'center', marginTop: 20, alignSelf: 'center', justifyContent: 'center', width: "100%" }]}>
+        <View style={styles.container}>
+          <View style={[styles.containerAgendamento]}>
+            <View style={[styles.containerAreaTitulo]}>
+              <Text
+                style={[
+                  styles.textoTituloAgendamento,
+                  { fontFamily: "MPlusRounded1c-Medium" },
+                ]}
+              >
+                Agende uma Consulta ou Exame agora!
+              </Text>
+              <View>
+                <Entypo name="chevron-right" size={18} color="#FFF" />
+              </View>
+            </View>
+            <View style={[styles.containerAreaDataAgendamento]}>
+              <View>
+                <FontAwesome5 name="calendar-alt" size={18} color="#FFF" />
+              </View>
+              <Text
+                style={[
+                  styles.textoDataAgendamento,
+                  { fontFamily: "MPlusRounded1c-Bold" },
+                ]}
+              >
+                {"  "}
+                Nenhum agendamento
+              </Text>
+            </View>
+            <View style={[styles.containerAreaHorarioAgendamento]}>
+              <View>
+                <FontAwesome5 name="clock" size={18} color="#FFF" />
+              </View>
+              <Text
+                style={[
+                  styles.textoDataAgendamento,
+                  { fontFamily: "MPlusRounded1c-Bold" },
+                ]}
+              >
+                {"  "}
+                Nenhum agendamento
+              </Text>
             </View>
           </View>
-          <View style={[styles.containerAreaDataAgendamento]}>
-            <View>
-              <FontAwesome5 name="calendar-alt" size={18} color="#FFF" />
+          <View style={[styles.containerMedicoAgendamento]}>
+            <View style={[styles.containerAreaFotoMedico]}>
+              <Image
+                source={require("@/assets/images/medicos/medico-consulta.png")}
+                style={[
+                  {
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 10,
+                    resizeMode: "contain",
+                  },
+                ]}
+              />
             </View>
-            <Text
-              style={[
-                styles.textoDataAgendamento,
-                { fontFamily: "MPlusRounded1c-Bold" },
-              ]}
-            >
-              {"  "}
-              Nenhum agendamento
-            </Text>
-          </View>
-          <View style={[styles.containerAreaHorarioAgendamento]}>
-            <View>
-              <FontAwesome5 name="clock" size={18} color="#FFF" />
+            <View style={[styles.containerAreaDadosMedico]}>
+              <Text style={[styles.textoNomeMedico, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
+                Nenhum agendamento
+              </Text>
+              <Text style={[styles.textoDescricaoMedico, { fontFamily: "MPlusRounded1c-Medium" }]}>
+                Nenhum agendamento
+              </Text>
             </View>
-            <Text
-              style={[
-                styles.textoDataAgendamento,
-                { fontFamily: "MPlusRounded1c-Bold" },
-              ]}
-            >
-              {"  "}
-              Nenhum agendamento
-            </Text>
           </View>
         </View>
-        <View style={[styles.containerMedicoAgendamento]}>
-          <View style={[styles.containerAreaFotoMedico]}>
-            <Image
-              source={require("@/assets/images/medicos/medico-consulta.png")}
-              style={[
-                {
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: 10,
-                  resizeMode: "contain",
-                },
-              ]}
-            />
-          </View>
-          <View style={[styles.containerAreaDadosMedico]}>
-            <Text style={[styles.textoNomeMedico, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
-              Nenhum agendamento
-            </Text>
-            <Text style={[styles.textoDescricaoMedico, { fontFamily: "MPlusRounded1c-Medium" }]}>
-              Nenhum agendamento
-            </Text>
-          </View>
-        </View>
-      </View>
+      </Link>
     );
   }
 
