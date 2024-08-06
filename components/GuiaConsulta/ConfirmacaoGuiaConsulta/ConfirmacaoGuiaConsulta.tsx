@@ -22,8 +22,8 @@ interface ConfirmacaoGuiaConsultaProps {
 }
 
 export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, consulta }: ConfirmacaoGuiaConsultaProps) {
-
   const [fontLoaded, setFontLoaded] = useState(false);
+  const [horarioAtual, setHorarioAtual] = useState("");
 
   useEffect(() => {
     async function loadResourcesAndDataAsync() {
@@ -48,6 +48,24 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
     loadResourcesAndDataAsync();
   }, []);
 
+  useEffect(() => {
+    if (visivel) {
+      const now = new Date();
+      const horas = now.getHours().toString().padStart(2, '0');
+      const minutos = now.getMinutes().toString().padStart(2, '0');
+      const segundos = now.getSeconds().toString().padStart(2, '0');
+      setHorarioAtual(`${horas}:${minutos}:${segundos}`);
+    }
+  }, [visivel]);
+
+  const formatarData = (dataISO: string): string => {
+    const data = new Date(dataISO);
+    const dia = data.getDate().toString().padStart(2, '0');
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const ano = data.getFullYear().toString().slice(-2);
+    return `${dia}/${mes}/${ano}`;
+  };
+
   if (!fontLoaded) {
     return null;
   }
@@ -61,7 +79,7 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
-          <Text style={[styles.modalTitle, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Confirmação da Consulta</Text>
+          <Text style={[styles.modalTitle, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Confirmação da Guia de Consulta</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="person" size={21} color="#3E3D3D" />
@@ -74,12 +92,6 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
             <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Dependente:</Text>
           </View>
           <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.dependente ? consulta.dependente : "N/A"}</Text>
-
-          <View style={[styles.containerTextoPadrao]}>
-            <FontAwesome5 name="hospital-alt" size={19} color="#3E3D3D" />
-            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Unidade de Atendimento:</Text>
-          </View>
-          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.unidadeAtendimento}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="user-doctor" size={19} color="#3E3D3D" />
@@ -95,15 +107,15 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome5 name="calendar-alt" size={19} color="#3E3D3D" />
-            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Data:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Data da Emissão:</Text>
           </View>
-          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.data}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{formatarData(consulta.data)}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome5 name="clock" size={19} color="#3E3D3D" />
-            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Horário:</Text>
+            <Text style={[styles.textoPadrao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Horário Atual:</Text>
           </View>
-          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{consulta.horario}</Text>
+          <Text style={[styles.textoConfirmacao, { fontFamily: 'MPlusRounded1c-Medium' }]}>{horarioAtual}</Text>
 
           <View style={[styles.containerTextoPadrao]}>
             <FontAwesome6 name="phone-volume" size={19} color="#3E3D3D" />
