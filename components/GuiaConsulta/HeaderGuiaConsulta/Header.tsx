@@ -38,7 +38,7 @@ export function HeaderGuiaConsulta() {
   return (
     <>
       <View style={styles.container}>
-        <Link href={"/home"} style={[styles.containerLink]}>
+        <Link href={"/guias"} style={[styles.containerLink]}>
           <View style={[styles.containerIcone]}>
             <Ionicons name="arrow-back-circle" size={42} color="#F2F2F2" />
           </View>

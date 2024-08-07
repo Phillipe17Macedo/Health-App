@@ -3,14 +3,16 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   containerOrientacao: {
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 350,
     backgroundColor: '#03A66A',
-    padding: 10,
-    width: '90%',
-    borderRadius: 5,
-    elevation: 3,
-    borderWidth: 0.5,
-    borderColor: '#025940',
+    paddingTop: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+    width: '100%',
+    height: "100%",
+    borderTopLeftRadius: 70,
+    borderTopRightRadius: 70,
+    position: 'absolute',
   },
   tituloOrientacao: {
     alignSelf: 'center',
@@ -18,10 +20,12 @@ export const styles = StyleSheet.create({
     fontSize: 17,
     color: '#fff',
     marginBottom: 15,
+    marginTop: 45,
   },
   orientacao: {
     textAlign: 'justify',
     color: '#fff',
-    fontSize: 14,
+    fontSize: 16,
+    marginLeft: 15,
   },
 });

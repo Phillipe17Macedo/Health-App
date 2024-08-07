@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { View, Alert, Text } from "react-native";
+import {
+  View,
+  Alert,
+  Text,
+  ScrollView,
+  Image,
+  SafeAreaView,
+} from "react-native";
 import { Checkbox } from "react-native-paper";
 import { styles } from "../styles/GuiaConsulta/styles";
+import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { HeaderGuiaConsulta } from "@/components/GuiaConsulta/HeaderGuiaConsulta/Header";
 import { DicaGuiaConsulta } from "../components/GuiaConsulta/ComponenteDicaSolicitacao/DicaGuiaConsulta";
@@ -13,7 +21,7 @@ import ConfirmacaoGuiaConsulta from "@/components/GuiaConsulta/ConfirmacaoGuiaCo
 import {
   buscarAderente,
   buscarDependentes,
-  EmitirGuiaDeConsulta
+  EmitirGuiaDeConsulta,
 } from "@/utils/requestConfig";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -25,13 +33,20 @@ export default function TelaGuiaConsulta() {
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<
+    string | null
+  >(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
+    null
+  );
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
+    string | null
+  >(null);
   const [medico, setMedico] = useState<any | null>(null);
   const [consulta, setConsulta] = useState({
     idAderente: 0,
+    cpfAderente: "",
     idEspecialidade: 0,
     idMedico: 0,
     idDep: null as number | null,
@@ -67,11 +82,14 @@ export default function TelaGuiaConsulta() {
           setConsulta((prev) => ({
             ...prev,
             idAderente: usuarioLogado.idAderente,
+            cpfAderente: cpfDoBanco,
             usuario: usuarioLogado.nome,
           }));
 
           if (usuarioLogado && usuarioLogado.idAderente) {
-            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
+            const dependentesResponse = await buscarDependentes(
+              usuarioLogado.idAderente
+            );
             setDependentes(dependentesResponse.data);
           }
         }
@@ -171,72 +189,84 @@ export default function TelaGuiaConsulta() {
   }
 
   return (
-    <View style={styles.container}>
-      <HeaderGuiaConsulta />
-      <ModalCarregamento visivel={loading} />
-      <DicaGuiaConsulta />
-      <View style={styles.checkboxContainer}>
-        <Checkbox
-          status={isDependente ? "checked" : "unchecked"}
-          onPress={() => handleCheckboxChange(!isDependente)}
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="auto" />
+      <ScrollView>
+        <Image
+          source={require("@/assets/images/medicos/estrutura-clinica.png")}
+          style={[{ width: "100%", height: 600, position: "relative" }]}
         />
-        <Text style={[styles.label, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}>Para um dependente?</Text>
-      </View>
-      <Especialidade
-        EspecialidadeCarregada={(id, nome) => {
-          setEspecialidadeId(id);
-          setEspecialidadeNome(nome);
-          setConsulta((prev) => ({
-            ...prev,
-            idEspecialidade: Number(id),
-            especialidade: nome || "",
-          }));
-        }}
-        especialidadeSelecionada={especialidadeSelecionada}
-        onOpen={() => {
-          setMedicoAberto(false);
-          setEspecialidadeAberta(true);
-        }}
-        onClose={() => setEspecialidadeAberta(false)}
-        aberto={especialidadeAberta}
-      />
-      {especialidadeId && (
-        <Medico
-          especialidadeId={especialidadeId}
-          medicoSelecionado={medico ? medico.id : null}
-          onMedicoSelect={(medico) => {
-            handleMedicoSelect(medico);
-            setMedico(medico);
+        <HeaderGuiaConsulta />
+        <ModalCarregamento visivel={loading} />
+        <DicaGuiaConsulta />
+        <View style={styles.checkboxContainer}>
+          <Checkbox
+            status={isDependente ? "checked" : "unchecked"}
+            onPress={() => handleCheckboxChange(!isDependente)}
+          />
+          <Text
+            style={[styles.label, { fontFamily: "MPlusRounded1c-ExtraBold" }]}
+          >
+            Para um dependente?
+          </Text>
+        </View>
+        <Especialidade
+          EspecialidadeCarregada={(id, nome) => {
+            setEspecialidadeId(id);
+            setEspecialidadeNome(nome);
             setConsulta((prev) => ({
               ...prev,
-              idMedico: Number(medico.value),
-              medico: medico.label || "",
+              idEspecialidade: Number(id),
+              especialidade: nome || "",
             }));
           }}
+          especialidadeSelecionada={especialidadeSelecionada}
           onOpen={() => {
-            setEspecialidadeAberta(false);
-            setMedicoAberto(true);
+            setMedicoAberto(false);
+            setEspecialidadeAberta(true);
           }}
-          onClose={() => setMedicoAberto(false)}
-          aberto={medicoAberto}
+          onClose={() => setEspecialidadeAberta(false)}
+          aberto={especialidadeAberta}
         />
-      )}
-      <SelecaoDependente
-        visivel={selectDependenteVisivel}
-        onClose={() => setSelectDependenteVisivel(false)}
-        onConfirm={handleConfirmDependente}
-        isDependente={isDependente}
-        setIsDependente={setIsDependente}
-        dependentes={dependentes}
-        selectedDependente={dependenteSelecionado}
-        setSelectedDependente={setDependenteSelecionado}
-      />
-      <ConfirmacaoGuiaConsulta
-        visivel={confirmacaoVisivel}
-        onClose={() => setConfirmacaoVisivel(false)}
-        onConfirm={handleConfirmacao}
-        consulta={consulta}
-      />
-    </View>
+        {especialidadeId && (
+          <Medico
+            especialidadeId={especialidadeId}
+            medicoSelecionado={medico ? medico.id : null}
+            onMedicoSelect={(medico) => {
+              handleMedicoSelect(medico);
+              setMedico(medico);
+              setConsulta((prev) => ({
+                ...prev,
+                idMedico: Number(medico.value),
+                medico: medico.label || "",
+              }));
+            }}
+            onOpen={() => {
+              setEspecialidadeAberta(false);
+              setMedicoAberto(true);
+            }}
+            onClose={() => setMedicoAberto(false)}
+            aberto={medicoAberto}
+          />
+        )}
+        <SelecaoDependente
+          visivel={selectDependenteVisivel}
+          onClose={() => setSelectDependenteVisivel(false)}
+          onConfirm={handleConfirmDependente}
+          isDependente={isDependente}
+          setIsDependente={setIsDependente}
+          dependentes={dependentes}
+          selectedDependente={dependenteSelecionado}
+          setSelectedDependente={setDependenteSelecionado}
+        />
+        <ConfirmacaoGuiaConsulta
+          visivel={confirmacaoVisivel}
+          onClose={() => setConfirmacaoVisivel(false)}
+          onConfirm={handleConfirmacao}
+          consulta={consulta}
+        />
+        <View style={[{width: '100%', height: 75, backgroundColor: '#03A66A'}]}></View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
