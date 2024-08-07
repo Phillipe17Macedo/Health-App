@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 350,
     backgroundColor: '#03A66A',
-    paddingTop: 10,
+    paddingTop: 0,
     paddingLeft: 15,
     paddingRight: 15,
     width: '100%',
@@ -17,10 +17,10 @@ export const styles = StyleSheet.create({
   tituloOrientacao: {
     alignSelf: 'center',
     textAlign: 'center',
-    fontSize: 17,
+    fontSize: 21,
     color: '#fff',
     marginBottom: 15,
-    marginTop: 45,
+    marginTop: 25,
   },
   orientacao: {
     textAlign: 'justify',

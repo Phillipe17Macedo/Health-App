@@ -33,16 +33,10 @@ export default function TelaGuiaConsulta() {
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
   const [isDependente, setIsDependente] = useState(false);
-  const [dependenteSelecionado, setDependenteSelecionado] = useState<
-    string | null
-  >(null);
+  const [dependenteSelecionado, setDependenteSelecionado] = useState<string | null>(null);
   const [especialidadeId, setEspecialidadeId] = useState<string | null>(null);
-  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(
-    null
-  );
-  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<
-    string | null
-  >(null);
+  const [especialidadeNome, setEspecialidadeNome] = useState<string | null>(null);
+  const [especialidadeSelecionada, setEspecialidadeSelecionada] = useState<string | null>(null);
   const [medico, setMedico] = useState<any | null>(null);
   const [consulta, setConsulta] = useState({
     idAderente: 0,
@@ -87,9 +81,7 @@ export default function TelaGuiaConsulta() {
           }));
 
           if (usuarioLogado && usuarioLogado.idAderente) {
-            const dependentesResponse = await buscarDependentes(
-              usuarioLogado.idAderente
-            );
+            const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
             setDependentes(dependentesResponse.data);
           }
         }
@@ -173,8 +165,38 @@ export default function TelaGuiaConsulta() {
       setLoading(true);
       const { idEmpresa, ...jsonWithoutIdEmpresa } = json;
       const response = await EmitirGuiaDeConsulta(jsonWithoutIdEmpresa);
-      console.log("Guia de consulta emitida:", response);
-      Alert.alert("Sucesso", "Guia de consulta emitida com sucesso!");
+
+      if (response.success) {
+        if (response.data.status) {
+          Alert.alert("Sucesso", "Guia de consulta emitida com sucesso!");
+          // Limpar os campos após emissão bem-sucedida
+          setIsDependente(false);
+          setDependenteSelecionado(null);
+          setEspecialidadeId(null);
+          setEspecialidadeNome(null);
+          setMedico(null);
+          setConsulta({
+            idAderente: consulta.idAderente,
+            cpfAderente: consulta.cpfAderente,
+            idEspecialidade: 0,
+            idMedico: 0,
+            idDep: null,
+            dataEmissao: new Date().toISOString(),
+            vlrConsulta: 0,
+            usuario: consulta.usuario,
+            dependente: "",
+            medico: "",
+            especialidade: "",
+            data: "",
+            horario: "",
+            telefoneContato: "(34) 99931-7302",
+          });
+        } else {
+          Alert.alert("Não foi possível emitir sua guia de consulta:", `${response.data.motivo}`);
+        }
+      } else {
+        Alert.alert("Atenção", "Erro ao emitir guia de consulta.");
+      }
     } catch (error) {
       console.error("Erro ao emitir guia de consulta:", error);
       Alert.alert("Erro", "Erro ao emitir guia de consulta.");
@@ -265,7 +287,7 @@ export default function TelaGuiaConsulta() {
           onConfirm={handleConfirmacao}
           consulta={consulta}
         />
-        <View style={[{width: '100%', height: 75, backgroundColor: '#03A66A'}]}></View>
+        <View style={[{ width: '100%', height: 140, backgroundColor: '#03A66A' }]}></View>
       </ScrollView>
     </SafeAreaView>
   );
