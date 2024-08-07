@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
     fontSize: 21,
     color: '#fff',
     marginBottom: 15,
-    marginTop: 45,
+    marginTop: 15,
   },
   orientacao: {
     textAlign: 'justify',

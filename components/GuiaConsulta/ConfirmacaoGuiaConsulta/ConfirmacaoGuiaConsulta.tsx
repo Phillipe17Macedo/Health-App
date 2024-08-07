@@ -11,6 +11,7 @@ interface ConfirmacaoGuiaConsultaProps {
   onConfirm: (json: any) => void;
   consulta: {
     idAderente: number;
+    cpfAderente: string;
     idEspecialidade: number;
     idMedico: number;
     idDep: number | null;
@@ -75,6 +76,7 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
     const now = new Date();
     const json = {
       idAderente: consulta.idAderente,
+      cpfAderente: consulta.cpfAderente,
       idEspecialidade: consulta.idEspecialidade,
       idMedico: consulta.idMedico,
       idDep: consulta.idDep,

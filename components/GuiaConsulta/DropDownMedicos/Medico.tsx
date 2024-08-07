@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { buscarMedicosPorEspecialidadeGuiaDeConsulta } from "@/utils/requestConfig";
 import { styles } from "./styles";
@@ -10,14 +10,19 @@ interface MedicoProps {
   especialidadeId: string | null;
   medicoSelecionado: string | null;
   onMedicoSelect: (medico: any) => void;
+  onOpen: () => void;
+  onClose: () => void;
+  aberto: boolean;
 }
 
 export default function Medico({
   especialidadeId,
   medicoSelecionado,
   onMedicoSelect,
+  onOpen,
+  onClose,
+  aberto,
 }: MedicoProps) {
-  const [abrir, setAbrir] = useState(false);
   const [valor, setValor] = useState(medicoSelecionado);
   const [itens, setItens] = useState<
     { label: string; value: string; key: string; diasAtendimento: string[] }[]
@@ -33,7 +38,7 @@ export default function Medico({
             medicos.map((medico: any) => ({
               label: medico.nomeMedico,
               value: medico.idMedico.toString(),
-              key: medico.idMedico.toString(), // Usar idMedico como chave
+              key: medico.idMedico.toString(),
               diasAtendimento: medico.diasAtendimento,
             }))
           );
@@ -92,10 +97,11 @@ export default function Medico({
   return (
     <View style={styles.container}>
       <DropDownPicker
-        open={abrir}
+        open={aberto}
         value={valor}
         items={itens}
-        setOpen={setAbrir}
+        setOpen={onOpen}
+        onClose={onClose}
         setValue={setValor}
         onChangeValue={handleChangeValue}
         setItems={setItens}

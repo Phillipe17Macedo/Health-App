@@ -151,22 +151,23 @@ export default function Consulta() {
     }
   };
 
-  const handleDateSelect = (date: string) => {
+  const handleDateSelect = async (date: string) => {
     console.log("Tela Consulta: Data Selecionada: ", date);
 
     const diaSelecionado = diasDisponiveis.find((dia: any) => {
       console.log(`Tela Consulta: Verificando dia ${dia.data.split("T")[0]} contra a data selecionada ${date}`);
       return dia.data.split("T")[0] === date;
     });
-  
+
     if (diaSelecionado) {
       console.log("Tela Consulta: Dia da Semana Selecionado: ", diaSelecionado.dia);
       console.log("Tela Consulta: Horários Disponíveis: ", diaSelecionado.horarios.map((horario: any) => horario.horario));
     } else {
       console.log("Tela Consulta: Nenhum dia de atendimento encontrado para a data selecionada.");
     }
-  
+
     if (diaSelecionado && diaSelecionado.horarios.length > 0) {
+      setLoading(true);
       setHorariosDisponiveis(diaSelecionado.horarios);
       setDataConsulta(date);
       setConsulta((prev) => ({
@@ -174,6 +175,7 @@ export default function Consulta() {
         data: date || "",
       }));
       setHorarioVisivel(true);
+      setLoading(false);
     } else {
       console.error(`Tela Consulta: Horários de atendimento não definidos para a data ${date}.`);
       Alert.alert("Tela Consulta: Horários de atendimento não definidos para a data selecionada.");
@@ -445,7 +447,7 @@ export default function Consulta() {
             />
           )}
         </View>
-        <View style={[{width: '100%', height: 60, backgroundColor: '#03A66A'}]}></View>
+        <View style={[{width: '100%', height: 140, backgroundColor: '#03A66A'}]}></View>
       </ScrollView>
     </SafeAreaView>
   );

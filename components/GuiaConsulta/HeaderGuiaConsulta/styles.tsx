@@ -4,11 +4,12 @@ export const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 'auto',
-    backgroundColor: '#03A66A',
+    //backgroundColor: '#03A66A',
     alignItems: 'center',
     justifyContent: 'center',
     //marginBottom: 20,
     paddingBottom: 10,
+    position: 'absolute',
   },
   containerLink: {
     width: '100%',
@@ -32,6 +33,6 @@ export const styles = StyleSheet.create({
   },
   textoHeader: {
     fontSize: 25,
-    color: '#F2F2F2',
+    color: '#F2F2F2', //#F2F2F2
   }, 
 });

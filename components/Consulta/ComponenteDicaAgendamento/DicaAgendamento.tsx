@@ -39,7 +39,7 @@ export function DicaAgendamento() {
   return (
     <>
       <View style={styles.containerOrientacao}>
-        <Text style={[styles.tituloOrientacao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>GUIA DO AGENDAMENTO DE CONSULTA</Text>
+        <Text style={[styles.tituloOrientacao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>AGENDAR CONSULTA</Text>
         <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Bold', marginBottom: 10}]}>
           Para agendar uma consulta, siga os passos abaixo e role a tela para baixo:
         </Text>
@@ -54,9 +54,6 @@ export function DicaAgendamento() {
         </Text>
         <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>
           4- Selecione o Médico.
-        </Text>
-        <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>
-          5- Selecione o Dia e Horário Disponíveis.
         </Text>
       </View>
     </>
