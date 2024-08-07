@@ -38,7 +38,7 @@ export function ComponenteGuiaExame() {
   return (
     <>
       <TouchableOpacity style={styles.container}>
-        <Link href={"/exame"} style={{ width: 150 }}>
+        <Link href={"/guiaExame"} style={{ width: 150 }}>
           <View style={[styles.containerLink]}>
             <MaterialCommunityIcons
               name="flask-round-bottom"
