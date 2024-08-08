@@ -258,3 +258,14 @@ export async function buscarGuiaDeExame(idAderente: number): Promise<any> {
     throw error;
   }
 }
+
+// Função para cancelar guias de exame emitidas
+export async function cancelarGuiaDeExameEmitida(idGuia: number): Promise<any> {
+  try {
+    const response = await axiosConfig.put(`/GuiaExame/CancelaGuiaExameEmitida/${idGuia}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao cancelar guia de exame emitida:", error);
+    throw error;
+  }
+}
