@@ -269,3 +269,14 @@ export async function cancelarGuiaDeExameEmitida(idGuia: number): Promise<any> {
     throw error;
   }
 }
+
+// Função para buscar laboratórios
+export async function buscarLaboratorios(): Promise<any> {
+  try {
+    const response = await axiosConfig.get("/Laboratorio/GetLaboratorios");
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar laboratórios:", error);
+    throw error;
+  }
+}
