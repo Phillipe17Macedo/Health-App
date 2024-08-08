@@ -53,7 +53,7 @@ export default function DropDownGuiaExame() {
           setOpen={setOpen}
           setValue={setValue}
           setItems={setItems}
-          placeholder="Selecione um Exame"
+          placeholder="Selecione a Especialidade do Exame"
           style={styles.dropdown}
           placeholderStyle={[styles.textoDropdown, { fontFamily: 'MPlusRounded1c-ExtraBold' }]}
           dropDownContainerStyle={styles.dropDownContainerStyle}

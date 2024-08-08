@@ -236,3 +236,47 @@ export async function cancelarGuiaEmitida(idGuia: number): Promise<any> {
     throw error;
   }
 }
+
+// Função para emitir guia de exame
+export async function emitirGuiaDeExame(dadosGuia: any): Promise<any> {
+  try {
+    const response = await axiosConfig.post("/GuiaExame/EmitirGuiaExame", dadosGuia);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao emitir guia de exame:", error);
+    throw error;
+  }
+}
+
+// Função para buscar guias de exame emitidas
+export async function buscarGuiaDeExame(idAderente: number): Promise<any> {
+  try {
+    const response = await axiosConfig.get(`/GuiaExame/GetGuiaExamesEmitidas/${idAderente}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar guias de exame emitidas:", error);
+    throw error;
+  }
+}
+
+// Função para cancelar guias de exame emitidas
+export async function cancelarGuiaDeExameEmitida(idGuia: number): Promise<any> {
+  try {
+    const response = await axiosConfig.put(`/GuiaExame/CancelaGuiaExameEmitida/${idGuia}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao cancelar guia de exame emitida:", error);
+    throw error;
+  }
+}
+
+// Função para buscar laboratórios
+export async function buscarLaboratorios(): Promise<any> {
+  try {
+    const response = await axiosConfig.get("/Laboratorio/GetLaboratorios");
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar laboratórios:", error);
+    throw error;
+  }
+}

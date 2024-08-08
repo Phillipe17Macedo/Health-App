@@ -45,7 +45,7 @@ export function ComponenteGuiaExame() {
               size={64}
               color="#52D981"
             />
-            <Text style={[styles.textoConsultas, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Emitir Guia de Exame</Text>
+            <Text style={[styles.textoConsultas, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Emitir Guia Laboratorial</Text>
           </View>
         </Link>
       </TouchableOpacity>
