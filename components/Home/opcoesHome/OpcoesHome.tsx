@@ -122,14 +122,14 @@ export function OpcoesHome() {
                     { fontFamily: "MPlusRounded1c-Medium" },
                   ]}
                 >
-                  Guia de Consultas
+                  Guia de Consulta
                 </Text>
               </View>
             </Link>
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Link href={"/exame"} style={[styles.containerLink]}>
+            <Link href={"/guiaExame"} style={[styles.containerLink]}>
               <View>
                 <View style={[styles.opcoes]}>
                   <Image
@@ -143,7 +143,7 @@ export function OpcoesHome() {
                     { fontFamily: "MPlusRounded1c-Medium" },
                   ]}
                 >
-                  Guia de Exames
+                  Guia Laboratorial
                 </Text>
               </View>
             </Link>
