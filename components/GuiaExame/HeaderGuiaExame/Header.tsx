@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, Text } from "react-native";
 import { Link } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-export function ComponenteGuiaExame() {
+export function HeaderGuiaExame() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
@@ -37,18 +37,16 @@ export function ComponenteGuiaExame() {
   }
   return (
     <>
-      <TouchableOpacity style={styles.container}>
-        <Link href={"/guiaExame"} style={{ width: 150 }}>
-          <View style={[styles.containerLink]}>
-            <MaterialCommunityIcons
-              name="flask-round-bottom"
-              size={64}
-              color="#52D981"
-            />
-            <Text style={[styles.textoConsultas, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Emitir Guia de Exame</Text>
+      <View style={styles.container}>
+        <Link href={"/guias"} style={[styles.containerLink]}>
+          <View style={[styles.containerIcone]}>
+            <Ionicons name="arrow-back-circle" size={42} color="#F2F2F2" />
+          </View>
+          <View style={[styles.containerTexto]}>
+            <Text style={[styles.textoHeader, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Voltar</Text>
           </View>
         </Link>
-      </TouchableOpacity>
+      </View>
     </>
   );
 }

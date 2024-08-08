@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+} from "react-native";
 import { styles } from "./styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-export function ComponenteGuiaExame() {
+export function DicaGuiaExame() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
@@ -37,18 +38,21 @@ export function ComponenteGuiaExame() {
   }
   return (
     <>
-      <TouchableOpacity style={styles.container}>
-        <Link href={"/guiaExame"} style={{ width: 150 }}>
-          <View style={[styles.containerLink]}>
-            <MaterialCommunityIcons
-              name="flask-round-bottom"
-              size={64}
-              color="#52D981"
-            />
-            <Text style={[styles.textoConsultas, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>Emitir Guia de Exame</Text>
-          </View>
-        </Link>
-      </TouchableOpacity>
+      <View style={styles.containerOrientacao}>
+        <Text style={[styles.tituloOrientacao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>EMITIR GUIA PARA EXAME</Text>
+        <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Bold'}]}>
+          Para solicitar uma guia de exame, siga os passos abaixo:
+        </Text>
+        <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>
+          1- Marque se é para um Dependente ou Não.
+        </Text>
+        <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>
+          2- Selecione a Especialidade do Exame.
+        </Text>
+        <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>
+          3- Selecione o Laboratório.
+        </Text>
+      </View>
     </>
   );
 }

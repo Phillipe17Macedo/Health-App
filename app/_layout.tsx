@@ -29,6 +29,7 @@ export default function RootLayout() {
       <Stack.Screen name="consulta" options={{ headerShown: false }} />
       <Stack.Screen name="exame" options={{ headerShown: false }} />
       <Stack.Screen name="guiaConsulta" options={{ headerShown: false }} />
+      <Stack.Screen name="guiaExame" options={{ headerShown: false }} />
       <Stack.Screen name="ajuda" options={{ headerShown: false }} />
     </Stack>
   );
