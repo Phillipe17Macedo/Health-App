@@ -236,3 +236,15 @@ export async function cancelarGuiaEmitida(idGuia: number): Promise<any> {
     throw error;
   }
 }
+
+// Função para emitir guia de exame
+export async function emitirGuiaDeExame(dadosGuia: any): Promise<any> {
+  try {
+    const response = await axiosConfig.post("/GuiaExame/EmitirGuiaExame", dadosGuia);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao emitir guia de exame:", error);
+    throw error;
+  }
+}
+
