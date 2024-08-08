@@ -4,8 +4,8 @@ const { height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 45,
-    marginBottom: 25,
+    marginTop: 15,
+    marginBottom: 20,
     alignItems: 'center',
     justifyContent: 'center',
     width: '90%',
