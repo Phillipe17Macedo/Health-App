@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, ScrollView, Image } from 'react-native';
+import { View, SafeAreaView, ScrollView, Image, Text } from 'react-native';
 import { StatusBar } from "expo-status-bar";
 import { styles } from '@/styles/GuiaExame/styles';
 import * as Font from "expo-font";
@@ -10,9 +10,13 @@ import ModalCarregamento from '@/components/constants/ModalCarregamento';
 import { HeaderGuiaExame } from '@/components/GuiaExame/HeaderGuiaExame/Header';
 import { DicaGuiaExame } from '@/components/GuiaExame/ComponenteDicaSolicitacao/DicaGuiaExame';
 import DropDownGuiaExame from '@/components/GuiaExame/DropDownGuiaExame/DropDownExame';
+import DropDownGuiaLaboratorio from '@/components/GuiaExame/DropDownGuiaLaboratorio/DropDownGuiaLaboratorio';
 
 export default function TelaGuiaExame() {
   const [loading, setLoading] = useState(false);
+  const [isDependente, setIsDependente] = useState(false);
+  const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
+
   const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
@@ -38,6 +42,13 @@ export default function TelaGuiaExame() {
     loadResourcesAndDataAsync();
   }, []);
 
+  const handleCheckboxChange = (checked: boolean) => {
+    setIsDependente(checked);
+    if (checked) {
+      setSelectDependenteVisivel(true);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -49,8 +60,19 @@ export default function TelaGuiaExame() {
       />
       <HeaderGuiaExame/>
       <DicaGuiaExame/>
-
+      <View style={styles.checkboxContainer}>
+          <Checkbox
+            status={isDependente ? "checked" : "unchecked"}
+            onPress={() => handleCheckboxChange(!isDependente)}
+          />
+          <Text
+            style={[styles.label, { fontFamily: "MPlusRounded1c-ExtraBold" }]}
+          >
+            Para um dependente?
+          </Text>
+        </View>
       <DropDownGuiaExame/>
+      <DropDownGuiaLaboratorio/>
       <View style={[{ width: '100%', height: 140, backgroundColor: '#03A66A' }]}></View>
       </ScrollView>
     </SafeAreaView>
