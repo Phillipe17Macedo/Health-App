@@ -1,7 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: '#03A66A',
+  },
   checkboxContainer: {
     width: '90%',
     flexDirection: "row",

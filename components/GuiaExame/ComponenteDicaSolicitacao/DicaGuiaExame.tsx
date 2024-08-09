@@ -39,9 +39,9 @@ export function DicaGuiaExame() {
   return (
     <>
       <View style={styles.containerOrientacao}>
-        <Text style={[styles.tituloOrientacao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>EMITIR GUIA LABORATORIAL</Text>
+        <Text style={[styles.tituloOrientacao, {fontFamily: 'MPlusRounded1c-ExtraBold'}]}>EMITIR GUIA LABORATORIAL🧫</Text>
         <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Bold'}]}>
-          Para solicitar uma guia laboratorial, siga os passos abaixo:
+          ⛔ Para solicitar uma guia laboratorial, siga os passos abaixo:
         </Text>
         <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>
           1- Marque se é para um Dependente ou Não.
