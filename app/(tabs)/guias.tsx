@@ -12,8 +12,10 @@ import { StatusBar } from "expo-status-bar";
 import { ComponenteGuiaConsulta } from "@/components/Guias/ComponentesGuiaConsulta/ComponenteGuiaConsulta";
 import { ComponenteGuiaExame } from "@/components/Guias/ComponentesGuiaExame/ComponenteGuiaExame";
 import GuiaConsultaEmitida from '@/components/Guias/GuiasEmitidas/GuiaConsulta/GuiaConsultaEmitida';
+import GuiaExameEmitida from '@/components/Guias/GuiasEmitidas/GuiaExame/GuiaExameEmitida';  // Importe o componente para guias de exame
 import {
   buscarGuiasConsultasEmitidas,
+  buscarGuiaDeExameEmitida,  // Importe a função para buscar guias de exame emitidas
   buscarUnidadeAtendimento,
 } from "@/utils/requestConfig";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
@@ -21,7 +23,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-interface Guia {
+interface GuiaConsulta {
   idGuia: number;
   dataGuia: string;
   aderente: string;
@@ -30,11 +32,23 @@ interface Guia {
   idMedico: number;
   medico: string;
   status: string;
-  vlrGuia: number;
+  vlrGuia?: number;
+}
+
+// Interface para guias de exame
+interface GuiaExame {
+  idGuia: number;
+  dataGuia: string;
+  aderente: string;
+  dependente: string | null;
+  laboratorio: string; // Nome do laboratório
+  status: string;
+  vlrGuia?: number; // Pode ser opcional
 }
 
 const Guias: React.FC = () => {
-  const [guias, setGuias] = useState<Guia[]>([]);
+  const [guiasConsulta, setGuiasConsulta] = useState<GuiaConsulta[]>([]);
+  const [guiasExame, setGuiasExame] = useState<GuiaExame[]>([]);  // Estado para guias de exame
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [idAderente, setIdAderente] = useState<string | null>(null);
@@ -43,19 +57,32 @@ const Guias: React.FC = () => {
   const fetchGuias = async (): Promise<void> => {
     try {
       if (idAderente) {
-        const response = await buscarGuiasConsultasEmitidas(Number(idAderente));
-        const guiasOrdenadas = response.data.sort((a: Guia, b: Guia) => {
+        // Buscar guias de consulta emitidas
+        const responseConsultas = await buscarGuiasConsultasEmitidas(Number(idAderente));
+        const guiasOrdenadasConsultas = responseConsultas.data.map((guia: GuiaConsulta) => ({
+          ...guia,
+          vlrGuia: guia.vlrGuia ?? 0, // Garante que vlrGuia tenha um valor numérico
+        })).sort((a: GuiaConsulta, b: GuiaConsulta) => {
           const dataA = new Date(a.dataGuia).getTime();
           const dataB = new Date(b.dataGuia).getTime();
           return dataB - dataA;
         });
-        setGuias(guiasOrdenadas);
+        setGuiasConsulta(guiasOrdenadasConsultas);
+  
+        // Buscar guias de exame emitidas
+        const responseExames = await buscarGuiaDeExameEmitida(Number(idAderente));
+        const guiasOrdenadasExames = responseExames.data.sort((a: GuiaExame, b: GuiaExame) => {
+          const dataA = new Date(a.dataGuia).getTime();
+          const dataB = new Date(b.dataGuia).getTime();
+          return dataB - dataA;
+        });
+        setGuiasExame(guiasOrdenadasExames);
       }
     } catch (error) {
-      console.error("Erro ao buscar guias de consulta:", error);
+      console.error("Erro ao buscar guias emitidas:", error);
     }
   };
-
+    
   const loadUser = async (): Promise<void> => {
     setLoading(true);
     try {
@@ -135,16 +162,28 @@ const Guias: React.FC = () => {
         {loading ? (
           <ModalCarregamento visivel={loading} />
         ) : (
-          guias.length > 0 ? (
-            <GuiaConsultaEmitida
-              guias={guias}
-              onGuiaCancelada={fetchGuias}
-            />
-          ) : (
-            <View style={styles.emptyContainer}>
-              <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há guias emitidas.</Text>
-            </View>
-          )
+          <>
+            {guiasConsulta.length > 0 ? (
+              <GuiaConsultaEmitida
+                guias={guiasConsulta}
+                onGuiaCancelada={fetchGuias}
+              />
+            ) : (
+              <View style={styles.emptyContainer}>
+                <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há guias de consulta emitidas.</Text>
+              </View>
+            )}
+            {guiasExame.length > 0 ? (
+              <GuiaExameEmitida
+                guias={guiasExame}
+                onGuiaCancelada={fetchGuias}
+              />
+            ) : (
+              <View style={styles.emptyContainer}>
+                <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há guias de exame emitidas.</Text>
+              </View>
+            )}
+          </>
         )}
       </ScrollView>
     </SafeAreaView>

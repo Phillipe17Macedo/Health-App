@@ -13,7 +13,6 @@ import { StatusBar } from "expo-status-bar";
 import { ComponentesConsulta } from "@/components/Servicos/ComponentesConsulta/ComponenteConsulta";
 import { ComponentesExame } from "@/components/Servicos/ComponentesExame/ComponenteExame";
 import AgendadoConsulta from "@/components/Servicos/Agendados/Consulta/AgendadoConsulta";
-import AgendadoExame from "@/components/Servicos/Agendados/Exames/AgendadoExame";
 import {
   ConsultasFicticias,
   ExamesFicticios,
@@ -165,7 +164,6 @@ const Servicos: React.FC = () => {
             </View>
           )
         )}
-        <AgendadoExame exames={exames} />
       </ScrollView>
     </SafeAreaView>
   );

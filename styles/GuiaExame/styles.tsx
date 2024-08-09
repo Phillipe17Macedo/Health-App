@@ -1,13 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { height, width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: '#03A66A',
+  },
   checkboxContainer: {
     width: '90%',
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 50,
-    marginBottom: 5,
+    marginTop: width * 0.1,
+    marginBottom: 15,
     alignSelf: 'center',
     backgroundColor: '#F8F8F6',
     padding: 10,
