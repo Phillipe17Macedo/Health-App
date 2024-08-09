@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Alert,
-  Text,
-  ScrollView,
-  Image,
-  SafeAreaView,
-} from "react-native";
+import { View, Alert, Text, ScrollView, Image, SafeAreaView } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { styles } from "../styles/GuiaConsulta/styles";
 import { StatusBar } from "expo-status-bar";
@@ -18,11 +11,7 @@ import Medico from "@/components/GuiaConsulta/DropDownMedicos/Medico";
 import SelecaoDependente from "@/components/GuiaConsulta/ModalSelecaoDependentes/SelecaoDependente";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import ConfirmacaoGuiaConsulta from "@/components/GuiaConsulta/ConfirmacaoGuiaConsulta/ConfirmacaoGuiaConsulta";
-import {
-  buscarAderente,
-  buscarDependentes,
-  EmitirGuiaDeConsulta,
-} from "@/utils/requestConfig";
+import { buscarAderente, buscarDependentes, EmitirGuiaDeConsulta } from "@/utils/requestConfig";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -82,12 +71,16 @@ export default function TelaGuiaConsulta() {
 
           if (usuarioLogado && usuarioLogado.idAderente) {
             const dependentesResponse = await buscarDependentes(usuarioLogado.idAderente);
-            setDependentes(dependentesResponse.data);
+            console.log("Dependentes recuperados da API:", dependentesResponse);
+
+            // Garantir que dependentes seja sempre um array
+            setDependentes(Array.isArray(dependentesResponse.data) ? dependentesResponse.data : []);
           }
         }
       } catch (error) {
         console.error("Erro ao buscar usuário logado:", error);
         Alert.alert("Erro", "Usuário não encontrado");
+        setDependentes([]); // Define dependentes como um array vazio em caso de erro
       } finally {
         setLoading(false);
       }
@@ -116,9 +109,14 @@ export default function TelaGuiaConsulta() {
   };
 
   const handleCheckboxChange = (checked: boolean) => {
-    setIsDependente(checked);
-    if (checked) {
+    if (checked && dependentes.length === 0) {
+      Alert.alert("Atenção", "Você não possui dependentes cadastrados.");
+      setIsDependente(false); // Desmarcar automaticamente se não houver dependentes
+    } else if (checked) {
       setSelectDependenteVisivel(true);
+      setIsDependente(true);
+    } else {
+      setIsDependente(false);
     }
   };
 
