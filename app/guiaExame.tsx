@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { View, SafeAreaView, ScrollView, Image, Text } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, SafeAreaView, ScrollView, Image, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { styles } from '@/styles/GuiaExame/styles';
+import { styles } from "@/styles/GuiaExame/styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { Checkbox } from "react-native-paper";
 
-import ModalCarregamento from '@/components/constants/ModalCarregamento';
-import { HeaderGuiaExame } from '@/components/GuiaExame/HeaderGuiaExame/Header';
-import { DicaGuiaExame } from '@/components/GuiaExame/ComponenteDicaSolicitacao/DicaGuiaExame';
-import DropDownGuiaExame from '@/components/GuiaExame/DropDownGuiaExame/DropDownExame';
-import DropDownGuiaLaboratorio from '@/components/GuiaExame/DropDownGuiaLaboratorio/DropDownGuiaLaboratorio';
+import ModalCarregamento from "@/components/constants/ModalCarregamento";
+import { HeaderGuiaExame } from "@/components/GuiaExame/HeaderGuiaExame/Header";
+import { DicaGuiaExame } from "@/components/GuiaExame/ComponenteDicaSolicitacao/DicaGuiaExame";
+import DropDownGuiaExame from "@/components/GuiaExame/DropDownGuiaExame/DropDownExame";
+import DropDownGuiaLaboratorio from "@/components/GuiaExame/DropDownGuiaLaboratorio/DropDownGuiaLaboratorio";
+import LaboratoriosGuiaExame from "@/components/GuiaExame/LaboratoriosGuiaExame/LaboratoriosGuiaExame";
 
 export default function TelaGuiaExame() {
   const [loading, setLoading] = useState(false);
@@ -53,14 +54,14 @@ export default function TelaGuiaExame() {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <ScrollView>
-      <ModalCarregamento visivel={loading}/>
-      <Image 
-        source={require("@/assets/images/medicos/exame-guia.png")}
-        style={[{ width: "100%", height: 500, position: "relative" }]}
-      />
-      <HeaderGuiaExame/>
-      <DicaGuiaExame/>
-      <View style={styles.checkboxContainer}>
+        <ModalCarregamento visivel={loading} />
+        <Image
+          source={require("@/assets/images/medicos/exame-guia.png")}
+          style={[{ width: "100%", height: 500, position: "relative" }]}
+        />
+        <HeaderGuiaExame />
+        <DicaGuiaExame />
+        <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
             onPress={() => handleCheckboxChange(!isDependente)}
@@ -71,9 +72,7 @@ export default function TelaGuiaExame() {
             Para um dependente?
           </Text>
         </View>
-      <DropDownGuiaExame/>
-      <DropDownGuiaLaboratorio/>
-      <View style={[{ width: '100%', height: 140, backgroundColor: '#03A66A' }]}></View>
+        <LaboratoriosGuiaExame />
       </ScrollView>
     </SafeAreaView>
   );
