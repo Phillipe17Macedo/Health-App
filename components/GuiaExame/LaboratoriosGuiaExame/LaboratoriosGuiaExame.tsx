@@ -7,6 +7,7 @@ import * as Font from "expo-font";
 import { buscarLaboratorios } from "@/utils/requestConfig";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 
+// Função para calcular a distância entre dois pontos
 function calcularDistancia(lat1: number, lon1: number, lat2: number, lon2: number) {
   const R = 6371e3; // Raio da Terra em metros
   const φ1 = (lat1 * Math.PI) / 180;
@@ -24,12 +25,16 @@ function calcularDistancia(lat1: number, lon1: number, lat2: number, lon2: numbe
   return d;
 }
 
-export default function LaboratoriosGuiaExame({ onLoading }) {
+// Declarando o tipo da prop onLoading
+interface LaboratoriosGuiaExameProps {
+  onLoading: (loading: boolean) => void;
+}
+
+export default function LaboratoriosGuiaExame({ onLoading }: LaboratoriosGuiaExameProps) {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [laboratorios, setLaboratorios] = useState<any[]>([]);
   const [userLocation, setUserLocation] = useState<{ latitude: number, longitude: number } | null>(null);
 
-  // Função que carrega dados, fontes e calcula distâncias
   const loadResourcesAndDataAsync = async () => {
     try {
       onLoading(true);
@@ -92,7 +97,6 @@ export default function LaboratoriosGuiaExame({ onLoading }) {
     }
   };
 
-  // Chamar a função de carregamento apenas quando o componente é montado pela primeira vez
   useEffect(() => {
     loadResourcesAndDataAsync();
   }, []);  // Esse efeito é chamado apenas na montagem inicial do componente
