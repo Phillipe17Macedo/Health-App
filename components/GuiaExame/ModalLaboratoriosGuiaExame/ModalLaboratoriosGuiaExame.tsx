@@ -3,6 +3,7 @@ import { Modal, View, Text, TouchableOpacity, Linking, Alert } from 'react-nativ
 import { styles } from './styles';
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { emitirGuiaDeExame } from "@/utils/requestConfig";  
 
 interface ModalLaboratoriosGuiaExame {
   visivel: boolean;
@@ -45,10 +46,17 @@ export default function ModalLaboratorioGuiaExame({
 
     console.log("Guia JSON Gerado:", JSON.stringify(guiaJSON, null, 2));
 
-    // Simulação de uma chamada de API ou outra ação com o JSON gerado
-    Alert.alert("Guia Laboratorial Gerada", JSON.stringify(guiaJSON, null, 2));
+    try {
+      // Chama o método para emitir a guia de exame
+      const response = await emitirGuiaDeExame(guiaJSON);
+      console.log("Guia de Exame Emitida com Sucesso:", response.data.idGuiaExame);
+      Alert.alert("Guia Laboratorial Gerada", JSON.stringify(guiaJSON, null, 2));
+    } catch (error) {
+      console.error("Erro ao emitir a guia de exame:", error);
+      Alert.alert("Erro", "Não foi possível emitir a guia de exame.");
+    }
 
-    onClose(); // Fecha o modal após a geração da guia
+    onClose(); // Fecha o modal após a emissão da guia
   };
 
   const [fontLoaded, setFontLoaded] = useState(false);
