@@ -35,6 +35,10 @@ export const styles = StyleSheet.create({
     //backgroundColor: 'gray',
     alignSelf: 'center',
   },
+  contentLink: {
+    width: 90,
+    //backgroundColor: 'lightgray',
+  },
   opcoes: {
     backgroundColor: '#F8F8F6',
     width: 80,

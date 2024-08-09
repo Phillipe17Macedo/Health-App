@@ -52,7 +52,7 @@ export function OpcoesHome() {
         <View style={[styles.containerOpcoes]}>
           <TouchableOpacity>
             <Link href={"/consulta"} style={[styles.containerLink]}>
-              <View>
+              <View style={[styles.contentLink]}>
                 <View style={[styles.opcoes]}>
                   <Image
                     source={require("@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Consulta.png")}
@@ -73,7 +73,7 @@ export function OpcoesHome() {
 
           <TouchableOpacity>
             <Link href={"/exame"} style={[styles.containerLink]}>
-              <View>
+              <View style={[styles.contentLink]}>
                 <View style={[styles.opcoes]}>
                   <Image
                     source={require("@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/Exame.png")}
@@ -83,10 +83,10 @@ export function OpcoesHome() {
                 <Text
                   style={[
                     styles.textoOpcoesIcone,
-                    { fontFamily: "MPlusRounded1c-Medium" },
+                    { fontFamily: "MPlusRounded1c-Medium"},
                   ]}
                 >
-                  Agendar Exame
+                  Agendamento Laboratorial
                 </Text>
               </View>
             </Link>
@@ -109,7 +109,7 @@ export function OpcoesHome() {
         <View style={[styles.containerOpcoes]}>
           <TouchableOpacity>
             <Link href={"/guiaConsulta"} style={[styles.containerLink]}>
-              <View>
+              <View style={[styles.contentLink]}>
                 <View style={[styles.opcoes]}>
                   <Image
                     source={require("@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/guia-consulta.png")}
@@ -130,7 +130,7 @@ export function OpcoesHome() {
 
           <TouchableOpacity>
             <Link href={"/guiaExame"} style={[styles.containerLink]}>
-              <View>
+              <View style={[styles.contentLink]}>
                 <View style={[styles.opcoes]}>
                   <Image
                     source={require("@/assets/images/Home/Carrossel/icons-canva/teste-resolucao/guia-exame.png")}
