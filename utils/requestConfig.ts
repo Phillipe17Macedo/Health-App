@@ -249,7 +249,7 @@ export async function emitirGuiaDeExame(dadosGuia: any): Promise<any> {
 }
 
 // Função para buscar guias de exame emitidas
-export async function buscarGuiaDeExame(idAderente: number): Promise<any> {
+export async function buscarGuiaDeExameEmitida(idAderente: number): Promise<any> {
   try {
     const response = await axiosConfig.get(`/GuiaExame/GetGuiaExamesEmitidas/${idAderente}`);
     return response.data;
