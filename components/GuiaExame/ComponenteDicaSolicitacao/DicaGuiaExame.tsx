@@ -47,10 +47,7 @@ export function DicaGuiaExame() {
           1- Marque se é para um Dependente ou Não.
         </Text>
         <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>
-          2- Selecione a Especialidade do Exame.
-        </Text>
-        <Text style={[styles.orientacao, {fontFamily: 'MPlusRounded1c-Medium'}]}>
-          3- Selecione o Laboratório.
+          2- Selecione o Laboratório.
         </Text>
       </View>
     </>
