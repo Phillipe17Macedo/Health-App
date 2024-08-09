@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, Alert, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, Image, Alert, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 import * as Location from 'expo-location';
 import { styles } from "./styles";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import * as Font from "expo-font";
 import { buscarLaboratorios } from "@/utils/requestConfig";
+import ModalLaboratorio from "@/components/GuiaExame/ModalLaboratoriosGuiaExame/ModalLaboratoriosGuiaExame";
 
 // Função para calcular a distância entre dois pontos
 function calcularDistancia(lat1: number, lon1: number, lat2: number, lon2: number) {
@@ -24,15 +25,26 @@ function calcularDistancia(lat1: number, lon1: number, lat2: number, lon2: numbe
   return d;
 }
 
-// Declarando o tipo da prop onLoading
 interface LaboratoriosGuiaExameProps {
   onLoading: (loading: boolean) => void;
+  idAderente: number;
+  cpf: string;
+  isDependente: boolean;
+  selectedDependente: string | null;
 }
 
-export default function LaboratoriosGuiaExame({ onLoading }: LaboratoriosGuiaExameProps) {
+export default function LaboratoriosGuiaExame({ 
+  onLoading,
+  idAderente,
+  cpf,
+  isDependente,
+  selectedDependente,
+}: LaboratoriosGuiaExameProps) {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [laboratorios, setLaboratorios] = useState<any[]>([]);
   const [userLocation, setUserLocation] = useState<{ latitude: number, longitude: number } | null>(null);
+  const [selectedLaboratorio, setSelectedLaboratorio] = useState<any | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const loadResourcesAndDataAsync = async () => {
     try {
@@ -98,7 +110,25 @@ export default function LaboratoriosGuiaExame({ onLoading }: LaboratoriosGuiaExa
 
   useEffect(() => {
     loadResourcesAndDataAsync();
-  }, []);  // Esse efeito é chamado apenas na montagem inicial do componente
+  }, []); 
+
+  const handleOpenModal = (laboratorio: any) => {
+    console.log("Laboratório Selecionado:", laboratorio); 
+    setSelectedLaboratorio({
+      idLaboratorio: laboratorio.id,
+      nome: laboratorio.nome,
+      endereco: laboratorio.endereco,
+      distancia: laboratorio.distancia,
+      latitude: laboratorio.latitude,
+      longitude: laboratorio.longitude,
+    });
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+    setSelectedLaboratorio(null);
+  };
 
   if (!fontLoaded || !userLocation) {
     return null;
@@ -108,26 +138,36 @@ export default function LaboratoriosGuiaExame({ onLoading }: LaboratoriosGuiaExa
     <SafeAreaView style={[styles.container]}>
       <ScrollView>
         {laboratorios.map((lab, index) => (
-          <View key={index} style={[styles.componenteLaboratorio]}>
-            <View style={[styles.containerImagemLaboratorio]}>
-              <Image
-                source={require("@/assets/images/medicos/estrutura-clinica.png")}
-                style={[{ width: 52, height: 80, position: "relative", borderRadius: 5 }]}
-              />
+          <TouchableOpacity key={index} onPress={() => handleOpenModal(lab)}>
+            <View style={[styles.componenteLaboratorio]}>
+              <View style={[styles.containerImagemLaboratorio]}>
+                <Image
+                  source={require("@/assets/images/medicos/estrutura-clinica.png")}
+                  style={[{ width: 52, height: 80, position: "relative", borderRadius: 5 }]}
+                />
+              </View>
+              <View style={[styles.containerTextoLaboratorio]}>
+                <Text style={[styles.textoNomeLaboratorio, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>{lab.nome}</Text>
+                <Text style={[styles.textoEnderecoLaboratorio, { fontFamily: "MPlusRounded1c-Bold" }]}>{lab.endereco}</Text>
+                <Text style={[styles.textoDistanciaLaboratorio, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
+                  {lab.distancia ? `📍${(lab.distancia / 1000).toFixed(2)} km` : "📍Distância desconhecida"}
+                </Text>
+              </View>
+              <View style={[styles.containerIconeMaps]}>
+                <Fontisto name="map" size={24} color="#9B9B9B" />
+              </View>
             </View>
-            <View style={[styles.containerTextoLaboratorio]}>
-              <Text style={[styles.textoNomeLaboratorio, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>{lab.nome}</Text>
-              <Text style={[styles.textoEnderecoLaboratorio, { fontFamily: "MPlusRounded1c-Bold" }]}>{lab.endereco}</Text>
-              <Text style={[styles.textoDistanciaLaboratorio, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
-                {lab.distancia ? `📍${(lab.distancia / 1000).toFixed(2)} km` : "📍Distância desconhecida"}
-              </Text>
-            </View>
-            <View style={[styles.containerIconeMaps]}>
-              <Fontisto name="map" size={24} color="#9B9B9B" />
-            </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
+      <ModalLaboratorio
+        visivel={modalVisible}
+        onClose={handleCloseModal}
+        laboratorio={selectedLaboratorio}
+        idAderente={idAderente}  // Usando a prop idAderente
+        cpfAderente={cpf}  // Usando a prop cpf
+        idDep={isDependente ? parseInt(selectedDependente || "0") : null} // Convertendo para número se necessário
+      />
     </SafeAreaView>
   );
 }

@@ -21,6 +21,8 @@ export default function TelaGuiaExame() {
   const [dependentes, setDependentes] = useState<any[]>([]);
   const [selectedDependente, setSelectedDependente] = useState<string | null>(null);
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
+  const [idAderente, setIdAderente] = useState<number | null>(null);
+  const [cpf, setCpf] = useState<string | null>(null);
 
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -38,20 +40,23 @@ export default function TelaGuiaExame() {
       });
 
       // Buscar CPF do AsyncStorage
-      const cpf = await AsyncStorage.getItem("userCpf");
-      console.log("Tela GuiaExame - CPF recuperado do AsyncStorage:", cpf);
+      const storedCpf = await AsyncStorage.getItem("userCpf");
+      console.log("Tela GuiaExame - CPF recuperado do AsyncStorage:", storedCpf);
 
-      if (cpf) {
+      if (storedCpf) {
+        setCpf(storedCpf);  // Armazene o CPF no estado
         // Buscar ID do Aderente usando o CPF
-        const aderenteResponse = await buscarAderente(cpf, true);
+        const aderenteResponse = await buscarAderente(storedCpf, true);
         console.log("Tela GuiaExame - Resposta da API ao buscar aderente:", aderenteResponse);
 
         if (aderenteResponse && aderenteResponse.data && aderenteResponse.data.idAderente) {
-          const idAderente = aderenteResponse.data.idAderente;
-          console.log("Tela GuiaExame - ID do Aderente encontrado:", idAderente);
+          const aderenteId = aderenteResponse.data.idAderente;
+          console.log("Tela GuiaExame - ID do Aderente encontrado:", aderenteId);
+
+          setIdAderente(aderenteId);  // Armazene o ID do Aderente no estado
 
           // Buscar dependentes usando o idAderente
-          const dependentesResponse = await buscarDependentes(Number(idAderente));
+          const dependentesResponse = await buscarDependentes(Number(aderenteId));
           console.log("Tela GuiaExame - Dependentes recuperados da API:", dependentesResponse);
 
           setDependentes(Array.isArray(dependentesResponse.data) ? dependentesResponse.data : []);
@@ -128,7 +133,15 @@ export default function TelaGuiaExame() {
             Para um dependente?
           </Text>
         </View>
-        <LaboratoriosGuiaExame onLoading={setLoading} />
+        {idAderente && cpf && (
+          <LaboratoriosGuiaExame 
+            onLoading={setLoading} 
+            idAderente={idAderente} 
+            cpf={cpf} 
+            isDependente={isDependente}
+            selectedDependente={selectedDependente}
+          />
+        )}
         <SelecaoDependente
           visivel={selectDependenteVisivel}
           onClose={() => setSelectDependenteVisivel(false)}
