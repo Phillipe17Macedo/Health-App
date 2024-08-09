@@ -5,7 +5,6 @@ import { styles } from "./styles";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import * as Font from "expo-font";
 import { buscarLaboratorios } from "@/utils/requestConfig";
-import ModalCarregamento from "@/components/constants/ModalCarregamento";
 
 // Função para calcular a distância entre dois pontos
 function calcularDistancia(lat1: number, lon1: number, lat2: number, lon2: number) {
@@ -48,7 +47,7 @@ export default function LaboratoriosGuiaExame({ onLoading }: LaboratoriosGuiaExa
 
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert('Permissão de localização negada');
+        Alert.alert('Permissão de localização negada', "Para retornar os laboratórios, é necessário aceitar a localização!");
         return;
       }
 
@@ -124,7 +123,7 @@ export default function LaboratoriosGuiaExame({ onLoading }: LaboratoriosGuiaExa
               </Text>
             </View>
             <View style={[styles.containerIconeMaps]}>
-              <Fontisto name="map" size={32} color="black" />
+              <Fontisto name="map" size={24} color="#9B9B9B" />
             </View>
           </View>
         ))}

@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { height, width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,7 +10,7 @@ export const styles = StyleSheet.create({
     width: '90%',
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 50,
+    marginTop: width * 0.1,
     marginBottom: 15,
     alignSelf: 'center',
     backgroundColor: '#F8F8F6',
