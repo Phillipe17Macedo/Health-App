@@ -60,7 +60,7 @@ export default function TelaGuiaExame() {
           style={[{ width: "100%", height: 500, position: "relative" }]}
         />
         <HeaderGuiaExame />
-        <DicaGuiaExame />
+        <DicaGuiaExame/>
         <View style={styles.checkboxContainer}>
           <Checkbox
             status={isDependente ? "checked" : "unchecked"}
@@ -73,6 +73,7 @@ export default function TelaGuiaExame() {
           </Text>
         </View>
         <LaboratoriosGuiaExame />
+        <ModalCarregamento visivel={false}/>
       </ScrollView>
     </SafeAreaView>
   );
