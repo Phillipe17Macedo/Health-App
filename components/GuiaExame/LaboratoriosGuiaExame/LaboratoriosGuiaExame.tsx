@@ -113,14 +113,15 @@ export default function LaboratoriosGuiaExame() {
           <View key={index} style={[styles.componenteLaboratorio]}>
             <View style={[styles.containerImagemLaboratorio]}>
               <Image
-                source={require("@/assets/images/Home/Carrossel/icons8-plano-de-saúde-48.png")}
+                source={require("@/assets/images/medicos/estrutura-clinica.png")}
+                style={[{ width: 52, height: 80, position: "relative", borderRadius: 5 }]}
               />
             </View>
             <View style={[styles.containerTextoLaboratorio]}>
               <Text style={[styles.textoNomeLaboratorio, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>{lab.nome}</Text>
               <Text style={[styles.textoEnderecoLaboratorio, { fontFamily: "MPlusRounded1c-Bold" }]}>{lab.endereco}</Text>
               <Text style={[styles.textoDistanciaLaboratorio, { fontFamily: "MPlusRounded1c-ExtraBold" }]}>
-                {lab.distancia ? `${(lab.distancia / 1000).toFixed(2)} km` : "Distância desconhecida"}
+                {lab.distancia ? `📍${(lab.distancia / 1000).toFixed(2)} km` : "Distância desconhecida"}
               </Text>
             </View>
             <View style={[styles.containerIconeMaps]}>

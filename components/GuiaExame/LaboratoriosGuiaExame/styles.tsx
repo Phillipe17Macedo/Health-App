@@ -18,13 +18,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 15,
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: 15,
     elevation: 3
   },
   containerImagemLaboratorio: {
     marginRight: 10,
-    width: 48,
-    height: 48,
+    width: 52,
+    height: 80,
     borderRadius: 5,
     //backgroundColor: 'red',
   },
