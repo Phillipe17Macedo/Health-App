@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Alert, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { cancelarGuiaEmitida } from "@/utils/requestConfig";
+import { cancelarGuiaEmitida } from "@/utils/requestConfig"; // Certifique-se de que este caminho está correto
 import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -12,9 +12,9 @@ interface GuiaExame {
   dataGuia: string;
   aderente: string;
   dependente: string | null;
-  laboratorio: string; // Essa propriedade é necessária
+  laboratorio: string;
   status: string;
-  vlrGuia?: number; // `vlrGuia` pode ser opcional
+  vlrGuia?: number;
 }
 
 interface GuiaExameEmitidaProps {
@@ -26,13 +26,23 @@ const GuiaExameEmitida: React.FC<GuiaExameEmitidaProps> = ({
   guias,
   onGuiaCancelada,
 }) => {
-  console.log("Guias recebidas no componente:", guias);
-
   const handleCancel = async (idGuia: number) => {
     try {
-      await cancelarGuiaEmitida(idGuia);
-      Alert.alert("Sucesso", "Guia de exame cancelada com sucesso.");
-      onGuiaCancelada();
+      const confirm = Alert.alert(
+        "Confirmação",
+        "Você tem certeza que deseja cancelar esta guia?",
+        [
+          { text: "Não", style: "cancel" },
+          {
+            text: "Sim",
+            onPress: async () => {
+              await cancelarGuiaEmitida(idGuia);
+              Alert.alert("Sucesso", "Guia de exame cancelada com sucesso.");
+              onGuiaCancelada(); // Atualiza a lista de guias após o cancelamento
+            },
+          },
+        ]
+      );
     } catch (error) {
       Alert.alert(
         "Erro",
