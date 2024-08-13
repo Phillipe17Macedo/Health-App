@@ -14,9 +14,9 @@ import { ComponenteGuiaExame } from "@/components/Guias/ComponentesGuiaExame/Com
 import GuiaConsultaEmitida from '@/components/Guias/GuiasEmitidas/GuiaConsulta/GuiaConsultaEmitida';
 import GuiaExameEmitida from '@/components/Guias/GuiasEmitidas/GuiaExame/GuiaExameEmitida';  
 import {
-  buscarGuiasConsultasEmitidas,
   buscarGuiaDeExameEmitida,
 } from "@/utils/requestConfig";
+import { buscarGuiasConsultasEmitidas } from "@/utils/buscarGuiasConsultasEmitidas";
 import { buscarUnidadeAtendimento } from "@/utils/buscarUnidadesAtendimento";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
