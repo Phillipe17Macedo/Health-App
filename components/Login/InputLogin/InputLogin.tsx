@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
-import { buscarAderente } from "@/utils/requestConfig";
+import { buscarAderente } from "@/utils/buscarAderente";
 import { useRouter } from "expo-router";
 import { AxiosError } from "axios";
 import * as LocalAuthentication from "expo-local-authentication";
@@ -44,13 +44,13 @@ export function InputLogin() {
       console.log("Buscando aderente para CPF:", cleanedCpf);
       const titular = !isDependente;
       const response = await buscarAderente(cleanedCpf, titular);
-      const userData = response.data;
-
-      if (typeof userData === "string") {
+      
+      if (!response) {
         Alert.alert("Erro", "CPF não cadastrado");
-        console.log("Erro, CPF não cadastrado.");
         return;
       }
+
+      const userData = response;
 
       console.log("Dados do usuário:", userData);
 
