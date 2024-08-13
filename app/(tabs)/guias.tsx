@@ -12,12 +12,12 @@ import { StatusBar } from "expo-status-bar";
 import { ComponenteGuiaConsulta } from "@/components/Guias/ComponentesGuiaConsulta/ComponenteGuiaConsulta";
 import { ComponenteGuiaExame } from "@/components/Guias/ComponentesGuiaExame/ComponenteGuiaExame";
 import GuiaConsultaEmitida from '@/components/Guias/GuiasEmitidas/GuiaConsulta/GuiaConsultaEmitida';
-import GuiaExameEmitida from '@/components/Guias/GuiasEmitidas/GuiaExame/GuiaExameEmitida';  // Importe o componente para guias de exame
+import GuiaExameEmitida from '@/components/Guias/GuiasEmitidas/GuiaExame/GuiaExameEmitida';  
 import {
   buscarGuiasConsultasEmitidas,
-  buscarGuiaDeExameEmitida,  // Importe a função para buscar guias de exame emitidas
-  buscarUnidadeAtendimento,
+  buscarGuiaDeExameEmitida,
 } from "@/utils/requestConfig";
+import { buscarUnidadeAtendimento } from "@/utils/buscarUnidadesAtendimento";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Font from "expo-font";

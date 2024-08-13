@@ -19,8 +19,8 @@ import {
 } from "@/components/Servicos/Agendados/AgedamentosFiciticios";
 import {
   buscarAgendamentosConsulta,
-  buscarUnidadeAtendimento,
 } from "@/utils/requestConfig";
+import { buscarUnidadeAtendimento } from "@/utils/buscarUnidadesAtendimento";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Font from "expo-font";
