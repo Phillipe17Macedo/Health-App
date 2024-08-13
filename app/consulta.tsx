@@ -117,7 +117,7 @@ export default function Consulta() {
     } catch (error) {
       console.error("Erro ao buscar usuário logado:", error);
       Alert.alert("Erro", "Usuário não encontrado");
-      setDependentes([]); // Define dependentes como um array vazio em caso de erro
+      setDependentes([]); 
     } finally {
       setLoading(false);
     }
