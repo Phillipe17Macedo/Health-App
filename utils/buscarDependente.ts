@@ -12,7 +12,7 @@ export async function buscarDependentes(idAderente: number): Promise<any> {
     }
 
     // Configura o header Authorization com o token
-    const config = {
+    const configHeaderRequisicao = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -21,7 +21,7 @@ export async function buscarDependentes(idAderente: number): Promise<any> {
     // Faz a requisição GET com o header Authorization
     const response = await axiosConfig.get(
       `/Dependentes/GetDependentes/${idAderente}`,
-      config
+      configHeaderRequisicao
     );
 
     console.log("Dependentes:", response.data);
