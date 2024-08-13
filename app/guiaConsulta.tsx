@@ -11,7 +11,7 @@ import Medico from "@/components/GuiaConsulta/DropDownMedicos/Medico";
 import SelecaoDependente from "@/components/GuiaConsulta/ModalSelecaoDependentes/SelecaoDependente";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import ConfirmacaoGuiaConsulta from "@/components/GuiaConsulta/ConfirmacaoGuiaConsulta/ConfirmacaoGuiaConsulta";
-import { EmitirGuiaDeConsulta } from "@/utils/requestConfig";
+import { EmitirGuiaDeConsulta } from "@/utils/emitirGuiaDeConsulta";
 import { buscarAderente } from "@/utils/buscarAderente";
 import { buscarDependentes } from "@/utils/buscarDependente";
 import * as Font from "expo-font";
