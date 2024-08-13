@@ -88,6 +88,14 @@ export function InputLogin() {
         console.log("ID do aderente não recebido na resposta.");
       }
   
+      //Armazenar o CPF do Aderente no AsyncStorage
+      if (userData.cpf) {
+        await AsyncStorage.setItem("userCpf", userData.cpf);
+        console.log("CPF do aderente armazenado no AsyncStorage.");
+      } else {
+        console.log("CPF do aderente não recebido no AsyncStorage.");
+      }
+
       // Armazenar se é titular no AsyncStorage, se existir
       if (userData.titularDoContrato !== undefined) {
         await AsyncStorage.setItem("isTitular", userData.titularDoContrato.toString());
