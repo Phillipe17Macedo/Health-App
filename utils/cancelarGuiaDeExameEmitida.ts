@@ -20,6 +20,7 @@ export async function cancelarGuiaDeExameEmitida(idGuia: number): Promise<any> {
 
     const response = await axiosConfig.put(
       `/GuiaExame/CancelaGuiaExameEmitida/${idGuia}`,
+      {},
       configHeaderRequisicao
     );
     return response.data;
