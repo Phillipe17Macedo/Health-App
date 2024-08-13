@@ -14,9 +14,9 @@ import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import {
   buscarAderente,
   buscarDependentes,
-  buscarDiasAtendimentoMedico,
   agendarAtendimentoConsulta,
 } from "@/utils/requestConfig";
+import { buscarDiasAtendimentoMedico } from "@/utils/buscarDiasAtendimentoMedico";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento/DropDownUnidadeAtendimento";

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, View, Text, TouchableOpacity, Alert } from "react-native";
 import { Calendar, DateData, LocaleConfig } from "react-native-calendars";
-import { buscarDiasAtendimentoMedico } from "@/utils/requestConfig";
+import { buscarDiasAtendimentoMedico } from "@/utils/buscarDiasAtendimentoMedico";
 import { styles } from "./styles";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
