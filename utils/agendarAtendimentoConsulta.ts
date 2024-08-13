@@ -19,8 +19,8 @@ export async function agendarAtendimentoConsulta(dadosConsulta: any): Promise<an
     };
     const response = await axiosConfig.post(
       "/Agendamento/AgendarAtendimentoConsulta",
+      dadosConsulta,
       configHeaderRequisicao,
-      dadosConsulta
     );
     return response.data;
   } catch (error) {

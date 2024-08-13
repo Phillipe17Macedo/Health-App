@@ -20,8 +20,8 @@ export async function emitirGuiaDeExame(dadosGuia: any): Promise<any> {
 
     const response = await axiosConfig.post(
       "/GuiaExame/EmitirGuiaExame",
-      configHeaderRequisicao,
-      dadosGuia
+      dadosGuia,
+      configHeaderRequisicao
     );
     return response.data;
   } catch (error) {
