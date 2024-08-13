@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Alert, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { cancelarGuiaEmitida } from "@/utils/requestConfig"; // Certifique-se de que este caminho está correto
+import { cancelarGuiaDeExameEmitida } from "@/utils/requestConfig";
 import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -28,7 +28,7 @@ const GuiaExameEmitida: React.FC<GuiaExameEmitidaProps> = ({
 }) => {
   const handleCancel = async (idGuia: number) => {
     try {
-      const confirm = Alert.alert(
+      Alert.alert(
         "Confirmação",
         "Você tem certeza que deseja cancelar esta guia?",
         [
@@ -36,9 +36,9 @@ const GuiaExameEmitida: React.FC<GuiaExameEmitidaProps> = ({
           {
             text: "Sim",
             onPress: async () => {
-              await cancelarGuiaEmitida(idGuia);
+              await cancelarGuiaDeExameEmitida(idGuia);
               Alert.alert("Sucesso", "Guia de exame cancelada com sucesso.");
-              onGuiaCancelada(); // Atualiza a lista de guias após o cancelamento
+              onGuiaCancelada();
             },
           },
         ]
