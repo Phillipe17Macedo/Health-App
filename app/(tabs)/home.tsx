@@ -8,7 +8,7 @@ import { StatusBar } from "expo-status-bar";
 import { styles } from "../../styles/StylesHomePage/styles";
 import { Header } from "../../components/Home/headerHome/Header";
 import { OpcoesHome } from "../../components/Home/opcoesHome/OpcoesHome";
-import { buscarAgendamentosConsulta } from "@/utils/requestConfig";
+import { buscarAgendamentosConsulta } from "@/utils/buscarAgendamentoConsulta";
 import { buscarAderente } from "@/utils/buscarAderente";
 import { buscarUnidadeAtendimento } from "@/utils/buscarUnidadesAtendimento";
 import AsyncStorage from "@react-native-async-storage/async-storage";
