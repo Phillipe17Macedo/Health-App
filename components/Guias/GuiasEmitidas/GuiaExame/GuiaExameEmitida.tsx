@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Alert, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { cancelarGuiaDeExameEmitida } from "@/utils/requestConfig";
+import { cancelarGuiaDeExameEmitida } from "@/utils/cancelarGuiaDeExameEmitida";
 import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";

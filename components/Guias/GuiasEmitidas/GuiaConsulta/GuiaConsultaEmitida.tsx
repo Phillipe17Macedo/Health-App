@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Alert, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { cancelarGuiaEmitida } from "@/utils/requestConfig";
+import { cancelarGuiaConsultaEmitida } from "@/utils/cancelarGuiaConsultaEmitida";
 import { FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
@@ -32,7 +32,7 @@ const GuiaConsultaEmitida: React.FC<GuiaConsultaEmitidaProps> = ({
 
   const handleCancel = async (idGuia: number) => {
     try {
-      await cancelarGuiaEmitida(idGuia);
+      await cancelarGuiaConsultaEmitida(idGuia);
       Alert.alert("Sucesso", "Guia de consulta cancelada com sucesso.");
       onGuiaCancelada();
     } catch (error) {

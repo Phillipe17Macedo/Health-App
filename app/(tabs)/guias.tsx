@@ -15,7 +15,7 @@ import GuiaConsultaEmitida from '@/components/Guias/GuiasEmitidas/GuiaConsulta/G
 import GuiaExameEmitida from '@/components/Guias/GuiasEmitidas/GuiaExame/GuiaExameEmitida';  
 import {
   buscarGuiaDeExameEmitida,
-} from "@/utils/requestConfig";
+} from "@/utils/buscarGuiaExameEmitida";
 import { buscarGuiasConsultasEmitidas } from "@/utils/buscarGuiasConsultasEmitidas";
 import { buscarUnidadeAtendimento } from "@/utils/buscarUnidadesAtendimento";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
