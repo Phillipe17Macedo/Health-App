@@ -12,7 +12,8 @@ import { HeaderGuiaExame } from "@/components/GuiaExame/HeaderGuiaExame/Header";
 import { DicaGuiaExame } from "@/components/GuiaExame/ComponenteDicaSolicitacao/DicaGuiaExame";
 import LaboratoriosGuiaExame from "@/components/GuiaExame/LaboratoriosGuiaExame/LaboratoriosGuiaExame";
 import SelecaoDependente from "@/components/GuiaExame/ModalSelecaoDependentes/SelecaoDependente";
-import { buscarDependentes, buscarAderente } from "@/utils/requestConfig";
+import { buscarAderente } from "@/utils/buscarAderente";
+import { buscarDependentes } from "@/utils/buscarDependente";
 
 export default function TelaGuiaExame() {
   const [loading, setLoading] = useState(false);

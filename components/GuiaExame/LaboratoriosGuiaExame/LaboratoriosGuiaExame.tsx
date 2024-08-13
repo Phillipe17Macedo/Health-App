@@ -4,7 +4,7 @@ import * as Location from 'expo-location';
 import { styles } from "./styles";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import * as Font from "expo-font";
-import { buscarLaboratorios } from "@/utils/requestConfig";
+import { buscarLaboratorios } from "@/utils/buscarLaboratorios";
 import ModalLaboratorio from "@/components/GuiaExame/ModalLaboratoriosGuiaExame/ModalLaboratoriosGuiaExame";
 
 // Função para calcular a distância entre dois pontos

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import { buscarUnidadeAtendimento } from "@/utils/requestConfig";
+import { buscarUnidadeAtendimento } from "@/utils/buscarUnidadesAtendimento";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { styles } from "./styles";

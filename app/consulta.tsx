@@ -12,11 +12,11 @@ import SelecaoDependente from "@/components/Consulta/SelecaoDependenteConsulta/S
 import ConfirmacaoConsulta from "@/components/Consulta/ConfirmacaoConsulta/ConfirmacaoConsulta";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
 import {
-  buscarAderente,
-  buscarDependentes,
-  buscarDiasAtendimentoMedico,
   agendarAtendimentoConsulta,
-} from "@/utils/requestConfig";
+} from "@/utils/agendarAtendimentoConsulta";
+import { buscarAderente } from "@/utils/buscarAderente";
+import { buscarDependentes } from "@/utils/buscarDependente";
+import { buscarDiasAtendimentoMedico } from "@/utils/buscarDiasAtendimentoMedico";
 import { styles } from "../styles/StylesServicosPage/StylesConsultaPage/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UnidadeAtendimento from "@/components/Consulta/DropDownUnidadeAtendimento/DropDownUnidadeAtendimento";

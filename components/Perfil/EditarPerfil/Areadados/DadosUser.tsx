@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, RefreshControl, SafeAreaView, ScrollView } from "react-native";
-import { buscarAderente } from "@/utils/requestConfig";
+import { buscarAderente } from "@/utils/buscarAderente";
 import { StatusBar } from "expo-status-bar";
 import { Cartao } from "@/components/Perfil/EditarPerfil/cartaoPerfil/Cartao";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";

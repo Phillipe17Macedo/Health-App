@@ -3,7 +3,7 @@ import { Modal, View, Text, TouchableOpacity, Linking, Alert } from 'react-nativ
 import { styles } from './styles';
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { emitirGuiaDeExame } from "@/utils/requestConfig";  
+import { emitirGuiaDeExame } from "@/utils/emitirGuiaDeExame";  
 
 interface ModalLaboratoriosGuiaExame {
   visivel: boolean;

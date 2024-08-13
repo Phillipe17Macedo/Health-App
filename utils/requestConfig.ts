@@ -114,26 +114,6 @@ export async function buscarDiasAtendimentoMedico(idMedico: string, mes: number,
   }
 }
 
-// Função para buscar os horários de atendimento
-export async function buscarHorariosDiaEspecifico(idMedico: string, mes: number, ano: number): Promise<any> {
-  try {
-    const response = await axiosConfig.get(`/Medico/GetHorariosDisponiveisMedico/${idMedico}/${mes}/${ano}`);
-    const { data: horarios } = response.data;
-
-    console.log("Resposta da API - Horários do Médico para a data:", horarios);
-
-    if (horarios && Array.isArray(horarios)) {
-      return { success: true, data: horarios };
-    } else {
-      console.error("Resposta inesperada da API: horários não é um array", horarios);
-      throw new Error("Resposta inesperada da API: horários não é um array");
-    }
-  } catch (error) {
-    console.error("Erro ao buscar horários do médico para a data:", error);
-    throw error;
-  }
-}
-
 // Função para buscar Unidades de Atendimento
 export async function buscarUnidadeAtendimento(): Promise<any> {
   try {

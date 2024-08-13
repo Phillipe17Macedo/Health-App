@@ -17,12 +17,10 @@ import {
   ConsultasFicticias,
   ExamesFicticios,
 } from "@/components/Servicos/Agendados/AgedamentosFiciticios";
-import {
-  buscarAgendamentosConsulta,
-  buscarUnidadeAtendimento,
-} from "@/utils/requestConfig";
+import { buscarAgendamentosConsulta } from "@/utils/buscarAgendamentoConsulta";
+import { buscarUnidadeAtendimento } from "@/utils/buscarUnidadesAtendimento";
 import ModalCarregamento from "@/components/constants/ModalCarregamento";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -56,15 +54,24 @@ const Servicos: React.FC = () => {
           allConsultas = allConsultas.concat(response.data ?? []);
         }
 
-        const consultaOrdenada = allConsultas.sort((a: Consulta, b: Consulta) => {
-          const dateA = new Date(`${a.dataAgenda?.split("T")[0]}T${a.horaAgenda}`);
-          const dateB = new Date(`${b.dataAgenda?.split("T")[0]}T${b.horaAgenda}`);
-          return dateA.getTime() - dateB.getTime();
-        });
+        const consultaOrdenada = allConsultas.sort(
+          (a: Consulta, b: Consulta) => {
+            const dateA = new Date(
+              `${a.dataAgenda?.split("T")[0]}T${a.horaAgenda}`
+            );
+            const dateB = new Date(
+              `${b.dataAgenda?.split("T")[0]}T${b.horaAgenda}`
+            );
+            return dateA.getTime() - dateB.getTime();
+          }
+        );
 
         setConsultas(consultaOrdenada);
       } else {
-        console.error("Erro", "Usuário ou unidades de atendimento não encontrados.");
+        console.error(
+          "Erro",
+          "Usuário ou unidades de atendimento não encontrados."
+        );
       }
     } catch (error) {
       console.error("Erro ao carregar as consultas:", error);
@@ -82,7 +89,9 @@ const Servicos: React.FC = () => {
         if (userId) {
           setIdAderente(userId);
           const unidadesResponse = await buscarUnidadeAtendimento();
-          const empresasIds = unidadesResponse.data.map((unidade: any) => unidade.idEmpresa);
+          const empresasIds = unidadesResponse.data.map(
+            (unidade: any) => unidade.idEmpresa
+          );
           setIdEmpresas(empresasIds);
           await AsyncStorage.setItem("empresaIds", JSON.stringify(empresasIds));
           await fetchConsultas();
@@ -140,29 +149,45 @@ const Servicos: React.FC = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <View style={styles.containerOpcoesServicos} >
+        <View style={styles.containerOpcoesServicos}>
           <ComponentesConsulta />
           <ComponentesExame />
         </View>
 
         <View style={styles.constainerTituloAgendamento}>
-          <MaterialCommunityIcons name="calendar-clock" size={28} color="#025940" />
-          <Text style={[styles.tituloAgendamento, {fontFamily: 'MPlusRounded1c-Bold'}]}>Meus Agendamentos</Text>
+          <MaterialCommunityIcons
+            name="calendar-clock"
+            size={28}
+            color="#025940"
+          />
+          <Text
+            style={[
+              styles.tituloAgendamento,
+              { fontFamily: "MPlusRounded1c-Bold" },
+            ]}
+          >
+            Meus Agendamentos
+          </Text>
         </View>
 
         {loading ? (
           <ModalCarregamento visivel={loading} />
+        ) : consultas.length > 0 ? (
+          <AgendadoConsulta
+            consultas={consultas}
+            onConsultaCancelada={fetchConsultas}
+          />
         ) : (
-          consultas.length > 0 ? (
-            <AgendadoConsulta
-              consultas={consultas}
-              onConsultaCancelada={fetchConsultas}
-            />
-          ) : (
-            <View style={styles.emptyContainer}>
-              <Text style={[styles.emptyText, {fontFamily: 'MPlusRounded1c-Medium'}]}>Não há agendamentos.</Text>
-            </View>
-          )
+          <View style={styles.emptyContainer}>
+            <Text
+              style={[
+                styles.emptyText,
+                { fontFamily: "MPlusRounded1c-Medium" },
+              ]}
+            >
+              Não há agendamentos.
+            </Text>
+          </View>
         )}
       </ScrollView>
     </SafeAreaView>

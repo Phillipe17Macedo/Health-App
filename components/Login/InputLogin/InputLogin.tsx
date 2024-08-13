@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Checkbox } from "react-native-paper";
 import { styles } from "./styles";
-import { buscarAderente } from "@/utils/requestConfig";
+import { buscarAderente } from "@/utils/buscarAderente";
 import { useRouter } from "expo-router";
 import { AxiosError } from "axios";
 import * as LocalAuthentication from "expo-local-authentication";
@@ -46,29 +46,56 @@ export function InputLogin() {
       const response = await buscarAderente(cleanedCpf, titular);
       const userData = response.data;
 
-      if (typeof userData === "string") {
-        Alert.alert("Erro", "CPF não cadastrado");
+      // Verifica se userData não é undefined ou null
+      if (!userData) {
+        Alert.alert("Erro", "CPF não cadastrado ou resposta inesperada da API.");
         console.log("Erro, CPF não cadastrado.");
         return;
       }
-
+  
       console.log("Dados do usuário:", userData);
+  
+      // Armazenar o token no AsyncStorage, se existir
+      const token = userData?.tokenViewModel?.accessToken;
+      if (token) {
+        await AsyncStorage.setItem("userToken", token);
+        console.log("Token armazenado no AsyncStorage. Token: ", token);
+      } else {
+        console.log("Token não recebido na resposta.");
+      }
+  
+      const diasExpiracaoToken = userData?.tokenViewModel?.expiresIn;
+      if (diasExpiracaoToken) {
+        await AsyncStorage.setItem("diasExpiracaoToken", diasExpiracaoToken.toString());
+        console.log("Numero de dias armazenado no AsyncStorage. Dias: ", diasExpiracaoToken);
+      } else {
+        console.log("Dias não foram recebidos na resposta.");
+      }
 
-      // Armazenar a imagem base64 no AsyncStorage
+      // Armazenar a imagem base64 no AsyncStorage, se existir
       if (userData.fotoBase64) {
         await AsyncStorage.setItem("fotoUsuario", userData.fotoBase64);
         console.log("Imagem base64 armazenada no AsyncStorage.");
       } else {
         console.log("Usuário não possui imagem.");
       }
-
-      await AsyncStorage.setItem("userCpf", cleanedCpf);
-      await AsyncStorage.setItem("userId", userData.idAderente.toString());
-      await AsyncStorage.setItem(
-        "isTitular",
-        userData.titularDoContrato.toString()
-      );
-
+  
+      // Armazenar o ID do aderente no AsyncStorage, se existir
+      if (userData.idAderente) {
+        await AsyncStorage.setItem("userId", userData.idAderente.toString());
+        console.log("ID do aderente armazenado no AsyncStorage.");
+      } else {
+        console.log("ID do aderente não recebido na resposta.");
+      }
+  
+      // Armazenar se é titular no AsyncStorage, se existir
+      if (userData.titularDoContrato !== undefined) {
+        await AsyncStorage.setItem("isTitular", userData.titularDoContrato.toString());
+        console.log("Informação sobre titularidade armazenada no AsyncStorage.");
+      } else {
+        console.log("Informação sobre titularidade não recebida na resposta.");
+      }
+  
       if (supportsAuth) {
         handleAuthentication();
       } else {
@@ -91,7 +118,7 @@ export function InputLogin() {
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   async function verificaDisponibilidadeAutenticacao() {
     const compatibilidade = await LocalAuthentication.hasHardwareAsync();
