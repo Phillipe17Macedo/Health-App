@@ -44,13 +44,13 @@ export function InputLogin() {
       console.log("Buscando aderente para CPF:", cleanedCpf);
       const titular = !isDependente;
       const response = await buscarAderente(cleanedCpf, titular);
-      
-      if (!response) {
+      const userData = response.data;
+
+      if (typeof userData === "string") {
         Alert.alert("Erro", "CPF não cadastrado");
+        console.log("Erro, CPF não cadastrado.");
         return;
       }
-
-      const userData = response;
 
       console.log("Dados do usuário:", userData);
 
