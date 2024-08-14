@@ -6,26 +6,24 @@ interface ModalFinanceiroProps {
   visivel: boolean;
   onClose: () => void;
   mes: string;
-  nomeAderente: string;
-  consultasFeitas: number;
-  examesFeitos: number;
-  dependentesUsaram: string[];
-  valorConsultas: number;
-  valorExames: number;
-  valorTotal: number;
+  valor: number;
+  parcela: string;
+  quitado: boolean;
+  dataQuitacao: string | null;
+  documento: string;
+  descricao: string;
 }
 
 export function ModalFinanceiro({
   visivel,
   onClose,
   mes,
-  nomeAderente,
-  consultasFeitas,
-  examesFeitos,
-  dependentesUsaram,
-  valorConsultas,
-  valorExames,
-  valorTotal,
+  valor,
+  parcela,
+  quitado,
+  dataQuitacao,
+  documento,
+  descricao,
 }: ModalFinanceiroProps) {
   return (
     <Modal
@@ -38,13 +36,11 @@ export function ModalFinanceiro({
         <View style={styles.modalContent}>
           <ScrollView>
             <Text style={styles.modalTitle}>Detalhes de {mes}</Text>
-            <Text style={styles.modalText}>Nome do Aderente: {nomeAderente}</Text>
-            <Text style={styles.modalText}>Consultas Feitas: {consultasFeitas}</Text>
-            <Text style={styles.modalText}>Exames Feitos: {examesFeitos}</Text>
-            <Text style={styles.modalText}>Dependentes que Usaram: {dependentesUsaram.join(", ")}</Text>
-            <Text style={styles.modalText}>Valor de Consultas: R${valorConsultas.toFixed(2)}</Text>
-            <Text style={styles.modalText}>Valor de Exames: R${valorExames.toFixed(2)}</Text>
-            <Text style={styles.modalText}>Valor Total: R${valorTotal.toFixed(2)}</Text>
+            <Text>Valor: R$ {valor.toFixed(2)}</Text>
+            <Text>Parcela: {parcela}</Text>
+            <Text>Documento: {documento}</Text>
+            <Text>Descrição: {descricao}</Text>
+            <Text>Status: {quitado ? `Quitado em ${dataQuitacao}` : "Não Quitado"}</Text>
             <TouchableOpacity style={styles.closeButton} onPress={onClose}>
               <Text style={styles.closeButtonText}>Fechar</Text>
             </TouchableOpacity>

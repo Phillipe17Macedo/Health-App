@@ -238,7 +238,7 @@ export default function TelaGuiaConsulta() {
       <StatusBar style="auto" />
       <ScrollView>
         <Image
-          source={require("@/assets/images/medicos/estrutura-clinica.png")}
+          source={require("@/assets/images/medicos/guiaconsulta.png")}
           style={[{ width: "100%", height: 600, position: "relative" }]}
         />
         <HeaderGuiaConsulta />

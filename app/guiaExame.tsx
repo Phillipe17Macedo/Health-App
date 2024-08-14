@@ -116,7 +116,7 @@ export default function TelaGuiaExame() {
       >
         <ModalCarregamento visivel={loading} />
         <Image
-          source={require("@/assets/images/medicos/exame-guia.png")}
+          source={require("@/assets/images/medicos/guiaexame.png")}
           style={[{ width: "100%", height: 500, position: "relative" }]}
         />
         <HeaderGuiaExame />

@@ -138,7 +138,7 @@ const AgendamentosHome: React.FC<AgendamentosHomeProps> = ({ consultas }) => {
           <View style={[styles.containerMedicoAgendamento]}>
             <View style={[styles.containerAreaFotoMedico]}>
               <Image
-                source={require("@/assets/images/medicos/medico-consulta.png")}
+                source={require("@/assets/images/medicos/medico_consulta.png")}
                 style={[
                   {
                     width: "100%",
@@ -240,7 +240,7 @@ const AgendamentosHome: React.FC<AgendamentosHomeProps> = ({ consultas }) => {
         <View style={[styles.containerMedicoAgendamento]}>
           <View style={[styles.containerAreaFotoMedico]}>
             <Image
-              source={require("@/assets/images/medicos/medico-consulta.png")}
+              source={require("@/assets/images/medicos/medico_consulta.png")}
               style={[
                 {
                   width: "100%",

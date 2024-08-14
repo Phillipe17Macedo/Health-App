@@ -142,7 +142,7 @@ export default function LaboratoriosGuiaExame({
             <View style={[styles.componenteLaboratorio]}>
               <View style={[styles.containerImagemLaboratorio]}>
                 <Image
-                  source={require("@/assets/images/medicos/estrutura-clinica.png")}
+                  source={require("@/assets/images/medicos/clinica.png")}
                   style={[{ width: 52, height: 80, position: "relative", borderRadius: 5 }]}
                 />
               </View>

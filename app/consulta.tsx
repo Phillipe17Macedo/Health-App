@@ -316,7 +316,7 @@ export default function Consulta() {
       <StatusBar style="auto" />
       <ScrollView style={[styles.conteudo]}>
         <Image
-          source={require("@/assets/images/medicos/medico-consulta.png")}
+          source={require("@/assets/images/medicos/medico_consulta.png")}
           style={[{ width: "100%", height: 600, position: "relative" }]}
         />
         <HeaderConsulta onRefresh={fetchUsuarioLogado} />

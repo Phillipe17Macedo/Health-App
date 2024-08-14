@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,20 +6,58 @@ import {
   SafeAreaView,
   ScrollView,
   Dimensions,
+  Alert,
 } from "react-native";
 import { styles } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import { ModalFinanceiro } from "./ModalFinanceiro/ModalFinanceiro";
 import { BarChart } from "react-native-chart-kit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { buscarMovimentoFinanceiro } from "@/utils/buscarMovimentoFinanceiro";
 
 const screenWidth = Dimensions.get("window").width;
 
 export function ComponentFinanceiro() {
   const [modalVisivel, setModalVisivel] = useState(false);
-  const [mesSelecionado, setMesSelecionado] = useState("");
+  const [mesSelecionado, setMesSelecionado] = useState<any>(null);
+  const [movimentacao, setMovimentacao] = useState<any[]>([]);
+  const [dadosGrafico, setDadosGrafico] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleOpenModal = (mes: string) => {
-    setMesSelecionado(mes);
+  useEffect(() => {
+    const carregarMovimentacao = async () => {
+      try {
+        const idAderente = await AsyncStorage.getItem("userId");
+        console.log("ID Aderente:", idAderente);
+
+        if (!idAderente) {
+          throw new Error("ID do aderente não encontrado no AsyncStorage.");
+        }
+
+        const dados = await buscarMovimentoFinanceiro(Number(idAderente));
+        console.log("Movimento Financeiro:", dados);
+
+        if (dados?.data && Array.isArray(dados.data) && dados.data.length > 0) {
+          setMovimentacao(dados.data);
+
+          const valoresMensais = dados.data.map((item: any) => item.valor);
+          setDadosGrafico(valoresMensais);
+        } else {
+          setMovimentacao([]);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar os dados financeiros:", error);
+        Alert.alert("Erro", "Não foi possível carregar os dados financeiros.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    carregarMovimentacao();
+  }, []);
+
+  const handleOpenModal = (item: any) => {
+    setMesSelecionado(item); 
     setModalVisivel(true);
   };
 
@@ -28,171 +66,80 @@ export function ComponentFinanceiro() {
   };
 
   const data = {
-    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+    labels: movimentacao.map((item: any) =>
+      new Date(item.vencimento).toLocaleString("pt-BR", { month: "short" })
+    ),
     datasets: [
       {
-        data: [300, 450, 280, 800, 990, 430],
+        data: dadosGrafico,
       },
     ],
   };
 
-  const chartConfig = {
-    backgroundGradientFrom: "#F8F8F6",
-    backgroundGradientTo: "#F8F8F6",
-    decimalPlaces: 2, // optional, defaults to 2dp
-    color: (opacity = 1) => `rgba(62, 61, 61, ${opacity})`,
-    labelColor: (opacity = 1) => `rgba(108, 30, 217, ${opacity})`,
-    style: {
-      borderRadius: 10,
-    },
-    propsForDots: {
-      r: "6",
-      strokeWidth: "2",
-      stroke: "#9C71D9",
-    },
-    propsForLabels: {
-      fontSize: 9,
-      fontWeight: "bold",
-      fontFamily: "Arial",
-    },
-  };
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text>Carregando dados financeiros...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (movimentacao.length === 0) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Text>Você não tem Movimentação Financeira.</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={[styles.containerOpcoes]}>
           <Text style={[styles.textoTituloContainer]}>
-            Contratos em Aberto:
+            Movimentação Financeira
           </Text>
 
-          <ScrollView horizontal style={[{marginBottom: 10, borderRadius: 5}]}>
-            <BarChart
-              data={data}
-              width={screenWidth * 1.2}
-              height={180}
-              chartConfig={chartConfig}
-              yAxisLabel="R$"
-              yAxisSuffix=""
-              style={{ alignSelf: "center", borderRadius: 5 }}
-            />
-          </ScrollView>
-
-          <TouchableOpacity
-            style={[styles.containerItem]}
-            onPress={() => handleOpenModal("Junho 2024")}
-          >
-            <Text style={[styles.tituloTextoItem]}>Mês de Junho 2024</Text>
-            <View style={[styles.containerIcone]}>
-              <MaterialIcons
-                name="monetization-on"
-                size={64}
-                color={"#F22222"}
-              />
-            </View>
-            <Text style={[styles.textoDescricaoItem]}>
-              Clique para mais informações
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.containerItem]}
-            onPress={() => handleOpenModal("Maio 2024")}
-          >
-            <Text style={[styles.tituloTextoItem]}>Mês de Maio 2024</Text>
-            <View style={[styles.containerIcone]}>
-              <MaterialIcons
-                name="monetization-on"
-                size={64}
-                color={"#8CBF1F"}
-              />
-            </View>
-            <Text style={[styles.textoDescricaoItem]}>
-              Clique para mais informações
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.containerItem]}
-            onPress={() => handleOpenModal("Abril 2024")}
-          >
-            <Text style={[styles.tituloTextoItem]}>Mês de Abril 2024</Text>
-            <View style={[styles.containerIcone]}>
-              <MaterialIcons
-                name="monetization-on"
-                size={64}
-                color={"#F22222"}
-              />
-            </View>
-            <Text style={[styles.textoDescricaoItem]}>
-              Clique para mais informações
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.containerItem]}
-            onPress={() => handleOpenModal("Março 2024")}
-          >
-            <Text style={[styles.tituloTextoItem]}>Mês de Março 2024</Text>
-            <View style={[styles.containerIcone]}>
-              <MaterialIcons
-                name="monetization-on"
-                size={64}
-                color={"#F22222"}
-              />
-            </View>
-            <Text style={[styles.textoDescricaoItem]}>
-              Clique para mais informações
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.containerItem]}
-            onPress={() => handleOpenModal("Fevereiro 2024")}
-          >
-            <Text style={[styles.tituloTextoItem]}>Mês de Fevereiro 2024</Text>
-            <View style={[styles.containerIcone]}>
-              <MaterialIcons
-                name="monetization-on"
-                size={64}
-                color={"#8CBF1F"}
-              />
-            </View>
-            <Text style={[styles.textoDescricaoItem]}>
-              Clique para mais informações
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.containerItem]}
-            onPress={() => handleOpenModal("Janeiro 2024")}
-          >
-            <Text style={[styles.tituloTextoItem]}>Mês de Janeiro 2024</Text>
-            <View style={[styles.containerIcone]}>
-              <MaterialIcons
-                name="monetization-on"
-                size={64}
-                color={"#8CBF1F"}
-              />
-            </View>
-            <Text style={[styles.textoDescricaoItem]}>
-              Clique para mais informações
-            </Text>
-          </TouchableOpacity>
+          {movimentacao.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[styles.containerItem]}
+              onPress={() => handleOpenModal(item)}
+            >
+              <Text style={[styles.tituloTextoItem]}>
+                Mês de {new Date(item.vencimento).toLocaleString("pt-BR", { month: "long", year: "numeric" })}
+              </Text>
+              <View style={[styles.containerIcone]}>
+                <MaterialIcons
+                  name="monetization-on"
+                  size={64}
+                  color={item.quitado ? "#8CBF1F" : "#F22222"}
+                />
+              </View>
+              <Text style={[styles.textoDescricaoItem]}>
+                Valor: R$ {item.valor.toFixed(2)}
+              </Text>
+              <Text style={[styles.textoDescricaoItem]}>
+                {item.quitado ? `Quitado em ${new Date(item.dataQuitacao).toLocaleDateString("pt-BR")}` : "Não Quitado"}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
 
-      <ModalFinanceiro
-        visivel={modalVisivel}
-        onClose={handleCloseModal}
-        mes={mesSelecionado}
-        nomeAderente="João da Silva"
-        consultasFeitas={5}
-        examesFeitos={3}
-        dependentesUsaram={["Maria", "José"]}
-        valorConsultas={250.0}
-        valorExames={150.0}
-        valorTotal={400.0}
-      />
+      {mesSelecionado && (
+        <ModalFinanceiro
+          visivel={modalVisivel}
+          onClose={handleCloseModal}
+          mes={new Date(mesSelecionado.vencimento).toLocaleString("pt-BR", { month: "long", year: "numeric" })}
+          valor={mesSelecionado.valor}
+          parcela={mesSelecionado.parcela}
+          quitado={mesSelecionado.quitado}
+          dataQuitacao={mesSelecionado.quitado ? new Date(mesSelecionado.dataQuitacao).toLocaleDateString("pt-BR") : null}
+          documento={mesSelecionado.documento}
+          descricao={mesSelecionado.descricao}
+        />
+      )}
     </SafeAreaView>
   );
 }

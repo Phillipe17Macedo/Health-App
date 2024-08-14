@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   containerOpcoes: {
     backgroundColor: "#03A66A",
     width: "95%",
-    height: 1000,
+    height: "auto",
     alignSelf: "center",
     borderRadius: 5,
     paddingHorizontal: 15,
