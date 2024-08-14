@@ -12,8 +12,8 @@ interface SelecaoDependenteProps {
   isDependente: boolean;
   setIsDependente: (value: boolean) => void;
   dependentes: any[];
-  selectedDependente: string | null;
-  setSelectedDependente: (value: string | null) => void;
+  selectedDependente: number | null;
+  setSelectedDependente: (value: number | null) => void;
 }
 
 export default function SelecaoDependente({
@@ -74,14 +74,14 @@ export default function SelecaoDependente({
           {isDependente && (
             <Picker
               selectedValue={selectedDependente}
-              onValueChange={(itemValue) => setSelectedDependente(itemValue)}
+              onValueChange={(itemValue) => setSelectedDependente(itemValue as number)}
               style={styles.picker}
             >
               {dependentes.map((dependente) => (
                 <Picker.Item
-                  key={dependente.nome}
+                  key={dependente.id}
                   label={dependente.nome}
-                  value={dependente.nome}
+                  value={dependente.id}
                 />
               ))}
             </Picker>

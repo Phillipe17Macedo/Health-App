@@ -40,7 +40,7 @@ interface GuiaExame {
   idGuia: number;
   dataGuia: string;
   aderente: string;
-  dependente: string | null;
+  dependente: number | null;
   laboratorio: string; // Nome do laboratório
   status: string;
   vlrGuia?: number; // Pode ser opcional

@@ -30,7 +30,7 @@ interface LaboratoriosGuiaExameProps {
   idAderente: number;
   cpf: string;
   isDependente: boolean;
-  selectedDependente: string | null;
+  selectedDependente: number | null;
 }
 
 export default function LaboratoriosGuiaExame({ 
@@ -166,7 +166,7 @@ export default function LaboratoriosGuiaExame({
         laboratorio={selectedLaboratorio}
         idAderente={idAderente}  // Usando a prop idAderente
         cpfAderente={cpf}  // Usando a prop cpf
-        idDep={isDependente ? parseInt(selectedDependente || "0") : null} // Convertendo para número se necessário
+        idDep={isDependente ? selectedDependente : null} // Convertendo para número se necessário
       />
     </SafeAreaView>
   );
