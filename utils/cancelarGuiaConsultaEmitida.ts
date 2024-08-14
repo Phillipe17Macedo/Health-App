@@ -20,8 +20,10 @@ export async function cancelarGuiaConsultaEmitida(idGuia: number): Promise<any> 
 
     const response = await axiosConfig.put(
       `/GuiaConsulta/CancelaGuiaConsultaEmitida/${idGuia}`,
+      {},
       configHeaderRequisicao
     );
+
     return response.data;
   } catch (error) {
     console.error("Erro ao cancelar guia emitida:", error);

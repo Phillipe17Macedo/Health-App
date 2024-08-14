@@ -20,14 +20,13 @@ export default function TelaGuiaExame() {
   const [isDependente, setIsDependente] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [dependentes, setDependentes] = useState<any[]>([]);
-  const [selectedDependente, setSelectedDependente] = useState<string | null>(null);
+  const [selectedDependente, setSelectedDependente] = useState<number | null>(null); // Alterado para number | null
   const [selectDependenteVisivel, setSelectDependenteVisivel] = useState(false);
   const [idAderente, setIdAderente] = useState<number | null>(null);
   const [cpf, setCpf] = useState<string | null>(null);
 
   const [fontLoaded, setFontLoaded] = useState(false);
 
-  // Função para carregar dados e recursos
   const loadResourcesAndDataAsync = async () => {
     try {
       setLoading(true);
@@ -40,26 +39,20 @@ export default function TelaGuiaExame() {
         "MPlusRounded1c-ExtraBold": require("@/assets/fonts/M_PLUS_Rounded_1c/MPLUSRounded1c-ExtraBold.ttf"),
       });
 
-      // Buscar CPF do AsyncStorage
       const storedCpf = await AsyncStorage.getItem("userCpf");
       console.log("Tela GuiaExame - CPF recuperado do AsyncStorage:", storedCpf);
-
       if (storedCpf) {
-        setCpf(storedCpf);  // Armazene o CPF no estado
-        // Buscar ID do Aderente usando o CPF
+        setCpf(storedCpf);
         const aderenteResponse = await buscarAderente(storedCpf, true);
         console.log("Tela GuiaExame - Resposta da API ao buscar aderente:", aderenteResponse);
 
         if (aderenteResponse && aderenteResponse.data && aderenteResponse.data.idAderente) {
           const aderenteId = aderenteResponse.data.idAderente;
           console.log("Tela GuiaExame - ID do Aderente encontrado:", aderenteId);
+          setIdAderente(aderenteId);
 
-          setIdAderente(aderenteId);  // Armazene o ID do Aderente no estado
-
-          // Buscar dependentes usando o idAderente
           const dependentesResponse = await buscarDependentes(Number(aderenteId));
           console.log("Tela GuiaExame - Dependentes recuperados da API:", dependentesResponse);
-
           setDependentes(Array.isArray(dependentesResponse.data) ? dependentesResponse.data : []);
         } else {
           console.error("ID do Aderente não encontrado na resposta da API.");
@@ -73,7 +66,7 @@ export default function TelaGuiaExame() {
       setFontLoaded(true);
     } catch (e) {
       console.error("Erro ao carregar os dados:", e);
-      setDependentes([]); // Define dependentes como um array vazio em caso de erro
+      setDependentes([]);
     } finally {
       setLoading(false);
       SplashScreen.hideAsync();
@@ -86,24 +79,29 @@ export default function TelaGuiaExame() {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await loadResourcesAndDataAsync();  // Recarrega os recursos necessários
+    await loadResourcesAndDataAsync();
     setRefreshing(false);
   };
 
   const handleCheckboxChange = (checked: boolean) => {
     if (checked && dependentes.length === 0) {
       Alert.alert("Atenção", "Você não possui dependentes cadastrados.");
-      setIsDependente(false); // Desmarca o checkbox automaticamente
+      setIsDependente(false);
     } else if (checked) {
       setSelectDependenteVisivel(true);
       setIsDependente(true);
     } else {
       setIsDependente(false);
+      setSelectedDependente(null); // Reseta o dependente se desmarcar o checkbox
     }
   };
 
   const handleConfirmDependente = () => {
-    // Lógica ao confirmar a seleção do dependente
+    if (isDependente && selectedDependente) {
+      console.log("Dependente selecionado:", selectedDependente);
+    } else {
+      console.log("Nenhum dependente selecionado.");
+    }
     setSelectDependenteVisivel(false);
   };
 
@@ -118,7 +116,7 @@ export default function TelaGuiaExame() {
       >
         <ModalCarregamento visivel={loading} />
         <Image
-          source={require("@/assets/images/medicos/exame-guia.png")}
+          source={require("@/assets/images/medicos/guiaexame.png")}
           style={[{ width: "100%", height: 500, position: "relative" }]}
         />
         <HeaderGuiaExame />
@@ -140,7 +138,7 @@ export default function TelaGuiaExame() {
             idAderente={idAderente} 
             cpf={cpf} 
             isDependente={isDependente}
-            selectedDependente={selectedDependente}
+            selectedDependente={selectedDependente} // Passe o ID como number
           />
         )}
         <SelecaoDependente
@@ -150,7 +148,7 @@ export default function TelaGuiaExame() {
           isDependente={isDependente}
           setIsDependente={setIsDependente}
           dependentes={dependentes}
-          selectedDependente={selectedDependente}
+          selectedDependente={selectedDependente} // Passe o ID como number
           setSelectedDependente={setSelectedDependente}
         />
       </ScrollView>

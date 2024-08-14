@@ -92,32 +92,52 @@ export default function TelaGuiaConsulta() {
   }, []);
 
   const handleConfirmDependente = () => {
-    if (isDependente && dependenteSelecionado) {
-      setConsulta((prev) => ({
-        ...prev,
-        idDep: Number(dependenteSelecionado),
-        dependente: dependenteSelecionado || "",
-        usuario: usuario.nome || "",
-      }));
+    const selectedDependente = dependentes.find(
+      (dep) => dep.nome === dependenteSelecionado
+    );
+    const dependenteId = selectedDependente ? selectedDependente.id : null;
+
+    console.log("Dependente selecionado:", selectedDependente);
+
+    if (isDependente && dependenteId) {
+      setConsulta((prev) => {
+        const newConsulta = {
+          ...prev,
+          idDep: dependenteId,
+          dependente: selectedDependente.nome || "",
+          usuario: usuario.nome || "",
+        };
+        console.log("Atualizando consulta com dependente:", newConsulta);
+        return newConsulta;
+      });
     } else {
-      setConsulta((prev) => ({
-        ...prev,
-        idDep: null,
-        dependente: "null",
-        usuario: usuario.nome || "",
-      }));
+      setConsulta((prev) => {
+        const newConsulta = {
+          ...prev,
+          idDep: null,
+          dependente: "null",
+          usuario: usuario.nome || "",
+        };
+        console.log("Atualizando consulta sem dependente:", newConsulta);
+        return newConsulta;
+      });
     }
     setSelectDependenteVisivel(false);
   };
 
   const handleCheckboxChange = (checked: boolean) => {
+    console.log("Checkbox mudou:", checked);
+    console.log("Dependentes disponíveis:", dependentes);
+
     if (checked && dependentes.length === 0) {
       Alert.alert("Atenção", "Você não possui dependentes cadastrados.");
-      setIsDependente(false); // Desmarcar automaticamente se não houver dependentes
+      setIsDependente(false);
     } else if (checked) {
+      console.log("Abrindo modal de seleção de dependente");
       setSelectDependenteVisivel(true);
       setIsDependente(true);
     } else {
+      console.log("Desmarcando a seleção de dependente");
       setIsDependente(false);
     }
   };
@@ -163,39 +183,42 @@ export default function TelaGuiaConsulta() {
   const handleConfirmacao = async (json: any) => {
     try {
       setLoading(true);
-      const { idEmpresa, ...jsonWithoutIdEmpresa } = json;
-      const response = await EmitirGuiaDeConsulta(jsonWithoutIdEmpresa);
+      const finalJson = {
+        ...json,
+        idDep: consulta.idDep, // Certifica-se de que o ID do dependente está sendo passado corretamente
+      };
 
-      if (response.success) {
-        if (response.data.status) {
-          Alert.alert("Sucesso", "Guia de consulta emitida com sucesso!");
-          // Limpar os campos após emissão bem-sucedida
-          setIsDependente(false);
-          setDependenteSelecionado(null);
-          setEspecialidadeId(null);
-          setEspecialidadeNome(null);
-          setMedico(null);
-          setConsulta({
-            idAderente: consulta.idAderente,
-            cpfAderente: consulta.cpfAderente,
-            idEspecialidade: 0,
-            idMedico: 0,
-            idDep: null,
-            dataEmissao: new Date().toISOString(),
-            vlrConsulta: 0,
-            usuario: consulta.usuario,
-            dependente: "",
-            medico: "",
-            especialidade: "",
-            data: "",
-            horario: "",
-            telefoneContato: "(34) 99931-7302",
-          });
-        } else {
-          Alert.alert("Não foi possível emitir sua guia de consulta:", `${response.data.motivo}`);
-        }
+      const response = await EmitirGuiaDeConsulta(finalJson);
+
+      if (response.success && response.data.status) {
+        Alert.alert("Sucesso", "Guia de consulta emitida com sucesso!");
+        // Limpar os campos após emissão bem-sucedida
+        setIsDependente(false);
+        setDependenteSelecionado(null);
+        setEspecialidadeId(null);
+        setEspecialidadeNome(null);
+        setMedico(null);
+        setConsulta({
+          idAderente: consulta.idAderente,
+          cpfAderente: consulta.cpfAderente,
+          idEspecialidade: 0,
+          idMedico: 0,
+          idDep: null,
+          dataEmissao: new Date().toISOString(),
+          vlrConsulta: 0,
+          usuario: consulta.usuario,
+          dependente: "",
+          medico: "",
+          especialidade: "",
+          data: "",
+          horario: "",
+          telefoneContato: "(00) 9 0000-0000",
+        });
       } else {
-        Alert.alert("Atenção", "Erro ao emitir guia de consulta.");
+        Alert.alert(
+          "Não foi possível emitir sua guia de consulta:",
+          `${response.data.motivo}`
+        );
       }
     } catch (error) {
       console.error("Erro ao emitir guia de consulta:", error);
@@ -215,7 +238,7 @@ export default function TelaGuiaConsulta() {
       <StatusBar style="auto" />
       <ScrollView>
         <Image
-          source={require("@/assets/images/medicos/estrutura-clinica.png")}
+          source={require("@/assets/images/medicos/guiaconsulta.png")}
           style={[{ width: "100%", height: 600, position: "relative" }]}
         />
         <HeaderGuiaConsulta />

@@ -46,56 +46,50 @@ export function InputLogin() {
       const response = await buscarAderente(cleanedCpf, titular);
       const userData = response.data;
 
-      // Verifica se userData não é undefined ou null
-      if (!userData) {
-        Alert.alert("Erro", "CPF não cadastrado ou resposta inesperada da API.");
-        console.log("Erro, CPF não cadastrado.");
-        return;
+      // Verifica se a resposta contém a mensagem "Nenhum registro localizado"
+      if (response.data === "Nenhum registro localizado") {
+        Alert.alert("CPF não encontrado", "Verifique o CPF, e tente novamente.");
+        console.log("CPF não encontrado", "Verifique o CPF, e tente novamente.");
+        setLoading(false);
+        return; // Impede o prosseguimento para a autenticação
       }
   
       console.log("Dados do usuário:", userData);
   
-      // Armazenar o token no AsyncStorage, se existir
+      // Armazenar os dados no AsyncStorage, se existirem
       const token = userData?.tokenViewModel?.accessToken;
       if (token) {
         await AsyncStorage.setItem("userToken", token);
         console.log("Token armazenado no AsyncStorage. Token: ", token);
-      } else {
-        console.log("Token não recebido na resposta.");
       }
-  
+
       const diasExpiracaoToken = userData?.tokenViewModel?.expiresIn;
       if (diasExpiracaoToken) {
         await AsyncStorage.setItem("diasExpiracaoToken", diasExpiracaoToken.toString());
         console.log("Numero de dias armazenado no AsyncStorage. Dias: ", diasExpiracaoToken);
-      } else {
-        console.log("Dias não foram recebidos na resposta.");
       }
 
-      // Armazenar a imagem base64 no AsyncStorage, se existir
       if (userData.fotoBase64) {
         await AsyncStorage.setItem("fotoUsuario", userData.fotoBase64);
         console.log("Imagem base64 armazenada no AsyncStorage.");
-      } else {
-        console.log("Usuário não possui imagem.");
       }
   
-      // Armazenar o ID do aderente no AsyncStorage, se existir
       if (userData.idAderente) {
         await AsyncStorage.setItem("userId", userData.idAderente.toString());
         console.log("ID do aderente armazenado no AsyncStorage.");
-      } else {
-        console.log("ID do aderente não recebido na resposta.");
       }
   
-      // Armazenar se é titular no AsyncStorage, se existir
+      if (userData.cpf) {
+        await AsyncStorage.setItem("userCpf", userData.cpf);
+        console.log("CPF do aderente armazenado no AsyncStorage.");
+      }
+
       if (userData.titularDoContrato !== undefined) {
         await AsyncStorage.setItem("isTitular", userData.titularDoContrato.toString());
         console.log("Informação sobre titularidade armazenada no AsyncStorage.");
-      } else {
-        console.log("Informação sobre titularidade não recebida na resposta.");
       }
-  
+
+      // Se a autenticação é suportada e o CPF é válido, prossegue com a autenticação
       if (supportsAuth) {
         handleAuthentication();
       } else {
@@ -118,7 +112,7 @@ export function InputLogin() {
     } finally {
       setLoading(false);
     }
-  };  
+  };
 
   async function verificaDisponibilidadeAutenticacao() {
     const compatibilidade = await LocalAuthentication.hasHardwareAsync();
@@ -194,7 +188,7 @@ export function InputLogin() {
       </View>
       <TouchableOpacity
         style={[styles.containerButtonEntrar, { padding: width * 0.02 }]}
-        disabled={cpfExiste || loading} // Desabilita o botão durante o carregamento
+        disabled={cpfExiste || loading}
         onPress={handleLogin}
       >
         {loading ? (

@@ -73,6 +73,8 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
   };
 
   const handleConfirm = () => {
+    console.log("Consulta atual antes da confirmação:", consulta);
+
     const now = new Date();
     const json = {
       idAderente: consulta.idAderente,
@@ -84,8 +86,10 @@ export default function ConfirmacaoGuiaConsulta({ visivel, onClose, onConfirm, c
       vlrConsulta: consulta.vlrConsulta,
     };
 
-    console.log(JSON.stringify(json, null, 2));
-    Alert.alert("JSON", JSON.stringify(json, null, 2));
+    console.log(
+      "JSON gerado para emissão da guia:",
+      JSON.stringify(json, null, 2)
+    );
     onConfirm(json);
   };
 
